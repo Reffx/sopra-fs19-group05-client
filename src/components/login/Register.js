@@ -95,7 +95,6 @@ class Register extends React.Component {
    * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
    */
   register() {
-    let currentDate = new Date().toUTCString(); //get current Date
     fetch(`${getDomain()}/users`, {
       method: "POST",
       headers: {
@@ -105,7 +104,7 @@ class Register extends React.Component {
         username: this.state.username,
         password: this.state.password,
         birthday: this.state.birthday,
-        date: currentDate
+        creationDate: this.state.creationDate
       })
     })
       .then(response => {

@@ -86,7 +86,7 @@ class Profile extends React.Component{
                     this.setState({
                         username: response.username,
                         onlineStatus: response.status,
-                        creationDate: response.date,
+                        creationDate: response.creationDate,
                         birthDate: response.birthday,
                         token: response.token,
                         oldUsername: response.username,
