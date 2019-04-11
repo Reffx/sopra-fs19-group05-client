@@ -4,6 +4,7 @@ import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import { withRouter } from "react-router-dom";
 import { Button } from "../../views/design/Button";
+import Toolbar from '../Toolbar/Toolbar';
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -31,6 +32,10 @@ const Form = styled.div`
 
 const Margin = styled.div`
   margin-top: 2em;
+`;
+
+const MarginHead = styled.div`
+  margin-top: 10em;
 `;
 
 const InputField = styled.input`
@@ -153,7 +158,10 @@ class Register extends React.Component {
 
   render() {
     return (
-      <BaseContainer>
+        <div>
+        <Toolbar/>
+          <MarginHead> </MarginHead>
+          <BaseContainer>
         <FormContainer>
           <Form>
             <Margin> </Margin>
@@ -199,6 +207,7 @@ class Register extends React.Component {
           </Form>
         </FormContainer>
       </BaseContainer>
+        </div>
     );
   }
 }
