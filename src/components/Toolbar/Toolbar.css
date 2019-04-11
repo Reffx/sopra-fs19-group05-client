@@ -39,12 +39,11 @@ list-style: none;
     padding: 0 0.5rem;
 }
 
-.toolbar_navigation-items a{
-    color: black;
-    text-decoration: none;
+
+.toolbar_navigation-items :hover{
+    color:black !important;
 }
 
-.toolbar_navigation-items a:hover,
-.toolbar_navigation-items a:active{
-    color: orange;
+.main-nav-active{
+    color: green;
 }
