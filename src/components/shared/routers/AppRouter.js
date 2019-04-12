@@ -7,7 +7,7 @@ import Login from "../../login/Login";
 import Register from "../../login/Register";
 import Profile from "../../login/Profile";
 import Landing from "../../landing";
-
+import ChooseMode from "../../game/ChooseMode";
 /**
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
@@ -31,6 +31,14 @@ class AppRouter extends React.Component {
                 </GameGuard>
               )}
             />
+              <Route
+                  path="/chooseMode"
+                  render={() => (
+                      <LoginGuard>
+                          <ChooseMode base={"/chooseMode"} />
+                      </LoginGuard>
+                  )}
+              />
 
               <Route
                   path="/register"
