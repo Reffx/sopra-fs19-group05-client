@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 import "../landing.css";
 import styled from "styled-components";
 
+import Toolbar from '../Toolbar/Toolbar';
+
 
 export const Button = styled.button`
   &:hover {
@@ -28,10 +30,11 @@ export const Button = styled.button`
 class ChooseMode extends React.Component {
 
     render() {
-        if (localStorage.getItem("token") == null)
+        if (localStorage.getItem("token") !== null)
         {
             return (
                 <div>
+                    <Toolbar/>
                     <main style={{marginTop: '64px'}}>
                     </main>
                     <div className="container">

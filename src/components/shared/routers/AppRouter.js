@@ -34,9 +34,7 @@ class AppRouter extends React.Component {
               <Route
                   path="/chooseMode"
                   render={() => (
-                      <LoginGuard>
                           <ChooseMode base={"/chooseMode"} />
-                      </LoginGuard>
                   )}
               />
 

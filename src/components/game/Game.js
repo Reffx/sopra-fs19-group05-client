@@ -4,8 +4,10 @@ import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
-import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
+
+import Toolbar from '../Toolbar/Toolbar';
+
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -34,24 +36,6 @@ class Game extends React.Component {
     };
   }
 
-  logout() {
-      let curToken = localStorage.getItem("token");
-      fetch(`${getDomain()}/users`,{
-          method: "PUT",
-          headers: {
-              "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-              token: curToken
-            })
-        })
-          .catch(err => {
-              console.log(err);
-              alert("Something went wrong fetching the users: " + err);
-            });
-        localStorage.removeItem("token");
-        this.props.history.push("/login");
-  }
 
   componentDidMount() {
     fetch(`${getDomain()}/users`, {
@@ -78,6 +62,7 @@ class Game extends React.Component {
   render() {
     return (
       <Container>
+          <Toolbar/>
         <h2>Dashboard!</h2>
         <p>Folgend sind alle Accounts aufgelistet:</p>
         {!this.state.users ? (
@@ -93,14 +78,6 @@ class Game extends React.Component {
                 );
               })}
             </Users>
-            <Button
-              width="100%"
-              onClick={() => {
-                this.logout();
-              }}
-            >
-              Logout
-            </Button>
           </div>
         )}
       </Container>
