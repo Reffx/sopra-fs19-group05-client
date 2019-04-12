@@ -1,0 +1,27 @@
+.container {
+    margin-top: 20%;
+    display: flex;
+/*  border: 10px solid black; */
+    justify-content: space-evenly;
+
+}
+
+.leftPart {
+}
+
+.rightPart {
+}
+
+.titleSantorini {
+    font-size: 150px;
+    color: white;
+    font-family: "Adobe Arabic";
+}
+.titleSantorini {
+    margin-block-start: 0;
+    margin-block-end: 15px;
+}
+
+.spacer {
+    margin-left: 75px;
+}
