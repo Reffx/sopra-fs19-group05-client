@@ -24,7 +24,7 @@ const PlayerContainer = styled.li`
   justify-content: center;
   cursor: pointer;
 `;
-class NormalModeLobby extends React.Component {
+class GodModeLobby extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -79,8 +79,8 @@ class NormalModeLobby extends React.Component {
     render() {
         return (
             <Container>
-                <h2>Normal Mode Lobbys</h2>
-                <p>Here you see all Lobbys for Normal Mode:</p>
+                <h2>God Mode Lobbys</h2>
+                <p>Here you see all Lobbys for God Mode:</p>
                 {!this.state.users ? (
                     <Spinner />
                 ) : (
@@ -117,4 +117,4 @@ class NormalModeLobby extends React.Component {
     }
 }
 
-export default withRouter(NormalModeLobby);
+export default withRouter(GodModeLobby);

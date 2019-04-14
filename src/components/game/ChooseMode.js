@@ -18,7 +18,7 @@ export const Button = styled.button`
   color: rgba(255, 255, 255, 1);
   width: ${props => props.width || null};
   height: 45px;
-  width: 150px;
+  width: 300px;
   border: none;
   border-radius: 20px;
   cursor: ${props => (props.disabled ? "default" : "pointer")};
@@ -47,8 +47,22 @@ class ChooseMode extends React.Component {
                         </div>
                         <div className="rightPart">
                             <div>
-                                <Button>Normal Mode</Button>
-                                <Button className="spacer">God Mode</Button>
+                                <Button
+                                    width="60%"
+                                    onClick={() => {
+                                        this.props.history.push(`/normalModeLobby`);
+                                    }}
+                                >
+                                    Normal Mode
+                                </Button>
+                                <Button
+                                    width="50%"
+                                    onClick={() => {
+                                        this.props.history.push(`/godModeLobby`);
+                                    }}
+                                >
+                                    God Mode
+                                </Button>
                             </div>
                         </div>
                     </div>
