@@ -10,6 +10,7 @@ import Landing from "../../landing";
 import ChooseMode from "../../game/ChooseMode";
 import NormalModeLobby from "../../lobby/NormalModeLobby";
 import GodModeLobby from "../../lobby/GodModeLobby";
+import NormalModeDashbord from "../../lobby/NormalModeDashbord";
 /**
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
@@ -49,6 +50,12 @@ class AppRouter extends React.Component {
                   path="/godModeLobby"
                   render={() => (
                       <GodModeLobby base={"/godModeLobby"} />
+                  )}
+              />
+              <Route
+                  path="/normalModeDashbord"
+                  render={() => (
+                      <NormalModeDashbord base={"/normalModeDashbord"} />
                   )}
               />
 

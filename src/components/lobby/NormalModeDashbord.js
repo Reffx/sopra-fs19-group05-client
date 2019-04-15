@@ -4,8 +4,10 @@ import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
 import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
-import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
+
+import Toolbar from '../Toolbar/Toolbar';
+
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -24,36 +26,15 @@ const PlayerContainer = styled.li`
   justify-content: center;
   cursor: pointer;
 `;
-class GodModeLobby extends React.Component {
+
+
+class Game extends React.Component {
     constructor() {
         super();
         this.state = {
             users: null
         };
     }
-
-    logout() {
-        let curToken = localStorage.getItem("token");
-        fetch(`${getDomain()}/users`,{
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                token: curToken
-            })
-        })
-            .catch(err => {
-                console.log(err);
-                alert("Something went wrong fetching the users: " + err);
-            });
-        localStorage.removeItem("token");
-        this.props.history.push("/login");
-    }
-    goBack(){
-        this.props.history.push("/chooseMode");
-    }
-
 
 
     componentDidMount() {
@@ -81,8 +62,9 @@ class GodModeLobby extends React.Component {
     render() {
         return (
             <Container>
-                <h2>God Mode Lobbys</h2>
-                <p>Here you see all Lobbys for God Mode:</p>
+                <Toolbar/>
+                <h2>Dashboard!</h2>
+                <p>Folgend sind alle Accounts aufgelistet:</p>
                 {!this.state.users ? (
                     <Spinner />
                 ) : (
@@ -96,22 +78,6 @@ class GodModeLobby extends React.Component {
                                 );
                             })}
                         </Users>
-                        <Button
-                            width="30%"
-                            onClick={() => {
-                                this.logout();
-                            }}
-                        >
-                            Create Lobby
-                        </Button>
-                        <Button
-                            width="30%"
-                            onClick={() => {
-                                this.goBack();
-                            }}
-                        >
-                            Back
-                        </Button>
                     </div>
                 )}
             </Container>
@@ -119,4 +85,4 @@ class GodModeLobby extends React.Component {
     }
 }
 
-export default withRouter(GodModeLobby);
+export default withRouter(normalModeDashbord);
