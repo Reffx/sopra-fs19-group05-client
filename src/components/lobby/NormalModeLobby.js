@@ -63,7 +63,7 @@ class NormalModeLobby extends React.Component {
             },
             body: JSON.stringify({
                 username: localStorage.getItem("username"),
-                mode: "normalmode",
+                mode: "normalMode",
             })
         })
             .then(response => response.json())
@@ -98,7 +98,7 @@ class NormalModeLobby extends React.Component {
                         <Button
                             width="30%"
                             onClick={() => {
-                                this.create_lobby();
+                                this.props.history.push("/game/lobbyOverview");
                             }}
                         >
                             Create Lobby

@@ -1,9 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
 import { withRouter } from "react-router-dom";
-import { Button } from "../../views/design/Button";
+import "./LobbyOverview.css";
 
 const ButtonContainer = styled.div`
   display: flex;
@@ -15,3 +14,17 @@ const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
 `;
+
+class LobbyOverview extends React.Component {
+    render() {
+        return (
+            <div className="container">
+                <div> left left left</div>
+                <div> right right right</div>
+            </div>
+        );
+
+    }
+}
+
+export default withRouter(LobbyOverview);
