@@ -62,20 +62,20 @@ class NormalModeLobby extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                username: localStorage.getItem("username"),
-                mode: "normalMode",
+                player1: localStorage.getItem("userID"),
+                gameMode: "NORMAL",
             })
         })
             .then(response => response.json())
             .then(returnedGame => {
                 if (returnedGame.status === 404 || returnedGame.status === 500) {
                     //  has to be modified for game
-                    this.setState({alertText: "Game coun't be created!"})
+                    this.setState({alertText: "Game coudn't be created!"})
                 } else {
                     console.log(returnedGame);
                     const Game = new Game(returnedGame);
                     localStorage.setItem("gameID", Game.id);
-                    this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
+                    //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
                 }
             })
             .catch(err => {
@@ -91,14 +91,14 @@ class NormalModeLobby extends React.Component {
         return (
             <Container>
                 <h2>Choose Option</h2>
-                <p>Here you see all Lobbys for Normal Mode:</p>
-
+                <p> </p>
                     <div>
                         <ButtonContainer/>
                         <Button
                             width="30%"
                             onClick={() => {
-                                this.props.history.push("/game/lobbyOverview");
+                                this.create_lobby();
+                                this.props.history.push("/lobbyOverview");
                             }}
                         >
                             Create Lobby
@@ -108,7 +108,7 @@ class NormalModeLobby extends React.Component {
                         <Button
                             width="30%"
                             onClick={() => {
-                                this.logout();
+                                this.props.history.push("/NormalModeDashbord");
                             }}
                         >
                             Join Lobby
@@ -118,7 +118,7 @@ class NormalModeLobby extends React.Component {
                         <Button
                             width="30%"
                             onClick={() => {
-                                this.goBack();
+                                this.props.history.push("/chooseMode");
                             }}
                         >
                             Back
