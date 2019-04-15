@@ -19,8 +19,8 @@ class LobbyOverview extends React.Component {
     render() {
         return (
             <div className="container">
-                <div> left left left</div>
-                <div> right right right</div>
+                <div className="leftPlayer"> left left left</div>
+                <div className="rightPlayer"> right right right</div>
             </div>
         );
 

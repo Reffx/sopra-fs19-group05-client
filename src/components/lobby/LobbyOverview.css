@@ -1,7 +1,23 @@
 .container {
     margin-top: 20%;
     display: flex;
-    /*  border: 10px solid black; */
+/*    border: 10px solid black; */
+    height: 400px;
     justify-content: space-evenly;
+    margin-top: 10%;
 
+}
+
+.leftPlayer {
+    border: 2px solid white;
+    border-radius: 25px;
+    width: 40%;
+    padding: 20px;
+}
+
+.rightPlayer {
+    border: 2px solid white;
+    border-radius: 25px;
+    width: 40%;
+    padding: 20px;
 }
