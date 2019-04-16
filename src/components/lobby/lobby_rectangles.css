@@ -1,0 +1,49 @@
+
+/*  this css style sheet provides the styling for the player boxes in the lobby */
+
+
+.container {
+      width:auto;
+      height: auto;
+
+}
+
+.first-box {
+      width:40%;
+      float:left;
+      background: darkgray;
+      height: 350px;
+      border-radius: 25px;
+      display: flex;
+      align-items: flex-start;
+    border: 12px solid black; /* use this to show which container belongs to the creator of the lobby */
+}
+
+.first-box p {
+      color: floralwhite;
+      padding-top: 80px;
+      text-decoration: underline;
+      font-family: fantasy;
+      font-size: 25px;
+      text-align: left;
+      margin-left: 10px;
+}
+
+.second-box {
+      width:40%;
+      height: auto;
+      float:right;
+      background: darkgrey;
+      border-radius: 25px;
+      display: flex;
+}
+
+.second-box p {
+      color: floralwhite;
+      padding-top: 80px;
+      text-decoration: underline;
+      font-family: fantasy;
+      font-size: 25px;
+      margin-left: auto;
+}
+
