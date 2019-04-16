@@ -6,7 +6,7 @@ import Player from "../../views/Player";
 import { Spinner } from "../../views/design/Spinner";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
-import User from "../shared/models/User";
+import GameModel from "../shared/models/GameModel";
 
 const ButtonContainer = styled.div`
   display: row;
@@ -32,6 +32,15 @@ const PlayerContainer = styled.li`
   cursor: pointer;
 `;
 class NormalModeLobby extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+            id: null,
+            player1: null,
+            gameMode: null,
+        };
+    }
 
     logout() {
         let curToken = localStorage.getItem("token");
@@ -73,7 +82,7 @@ class NormalModeLobby extends React.Component {
                     this.setState({alertText: "Game coudn't be created!"})
                 } else {
                     console.log(returnedGame);
-                    const Game = new Game(returnedGame);
+                    const Game = new GameModel(returnedGame);
                     localStorage.setItem("gameID", Game.id);
                     //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
                 }
