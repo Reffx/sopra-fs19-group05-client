@@ -11,12 +11,12 @@ const Container = styled.div`
   border: 1px solid #ffffff26;
 `;
 
-const Game = styled.div`
+const GameID = styled.div`
   font-weight: lighter;
   margin-left: 5px;
 `;
 
-const GameMode = styled.div`
+const Status = styled.div`
   margin-left: auto;
   margin-right: 10px;
   font-weight: bold;
@@ -30,13 +30,13 @@ const GameMode = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const Game = ({ user }) => {
+const GameView = ({ game }) => {
     return (
         <Container>
-            <GameID>{user.username}</GameID>
-            <Id>Id: {user.id}</Id>
+            <GameID>Game: {game.id}</GameID>
+            <Status>Players in: {game.players}</Status>
         </Container>
     );
 };
 
-export default Player;
+export default GameView;
