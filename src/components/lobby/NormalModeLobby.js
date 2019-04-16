@@ -117,7 +117,7 @@ class NormalModeLobby extends React.Component {
                         <Button
                             width="30%"
                             onClick={() => {
-                                this.props.history.push("/NormalModeDashbord");
+                                this.props.history.push("/NormalModeDashboard");
                             }}
                         >
                             Join Lobby

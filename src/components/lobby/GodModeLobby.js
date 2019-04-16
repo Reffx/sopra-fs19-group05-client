@@ -2,10 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
-import Player from "../../views/Player";
-import { Spinner } from "../../views/design/Spinner";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
+import GameModel from "../shared/models/GameModel";
+
+const ButtonContainer = styled.div`
+  display: row;
+  justify-content: center;
+  margin-top: 20px;
+`;
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -25,10 +30,13 @@ const PlayerContainer = styled.li`
   cursor: pointer;
 `;
 class GodModeLobby extends React.Component {
+
     constructor() {
         super();
         this.state = {
-            users: null
+            id: null,
+            player1: null,
+            gameMode: null,
         };
     }
 
@@ -54,66 +62,76 @@ class GodModeLobby extends React.Component {
         this.props.history.push("/chooseMode");
     }
 
-
-
-    componentDidMount() {
-        fetch(`${getDomain()}/users`, {
-            method: "GET",
+    create_lobby(){
+        fetch(`${getDomain()}/games`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify({
+                player1: localStorage.getItem("userID"),
+                gameMode: "GOD",
+            })
         })
             .then(response => response.json())
-            .then(async users => {
-                // delays continuous execution of an async operation for 0.8 seconds.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 800));
-
-                this.setState({ users });
+            .then(returnedGame => {
+                if (returnedGame.status === 404 || returnedGame.status === 500) {
+                    //  has to be modified for game
+                    this.setState({alertText: "Game coudn't be created!"})
+                } else {
+                    console.log(returnedGame);
+                    const Game = new GameModel(returnedGame);
+                    localStorage.setItem("gameID", Game.id);
+                    this.props.history.push({pathname:`/game/${Game.id}`});
+                    //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
+                }
             })
             .catch(err => {
-                console.log(err);
-                alert("Something went wrong fetching the users: " + err);
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
             });
     }
 
     render() {
         return (
             <Container>
-                <h2>God Mode Lobbys</h2>
-                <p>Here you see all Lobbys for God Mode:</p>
-                {!this.state.users ? (
-                    <Spinner />
-                ) : (
-                    <div>
-                        <Users>
-                            {this.state.users.map(user => {
-                                return (
-                                    <PlayerContainer onClick={()=>(this.props.history.push({pathname:`/users/${user.id}`, state:user.id}))} key={user.id}>
-                                        <Player user={user} />
-                                    </PlayerContainer>
-                                );
-                            })}
-                        </Users>
-                        <Button
-                            width="30%"
-                            onClick={() => {
-                                this.logout();
-                            }}
-                        >
-                            Create Lobby
-                        </Button>
-                        <Button
-                            width="30%"
-                            onClick={() => {
-                                this.goBack();
-                            }}
-                        >
-                            Back
-                        </Button>
-                    </div>
-                )}
+                <h2>Choose Option</h2>
+                <p> </p>
+                <div>
+                    <ButtonContainer/>
+                    <Button
+                        width="30%"
+                        onClick={() => {
+                            this.create_lobby();
+                        }}
+                    >
+                        Create Lobby
+                    </Button>
+                    <ButtonContainer/>
+                    <ButtonContainer/>
+                    <Button
+                        width="30%"
+                        onClick={() => {
+                            this.props.history.push("/GodModeDashboard");
+                        }}
+                    >
+                        Join Lobby
+                    </Button>
+                    <ButtonContainer/>
+                    <ButtonContainer/>
+                    <Button
+                        width="30%"
+                        onClick={() => {
+                            this.props.history.push("/chooseMode");
+                        }}
+                    >
+                        Back
+                    </Button>
+                    <ButtonContainer/>
+                </div>
             </Container>
         );
     }

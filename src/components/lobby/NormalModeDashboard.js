@@ -6,7 +6,6 @@ import GameView from "../../views/GameView";
 import { Spinner } from "../../views/design/Spinner";
 import { withRouter } from "react-router-dom";
 
-import Toolbar from '../Toolbar/Toolbar';
 import {Button} from "../../views/design/Button";
 
 const ButtonContainer = styled.div`
@@ -34,7 +33,7 @@ const PlayerContainer = styled.li`
 `;
 
 
-class NormalModeDashbord extends React.Component {
+class NormalModeDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -101,4 +100,4 @@ class NormalModeDashbord extends React.Component {
     }
 }
 
-export default withRouter(NormalModeDashbord);
+export default withRouter(NormalModeDashboard);
