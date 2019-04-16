@@ -45,7 +45,7 @@ class NormalModeDashboard extends React.Component {
 
 
     componentDidMount() {
-        fetch(`${getDomain()}/games/NORMAL`, {
+        fetch(`${getDomain()}/games/mode/NORMAL`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

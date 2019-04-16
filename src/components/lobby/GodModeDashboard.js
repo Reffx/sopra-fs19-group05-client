@@ -43,7 +43,7 @@ class GodModeDashboard extends React.Component {
 
 
     componentDidMount() {
-        fetch(`${getDomain()}/games/GOD`, {
+        fetch(`${getDomain()}/games/mode/GOD`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
