@@ -84,6 +84,7 @@ class NormalModeLobby extends React.Component {
                     console.log(returnedGame);
                     const Game = new GameModel(returnedGame);
                     localStorage.setItem("gameID", Game.id);
+                    this.props.history.push({pathname:`/game/${Game.id}`});
                     //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
                 }
             })
@@ -107,7 +108,6 @@ class NormalModeLobby extends React.Component {
                             width="30%"
                             onClick={() => {
                                 this.create_lobby();
-                                this.props.history.push("/lobbyOverview");
                             }}
                         >
                             Create Lobby
