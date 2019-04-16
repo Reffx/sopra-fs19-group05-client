@@ -2,12 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
-import Player from "../../views/Player";
+import GameView from "../../views/GameView";
 import { Spinner } from "../../views/design/Spinner";
 import { withRouter } from "react-router-dom";
 
 import Toolbar from '../Toolbar/Toolbar';
+import {Button} from "../../views/design/Button";
 
+const ButtonContainer = styled.div`
+  display: row;
+  justify-content: center;
+  margin-top: 20px;
+`;
 
 const Container = styled(BaseContainer)`
   color: white;
@@ -62,9 +68,19 @@ class NormalModeDashbord extends React.Component {
     render() {
         return (
             <Container>
-                <Toolbar/>
+
                 <h2>Dashboard!</h2>
                 <p>Here you see all Normal Mode Games:</p>
+                <ButtonContainer/>
+                <Button
+                    width="30%"
+                    onClick={() => {
+                        this.props.history.push("/normalModeLobby");
+                    }}
+                >
+                    Back
+                </Button>
+                <ButtonContainer/>
                 {!this.state.games ? (
                     <Spinner />
                 ) : (
@@ -73,7 +89,7 @@ class NormalModeDashbord extends React.Component {
                             {this.state.games.map(game => {
                                 return (
                                     <PlayerContainer >
-                                        <Player game={game} />
+                                        <GameView game={game} />
                                     </PlayerContainer>
                                 );
                             })}
