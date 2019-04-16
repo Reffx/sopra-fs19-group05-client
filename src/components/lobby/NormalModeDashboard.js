@@ -38,6 +38,7 @@ class NormalModeDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
+            gameId: null,
             games: null
         };
     }
@@ -82,9 +83,8 @@ class NormalModeDashboard extends React.Component {
                     this.setState({alertText: "Game coudn't be created!"})
                 } else {
                     console.log(returnedGame);
-                    const Game = new GameModel(returnedGame);
-                    localStorage.setItem("gameID", Game.id);
-                    this.props.history.push({pathname:`/game/${Game.id}`});
+                    const game = new GameModel(returnedGame);
+                    localStorage.setItem("gameID", game.id);
                     //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
                 }
             })
@@ -120,9 +120,7 @@ class NormalModeDashboard extends React.Component {
                         <Games>
                             {this.state.games.map(game => {
                                 return (
-                                    <PlayerContainer onClick={()=>{
-                                        this.join_lobby();
-                                    }}>
+                                    <PlayerContainer onClick={()=>(this.join_lobby(), this.props.history.push({pathname:`/game/${game.id}`, state:game.id}))} key={game.id}>
                                         <GameView game={game} />
                                     </PlayerContainer>
                                 );
