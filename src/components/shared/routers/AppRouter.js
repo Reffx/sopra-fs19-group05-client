@@ -48,9 +48,15 @@ class AppRouter extends React.Component {
                   )}
               />
               <Route
+                  path="/normalModeDashbord"
+                  render={() => (
+                      <NormalModeDashbord base={"/normalModeDashbord"} />
+                  )}
+              />
+              <Route
                   path="/lobbyOverview"
                   render={() => (
-                      <GodModeLobby base={"/godModeLobby"} />
+                      <LobbyOverview base={"/lobbyOverview"} />
                   )}
               />
               <Route

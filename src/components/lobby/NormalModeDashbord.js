@@ -2,19 +2,25 @@ import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
-import Player from "../../views/Player";
+import GameView from "../../views/GameView";
 import { Spinner } from "../../views/design/Spinner";
 import { withRouter } from "react-router-dom";
 
 import Toolbar from '../Toolbar/Toolbar';
+import {Button} from "../../views/design/Button";
 
+const ButtonContainer = styled.div`
+  display: row;
+  justify-content: center;
+  margin-top: 20px;
+`;
 
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
 `;
 
-const Users = styled.ul`
+const Games = styled.ul`
   list-style: none;
   padding-left: 0;
 `;
@@ -32,52 +38,62 @@ class NormalModeDashbord extends React.Component {
     constructor() {
         super();
         this.state = {
-            users: null
+            games: null
         };
     }
 
 
     componentDidMount() {
-        fetch(`${getDomain()}/users`, {
+        fetch(`${getDomain()}/games/NORMAL`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
             }
         })
             .then(response => response.json())
-            .then(async users => {
+            .then(async games => {
                 // delays continuous execution of an async operation for 0.8 seconds.
                 // This is just a fake async call, so that the spinner can be displayed
                 // feel free to remove it :)
                 await new Promise(resolve => setTimeout(resolve, 800));
 
-                this.setState({ users });
+                this.setState({ games });
             })
             .catch(err => {
                 console.log(err);
-                alert("Something went wrong fetching the users: " + err);
+                alert("Something went wrong fetching the games: " + err);
             });
     }
 
     render() {
         return (
             <Container>
-                <Toolbar/>
+
                 <h2>Dashboard!</h2>
-                <p>Folgend sind alle Accounts aufgelistet:</p>
-                {!this.state.users ? (
+                <p>Here you see all Normal Mode Games:</p>
+                <ButtonContainer/>
+                <Button
+                    width="30%"
+                    onClick={() => {
+                        this.props.history.push("/normalModeLobby");
+                    }}
+                >
+                    Back
+                </Button>
+                <ButtonContainer/>
+                {!this.state.games ? (
                     <Spinner />
                 ) : (
                     <div>
-                        <Users>
-                            {this.state.users.map(user => {
+                        <Games>
+                            {this.state.games.map(game => {
                                 return (
-                                    <PlayerContainer onClick={()=>(this.props.history.push({pathname:`/users/${user.id}`, state:user.id}))} key={user.id}>
-                                        <Player user={user} />
+                                    <PlayerContainer >
+                                        <GameView game={game} />
                                     </PlayerContainer>
                                 );
                             })}
-                        </Users>
+                        </Games>
                     </div>
                 )}
             </Container>

@@ -1,3 +1,4 @@
+
 import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
@@ -24,9 +25,9 @@ class LobbyOverview extends React.Component {
                 <div class="first-box">
                     <p>Choose your color:</p>
                     <div class="circle_red"></div>
-                <div class="circle_blue"></div>
-                <div class="circle_yellow"></div>
-                <div class="circle_pink"></div>
+                    <div class="circle_blue"></div>
+                    <div class="circle_yellow"></div>
+                    <div class="circle_pink"></div>
                 </div>
                 <div class="second-box">
                     <p>Choose your color:</p>

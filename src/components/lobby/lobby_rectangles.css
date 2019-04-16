@@ -16,7 +16,7 @@
       border-radius: 25px;
       display: flex;
       align-items: flex-start;
-    border: 12px solid black; /* use this to show which container belongs to the creator of the lobby */
+      border: 12px solid black; /* use this to show which container belongs to the creator of the lobby */
 }
 
 .first-box p {
@@ -46,4 +46,3 @@
       font-size: 25px;
       margin-left: auto;
 }
-

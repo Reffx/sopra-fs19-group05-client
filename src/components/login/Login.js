@@ -122,7 +122,7 @@ class Login extends React.Component {
           console.log(returnedUser);
           const user = new User(returnedUser);
           localStorage.setItem("token", user.token);
-          localStorage.setItem("username", user.username);
+          localStorage.setItem("userID", user.id);
           this.props.history.push(`/game`);
       }
       })
