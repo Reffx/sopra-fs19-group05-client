@@ -63,6 +63,8 @@ class Game extends React.Component {
     return (
       <Container>
           <Toolbar/>
+        <p> </p>
+        <p> </p>
         <h2>Dashboard!</h2>
         <p>Folgend sind alle Accounts aufgelistet:</p>
         {!this.state.users ? (

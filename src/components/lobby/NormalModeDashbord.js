@@ -70,7 +70,7 @@ class NormalModeDashbord extends React.Component {
             <Container>
 
                 <h2>Dashboard!</h2>
-                <p>Here you see all Normal Mode Games:</p>
+                <p>Here you see all Normal Mode Games, click on Game to join:</p>
                 <ButtonContainer/>
                 <Button
                     width="30%"
@@ -88,7 +88,7 @@ class NormalModeDashbord extends React.Component {
                         <Games>
                             {this.state.games.map(game => {
                                 return (
-                                    <PlayerContainer >
+                                    <PlayerContainer onClick={()=>(this.props.history.push({pathname:`/game/${game.id}`, state:game.id}))} key={game.id}>
                                         <GameView game={game} />
                                     </PlayerContainer>
                                 );

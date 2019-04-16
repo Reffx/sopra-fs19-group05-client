@@ -34,7 +34,7 @@ const GameView = ({ game }) => {
     return (
         <Container>
             <GameID>Game: {game.id}</GameID>
-            <Status>Players in: {game.players}</Status>
+            <Status>Players: {game.players}</Status>
         </Container>
     );
 };

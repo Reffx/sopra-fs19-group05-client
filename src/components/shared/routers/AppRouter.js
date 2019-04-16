@@ -54,7 +54,7 @@ class AppRouter extends React.Component {
                   )}
               />
               <Route
-                  path="/lobbyOverview"
+                  path="/game/:id"
                   render={() => (
                       <LobbyOverview base={"/lobbyOverview"} />
                   )}
