@@ -66,8 +66,9 @@ class NormalModeDashboard extends React.Component {
             });
     }
 
+
     join_lobby(){
-        fetch(`${getDomain()}/games/${this.state.games.id}/player2`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player2`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -120,7 +121,7 @@ class NormalModeDashboard extends React.Component {
                         <Games>
                             {this.state.games.map(game => {
                                 return (
-                                    <PlayerContainer onClick={()=>(this.join_lobby(), this.props.history.push({pathname:`/game/${game.id}`, state:game.id}))} key={game.id}>
+                                    <PlayerContainer key={game.id} onClick={()=>(localStorage.setItem("gameId",game.id), this.join_lobby(), this.props.history.push({pathname:`/game/${game.id}`, state:game.id}))}>
                                         <GameView game={game} />
                                     </PlayerContainer>
                                 );
