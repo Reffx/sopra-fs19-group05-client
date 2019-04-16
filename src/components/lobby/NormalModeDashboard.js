@@ -7,6 +7,7 @@ import { Spinner } from "../../views/design/Spinner";
 import { withRouter } from "react-router-dom";
 
 import {Button} from "../../views/design/Button";
+import GameModel from "../shared/models/GameModel";
 
 const ButtonContainer = styled.div`
   display: row;
@@ -64,6 +65,38 @@ class NormalModeDashboard extends React.Component {
             });
     }
 
+    join_lobby(){
+        fetch(`${getDomain()}/games/${GameModel.id}/player2`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                player2: localStorage.getItem("userID"),
+            })
+        })
+            .then(response => response.json())
+            .then(returnedGame => {
+                if (returnedGame.status === 404 || returnedGame.status === 500) {
+                    //  has to be modified for game
+                    this.setState({alertText: "Game coudn't be created!"})
+                } else {
+                    console.log(returnedGame);
+                    const Game = new GameModel(returnedGame);
+                    localStorage.setItem("gameID", Game.id);
+                    this.props.history.push({pathname:`/game/${Game.id}`});
+                    //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+    }
+
     render() {
         return (
             <Container>
@@ -87,7 +120,9 @@ class NormalModeDashboard extends React.Component {
                         <Games>
                             {this.state.games.map(game => {
                                 return (
-                                    <PlayerContainer onClick={()=>(this.props.history.push({pathname:`/game/${game.id}`, state:game.id}))} key={game.id}>
+                                    <PlayerContainer onClick={()=>{
+                                        this.join_lobby();
+                                    }}>
                                         <GameView game={game} />
                                     </PlayerContainer>
                                 );
