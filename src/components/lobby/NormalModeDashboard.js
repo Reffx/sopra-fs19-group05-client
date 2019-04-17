@@ -74,10 +74,7 @@ class NormalModeDashboard extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                player2: {id: localStorage.getItem("userID"),
-                    gameId: localStorage.getItem("gameID"),
-                    username: localStorage.getItem("username"),
-                }
+               id: localStorage.getItem("userID"),
             })
         })
             .then(returnedGame => {
