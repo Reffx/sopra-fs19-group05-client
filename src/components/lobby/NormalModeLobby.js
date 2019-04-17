@@ -5,6 +5,7 @@ import { getDomain } from "../../helpers/getDomain";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
 import GameModel from "../shared/models/GameModel";
+import Player from "../shared/models/Player";
 
 const ButtonContainer = styled.div`
   display: row;
@@ -40,27 +41,6 @@ class NormalModeLobby extends React.Component {
         };
     }
 
-    logout() {
-        let curToken = localStorage.getItem("token");
-        fetch(`${getDomain()}/users`,{
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                token: curToken
-            })
-        })
-            .catch(err => {
-                console.log(err);
-                alert("Something went wrong fetching the users: " + err);
-            });
-        localStorage.removeItem("token");
-        this.props.history.push("/login");
-    }
-    goBack(){
-        this.props.history.push("/chooseMode");
-    }
 
     create_lobby(){
         fetch(`${getDomain()}/games`, {
@@ -69,7 +49,11 @@ class NormalModeLobby extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                player1: localStorage.getItem("userID"),
+                id: localStorage.getItem("gameID"),
+                player1: {id: localStorage.getItem("userID"),
+                          gameId: localStorage.getItem("gameID"),
+                        username: localStorage.getItem("username"),
+                            },
                 gameMode: "NORMAL",
             })
         })
@@ -105,7 +89,7 @@ class NormalModeLobby extends React.Component {
                         <Button
                             width="30%"
                             onClick={() => {
-                                this.create_lobby();
+                               this.create_lobby();
                             }}
                         >
                             Create Lobby

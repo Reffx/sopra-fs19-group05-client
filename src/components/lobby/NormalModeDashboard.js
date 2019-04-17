@@ -69,28 +69,23 @@ class NormalModeDashboard extends React.Component {
 
     join_lobby(){
         fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player2`, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                player2: localStorage.getItem("userID"),
+               id: localStorage.getItem("userID"),
             })
         })
-            .then(response => response.json())
             .then(returnedGame => {
                 if (returnedGame.status === 404 || returnedGame.status === 500) {
                     //  has to be modified for game
                     this.setState({alertText: "Game coudn't be created!"})
-                } else {
-                    console.log(returnedGame);
-                    const game = new GameModel(returnedGame);
-                    localStorage.setItem("gameID", game.id);
-                    //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
                 }
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
+                    alert(localStorage.getItem("gameId"));
                     alert("The server cannot be reached. Did you start it?");
                 } else {
                     alert(`Something went wrong during the creation: ${err.message}`);

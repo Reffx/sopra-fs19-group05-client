@@ -31,6 +31,9 @@ function logout()
                 alert("Something went wrong fetching the users: " + err);
             });
         localStorage.removeItem("token");
+        localStorage.removeItem("id");
+        localStorage.removeItem("username");
+        localStorage.removeItem("name");
     }
 
     const toolbar = props => (
