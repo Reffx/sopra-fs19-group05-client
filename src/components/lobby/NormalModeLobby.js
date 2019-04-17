@@ -40,27 +40,6 @@ class NormalModeLobby extends React.Component {
         };
     }
 
-    logout() {
-        let curToken = localStorage.getItem("token");
-        fetch(`${getDomain()}/users`,{
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                token: curToken
-            })
-        })
-            .catch(err => {
-                console.log(err);
-                alert("Something went wrong fetching the users: " + err);
-            });
-        localStorage.removeItem("token");
-        this.props.history.push("/login");
-    }
-    goBack(){
-        this.props.history.push("/chooseMode");
-    }
 
     create_lobby(){
         fetch(`${getDomain()}/games`, {
@@ -69,7 +48,10 @@ class NormalModeLobby extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                player1: localStorage.getItem("userID"),
+                player1: {id: localStorage.getItem("userID"),
+                          gameId: localStorage.getItem("gameID"),
+                        username: localStorage.getItem("username"),
+                            },
                 gameMode: "NORMAL",
             })
         })
