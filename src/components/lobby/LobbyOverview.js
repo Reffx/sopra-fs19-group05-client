@@ -17,7 +17,9 @@ const Container = styled(BaseContainer)`
   text-align: center;
 `;
 
+/*TODO: localstorage.setPlayerColor("playercolor", "red") --> fetch method ("PUT") the body should contain  */
 class LobbyOverview extends React.Component {
+
     render() {
         return (
             <div class="container">
