@@ -2,10 +2,12 @@
 /*  this css style sheet provides the styling for the player boxes in the lobby */
 
 
-.containerLobby {
-      width:auto;
-      height: auto;
-
+.Lobby {
+      margin-left: auto;
+      padding-left: 15px;
+      margin-right: auto;
+      padding-right: 15px;
+      margin-top: 20%;
 }
 
 .first-box {
@@ -17,6 +19,7 @@
       display: flex;
       align-items: flex-start;
       border: 12px solid black; /* use this to show which container belongs to the creator of the lobby */
+      margin-left: 50px;
 }
 
 .first-box p {
@@ -31,11 +34,12 @@
 
 .second-box {
       width:40%;
-      height: auto;
+      height: 330px;
       float:right;
       background: darkgrey;
       border-radius: 25px;
       display: flex;
+      margin-right: 50px;
 }
 
 .second-box p {

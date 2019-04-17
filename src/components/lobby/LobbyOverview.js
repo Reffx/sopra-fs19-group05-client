@@ -4,14 +4,12 @@ import { withRouter } from "react-router-dom";
 import "./player_colors.css"
 import "./lobby_rectangles.css"
 
-
-
 /*TODO: localstorage.setPlayerColor("playercolor", "red") --> fetch method ("PUT") the body should contain  */
 class LobbyOverview extends React.Component {
 
     render() {
         return (
-            <div class="containerLobby">
+            <div class="Lobby">
 
                 <div class="first-box">
                     <p>Choose your color:</p>
