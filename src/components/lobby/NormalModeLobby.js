@@ -5,6 +5,7 @@ import { getDomain } from "../../helpers/getDomain";
 import { Button } from "../../views/design/Button";
 import { withRouter } from "react-router-dom";
 import GameModel from "../shared/models/GameModel";
+import Player from "../shared/models/Player";
 
 const ButtonContainer = styled.div`
   display: row;
@@ -87,7 +88,7 @@ class NormalModeLobby extends React.Component {
                         <Button
                             width="30%"
                             onClick={() => {
-                                this.create_lobby();
+                               this.create_lobby();
                             }}
                         >
                             Create Lobby
