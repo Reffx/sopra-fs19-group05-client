@@ -9,6 +9,7 @@ TODO: When lobby page is ready adjust the position of the circles on the page an
     border-radius: 25px;
     background: red;
     margin: auto;
+    cursor: pointer;
 }
 /* The disabled functionality is useful when clicking on a color to either disable the other ones to highlight the selected one
 or to disable a color that is already picked by the opponent*/
@@ -26,6 +27,7 @@ or to disable a color that is already picked by the opponent*/
     border-radius: 25px;
     background: blue;
     margin: auto;
+    cursor: pointer;
 }
 .circle_blue.disabled{
     opacity: 0.1;
@@ -39,6 +41,7 @@ or to disable a color that is already picked by the opponent*/
     border-radius: 25px;
     background: yellow;
     margin: auto;
+    cursor: pointer;
 }
 .circle_yellow.disabled{
     opacity: 0.1;
@@ -53,6 +56,7 @@ or to disable a color that is already picked by the opponent*/
     border-radius: 25px;
     background: deeppink;
     margin: auto;
+    cursor: pointer;
 }
 .circle_pink.disabled{
     opacity: 0.1;

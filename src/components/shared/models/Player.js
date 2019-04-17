@@ -8,6 +8,7 @@ class Player {
         this.status = null;
         this.gameId = null;
         this.isReady = null;
+        this.color = null;
         Object.assign(this, data);
     }
 }
