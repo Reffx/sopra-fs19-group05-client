@@ -1,5 +1,5 @@
 /**
- * Player model
+ * PlayerView model
  */
 class Player {
     constructor(data = {}) {

@@ -74,7 +74,8 @@ class NormalModeDashboard extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-               id: localStorage.getItem("userID"),
+                userId: localStorage.getItem("userID"),
+                gameId: localStorage.getItem("gameID"),
             })
         })
             .then(returnedGame => {
@@ -85,7 +86,6 @@ class NormalModeDashboard extends React.Component {
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
-                    alert(localStorage.getItem("gameId"));
                     alert("The server cannot be reached. Did you start it?");
                 } else {
                     alert(`Something went wrong during the creation: ${err.message}`);
