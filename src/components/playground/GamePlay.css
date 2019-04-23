@@ -1,27 +1,48 @@
+.mainHorizontally{
+    display: flex;
+    justify-content: space-evenly;
+}
+.left{
+    float: left;
+    width: 20%;
+}
+
+.right{
+    float: right;
+    width: 20%;
+}
+
+
 .playField{
-    width: 400px;
-    height: 400px;
+    display: flex;
+    align-items:center;
     align-content: center;
 }
 
 .white {
-    float: left;
-    width: 80px;
-    height: 80px;
     background-color: #fff;
-    font-size:50px;
-    text-align:center;
-    display: table-cell;
-    vertical-align:middle;
 }
 
 .black {
-    float: left;
-    width: 80px;
-    height: 80px;
     background-color: #999;
-    font-size:50px;
-    text-align:center;
-    display: table-cell;
+}
+
+li {
+    width: 8vw;
+    height: 8vw;
+    transition: 50ms ease-out;
+    animation: scaleIt 5s infinite;
+    font-size: x-large;
+    text-align: center;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul li {
+    padding-top: 25%;
     vertical-align:middle;
 }
