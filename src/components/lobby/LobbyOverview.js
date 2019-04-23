@@ -14,7 +14,10 @@ class LobbyOverview extends React.Component {
         this.state = {
             myGame: null,
             usernamePlayer1:  localStorage.getItem("usernamePlayer1"),
+            gameId: null,
             color: null,
+            player1: null,
+            player2: null,
         };
     }
 
@@ -26,18 +29,12 @@ class LobbyOverview extends React.Component {
             }
         })
             .then(response => response.json())
-            .then(async games => {
-                // delays continuous execution of an async operation for 0.8 seconds.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 800));
-                const game = new GameModel(games);
-                alert(localStorage.getItem("gameId"));
+            .then(async response => {
 
-                localStorage.setItem("usernamePlayer1", game.player1.username);
-                this.setState({usernamePlayer1: game.player1.username});
-                alert(this.usernamePlayer1);
-                this.setState({myGame: game});
+                await new Promise(resolve => setTimeout(resolve, 800));
+
+                localStorage.setItem("usernamePlayer1", response.player1.username);
+
             })
             .catch(err => {
                 console.log(err);
@@ -60,7 +57,7 @@ yellowCircleClick(){
         alert("color set to yellow")
 }
 pinkCircleClick(){
-        this.setState({color:"Pink"})
+        this.setState({color:"Pink"});
         alert("color set to pink")
 }
 //the render method also needs an update, disabled the circles in the right box but in the future we need to do a check with the player id not with the token (since it is saved locally)

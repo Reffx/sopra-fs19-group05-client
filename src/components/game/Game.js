@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { BaseContainer } from "../../helpers/layout";
 import { getDomain } from "../../helpers/getDomain";
-import Player from "../../views/Player";
+import PlayerView from "../../views/PlayerView";
 import { Spinner } from "../../views/design/Spinner";
 import { withRouter } from "react-router-dom";
 
@@ -75,7 +75,7 @@ class Game extends React.Component {
               {this.state.users.map(user => {
                   return (
                     <PlayerContainer onClick={()=>(this.props.history.push({pathname:`/users/${user.id}`, state:user.id}))} key={user.id}>
-                      <Player user={user} />
+                      <PlayerView user={user} />
                     </PlayerContainer>
                 );
               })}
