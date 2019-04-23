@@ -13,6 +13,8 @@ import GodModeLobby from "../../lobby/GodModeLobby";
 import NormalModeDashboard from "../../lobby/NormalModeDashboard";
 import GodModeDashboard from "../../lobby/GodModeDashboard";
 import LobbyOverview from "../../lobby/LobbyOverview";
+import GamePlay from "../../playground/GamePlay";
+
 
 /**
  * Main router of your application.
@@ -57,7 +59,7 @@ class AppRouter extends React.Component {
               />
               <Route
                   path="/game/:id"
-                  render={() => (
+                  exact render={() => (
                       <LobbyOverview base={"/lobbyOverview"} />
                   )}
               />
@@ -75,11 +77,16 @@ class AppRouter extends React.Component {
               />
               <Route
                   path="/game/lobbyOverview"
-                  render={() => (
+                  exact render={() => (
                       <LobbyOverview base={"/game/lobbyOverview"} />
                   )}
               />
-
+              <Route
+                  path="/game/gamePlay"
+                  exact render={() => (
+                      <GamePlay base={"/game/gamePlay"} />
+                  )}
+              />
               <Route
                   path="/register"
                   exact
