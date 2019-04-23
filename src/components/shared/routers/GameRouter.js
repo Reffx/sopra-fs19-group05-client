@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Redirect, Route } from "react-router-dom";
 import GamePlay from "../../playground/GamePlay";
-import WaitingRoom from "../../lobby/WaitingRoom2";
+import WaitingRoom from "../../lobby/LobbyOverview";
 
 
 const Container = styled.div`
