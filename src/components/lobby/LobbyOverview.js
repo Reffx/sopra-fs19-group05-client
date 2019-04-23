@@ -35,7 +35,6 @@ class LobbyOverview extends React.Component {
 
                 localStorage.setItem("usernamePlayer1", response.player1.username);
 
-                alert(response.player1.id);// test with print statement
             })
             .catch(err => {
                 console.log(err);
