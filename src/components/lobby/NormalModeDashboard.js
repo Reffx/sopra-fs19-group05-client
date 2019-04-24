@@ -73,10 +73,9 @@ class NormalModeDashboard extends React.Component {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({
-                userId: localStorage.getItem("userID"),
-                gameId: localStorage.getItem("gameID"),
-            })
+            body: JSON.stringify(
+                localStorage.getItem("userID")
+            )
         })
             .then(returnedGame => {
                 if (returnedGame.status === 404 || returnedGame.status === 500) {
