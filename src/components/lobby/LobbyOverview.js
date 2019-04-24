@@ -5,6 +5,19 @@ import "./player_colors.css"
 import "./lobby_rectangles.css"
 import {getDomain} from "../../helpers/getDomain";
 import GameModel from "../shared/models/GameModel";
+import {Button} from "../../views/design/Button";
+import styled from "styled-components";
+import {BaseContainer} from "../../helpers/layout";
+
+const ButtonContainer = styled.div`
+  display: row;
+  justify-content: center;
+  margin-top: 20px;
+`;
+const Container = styled(BaseContainer)`
+  color: white;
+  text-align: center;
+`;
 
 
 class LobbyOverview extends React.Component {
@@ -20,6 +33,10 @@ class LobbyOverview extends React.Component {
             player2: null,
         };
     }
+    leave_lobby() {
+        this.props.history.push("/NormalModeLobby");
+    }
+
 
     componentDidMount() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/`, {
@@ -63,21 +80,44 @@ pinkCircleClick(){
 //the render method also needs an update, disabled the circles in the right box but in the future we need to do a check with the player id not with the token (since it is saved locally)
     render() {
         return (
-            <div class ="Lobby-div">
-                <div class="first-box">
+            <div>
+                    <Container>
+                        <ButtonContainer/>
+                         <Button
+                           width="30%"
+                           onClick={() => {
+                               this.leave_lobby();
+                           }}
+                         >
+                         Leave Lobby
+                        </Button>
+                        <ButtonContainer/>
+                        <ButtonContainer/>
+                        <Button
+                            width="30%"
+                            onClick={() => {
+                            }}
+                        >
+                            Ready to Play
+                        </Button>
+                        <ButtonContainer/>
+                    </Container>
+                <div class ="Lobby-div">
+                    <div class="first-box">
 
-                    <p>Choose Your Color:</p>
-                    <button  class="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                    <button  class="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                    <button class="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                    <button class="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
-                </div>
-                <div class="second-box">
-                    <p>Choose Your Color:</p>
-                    <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                    <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                    <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                    <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                      <p>Choose Your Color:</p>
+                        <button  class="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                        <button  class="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                      <button class="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                      <button class="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                     </div>
+                    <div class="second-box">
+                        <p>Choose Your Color:</p>
+                        <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                        <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                        <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                        <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                    </div>
                 </div>
             </div>
         );
