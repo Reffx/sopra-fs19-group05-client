@@ -4,14 +4,25 @@ import GameRouter from "../shared/routers/GameRouter";
 import "./GamePlay.css";
 
 const level = 1;
+function getLevel(){
+        if (box1 == null){
+                return "level1";
+        } else {
+                return "level2";
+        }
+
+}
+
+const box1 = "sdfds";
+const box2 = null;
 
 const board = (
     <div class="mainHorizontally">
     <div class="left"> left </div>
     <div class="playField">
             <ul>
-                <li className="box-1 box white">{level}</li>
-                <li className="box-6 box black"></li>
+                <li className="white" className={getLevel()} >{level}</li>
+                <li className="black" className={getLevel()} >{level}</li>
                 <li className="box-11 box white"></li>
                 <li className="box-16 box black"></li>
                 <li className="box-21 box white"></li>
