@@ -63,7 +63,7 @@ pinkCircleClick(){
 //the render method also needs an update, disabled the circles in the right box but in the future we need to do a check with the player id not with the token (since it is saved locally)
     render() {
         return (
-            <div class="Lobby">
+            <div class ="Lobby-div">
                 <div class="first-box">
 
                     <p>Choose Your Color:</p>

@@ -20,6 +20,7 @@
       align-items: flex-start;
       border: 12px solid black; /* use this to show which container belongs to the creator of the lobby */
       margin-left: 50px;
+      margin-top: 20%;
 }
 
 .first-box p {
@@ -40,6 +41,7 @@
       border-radius: 25px;
       display: flex;
       margin-right: 50px;
+      margin-top: 20%;
 }
 
 .second-box p {
