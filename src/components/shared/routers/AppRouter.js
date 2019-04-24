@@ -12,8 +12,9 @@ import NormalModeLobby from "../../lobby/NormalModeLobby";
 import GodModeLobby from "../../lobby/GodModeLobby";
 import NormalModeDashboard from "../../lobby/NormalModeDashboard";
 import GodModeDashboard from "../../lobby/GodModeDashboard";
-import LobbyOverview from "../../lobby/LobbyOverview";
-import GamePlay from "../../playground/GamePlay";
+import Game from "../../game/Game";
+
+
 
 
 /**
@@ -32,10 +33,9 @@ class AppRouter extends React.Component {
         <Switch>
           <div>
             <Route
-              path="/game"
               render={() => (
                 <GameGuard>
-                  <GameRouter base={"/game"} />
+                  <GameRouter/>
                 </GameGuard>
               )}
             />
@@ -58,12 +58,6 @@ class AppRouter extends React.Component {
                   )}
               />
               <Route
-                  path="/game/:id"
-                  exact render={() => (
-                      <LobbyOverview base={"/lobbyOverview"} />
-                  )}
-              />
-              <Route
                   path="/godModeLobby"
                   render={() => (
                       <GodModeLobby base={"/godModeLobby"} />
@@ -73,18 +67,6 @@ class AppRouter extends React.Component {
                   path="/godModeDashboard"
                   render={() => (
                       <GodModeDashboard base={"/godModeDashboard"} />
-                  )}
-              />
-              <Route
-                  path="/game/lobbyOverview"
-                  exact render={() => (
-                      <LobbyOverview base={"/game/lobbyOverview"} />
-                  )}
-              />
-              <Route
-                  path="/game/gamePlay"
-                  exact render={() => (
-                      <GamePlay base={"/game/gamePlay"} />
                   )}
               />
               <Route
@@ -120,6 +102,12 @@ class AppRouter extends React.Component {
                   render={(props)=>(
                       <Profile {...props}/>
                   )}/>
+              <Route
+                  exact path={`/dashboard`}
+                  render={() => (
+                      <Game/>
+                  )}
+              />
           </div>
         </Switch>
       </BrowserRouter>
