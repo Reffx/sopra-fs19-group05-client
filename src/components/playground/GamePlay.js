@@ -1,6 +1,4 @@
 import React from "react";
-import {Route, withRouter} from "react-router-dom";
-import GameRouter from "../shared/routers/GameRouter";
 import "./GamePlay.css";
 
 const level = 1;
@@ -20,43 +18,42 @@ const board = (
     <div class="mainHorizontally">
     <div class="left"> left </div>
     <div class="playField">
-            <ul>
-                <li className="white" className={getLevel()} >{level}</li>
-                <li className="black" className={getLevel()} >{level}</li>
-                <li className="box-11 box white"></li>
-                <li className="box-16 box black"></li>
-                <li className="box-21 box white"></li>
+            <ul className="gamePlay-ul">
+                <li className="gamePlay-li white" className={getLevel()} >{level}</li>
+                <li className="gamePlay-li black" className={getLevel()} >{level}</li>
+                <li className="gamePlay-li box-11 box white"></li>
+                <li className="gamePlay-li box-16 box black"></li>
+                <li className="gamePlay-li box-21 box white"></li>
             </ul>
-            <ul>
-                    <li className="box-2 box black"></li>
-                    <li className="box-7 box white"></li>
-                    <li className="box-12 box black"></li>
-                    <li className="box-17 box white"></li>
-                    <li className="box-22 box black"></li>
+            <ul className="gamePlay-ul">
+                    <li className="gamePlay-li box-2 box black"></li>
+                    <li className="gamePlay-li box-7 box white"></li>
+                    <li className="gamePlay-li box-12 box black"></li>
+                    <li className="gamePlay-li box-17 box white"></li>
+                    <li className="gamePlay-li box-22 box black"></li>
             </ul>
-            <ul>
+            <ul className="gamePlay-ul">
 
-                    <li className="box-3 box white"></li>
-                    <li className="box-8 box black"></li>
-                    <li className="box-13 box white"></li>
-                    <li className="box-18 box black"></li>
-                    <li className="box-23 box white"></li>
+                    <li className="gamePlay-li box-3 box white"></li>
+                    <li className="gamePlay-li box-8 box black"></li>
+                    <li className="gamePlay-li box-13 box white"></li>
+                    <li className="gamePlay-li box-18 box black"></li>
+                    <li className="gamePlay-li box-23 box white"></li>
             </ul>
-            <ul>
+            <ul className="gamePlay-ul">
 
-                    <li className="box-4 box black"></li>
-                    <li className="box-9 box white"></li>
-                    <li className="box-14 box black"></li>
-                    <li className="box-19 box white"></li>
-                    <li className="box-24 box black"></li>
+                    <li className="gamePlay-li box-4 box black"></li>
+                    <li className="gamePlay-li box-9 box white"></li>
+                    <li className="gamePlay-li box-14 box black"></li>
+                    <li className="gamePlay-li box-19 box white"></li>
+                    <li className="gamePlay-li box-24 box black"></li>
             </ul>
-            <ul>
-
-                    <li className="box-5 box white"></li>
-                    <li className="box-10 box black"></li>
-                    <li className="box-15 box white"></li>
-                    <li className="box-20 box black"></li>
-                    <li className="box-25 box white"></li>
+            <ul className="gamePlay-ul">
+                    <li className="gamePlay-li box-5 box white"></li>
+                    <li className="gamePlay-li box-10 box black"></li>
+                    <li className="gamePlay-li box-15 box white"></li>
+                    <li className="gamePlay-li box-20 box black"></li>
+                    <li className="gamePlay-li box-25 box white"></li>
             </ul>
     </div>
             <div className="right">right</div>

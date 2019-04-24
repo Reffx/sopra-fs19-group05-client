@@ -27,7 +27,7 @@
     background-color: #999;
 }
 
-li {
+.gamePlay-li {
     width: 8vw;
     height: 8vw;
     transition: 50ms ease-out;
@@ -36,23 +36,26 @@ li {
     text-align: center;
 }
 
-ul {
+.gamePlay-ul {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-ul li {
-    padding-top: 25%;
-    vertical-align:middle;
-}
-
 .level1{
     background: red;
     border: 3px solid black;
+    padding-top: 25%;
+    vertical-align:middle;
+    width: 8vw;
+    height: 8vw;
 }
 
 .level2{
     background: green;
     border: 3px solid black;
+    padding-top: 25%;
+    vertical-align:middle;
+    width: 8vw;
+    height: 8vw;
 }

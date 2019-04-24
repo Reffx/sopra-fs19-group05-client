@@ -51,7 +51,7 @@ function logout()
                             <li><NavLink to="/register" activeClassName="main-nav-active">Sign Up</NavLink></li>
                         </ul>):
                         <ul>
-                            <li><NavLink to="/game/dashboard" activeClassName="main-nav-active">Weitere Spieler</NavLink></li>
+                            <li><NavLink to="/dashboard" activeClassName="main-nav-active">Weitere Spieler</NavLink></li>
                             <li><NavLink to="/chooseMode" activeClassName="main-nav-active">Spielen!</NavLink></li>
                             <li onClick={() => {
                                 logout();
