@@ -1,10 +1,68 @@
 import React from "react";
 import "./GamePlay.css";
+import Worker from "../shared/models/Worker";
 import Field from "../shared/models/Field";
 
-const box1 =  new Field();
-const box2 =  new Field();
-const box3 =  new Field();
+
+
+const box1 = new Field();
+box1.gameId = localStorage.getItem("gameId");
+const box2 = new Field();
+box2.gameId = localStorage.getItem("gameId");
+const box3 = new Field();
+box3.gameId = localStorage.getItem("gameId");
+const box4 = new Field();
+box4.gameId = localStorage.getItem("gameId");
+const box5 = new Field();
+box5.gameId = localStorage.getItem("gameId");
+const box6 = new Field();
+box6.gameId = localStorage.getItem("gameId");
+const box7 = new Field();
+box7.gameId = localStorage.getItem("gameId");
+const box8 = new Field();
+box8.gameId = localStorage.getItem("gameId");
+const box9 = new Field();
+box9.gameId = localStorage.getItem("gameId");
+const box10 = new Field();
+box10.gameId = localStorage.getItem("gameId");
+const box11 = new Field();
+box11.gameId = localStorage.getItem("gameId");
+const box12 = new Field();
+box12.gameId = localStorage.getItem("gameId");
+const box13 = new Field();
+box13.gameId = localStorage.getItem("gameId");
+const box14 = new Field();
+box14.gameId = localStorage.getItem("gameId");
+const box15 = new Field();
+box15.gameId = localStorage.getItem("gameId");
+const box16 = new Field();
+box16.gameId = localStorage.getItem("gameId");
+const box17 = new Field();
+box17.gameId = localStorage.getItem("gameId");
+const box18 = new Field();
+box18.gameId = localStorage.getItem("gameId");
+const box19 = new Field();
+box19.gameId = localStorage.getItem("gameId");
+const box20 = new Field();
+box20.gameId = localStorage.getItem("gameId");
+const box21 = new Field();
+box21.gameId = localStorage.getItem("gameId");
+const box22 = new Field();
+box22.gameId = localStorage.getItem("gameId");
+const box23 = new Field();
+box23.gameId = localStorage.getItem("gameId");
+const box24 = new Field();
+box24.gameId = localStorage.getItem("gameId");
+const box25 = new Field();
+box25.gameId = localStorage.getItem("gameId");
+
+const worker1p1 = new Worker();
+const worker2p1 = new Worker();
+const worker1p2 = new Worker();
+const worker2p2 = new Worker();
+
+var playerLayout = null;
+
 
 class GamePlay extends React.Component {
 
@@ -18,41 +76,66 @@ class GamePlay extends React.Component {
         };
     }
 
+
     componentDidMount() {
     }
 
-    alertMessage(){
+    alertMessage() {
         return this.state.alertText
     }
 
-    changeLvl(box){
-        box.layout = "level2";
-        box.level = "2";
+    changeLvl(box) {
+        if (box.layout == "level1") {box.layout = "level2"};
+        if (box.layout == null) {box.layout = "level1"};
+        box.level = "1";
+        playerLayout = "player1-div";
         this.setState(box);
-        //this.setState({level: "1"});
-      //  alert(this.state.clicked.layout);
-     //   alert(this.state.clicked.layout);
-      //  this.setState({clicked: box1});
-       // box1.layout = "level1";
-        // this.setState({level: "1"})
-       // box1.level = this.state.level;
-       // this.state.layout = "level1";
-        }
+    }
 
 
     render() {
         return (
             <div class="fixedPixels-div">
-            <div className="message-div">{this.alertMessage()}</div>
+                <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className="left"> left</div>
                     <div className="playField">
                         <div>
-                            <div className="box white" id={box1.layout} onClick={() =>  { this.changeLvl(box1)}}>{box1.level}</div>
-                            <div className="box black" id={box2.layout} onClick={() => { this.changeLvl(box2)}}>{box2.level}</div>
-                            <div className="box white" id={box3.layout} onClick={() => { this.changeLvl(box3)}}>{box3.level}</div>
-                            <div className="box black"></div>
-                            <div className="box white"></div>
+                            <div className="box1 white box" onClick={() => {
+                                this.changeLvl(box1)
+                            }}>
+                                <div id={box1.layout}>{box1.level}
+                                    <div className="player1-div"></div>
+                                </div>
+                            </div>
+                            <div className="box2 black box" onClick={() => {
+                                this.changeLvl(box2)
+                            }}>
+                                <div id={box2.layout}>{box2.level}
+                                    <div className={playerLayout}></div>
+                                </div>
+                            </div>
+                            <div className="box3 white box" onClick={() => {
+                                this.changeLvl(box3)
+                            }}>
+                                <div id={box3.layout}>{box3.level}
+                                    <div className="player1-div"></div>
+                                </div>
+                            </div>
+                            <div className="box4 black box" onClick={() => {
+                                this.changeLvl(box4)
+                            }}>
+                                <div id={box4.layout}>{box4.level}
+                                    <div className="player1-div"></div>
+                                </div>
+                            </div>
+                            <div className="box5 white box" onClick={() => {
+                                this.changeLvl(box5)
+                            }}>
+                                <div id={box5.layout}>{box5.level}
+                                    <div className="player1-div"></div>
+                                </div>
+                            </div>
                         </div>
                         <div>
                             <div className="box-2 box black"></div>
@@ -88,7 +171,7 @@ class GamePlay extends React.Component {
                     <div className="right">right</div>
                 </div>
             </div>
-     )
+        )
 
     }
 }

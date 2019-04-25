@@ -8,6 +8,7 @@ class Field {
         this.y = null;
         this.gameId = null;
         this.layout = null;
+        this.worker = null;
         Object.assign(this, data);
     }
 }

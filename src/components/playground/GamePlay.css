@@ -37,21 +37,22 @@
 #level1{
     border-radius: 50px;
     border: 8px solid black;
-    text-align: center;
-    vertical-align: middle;
     width: 100px;
     height: 100px;
     font-size: x-large;
+    text-align: center;
+    padding-top: 25%;
+
 }
 
 #level2{
     border-radius: 50px;
     border: 12px solid black;
-    text-align: center;
-    vertical-align: middle;
     width: 100px;
     height: 100px;
+    text-align: center;
     font-size: x-large;
+    padding-top: 25%;
 }
 
 .message-div {
@@ -67,4 +68,14 @@
     width: 1366px;
     border: 1px solid black;
     margin: auto;
+}
+
+.player1-div{
+    height: 50px;
+    width: 50px;
+    border: 10px solid blue;
+    border-radius: 50px;
+    margin-top: -50%;
+    margin-left: 17px;
+    background-color: blue;
 }
