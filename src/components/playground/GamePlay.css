@@ -14,7 +14,9 @@
 
 
 .playField{
-    display: inline-flex;
+    width: 500px;
+    position: relative;
+
 }
 
 .white {
@@ -28,31 +30,28 @@
 .box {
     width: 100px;
     height: 100px;
-}
+    display: table-cell;
 
-.gamePlay-ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
 }
 
 #level1{
-    background: red;
-    border: 8px solid green;
-    padding-top: 25%;
-    vertical-align:middle;
-    width: 100px;
-    height: 100px;
-}
-
-#level2{
-    color: inherit;
-    border: 8px solid green;
+    border-radius: 50px;
+    border: 8px solid black;
     text-align: center;
+    vertical-align: middle;
     width: 100px;
     height: 100px;
     font-size: x-large;
-    padding-top: 25%;
+}
+
+#level2{
+    border-radius: 50px;
+    border: 12px solid black;
+    text-align: center;
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    font-size: x-large;
 }
 
 .message-div {
