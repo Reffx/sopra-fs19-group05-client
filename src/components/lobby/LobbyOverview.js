@@ -25,16 +25,57 @@ class LobbyOverview extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            myGame: null,
-            usernamePlayer1:  localStorage.getItem("usernamePlayer1"),
-            gameId: null,
-            color: null,
-            player1: null,
-            player2: null,
+            player1_username: null,
+            player1_status: null,
+            player2_username: null,
+            player2_status: null,
         };
     }
     leave_lobby() {
-        this.props.history.push("/NormalModeLobby");
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player2`, {
+            method: "Delete",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(returnedGame => {
+                if (returnedGame.status === 404 || returnedGame.status === 500) {
+                    //  has to be modified for game
+                    this.setState({alertText: "You could not leave the lobby"})
+                }
+                else{
+                    this.props.history.push("/NormalModeLobby");
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during leaving the lobby: ${err.message}`);
+                }
+            });
+    }
+
+    ready(){
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/status`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(returnedGame => {
+                if (returnedGame.status === 404 || returnedGame.status === 500) {
+                    //  has to be modified for game
+                    this.setState({alertText: "Game coudn't be created!"})
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
     }
 
 
@@ -47,11 +88,15 @@ class LobbyOverview extends React.Component {
         })
             .then(response => response.json())
             .then(async response => {
-
-                await new Promise(resolve => setTimeout(resolve, 800));
-
-                localStorage.setItem("usernamePlayer1", response.player1.username);
-
+                if(response.status !== 404) {
+                    const Game = new GameModel(response);
+                    this.setState({
+                        player1_username: Game.player1.username,
+                        player1_status: Game.player1.status,
+                        player2_username: Game.player2.username,
+                        player2_status: Game.player2.status,
+                    });
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -92,15 +137,6 @@ pinkCircleClick(){
                          Leave Lobby
                         </Button>
                         <ButtonContainer/>
-                        <ButtonContainer/>
-                        <Button
-                            width="30%"
-                            onClick={() => {
-                            }}
-                        >
-                            Ready to Play
-                        </Button>
-                        <ButtonContainer/>
                     </Container>
                 <div class ="Lobby-div">
                     <div class="first-box">
@@ -119,6 +155,18 @@ pinkCircleClick(){
                         <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
                     </div>
                 </div>
+                <Container>
+                <ButtonContainer>
+                <Button
+                    width="30%"
+                    onClick={() => {
+                        this.ready()
+                    }}
+                >
+                    Ready to Play
+                </Button>
+                </ButtonContainer>
+                </Container>
             </div>
         );
 
