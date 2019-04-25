@@ -68,7 +68,7 @@ class NormalModeDashboard extends React.Component {
 
 
     join_lobby(){
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player2`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

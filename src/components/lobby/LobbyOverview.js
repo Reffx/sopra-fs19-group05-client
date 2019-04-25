@@ -32,7 +32,7 @@ class LobbyOverview extends React.Component {
         };
     }
     leave_lobby() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player2`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}`, {
             method: "Delete",
             headers: {
                 "Content-Type": "application/json"
@@ -68,6 +68,9 @@ class LobbyOverview extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "Game coudn't be created!"})
                 }
+                if (this.player1_status === true && this.player2_status === true){
+                    this.props.history.push(`/game/${localStorage.getItem("gameID")}/gameplay`);
+                }
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
@@ -90,13 +93,20 @@ class LobbyOverview extends React.Component {
             .then(async response => {
                 if(response.status !== 404) {
                     const Game = new GameModel(response);
-                    this.setState({
-                        player1_username: Game.player1.username,
-                        player1_status: Game.player1.status,
-                        player2_username: Game.player2.username,
-                        player2_status: Game.player2.status,
-                    });
+                    if(Game.player1 != null) {
+                        this.setState({
+                            player1_username: Game.player1.username,
+                            player1_status: Game.player1.status,
+                        })
+                    }
+                    if (Game.player2 != null) {
+                        this.setState({
+                            player2_username: Game.player2.username,
+                            player2_status: Game.player2.status,
+                        });
+                    }
                 }
+                await new Promise(resolve => setTimeout(resolve, 2000));
             })
             .catch(err => {
                 console.log(err);
@@ -140,19 +150,28 @@ pinkCircleClick(){
                     </Container>
                 <div class ="Lobby-div">
                     <div class="first-box">
+                        <div class="player-box">
+                            <p>Username: {this.state.player1_username}</p>
+                            <p>Choose Your Color:</p>
+                            <button className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                            <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                            <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                            <button className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                            <p> Ready:  {`${this.state.player1_status}`} </p>
 
-                      <p>Choose Your Color:</p>
-                        <button  class="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                        <button  class="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                      <button class="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                      <button class="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                        </div>
                      </div>
                     <div class="second-box">
-                        <p>Choose Your Color:</p>
-                        <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                        <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                        <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                        <button disabled={!(localStorage.getItem("token")===this.state.token)} class="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                        <div className="player-box">
+                            <p>Username: {this.state.player2_username} </p>
+                            <p>Choose Your Color:</p>
+                            <button className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                            <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                            <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                            <button className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                            <p> Ready:  {`${this.state.player2_status}`} </p>
+
+                        </div>
                     </div>
                 </div>
                 <Container>
