@@ -85,9 +85,12 @@ class GamePlay extends React.Component {
     }
 
     changeLvl(box) {
+        if (box.layout == "level2") {box.layout = "level3"};
         if (box.layout == "level1") {box.layout = "level2"};
         if (box.layout == null) {box.layout = "level1"};
-        box.level = "1";
+        if (box.level == "2") {box.level = "3"};
+        if (box.level == "1") {box.level = "2"};
+        if (box.level == null) {box.level = "1"};
         playerLayout = "player1-div";
         this.setState(box);
     }
