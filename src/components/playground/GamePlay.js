@@ -71,7 +71,6 @@ class GamePlay extends React.Component {
         super(props);
         this.state = {
             layout: null,
-            level: "",
             clicked: null,
             alertText: "This is a message."
         };
@@ -85,10 +84,14 @@ class GamePlay extends React.Component {
         return this.state.alertText
     }
 
-   // saveBox(singleField){
-  //      singleField.id = tempField.id;
-//
-  //  }
+    saveField(singleField, tempField, i){
+        singleField.id = tempField[i].id;
+        singleField.fieldNum = tempField[i].fieldNum;
+        singleField.occupation = tempField[i].occupation;
+        singleField.reachedMaxHeight = tempField[i].reachedMaxHeight;
+        singleField.x_coordinate = tempField[i].x_coordinate;
+        singleField.y_coordinate = tempField[i].y_coordinate;
+    }
 
 
     create_field() {
@@ -105,12 +108,33 @@ class GamePlay extends React.Component {
                     this.setState({alertText: "Playfield coudn't be created!"})
                 } else {
                     const playfield = new Playfield(returnedPlayfield);
-                    console.log(playfield.id);
                     var tempField = playfield.allFields;
-                    console.log(tempField);
-                    // localStorage.setItem("field1", playfield.height);
-                    // alert(playfield.height);
-
+                    this.saveField(box1, tempField, 0);
+                    this.saveField(box2, tempField, 1);
+                    this.saveField(box3, tempField, 2);
+                    this.saveField(box4, tempField, 3);
+                    this.saveField(box5, tempField, 4);
+                    this.saveField(box6, tempField, 5);
+                    this.saveField(box7, tempField, 6);
+                    this.saveField(box8, tempField, 7);
+                    this.saveField(box9, tempField, 8);
+                    this.saveField(box10, tempField, 9);
+                    this.saveField(box11, tempField, 10);
+                    this.saveField(box12, tempField, 11);
+                    this.saveField(box13, tempField, 12);
+                    this.saveField(box14, tempField, 13);
+                    this.saveField(box15, tempField, 14);
+                    this.saveField(box16, tempField, 15);
+                    this.saveField(box17, tempField, 16);
+                    this.saveField(box18, tempField, 17);
+                    this.saveField(box19, tempField, 18);
+                    this.saveField(box20, tempField, 19);
+                    this.saveField(box21, tempField, 20);
+                    this.saveField(box22, tempField, 21);
+                    this.saveField(box23, tempField, 22);
+                    this.saveField(box24, tempField, 23);
+                    this.saveField(box25, tempField, 24);
+                    console.log(box13.id);
                 }
             })
             .catch(err => {
@@ -136,16 +160,16 @@ class GamePlay extends React.Component {
             box.layout = "level1"
         }
         ;
-        if (box.level === "2") {
-            box.level = "3"
+        if (box.height === "2") {
+            box.height = "3"
         }
         ;
-        if (box.level === "1") {
-            box.level = "2"
+        if (box.height === "1") {
+            box.height = "2"
         }
         ;
-        if (box.level == null) {
-            box.level = "1"
+        if (box.height == null) {
+            box.height = "1"
         }
         ;
         playerLayout = "player1-div";
@@ -164,35 +188,35 @@ class GamePlay extends React.Component {
                             <div className="box1 white box" onClick={() => {
                                 this.changeLvl(box1)
                             }}>
-                                <div id={box1.layout}>{box1.level}
+                                <div id={box1.layout}>{box1.height}
                                     <div className="player1-div"></div>
                                 </div>
                             </div>
                             <div className="box2 black box" onClick={() => {
                                 this.changeLvl(box2)
                             }}>
-                                <div id={box2.layout}>{box2.level}
+                                <div id={box2.layout}>{box2.height}
                                     <div className={playerLayout}></div>
                                 </div>
                             </div>
                             <div className="box3 white box" onClick={() => {
                                 this.changeLvl(box3)
                             }}>
-                                <div id={box3.layout}>{box3.level}
+                                <div id={box3.layout}>{box3.height}
                                     <div className="player1-div"></div>
                                 </div>
                             </div>
                             <div className="box4 black box" onClick={() => {
                                 this.changeLvl(box4)
                             }}>
-                                <div id={box4.layout}>{box4.level}
+                                <div id={box4.layout}>{box4.height}
                                     <div className="player1-div"></div>
                                 </div>
                             </div>
                             <div className="box5 white box" onClick={() => {
                                 this.changeLvl(box5)
                             }}>
-                                <div id={box5.layout}>{box5.level}
+                                <div id={box5.layout}>{box5.height}
                                     <div className="player1-div"></div>
                                 </div>
                             </div>
