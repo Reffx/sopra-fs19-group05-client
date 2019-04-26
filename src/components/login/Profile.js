@@ -209,7 +209,7 @@ class Profile extends React.Component {
                                         <Button
                                             width="100%"
                                             onClick={() => {
-                                                this.props.history.push("/game/dashboard");
+                                                this.props.history.push("/dashboard");
                                             }}
                                         >
                                             Zurück

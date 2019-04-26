@@ -85,13 +85,18 @@ class GamePlay extends React.Component {
         return this.state.alertText
     }
 
+   // saveBox(singleField){
+  //      singleField.id = tempField.id;
+//
+  //  }
+
+
     create_field() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/playfield`, {
-            method: "POST",
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/playfield/create`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
-            },
-            body: JSON.stringify(938)
+            }
         })
             .then(response => response.json())
             .then(returnedPlayfield => {
@@ -100,9 +105,12 @@ class GamePlay extends React.Component {
                     this.setState({alertText: "Playfield coudn't be created!"})
                 } else {
                     const playfield = new Playfield(returnedPlayfield);
-                    console.log(playfield.field1);
+                    console.log(playfield.id);
+                    var tempField = playfield.allFields;
+                    console.log(tempField);
                     // localStorage.setItem("field1", playfield.height);
                     // alert(playfield.height);
+
                 }
             })
             .catch(err => {
