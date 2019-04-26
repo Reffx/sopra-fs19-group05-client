@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
-import { Button } from "../../views/design/Button";
-import { withRouter } from "react-router-dom";
+import {BaseContainer} from "../../helpers/layout";
+import {getDomain} from "../../helpers/getDomain";
+import {Button} from "../../views/design/Button";
+import {withRouter} from "react-router-dom";
 import GameModel from "../shared/models/GameModel";
 
 const ButtonContainer = styled.div`
@@ -17,18 +17,6 @@ const Container = styled(BaseContainer)`
   text-align: center;
 `;
 
-const Users = styled.ul`
-  list-style: none;
-  padding-left: 0;
-`;
-
-const PlayerContainer = styled.li`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-`;
 class GodModeLobby extends React.Component {
 
     constructor() {
@@ -41,7 +29,7 @@ class GodModeLobby extends React.Component {
     }
 
 
-    create_lobby(){
+    create_lobby() {
         fetch(`${getDomain()}/games`, {
             method: "POST",
             headers: {
@@ -61,7 +49,7 @@ class GodModeLobby extends React.Component {
                     console.log(returnedGame);
                     const Game = new GameModel(returnedGame);
                     localStorage.setItem("gameID", Game.id);
-                    this.props.history.push({pathname:`/game/${Game.id}`});
+                    this.props.history.push({pathname: `/game/${Game.id}`});
                     //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
                 }
             })
@@ -78,7 +66,7 @@ class GodModeLobby extends React.Component {
         return (
             <Container>
                 <h2>Choose Option</h2>
-                <p> </p>
+                <p></p>
                 <div>
                     <ButtonContainer/>
                     <Button

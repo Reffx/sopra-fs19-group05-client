@@ -16,7 +16,6 @@
 .playField{
     width: 500px;
     position: relative;
-
 }
 
 .white {
@@ -39,9 +38,8 @@
     border: 8px solid black;
     width: 90px;
     height: 90px;
-    font-size: x-large;
     text-align: center;
-    padding-top: 25%;
+    font-size: x-large;
 
 }
 
@@ -51,10 +49,7 @@
     width: 80px;
     height: 80px;
     text-align: center;
-    align-content: space-evenly;
-    display: grid;
     font-size: x-large;
-    padding-top: 25%;
 }
 
 #level3{
@@ -64,7 +59,6 @@
     height: 70px;
     text-align: center;
     font-size: x-large;
-    padding-top: 25%;
 }
 
 .message-div {

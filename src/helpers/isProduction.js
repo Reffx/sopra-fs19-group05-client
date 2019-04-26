@@ -7,5 +7,5 @@
 * https://www.w3schools.com/jsref/obj_window.asp
  */
 export const isProduction = () => {
-  return process.env.NODE_ENV === "production";
+    return process.env.NODE_ENV === "production";
 };

@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 import "../landing.css";
 import styled from "styled-components";
@@ -30,8 +30,7 @@ export const Button = styled.button`
 class ChooseMode extends React.Component {
 
     render() {
-        if (localStorage.getItem("token") !== null)
-        {
+        if (localStorage.getItem("token") !== null) {
             return (
                 <div>
                     <Toolbar/>
@@ -69,11 +68,11 @@ class ChooseMode extends React.Component {
                 </div>
             );
         } else {
-                return (
-            <div>
-                <p>not logged in</p>
-            </div>
-                )
+            return (
+                <div>
+                    <p>not logged in</p>
+                </div>
+            )
         }
     }
 }

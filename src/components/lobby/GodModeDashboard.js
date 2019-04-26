@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
+import {BaseContainer} from "../../helpers/layout";
+import {getDomain} from "../../helpers/getDomain";
 import GameView from "../../views/GameView";
-import { Spinner } from "../../views/design/Spinner";
-import { withRouter } from "react-router-dom";
+import {Spinner} from "../../views/design/Spinner";
+import {withRouter} from "react-router-dom";
 
 import {Button} from "../../views/design/Button";
 
@@ -56,7 +56,7 @@ class GodModeDashboard extends React.Component {
                 // feel free to remove it :)
                 await new Promise(resolve => setTimeout(resolve, 800));
 
-                this.setState({ games });
+                this.setState({games});
             })
             .catch(err => {
                 console.log(err);
@@ -81,14 +81,17 @@ class GodModeDashboard extends React.Component {
                 </Button>
                 <ButtonContainer/>
                 {!this.state.games ? (
-                    <Spinner />
+                    <Spinner/>
                 ) : (
                     <div>
                         <Games>
                             {this.state.games.map(game => {
                                 return (
-                                    <PlayerContainer onClick={()=>(this.props.history.push({pathname:`/game/${game.id}`, state:game.id}))} key={game.id}>
-                                        <GameView game={game} />
+                                    <PlayerContainer onClick={() => (this.props.history.push({
+                                        pathname: `/game/${game.id}`,
+                                        state: game.id
+                                    }))} key={game.id}>
+                                        <GameView game={game}/>
                                     </PlayerContainer>
                                 );
                             })}

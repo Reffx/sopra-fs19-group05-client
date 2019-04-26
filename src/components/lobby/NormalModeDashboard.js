@@ -1,13 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
+import {BaseContainer} from "../../helpers/layout";
+import {getDomain} from "../../helpers/getDomain";
 import GameView from "../../views/GameView";
-import { Spinner } from "../../views/design/Spinner";
-import { withRouter } from "react-router-dom";
+import {Spinner} from "../../views/design/Spinner";
+import {withRouter} from "react-router-dom";
 
 import {Button} from "../../views/design/Button";
-import GameModel from "../shared/models/GameModel";
 
 const ButtonContainer = styled.div`
   display: row;
@@ -58,7 +57,7 @@ class NormalModeDashboard extends React.Component {
                 // feel free to remove it :)
                 await new Promise(resolve => setTimeout(resolve, 800));
 
-                this.setState({ games });
+                this.setState({games});
             })
             .catch(err => {
                 console.log(err);
@@ -67,7 +66,7 @@ class NormalModeDashboard extends React.Component {
     }
 
 
-    join_lobby(){
+    join_lobby() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player`, {
             method: "PUT",
             headers: {
@@ -109,14 +108,18 @@ class NormalModeDashboard extends React.Component {
                 </Button>
                 <ButtonContainer/>
                 {!this.state.games ? (
-                    <Spinner />
+                    <Spinner/>
                 ) : (
                     <div>
                         <Games>
                             {this.state.games.map(game => {
                                 return (
-                                    <PlayerContainer key={game.id} onClick={()=>(localStorage.setItem("gameId",game.id), this.join_lobby(), this.props.history.push({pathname:`/game/${game.id}`, state:game.id}))}>
-                                        <GameView game={game} />
+                                    <PlayerContainer key={game.id}
+                                                     onClick={() => (localStorage.setItem("gameId", game.id), this.join_lobby(), this.props.history.push({
+                                                         pathname: `/game/${game.id}`,
+                                                         state: game.id
+                                                     }))}>
+                                        <GameView game={game}/>
                                     </PlayerContainer>
                                 );
                             })}

@@ -1,4 +1,3 @@
-
 /* This style sheet is used to assign different colors to circles that are used in the lobby to choose a player color
 TODO: When lobby page is ready adjust the position of the circles on the page and make them clickable*/
 .circle_red {
@@ -11,11 +10,12 @@ TODO: When lobby page is ready adjust the position of the circles on the page an
     margin: auto;
     cursor: pointer;
 }
+
 /* The disabled functionality is useful when clicking on a color to either disable the other ones to highlight the selected one
 or to disable a color that is already picked by the opponent*/
 
 /*use class="circle_red disabled" to lower opacity of color cirlce */
-.circle_red.disabled{
+.circle_red.disabled {
     opacity: 0.1;
 }
 
@@ -29,7 +29,8 @@ or to disable a color that is already picked by the opponent*/
     margin: auto;
     cursor: pointer;
 }
-.circle_blue.disabled{
+
+.circle_blue.disabled {
     opacity: 0.1;
 }
 
@@ -43,7 +44,8 @@ or to disable a color that is already picked by the opponent*/
     margin: auto;
     cursor: pointer;
 }
-.circle_yellow.disabled{
+
+.circle_yellow.disabled {
     opacity: 0.1;
 }
 
@@ -58,6 +60,7 @@ or to disable a color that is already picked by the opponent*/
     margin: auto;
     cursor: pointer;
 }
-.circle_pink.disabled{
+
+.circle_pink.disabled {
     opacity: 0.1;
 }

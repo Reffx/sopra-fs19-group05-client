@@ -9,4 +9,5 @@ class Worker {
         Object.assign(this, data);
     }
 }
+
 export default Worker;

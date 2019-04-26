@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
+import {BaseContainer} from "../../helpers/layout";
+import {getDomain} from "../../helpers/getDomain";
 import User from "../shared/models/User";
-import { withRouter } from "react-router-dom";
-import { Button } from "../../views/design/Button";
+import {withRouter} from "react-router-dom";
+import {Button} from "../../views/design/Button";
 import Toolbar from '../Toolbar/Toolbar';
 
 const FormContainer = styled.div`
@@ -81,128 +81,131 @@ const Message = styled.label`
  * @Class
  */
 class Login extends React.Component {
-  /**
-   * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
-   * The constructor for a React component is called before it is mounted (rendered).
-   * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: name and username
-   * These fields are then handled in the onChange() methods in the resp. InputFields
-   */
-  constructor() {
-    super();
-    this.state = {
-      username: null,
-      password: null,
-      users: [],
-      userExists: false,
-      invalidUser: false,
-      alertText: ""
-    };
-  }
-  /**
-   * HTTP POST request is sent to the backend.
-   * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
-   */
-  login() {
-    fetch(`${getDomain()}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      })
-    })
-      .then(response => response.json())
-      .then(returnedUser => {
-        if (returnedUser.status === 404 || returnedUser.status === 500) {
-          //  user doesn't exist
-          this.setState({alertText: "Benutzername oder Passwort sind falsch!"})
-        } else {
-          console.log(returnedUser);
-          const user = new User(returnedUser);
-          localStorage.setItem("token", user.token);
-          localStorage.setItem("userID", user.id);
-          localStorage.setItem("username", user.username);
-          this.props.history.push(`/dashboard`);
-      }
-      })
-      .catch(err => {
-        if (err.message.match(/Failed to fetch/)) {
-          alert("The server cannot be reached. Did you start it?");
-        } else {
-          alert(`Something went wrong during the login: ${err.message}`);
-        }
-      });
-  }
+    /**
+     * If you don’t initialize the state and you don’t bind methods, you don’t need to implement a constructor for your React component.
+     * The constructor for a React component is called before it is mounted (rendered).
+     * In this case the initial state is defined in the constructor. The state is a JS object containing two fields: name and username
+     * These fields are then handled in the onChange() methods in the resp. InputFields
+     */
+    constructor() {
+        super();
+        this.state = {
+            username: null,
+            password: null,
+            users: [],
+            userExists: false,
+            invalidUser: false,
+            alertText: ""
+        };
+    }
 
-  /**
-   *  Every time the user enters something in the input field, the state gets updated.
-   * @param key (the key of the state for identifying the field that needs to be updated)
-   * @param value (the value that gets assigned to the identified state key)
-   */
-  handleInputChange(key, value) {
-    // Example: if the key is username, this statement is the equivalent to the following one:
-    // this.setState({'username': value});
-    this.setState({ [key]: value });
-  }
+    /**
+     * HTTP POST request is sent to the backend.
+     * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
+     */
+    login() {
+        fetch(`${getDomain()}/login`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: this.state.username,
+                password: this.state.password
+            })
+        })
+            .then(response => response.json())
+            .then(returnedUser => {
+                if (returnedUser.status === 404 || returnedUser.status === 500) {
+                    //  user doesn't exist
+                    this.setState({alertText: "Benutzername oder Passwort sind falsch!"})
+                } else {
+                    console.log(returnedUser);
+                    const user = new User(returnedUser);
+                    localStorage.setItem("token", user.token);
+                    localStorage.setItem("userID", user.id);
+                    localStorage.setItem("username", user.username);
+                    this.props.history.push(`/dashboard`);
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the login: ${err.message}`);
+                }
+            });
+    }
 
-  /**
-   * componentDidMount() is invoked immediately after a component is mounted (inserted into the tree).
-   * Initialization that requires DOM nodes should go here.
-   * If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
-   * You may call setState() immediately in componentDidMount().
-   * It will trigger an extra rendering, but it will happen before the browser updates the screen.
-   */
-  componentDidMount() {}
-  alertMessage(){
-    return this.state.alertText
-  }
+    /**
+     *  Every time the user enters something in the input field, the state gets updated.
+     * @param key (the key of the state for identifying the field that needs to be updated)
+     * @param value (the value that gets assigned to the identified state key)
+     */
+    handleInputChange(key, value) {
+        // Example: if the key is username, this statement is the equivalent to the following one:
+        // this.setState({'username': value});
+        this.setState({[key]: value});
+    }
 
-  render() {
-    return (
-      <BaseContainer>
-        <Toolbar/>
-        <MarginHead> </MarginHead>
-        <FormContainer>
-          <Form>
-              <Margin> </Margin>
-            <Message>{this.alertMessage()}</Message>
-              <Margin> </Margin>
-            <Label>Benutzername</Label>
-            <InputField
-              placeholder="..."
-              onChange={e => {
-                this.handleInputChange("username", e.target.value);
-              }}
-            />
-            <Label>Passwort</Label>
-            <InputField
-                type ="password"
-                placeholder="*******"
-                onChange={e => {
-                  this.handleInputChange("password", e.target.value);
-                }}
-            />
-            <ButtonContainer>
-              <Button
-                disabled={!this.state.username || !this.state.password}
-                width="50%"
-                onClick={() => {
-                  this.login();
-                }}
-              >
-                Login
-              </Button>
-            </ButtonContainer>
-              <Margin> </Margin>
-              <a href="/register" style={{color: '#FCFFF7'}}>Neu? Registrieren!</a>
-              <Margin> </Margin>
-          </Form>
-        </FormContainer>
-      </BaseContainer>
-    );
-  }
+    /**
+     * componentDidMount() is invoked immediately after a component is mounted (inserted into the tree).
+     * Initialization that requires DOM nodes should go here.
+     * If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
+     * You may call setState() immediately in componentDidMount().
+     * It will trigger an extra rendering, but it will happen before the browser updates the screen.
+     */
+    componentDidMount() {
+    }
+
+    alertMessage() {
+        return this.state.alertText
+    }
+
+    render() {
+        return (
+            <BaseContainer>
+                <Toolbar/>
+                <MarginHead> </MarginHead>
+                <FormContainer>
+                    <Form>
+                        <Margin> </Margin>
+                        <Message>{this.alertMessage()}</Message>
+                        <Margin> </Margin>
+                        <Label>Benutzername</Label>
+                        <InputField
+                            placeholder="..."
+                            onChange={e => {
+                                this.handleInputChange("username", e.target.value);
+                            }}
+                        />
+                        <Label>Passwort</Label>
+                        <InputField
+                            type="password"
+                            placeholder="*******"
+                            onChange={e => {
+                                this.handleInputChange("password", e.target.value);
+                            }}
+                        />
+                        <ButtonContainer>
+                            <Button
+                                disabled={!this.state.username || !this.state.password}
+                                width="50%"
+                                onClick={() => {
+                                    this.login();
+                                }}
+                            >
+                                Login
+                            </Button>
+                        </ButtonContainer>
+                        <Margin> </Margin>
+                        <a href="/register" style={{color: '#FCFFF7'}}>Neu? Registrieren!</a>
+                        <Margin> </Margin>
+                    </Form>
+                </FormContainer>
+            </BaseContainer>
+        );
+    }
 }
 
 /**

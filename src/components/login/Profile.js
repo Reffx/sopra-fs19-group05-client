@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
-import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
-import { withRouter } from "react-router-dom";
-import { Button } from "../../views/design/Button";
+import {BaseContainer} from "../../helpers/layout";
+import {getDomain} from "../../helpers/getDomain";
+import {withRouter} from "react-router-dom";
+import {Button} from "../../views/design/Button";
 
 
 const ButtonContainer = styled.div`
@@ -53,7 +53,7 @@ const PlayerContainer = styled.li`
   justify-content: center;
 `;
 
-class Profile extends React.Component{
+class Profile extends React.Component {
     constructor() {
         super();
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
@@ -82,7 +82,7 @@ class Profile extends React.Component{
         })
             .then(response => response.json())
             .then(response => {
-                if(response.status !== 404){
+                if (response.status !== 404) {
                     this.setState({
                         username: response.username,
                         onlineStatus: response.status,
@@ -103,15 +103,15 @@ class Profile extends React.Component{
             });
     }
 
-    handleUsernameChange(event){
+    handleUsernameChange(event) {
         this.setState({username: event.target.value})
     }
 
-    handleBirthChange(event){
+    handleBirthChange(event) {
         this.setState({birthDate: event.target.value})
     }
 
-    saveChanges(){
+    saveChanges() {
         fetch(`${getDomain()}/users/${window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)}`, { //letzter "/" suchen und dann + 1 im index
             method: "PUT",
             headers: {
@@ -124,8 +124,8 @@ class Profile extends React.Component{
             })
         })
             .then(response => response.json())
-            .then(response =>{
-                if(response.status === 409 || response.status === 500){
+            .then(response => {
+                if (response.status === 409 || response.status === 500) {
                     //if Database could not update, display the old credentials
                     this.setState({
                         username: this.state.oldUsername,
@@ -134,31 +134,31 @@ class Profile extends React.Component{
                     alert("Could not update Usersettings, Username already taken.")
                 }
             })
-            .catch(err =>{
+            .catch(err => {
                 alert(`Something went wrong during the Update of credentials: ${err.message}`);
             })
     }
 
-    getText(){
-        if(this.state.editMode){
-            return(
+    getText() {
+        if (this.state.editMode) {
+            return (
                 <div>
                     <form>
                         <label> Benutzername: &nbsp; </label>
-                            <InputField type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
+                        <InputField type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
                     </form>
                     <p>Passwort: ********</p>
                     <p>Online Status: {this.state.onlineStatus}</p>
                     <form>
                         <label> Geburtsdatum: &nbsp; </label>
-                            <InputField type="date" value={this.state.birthDate} onChange={this.handleBirthChange}/>
+                        <InputField type="date" value={this.state.birthDate} onChange={this.handleBirthChange}/>
 
                     </form>
                     <p>Creation Date: {this.state.creationDate}</p>
                 </div>
             )
         }
-        return(
+        return (
             <div>
                 <p>Benutzername: {this.state.username}</p>
                 <p>Passwort: *******</p>
@@ -172,52 +172,53 @@ class Profile extends React.Component{
 
     render() {
         const textElement = this.getText();
-        if(localStorage.getItem("token")===null){return(<Container><h1>You must be logged in to view this page!</h1></Container>)}
-        else{
-            if(this.state.username === null){
-                return(<Container><h1>Userpage does not exist!</h1></Container>)
+        if (localStorage.getItem("token") === null) {
+            return (<Container><h1>You must be logged in to view this page!</h1></Container>)
+        } else {
+            if (this.state.username === null) {
+                return (<Container><h1>Userpage does not exist!</h1></Container>)
             }
             return (
                 <BaseContainer>
-                <Container>
-                    <Form>
-                    <h1>{this.state.editModeText}</h1>
-                    <PlayerContainer>
-                        {textElement}
-                        <div>
-                            <ButtonContainer>
-                                <Button
-                                    disabled={!(localStorage.getItem("token")===this.state.token) || !this.state.username}
-                                    width="100%"
-                                    onClick={() => {
-                                        if(this.state.editMode){
-                                            //save changes to database
-                                            this.saveChanges();
-                                        }
-                                        this.setState({
-                                            editMode: !this.state.editMode,
-                                            editButtonText: (!this.state.editMode)?"Save":"Profil editieren",
-                                            editModeText: (!this.state.editMode)?"Edit User Profile":"User-Information"
-                                        })
-                                    }}
-                                >
-                                    {this.state.editButtonText}
-                                </Button>
-                            </ButtonContainer>
-                            <ButtonContainer>
-                                <Button
-                                    width="100%"
-                                    onClick={() => {
-                                        this.props.history.push("/game/dashboard");
-                                    }}
-                                >
-                                    Zurück
-                                </Button>
-                            </ButtonContainer>
-                        </div>
-                    </PlayerContainer>
-                    </Form>
-                </Container>
+                    <Container>
+                        <Form>
+                            <h1>{this.state.editModeText}</h1>
+                            <PlayerContainer>
+                                {textElement}
+                                <div>
+                                    <ButtonContainer>
+                                        <Button
+                                            disabled={!(localStorage.getItem("token") === this.state.token) || !this.state.username}
+                                            width="100%"
+                                            onClick={() => {
+                                                if (this.state.editMode) {
+                                                    //save changes to database
+                                                    this.saveChanges();
+                                                }
+                                                this.setState({
+                                                    editMode: !this.state.editMode,
+                                                    editButtonText: (!this.state.editMode) ? "Save" : "Profil editieren",
+                                                    editModeText: (!this.state.editMode) ? "Edit User Profile" : "User-Information"
+                                                })
+                                            }}
+                                        >
+                                            {this.state.editButtonText}
+                                        </Button>
+                                    </ButtonContainer>
+                                    <ButtonContainer>
+                                        <Button
+                                            width="100%"
+                                            onClick={() => {
+                                                this.props.history.push("/game/dashboard");
+                                            }}
+                                        >
+                                            Zurück
+                                        </Button>
+                                    </ButtonContainer>
+                                </div>
+                            </PlayerContainer>
+                        </Form>
+                    </Container>
                 </BaseContainer>
             );
         }

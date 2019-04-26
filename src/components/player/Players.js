@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
-import { BaseContainer } from "../../helpers/layout";
-import { getDomain } from "../../helpers/getDomain";
-import { withRouter } from "react-router-dom";
+import {BaseContainer} from "../../helpers/layout";
+import {getDomain} from "../../helpers/getDomain";
+import {withRouter} from "react-router-dom";
 
 
 const Container = styled(BaseContainer)`
@@ -26,7 +26,7 @@ class Players extends React.Component {
                 // feel free to remove it :)
                 await new Promise(resolve => setTimeout(resolve, 800));
 
-                this.setState({ users });
+                this.setState({users});
             })
             .catch(err => {
                 console.log(err);
@@ -34,7 +34,7 @@ class Players extends React.Component {
             });
     }
 
-    render(){
+    render() {
         return (
             <Container>
                 <h2>Dashboard!</h2>

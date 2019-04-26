@@ -15,4 +15,5 @@ class GameModel {
         Object.assign(this, data);
     }
 }
+
 export default GameModel;

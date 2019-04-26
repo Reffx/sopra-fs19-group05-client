@@ -1,4 +1,4 @@
-import { isProduction } from "./isProduction";
+import {isProduction} from "./isProduction";
 
 /**
  * This helper function return the current domain of the API. If is production, the Production Heroku URL will returned.
@@ -6,10 +6,10 @@ import { isProduction } from "./isProduction";
  * @returns {string}
  */
 export const getDomain = () => {
-  const prodUrl = "https://sopra-fs19-group05-server.herokuapp.com"; // TODO: insert your groups heroku prod url for server (once deployed)
-  const devUrl = "http://localhost:8080";
-  if (isProduction()) {
-    return prodUrl;
-  }
-  return devUrl;
+    const prodUrl = "https://sopra-fs19-group05-server.herokuapp.com"; // TODO: insert your groups heroku prod url for server (once deployed)
+    const devUrl = "http://localhost:8080";
+    if (isProduction()) {
+        return prodUrl;
+    }
+    return devUrl;
 };

@@ -2,7 +2,8 @@ import React from "react";
 import "./GamePlay.css";
 import Worker from "../shared/models/Worker";
 import Field from "../shared/models/Field";
-
+import {getDomain} from "../../helpers/getDomain";
+import Playfield from "../shared/models/Playfield";
 
 
 const box1 = new Field();
@@ -84,13 +85,61 @@ class GamePlay extends React.Component {
         return this.state.alertText
     }
 
+    create_field() {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/playfield`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(938)
+        })
+            .then(response => response.json())
+            .then(returnedPlayfield => {
+                if (returnedPlayfield.status === 404 || returnedPlayfield.status === 500) {
+                    //  has to be modified for game
+                    this.setState({alertText: "Playfield coudn't be created!"})
+                } else {
+                    const playfield = new Playfield(returnedPlayfield);
+                    console.log(playfield.field1);
+                    // localStorage.setItem("field1", playfield.height);
+                    // alert(playfield.height);
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+    }
+
     changeLvl(box) {
-        if (box.layout == "level2") {box.layout = "level3"};
-        if (box.layout == "level1") {box.layout = "level2"};
-        if (box.layout == null) {box.layout = "level1"};
-        if (box.level == "2") {box.level = "3"};
-        if (box.level == "1") {box.level = "2"};
-        if (box.level == null) {box.level = "1"};
+        this.create_field();
+        if (box.layout === "level2") {
+            box.layout = "level3"
+        }
+        ;
+        if (box.layout === "level1") {
+            box.layout = "level2"
+        }
+        ;
+        if (box.layout == null) {
+            box.layout = "level1"
+        }
+        ;
+        if (box.level === "2") {
+            box.level = "3"
+        }
+        ;
+        if (box.level === "1") {
+            box.level = "2"
+        }
+        ;
+        if (box.level == null) {
+            box.level = "1"
+        }
+        ;
         playerLayout = "player1-div";
         this.setState(box);
     }

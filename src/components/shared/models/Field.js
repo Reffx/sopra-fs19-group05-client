@@ -3,13 +3,16 @@
  */
 class Field {
     constructor(data = {}) {
+        this.height = null;
+        this.occupation = null;
+        this.reachedMaxHeight = null;
         this.id = null;
-        this.x = null;
-        this.y = null;
-        this.gameId = null;
+        this.x_coordinate = null;
+        this.y_coordinate = null;
+        this.playfieldId = null;
         this.layout = null;
-        this.worker = null;
         Object.assign(this, data);
     }
 }
+
 export default Field;

@@ -1,6 +1,5 @@
-
 import React from "react";
-import { withRouter } from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import "./player_colors.css"
 import "./lobby_rectangles.css"
 import {getDomain} from "../../helpers/getDomain";
@@ -31,6 +30,7 @@ class LobbyOverview extends React.Component {
             player2_status: null,
         };
     }
+
     leave_lobby() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}`, {
             method: "Delete",
@@ -42,8 +42,7 @@ class LobbyOverview extends React.Component {
                 if (returnedGame.status === 404 || returnedGame.status === 500) {
                     //  has to be modified for game
                     this.setState({alertText: "You could not leave the lobby"})
-                }
-                else{
+                } else {
                     this.props.history.push("/NormalModeLobby");
                 }
             })
@@ -56,7 +55,7 @@ class LobbyOverview extends React.Component {
             });
     }
 
-    ready(){
+    ready() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/status`, {
             method: "PUT",
             headers: {
@@ -68,7 +67,7 @@ class LobbyOverview extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "Game coudn't be created!"})
                 }
-                if (this.player1_status === true && this.player2_status === true){
+                if (this.player1_status === true && this.player2_status === true) {
                     this.props.history.push(`/game/${localStorage.getItem("gameID")}/gameplay`);
                 }
             })
@@ -91,9 +90,9 @@ class LobbyOverview extends React.Component {
         })
             .then(response => response.json())
             .then(async response => {
-                if(response.status !== 404) {
+                if (response.status !== 404) {
                     const Game = new GameModel(response);
-                    if(Game.player1 != null) {
+                    if (Game.player1 != null) {
                         this.setState({
                             player1_username: Game.player1.username,
                             player1_status: Game.player1.status,
@@ -113,42 +112,46 @@ class LobbyOverview extends React.Component {
                 alert("Something went wrong fetching the games: " + err);
             });
     }
-//created for every color a function in order to set the state to the clicked color --> needs an update (not the best way to do it)
-redCircleClick(){
-        this.setState({color:"Red"});
-        alert("color set to red")
-}
 
-blueCircleClick(){
-        this.setState({color:"Blue"});
+//created for every color a function in order to set the state to the clicked color --> needs an update (not the best way to do it)
+    redCircleClick() {
+        this.setState({color: "Red"});
+        alert("color set to red")
+    }
+
+    blueCircleClick() {
+        this.setState({color: "Blue"});
         alert("color set to blue")
 
-}
-yellowCircleClick(){
+    }
+
+    yellowCircleClick() {
         this.setState({color: "Yellow"});
         alert("color set to yellow")
-}
-pinkCircleClick(){
-        this.setState({color:"Pink"});
+    }
+
+    pinkCircleClick() {
+        this.setState({color: "Pink"});
         alert("color set to pink")
-}
+    }
+
 //the render method also needs an update, disabled the circles in the right box but in the future we need to do a check with the player id not with the token (since it is saved locally)
     render() {
         return (
             <div>
-                    <Container>
-                        <ButtonContainer/>
-                         <Button
-                           width="30%"
-                           onClick={() => {
-                               this.leave_lobby();
-                           }}
-                         >
-                         Leave Lobby
-                        </Button>
-                        <ButtonContainer/>
-                    </Container>
-                <div class ="Lobby-div">
+                <Container>
+                    <ButtonContainer/>
+                    <Button
+                        width="30%"
+                        onClick={() => {
+                            this.leave_lobby();
+                        }}
+                    >
+                        Leave Lobby
+                    </Button>
+                    <ButtonContainer/>
+                </Container>
+                <div class="Lobby-div">
                     <div class="first-box">
                         <div class="player-box">
                             <p>Username: {this.state.player1_username}</p>
@@ -157,10 +160,10 @@ pinkCircleClick(){
                             <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
                             <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
                             <button className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
-                            <p> Ready:  {`${this.state.player1_status}`} </p>
+                            <p> Ready: {`${this.state.player1_status}`} </p>
 
                         </div>
-                     </div>
+                    </div>
                     <div class="second-box">
                         <div className="player-box">
                             <p>Username: {this.state.player2_username} </p>
@@ -169,22 +172,22 @@ pinkCircleClick(){
                             <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
                             <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
                             <button className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
-                            <p> Ready:  {`${this.state.player2_status}`} </p>
+                            <p> Ready: {`${this.state.player2_status}`} </p>
 
                         </div>
                     </div>
                 </div>
                 <Container>
-                <ButtonContainer>
-                <Button
-                    width="30%"
-                    onClick={() => {
-                        this.ready()
-                    }}
-                >
-                    Ready to Play
-                </Button>
-                </ButtonContainer>
+                    <ButtonContainer>
+                        <Button
+                            width="30%"
+                            onClick={() => {
+                                this.ready()
+                            }}
+                        >
+                            Ready to Play
+                        </Button>
+                    </ButtonContainer>
                 </Container>
             </div>
         );
