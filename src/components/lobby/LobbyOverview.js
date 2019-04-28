@@ -74,6 +74,9 @@ class LobbyOverview extends React.Component {
                 if (this.player1_status === true && this.player2_status === true) {
                     this.props.history.push(`/game/${localStorage.getItem("gameID")}/gameplay`);
                 }
+                else {
+                    this.componentDidMount(LobbyOverview);
+                }
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
