@@ -25,9 +25,13 @@ class LobbyOverview extends React.Component {
         super(props);
         this.state = {
             player1_username: null,
+            player1_id: null,
             player1_status: null,
+            player1_color: null,
             player2_username: null,
+            player2_id: null,
             player2_status: null,
+            player2_color: null,
         };
     }
 
@@ -95,13 +99,17 @@ class LobbyOverview extends React.Component {
                     if (Game.player1 != null) {
                         this.setState({
                             player1_username: Game.player1.username,
+                            player1_id: Game.player1.id,
                             player1_status: Game.player1.status,
+                            player1_color: Game.player1.color,
                         })
                     }
                     if (Game.player2 != null) {
                         this.setState({
                             player2_username: Game.player2.username,
+                            player2_id: Game.player2.id,
                             player2_status: Game.player2.status,
+                            player2_color: Game.player2.color,
                         });
                     }
                 }
@@ -115,24 +123,133 @@ class LobbyOverview extends React.Component {
 
 //created for every color a function in order to set the state to the clicked color --> needs an update (not the best way to do it)
     redCircleClick() {
-        this.setState({color: "Red"});
-        alert("color set to red")
+        localStorage.setItem("color", "RED");
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/color`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                localStorage.getItem("color")
+            )
+        })
+            .then(response => {
+                if (response.status === 404 || response.status === 500) {
+                    this.setState({alertText: "Server couldn't respond correctly!"})
+                }
+                if(response.status === 409){
+                    alert("Color is already in use! Please select another one!")
+                }
+                else {
+                    this.componentDidMount(LobbyOverview);
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+        this.componentDidMount(LobbyOverview);
     }
 
     blueCircleClick() {
-        this.setState({color: "Blue"});
-        alert("color set to blue")
+        localStorage.setItem("color", "BLUE");
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/color`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                localStorage.getItem("color")
+            )
+        })
+            .then(response => {
+                if (response.status === 404 || response.status === 500) {
+                    this.setState({alertText: "Server couldn't respond correctly!"})
+                }
+                if(response.status === 409){
+                    alert("Color is already in use! Please select another one!")
+                }
+                else {
+                    this.componentDidMount(LobbyOverview);
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+        this.componentDidMount(LobbyOverview);
 
     }
 
     yellowCircleClick() {
-        this.setState({color: "Yellow"});
-        alert("color set to yellow")
+        localStorage.setItem("color", "YELLOW");
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/color`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                localStorage.getItem("color")
+            )
+        })
+            .then(response => {
+                if (response.status === 404 || response.status === 500) {
+                    this.setState({alertText: "Server couldn't respond correctly!"})
+                }
+                if(response.status === 409){
+                    alert("Color is already in use! Please select another one!")
+                }
+                else {
+                    this.componentDidMount(LobbyOverview);
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+        this.componentDidMount(LobbyOverview);
+
     }
 
     pinkCircleClick() {
-        this.setState({color: "Pink"});
-        alert("color set to pink")
+        localStorage.setItem("color", "PINK");
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/color`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(
+                localStorage.getItem("color")
+            )
+        })
+            .then(response => {
+                if (response.status === 404 || response.status === 500) {
+                    this.setState({alertText: "Server couldn't respond correctly!"})
+                }
+                if(response.status === 409){
+                    alert("Color is already in use! Please select another one!")
+                }
+                else {
+                    this.componentDidMount(LobbyOverview);
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+        this.componentDidMount(LobbyOverview);
     }
 
 //the render method also needs an update, disabled the circles in the right box but in the future we need to do a check with the player id not with the token (since it is saved locally)
@@ -155,7 +272,7 @@ class LobbyOverview extends React.Component {
                     <div class="first-box">
                         <div class="player-box">
                             <p>Username: {this.state.player1_username}</p>
-                            <p>Choose Your Color:</p>
+                            <p>Your Color: {this.state.player1_color}</p>
                             <button className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
                             <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
                             <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
@@ -167,7 +284,7 @@ class LobbyOverview extends React.Component {
                     <div class="second-box">
                         <div className="player-box">
                             <p>Username: {this.state.player2_username} </p>
-                            <p>Choose Your Color:</p>
+                            <p>Color: {this.state.player2_color}</p>
                             <button className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
                             <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
                             <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
