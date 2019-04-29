@@ -30,23 +30,20 @@ class NormalModeLobby extends React.Component {
 
 
     create_lobby() {
-        if (localStorage.getItem("gameId") != null) {
-            alert("Du bist bereits in einer Lobby!");
-        } else {
-            fetch(`${getDomain()}/games`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
+        fetch(`${getDomain()}/games`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                player1: {
+                    id: localStorage.getItem("userID"),
+                    username: localStorage.getItem("username"),
                 },
-                body: JSON.stringify({
-                    player1: {
-                        id: localStorage.getItem("userID"),
-                        username: localStorage.getItem("username"),
-                    },
-                    gameMode: "NORMAL",
-                    isPlaying: false,
-                })
+                gameMode: "NORMAL",
+                isPlaying: false,
             })
+        })
                 .then(response => response.json())
                 .then(returnedGame => {
                     if (returnedGame.status === 404 || returnedGame.status === 500) {
@@ -67,8 +64,8 @@ class NormalModeLobby extends React.Component {
                         alert(`Something went wrong during the creation: ${err.message}`);
                     }
                 });
-        }
     }
+
 
     render() {
         return (
