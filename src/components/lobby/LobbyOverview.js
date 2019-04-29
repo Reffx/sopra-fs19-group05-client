@@ -287,7 +287,7 @@ class LobbyOverview extends React.Component {
                     <div class="second-box">
                         <div className="player-box">
                             <p>Username: {this.state.player2_username} </p>
-                            <p>Color: {this.state.player2_color}</p>
+                            <p>Your Color: {this.state.player2_color}</p>
                             <button className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
                             <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
                             <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
