@@ -28,15 +28,17 @@ class LobbyOverview extends React.Component {
             player1_id: null,
             player1_status: null,
             player1_color: null,
+            player1_gameID: null,
             player2_username: null,
             player2_id: null,
             player2_status: null,
             player2_color: null,
+            player2_gameID: null,
         };
     }
 
     leave_lobby() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}`, {
             method: "Delete",
             headers: {
                 "Content-Type": "application/json"
@@ -60,7 +62,7 @@ class LobbyOverview extends React.Component {
     }
 
     ready() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/status`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/status`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -87,9 +89,9 @@ class LobbyOverview extends React.Component {
             });
     }
 
-
     componentDidMount() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/`, {
+        //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
+        fetch(`${getDomain()}/games/${window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -98,24 +100,24 @@ class LobbyOverview extends React.Component {
             .then(response => response.json())
             .then(async response => {
                 if (response.status !== 404) {
-                    const Game = new GameModel(response);
-                    if (Game.player1 != null) {
+                    //console.log(localStorage.getItem("gameID"));
                         this.setState({
-                            player1_username: Game.player1.username,
-                            player1_id: Game.player1.id,
-                            player1_status: Game.player1.status,
-                            player1_color: Game.player1.color,
+                            player1_username: response.player1.username,
+                            player1_id: response.player1.id,
+                            player1_status: response.player1.status,
+                            player1_color: response.player1.color,
+                            player1_gameID: response.player1.gameId,
                         })
+                    if(response.player2 != null){
+                            this.setState({
+                                player2_username: response.player2.username,
+                                player2_id: response.player2.id,
+                                player2_status: response.player2.status,
+                                player2_color: response.player2.color,
+                                player2_gameID: response.player2.gameId,})
                     }
-                    if (Game.player2 != null) {
-                        this.setState({
-                            player2_username: Game.player2.username,
-                            player2_id: Game.player2.id,
-                            player2_status: Game.player2.status,
-                            player2_color: Game.player2.color,
-                        });
                     }
-                }
+
                 await new Promise(resolve => setTimeout(resolve, 2000));
             })
             .catch(err => {
@@ -127,7 +129,7 @@ class LobbyOverview extends React.Component {
 //created for every color a function in order to set the state to the clicked color --> needs an update (not the best way to do it)
     redCircleClick() {
         localStorage.setItem("color", "RED");
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/color`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -159,7 +161,7 @@ class LobbyOverview extends React.Component {
 
     blueCircleClick() {
         localStorage.setItem("color", "BLUE");
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/color`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -192,7 +194,7 @@ class LobbyOverview extends React.Component {
 
     yellowCircleClick() {
         localStorage.setItem("color", "YELLOW");
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/color`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -225,7 +227,7 @@ class LobbyOverview extends React.Component {
 
     pinkCircleClick() {
         localStorage.setItem("color", "PINK");
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/${localStorage.getItem("userID")}/color`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

@@ -65,7 +65,7 @@ class NormalModeDashboard extends React.Component {
             });
     }
 
-
+    //TODO: joining lobby won't trigger an update of the guest lobby box (right one), no values are shown
     join_lobby() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player`, {
             method: "PUT",
