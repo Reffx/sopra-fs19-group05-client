@@ -100,23 +100,23 @@ class LobbyOverview extends React.Component {
             .then(response => response.json())
             .then(async response => {
                 if (response.status !== 404) {
-                    //console.log(localStorage.getItem("gameID"));
-                        this.setState({
-                            player1_username: response.player1.username,
-                            player1_id: response.player1.id,
-                            player1_status: response.player1.status,
-                            player1_color: response.player1.color,
-                            player1_gameID: response.player1.gameId,
-                        })
+                    console.log(localStorage.getItem("gameID"));
+                    this.setState({
+                        player1_username: response.player1.username,
+                        player1_id: response.player1.id,
+                        player1_status: response.player1.status,
+                        player1_color: response.player1.color,
+                        player1_gameID: response.player1.gameId,
+                    })
                     if(response.player2 != null){
-                            this.setState({
-                                player2_username: response.player2.username,
-                                player2_id: response.player2.id,
-                                player2_status: response.player2.status,
-                                player2_color: response.player2.color,
-                                player2_gameID: response.player2.gameId,})
+                        this.setState({
+                            player2_username: response.player2.username,
+                            player2_id: response.player2.id,
+                            player2_status: response.player2.status,
+                            player2_color: response.player2.color,
+                            player2_gameID: response.player2.gameId,})
                     }
-                    }
+                }
 
                 await new Promise(resolve => setTimeout(resolve, 2000));
             })
