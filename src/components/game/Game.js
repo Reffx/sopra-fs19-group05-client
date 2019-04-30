@@ -66,7 +66,7 @@ class Game extends React.Component {
                 <p></p>
                 <p></p>
                 <h2>Dashboard!</h2>
-                <p>Folgend sind alle Accounts aufgelistet:</p>
+                <p>You can find all players here:</p>
                 {!this.state.users ? (
                     <Spinner/>
                 ) : (

@@ -99,6 +99,10 @@ class Login extends React.Component {
         };
     }
 
+    register(){
+        this.props.history.push(`/register`)
+    }
+
     /**
      * HTTP POST request is sent to the backend.
      * If the request is successful, a new user is returned to the front-end and its token is stored in the localStorage.
@@ -172,14 +176,14 @@ class Login extends React.Component {
                         <Margin> </Margin>
                         <Message>{this.alertMessage()}</Message>
                         <Margin> </Margin>
-                        <Label>Benutzername</Label>
+                        <Label>Username</Label>
                         <InputField
                             placeholder="..."
                             onChange={e => {
                                 this.handleInputChange("username", e.target.value);
                             }}
                         />
-                        <Label>Passwort</Label>
+                        <Label>Password</Label>
                         <InputField
                             type="password"
                             placeholder="*******"
@@ -199,7 +203,7 @@ class Login extends React.Component {
                             </Button>
                         </ButtonContainer>
                         <Margin> </Margin>
-                        <a href="/register" style={{color: '#FCFFF7'}}>Neu? Registrieren!</a>
+                        <a href="/register" style={{color: '#FCFFF7'}}>New? Sign Up!</a>
                         <Margin> </Margin>
                     </Form>
                 </FormContainer>

@@ -50,8 +50,8 @@ const toolbar = props => (
                             <li><NavLink to="/register" activeClassName="main-nav-active">Sign Up</NavLink></li>
                         </ul>) :
                     <ul>
-                        <li><NavLink to="/dashboard" activeClassName="main-nav-active">Weitere Spieler</NavLink></li>
-                        <li><NavLink to="/chooseMode" activeClassName="main-nav-active">Spielen!</NavLink></li>
+                        <li><NavLink to="/dashboard" activeClassName="main-nav-active">Find Players</NavLink></li>
+                        <li><NavLink to="/chooseMode" activeClassName="main-nav-active">Let's Play!</NavLink></li>
                         <li onClick={() => {
                             logout();
                         }}><NavLink to="/landing" activeClassName="main-nav-active">Logout!</NavLink></li>
