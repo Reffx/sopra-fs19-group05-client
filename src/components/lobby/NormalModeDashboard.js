@@ -37,7 +37,7 @@ class NormalModeDashboard extends React.Component {
     constructor() {
         super();
         this.state = {
-            gameId: null,
+            gameID: null,
             games: null
         };
     }
@@ -65,9 +65,9 @@ class NormalModeDashboard extends React.Component {
             });
     }
 
-
+    //JUWE 29.04.19: changed getItem from key: gameId to gameID
     join_lobby() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/player`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/player`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -115,7 +115,8 @@ class NormalModeDashboard extends React.Component {
                             {this.state.games.map(game => {
                                 return (
                                     <PlayerContainer key={game.id}
-                                                     onClick={() => (localStorage.setItem("gameId", game.id), this.join_lobby(), this.props.history.push({
+                                                     //JUWE: 29.04.19 chnaged seItem key from gameId to gameID
+                                                     onClick={() => (localStorage.setItem("gameID", game.id), this.join_lobby(), this.props.history.push({
                                                          pathname: `/game/${game.id}`,
                                                          state: game.id
                                                      }))}>

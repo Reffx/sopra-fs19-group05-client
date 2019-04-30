@@ -168,14 +168,14 @@ class Register extends React.Component {
                             <Margin> </Margin>
                             <Message>{this.alertMessage()}</Message>
                             <Margin> </Margin>
-                            <Label>Benutzername</Label>
+                            <Label>Username</Label>
                             <InputField
                                 placeholder="Hansruedi Rüdisüli..."
                                 onChange={e => {
                                     this.handleInputChange("username", e.target.value);
                                 }}
                             />
-                            <Label>Passwort</Label>
+                            <Label>Password</Label>
                             <InputField
                                 type="password"
                                 placeholder="*******"
@@ -183,7 +183,7 @@ class Register extends React.Component {
                                     this.handleInputChange("password", e.target.value);
                                 }}
                             />
-                            <Label>Geburtsdatum</Label>
+                            <Label>Birthday</Label>
                             <InputField
                                 type="date"
                                 placeholder="DD.MM.YYYY"
@@ -199,11 +199,11 @@ class Register extends React.Component {
                                         this.register();
                                     }}
                                 >
-                                    Registrieren
+                                    Sign Up
                                 </Button>
                             </ButtonContainer>
                             <Margin> </Margin>
-                            <a href="/login" style={{color: '#FCFFF7'}}>Du hast bereits einen Account? Login!</a>
+                            <a href="/login" style={{color: '#FCFFF7'}}>Already an Account? Login!</a>
                             <Margin> </Margin>
                         </Form>
                     </FormContainer>
