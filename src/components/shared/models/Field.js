@@ -1,3 +1,4 @@
+import "./Worker";
 /**
  * Field model
  */
@@ -11,6 +12,7 @@ class Field {
         this.x_coordinate = null;
         this.y_coordinate = null;
         this.layout = null;
+        this.workerId = null;
         Object.assign(this, data);
     }
 }

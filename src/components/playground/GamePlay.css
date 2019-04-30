@@ -29,8 +29,8 @@
 .box {
     width: 100px;
     height: 100px;
+    vertical-align: middle;
     display: table-cell;
-
 }
 
 #level1{
@@ -38,19 +38,21 @@
     border: 8px solid black;
     width: 90px;
     height: 90px;
+    margin:auto;
     text-align: center;
     font-size: x-large;
-
 }
 
 #level2{
     border-radius: 50px;
-    border: 14px solid black;
+    border: 13px solid black;
     width: 80px;
     height: 80px;
+    margin:auto;
     text-align: center;
-    font-size: x-large;
+    font-size: x-large;;
 }
+
 
 #level3{
     border-radius: 50px;
@@ -58,6 +60,7 @@
     width: 70px;
     height: 70px;
     text-align: center;
+    margin:auto;
     font-size: x-large;
 }
 
@@ -69,6 +72,10 @@
     font-size: 30px;
 }
 
+.playField-row{
+    width: 500px;
+}
+
 .fixedPixels-div {
     height: 768px;
     width: 1366px;
@@ -76,10 +83,56 @@
     margin: auto;
 }
 
-.player1-div{
+.player1-div-lvl-1{
     height: 50px;
     width: 50px;
+    margin: auto;
+    margin-top: 11px;
+    z-index: 10;
     border: 10px solid blue;
     border-radius: 50px;
     background-color: blue;
+}
+
+
+.player1-div-lvl-2{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    margin-top: 2px;
+    z-index: 10;
+    border: 10px solid blue;
+    border-radius: 50px;
+    background-color: blue;
+}
+
+.player1-div-lvl-3{
+    height: 50px;
+    width: 50px;
+    margin-left: -10px;
+    margin-top: -10px;
+    z-index: 10;
+    border: 10px solid blue;
+    border-radius: 50px;
+    background-color: blue;
+}
+
+.text{
+    text-align: center;
+    padding-top: 25%;
+}
+
+.text1{
+    text-align: center;
+    padding-top: 25%;
+}
+
+.text2{
+    text-align: center;
+    padding-top: 18%;
+}
+
+.text3{
+    text-align: center;
+    padding-top: 0px;
 }

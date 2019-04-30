@@ -58,21 +58,21 @@ const box25 = new Field();
 box25.gameId = localStorage.getItem("gameId");
 
 const worker1p1 = new Worker();
+worker1p1.gameId = localStorage.getItem("gameId");
+worker1p1.workerId = 1;
 const worker2p1 = new Worker();
-const worker1p2 = new Worker();
-const worker2p2 = new Worker();
-
-var playerLayout = null;
+worker2p1.gameId = localStorage.getItem("gameId");
+worker2p1.workerId = 2;
 
 
 class GamePlay extends React.Component {
 
+
     constructor(props) {
         super(props);
         this.state = {
-            layout: null,
-            clicked: null,
-            alertText: "This is a message."
+
+            alertText: "This is a message.",
         };
     }
 
@@ -84,7 +84,7 @@ class GamePlay extends React.Component {
         return this.state.alertText
     }
 
-    saveField(singleField, tempField, i){
+    saveField(singleField, tempField, i) {
         singleField.id = tempField[i].id;
         singleField.fieldNum = tempField[i].fieldNum;
         singleField.occupation = tempField[i].occupation;
@@ -146,6 +146,7 @@ class GamePlay extends React.Component {
             });
     }
 
+
     changeLvl(box) {
         this.create_field();
         if (box.layout === "level2") {
@@ -172,52 +173,70 @@ class GamePlay extends React.Component {
             box.height = "1"
         }
         ;
-        playerLayout = "player1-div";
+        box2.workerId = "player1-div";
         this.setState(box);
+    }
+
+    innerBoxLayout(box) {
+        box.occupation = true;
+        console.log(box.occupation);
+        if (box.occupation === false && box.height === "1") {
+            return "text1";
+        } else if (box.occupation === false && box.height === "2") {
+            return "text2";
+        } else if (box.occupation === false && box.height === "3") {
+            return "text3";
+        } else if (box.height === "1" && box.occupation === true) {
+            return "player1-div-lvl-1"
+        } else if (box.height === "2" && box.occupation === true) {
+            return "player1-div-lvl-2"
+        } else if (box.height === "3" && box.occupation === true) {
+            return "player1-div-lvl-3"
+        }
     }
 
 
     render() {
         return (
-            <div class="fixedPixels-div">
+            <div className="fixedPixels-div">
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className="left"> left</div>
                     <div className="playField">
-                        <div>
+                        <div className="playField-row">
                             <div className="box1 white box" onClick={() => {
                                 this.changeLvl(box1)
                             }}>
-                                <div id={box1.layout}>{box1.height}
-                                    <div className="player1-div"></div>
+                                <div id={box1.layout}>
+                                    <div className={this.innerBoxLayout(box1)}>{box1.height}</div>
                                 </div>
                             </div>
                             <div className="box2 black box" onClick={() => {
                                 this.changeLvl(box2)
                             }}>
-                                <div id={box2.layout}>{box2.height}
-                                    <div className={playerLayout}></div>
+                                <div id={box2.layout}>
+                                    <div className={this.innerBoxLayout(box2)}>{box2.height}</div>
                                 </div>
                             </div>
                             <div className="box3 white box" onClick={() => {
                                 this.changeLvl(box3)
                             }}>
-                                <div id={box3.layout}>{box3.height}
-                                    <div className="player1-div"></div>
+                                <div id={box3.layout}>
+                                    <div className={this.innerBoxLayout(box3)}>{box3.height}</div>
                                 </div>
                             </div>
                             <div className="box4 black box" onClick={() => {
                                 this.changeLvl(box4)
                             }}>
-                                <div id={box4.layout}>{box4.height}
-                                    <div className="player1-div"></div>
+                                <div id={box4.layout}>
+                                    <div className={this.innerBoxLayout(box4)}>{box4.height}</div>
                                 </div>
                             </div>
                             <div className="box5 white box" onClick={() => {
                                 this.changeLvl(box5)
                             }}>
-                                <div id={box5.layout}>{box5.height}
-                                    <div className="player1-div"></div>
+                                <div id={box5.layout}>
+                                    <div className={this.innerBoxLayout(box5)}>{box5.height}</div>
                                 </div>
                             </div>
                         </div>
