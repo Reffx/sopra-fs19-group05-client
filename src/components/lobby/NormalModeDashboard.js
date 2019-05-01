@@ -7,6 +7,7 @@ import {Spinner} from "../../views/design/Spinner";
 import {withRouter} from "react-router-dom";
 
 import {Button} from "../../views/design/Button";
+import LobbyOverview from "./LobbyOverview";
 
 const ButtonContainer = styled.div`
   display: row;

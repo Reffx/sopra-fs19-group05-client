@@ -59,7 +59,6 @@ class LobbyOverview extends React.Component {
                     alert(`Something went wrong during leaving the lobby: ${err.message}`);
                 }
             });
-        this.componentDidMount(LobbyOverview);
     }
 
     ready() {
@@ -92,7 +91,7 @@ class LobbyOverview extends React.Component {
 
     componentDidMount() {
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+        setInterval(()=> {fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -100,7 +99,7 @@ class LobbyOverview extends React.Component {
         })
             .then(response => response.json())
             .then(async response => {
-                if (response.status !== 404) {
+                if (response.status !== 404 || response.player1 !== null) {
                     //console.log(localStorage.getItem("userID"));
 
                     this.setState({
@@ -111,7 +110,7 @@ class LobbyOverview extends React.Component {
                         player1_gameID: response.player1.gameId,
                     });
                     //console.log(("player1ID: "+this.state.player1_id));
-                    if(response.player2 != null){
+                    if(response.player2 != null) {
                         this.setState({
                             player2_username: response.player2.username,
                             player2_id: response.player2.id,
@@ -126,7 +125,7 @@ class LobbyOverview extends React.Component {
             .catch(err => {
                 console.log(err);
                 alert("Something went wrong fetching the games: " + err);
-            });
+            });}, 100);
     }
 
 //created for every color a function in order to set the state to the clicked color --> needs an update (not the best way to do it)
@@ -258,7 +257,7 @@ class LobbyOverview extends React.Component {
             });
     }
 
-//the render method also needs an update, disabled the circles in the right box but in the future we need to do a check with the player id not with the token (since it is saved locally)
+
     render() {
         return (
             <div>
