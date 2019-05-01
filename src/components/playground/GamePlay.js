@@ -96,7 +96,7 @@ class GamePlay extends React.Component {
 
 
     create_field() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/playfield/create`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/board/create`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -136,7 +136,8 @@ class GamePlay extends React.Component {
                     this.saveField(box24, tempField, 23);
                     this.saveField(box25, tempField, 24);
                     console.log(box13);
-                    console.log(box13.id);
+                    console.log(box13.fieldNum);
+                    console.log(box13.occupation);
                 }
             })
             .catch(err => {
@@ -179,21 +180,26 @@ class GamePlay extends React.Component {
         this.setState(box);
     }
 
-
+    getBorder(box){
+        //console.log(box.id);
+        if (box.id === 1)
+        return "border";
+    }
+    
 
     innerBoxLayout(box) {
-        console.log(box.occupation);
-        if (box.occupation === false && box.height === "1") {
+     //   console.log(box.occupation);
+        if (box.occupier === null && box.height === "1") {
             return "text1";
-        } else if (box.occupation === false && box.height === "2") {
+        } else if (box.occupier === null && box.height === "2") {
             return "text2";
-        } else if (box.occupation === false && box.height === "3") {
+        } else if (box.occupier === null && box.height === "3") {
             return "text3";
-        } else if (box.height === "1" && box.occupation === true) {
+        } else if (box.height === "1" && box.occupier === true) {
             return "player1-div-lvl-1"
-        } else if (box.height === "2" && box.occupation === true) {
+        } else if (box.height === "2" && box.occupier === true) {
             return "player1-div-lvl-2"
-        } else if (box.height === "3" && box.occupation === true) {
+        } else if (box.height === "3" && box.occupier === true) {
             return "player1-div-lvl-3"
         }
     }
@@ -207,14 +213,14 @@ class GamePlay extends React.Component {
                     <div className="left"> left</div>
                     <div className="playField">
                         <div>
-                            <div className="box1 white box" onClick={() => {
+                            <div className="box1 white box" id={this.getBorder(box1)} onClick={() => {
                                 this.changeLvl(box1)
                             }}>
                                 <div id={box1.layout}>
                                     <div className={this.innerBoxLayout(box1)}>{null}</div>
                                 </div>
                             </div>
-                            <div className="box2 black box" onClick={() => {
+                            <div className="box2 black box" id={this.getBorder(box2)} onClick={() => {
                                 this.changeLvl(box2)
                             }}>
                                 <div id={box2.layout}>

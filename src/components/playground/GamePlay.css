@@ -33,6 +33,10 @@
     display: table-cell;
 }
 
+#border{
+    border: solid green 5px;
+}
+
 #level1{
     border-radius: 50px;
     border: 8px solid black;
