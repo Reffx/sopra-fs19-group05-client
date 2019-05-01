@@ -129,7 +129,7 @@ class Login extends React.Component {
                     localStorage.setItem("token", user.token);
                     localStorage.setItem("userID", user.id);
                     localStorage.setItem("username", user.username);
-                    this.props.history.push(`/dashboard`);
+                    this.props.history.push(`/landing`);
                 }
             })
             .catch(err => {

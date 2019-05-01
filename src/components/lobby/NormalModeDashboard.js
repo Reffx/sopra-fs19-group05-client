@@ -77,9 +77,12 @@ class NormalModeDashboard extends React.Component {
             )
         })
             .then(returnedGame => {
-                if (returnedGame.status === 404 || returnedGame.status === 500) {
+                if (returnedGame.status === 404 || returnedGame.status === 500  ) {
                     //  has to be modified for game
                     this.setState({alertText: "Game coudn't be created!"})
+                }
+                if(returnedGame.status === 409){
+                    this.setState({alertText: "Lobby is full!"})
                 }
             })
             .catch(err => {
