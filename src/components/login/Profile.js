@@ -144,13 +144,13 @@ class Profile extends React.Component {
             return (
                 <div>
                     <form>
-                        <label> Benutzername: &nbsp; </label>
+                        <label> Username: &nbsp; </label>
                         <InputField type="text" value={this.state.username} onChange={this.handleUsernameChange}/>
                     </form>
-                    <p>Passwort: ********</p>
+                    <p>Password: ********</p>
                     <p>Online Status: {this.state.onlineStatus}</p>
                     <form>
-                        <label> Geburtsdatum: &nbsp; </label>
+                        <label> Birthday: &nbsp; </label>
                         <InputField type="date" value={this.state.birthDate} onChange={this.handleBirthChange}/>
 
                     </form>
@@ -160,10 +160,10 @@ class Profile extends React.Component {
         }
         return (
             <div>
-                <p>Benutzername: {this.state.username}</p>
-                <p>Passwort: *******</p>
+                <p>Username: {this.state.username}</p>
+                <p>Password: *******</p>
                 <p>Status: {this.state.onlineStatus}</p>
-                <p>Geburtsdatum: {this.state.birthDate}</p>
+                <p>Birthday: {this.state.birthDate}</p>
                 <p>Creation Date: {this.state.creationDate}</p>
             </div>
         )
@@ -197,7 +197,7 @@ class Profile extends React.Component {
                                                 }
                                                 this.setState({
                                                     editMode: !this.state.editMode,
-                                                    editButtonText: (!this.state.editMode) ? "Save" : "Profil editieren",
+                                                    editButtonText: (!this.state.editMode) ? "Save" : "Edit Profil",
                                                     editModeText: (!this.state.editMode) ? "Edit User Profile" : "User-Information"
                                                 })
                                             }}
@@ -212,7 +212,7 @@ class Profile extends React.Component {
                                                 this.props.history.push("/dashboard");
                                             }}
                                         >
-                                            Zurück
+                                            Back
                                         </Button>
                                     </ButtonContainer>
                                 </div>
