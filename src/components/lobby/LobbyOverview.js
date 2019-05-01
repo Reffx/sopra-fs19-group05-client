@@ -91,7 +91,7 @@ class LobbyOverview extends React.Component {
 
     componentDidMount() {
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
-        fetch(`${getDomain()}/games/${window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)}`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -100,14 +100,16 @@ class LobbyOverview extends React.Component {
             .then(response => response.json())
             .then(async response => {
                 if (response.status !== 404) {
-                    console.log(localStorage.getItem("gameID"));
+                    //console.log(localStorage.getItem("userID"));
+
                     this.setState({
                         player1_username: response.player1.username,
                         player1_id: response.player1.id,
                         player1_status: response.player1.status,
                         player1_color: response.player1.color,
                         player1_gameID: response.player1.gameId,
-                    })
+                    });
+                    //console.log(("player1ID: "+this.state.player1_id));
                     if(response.player2 != null){
                         this.setState({
                             player2_username: response.player2.username,
@@ -156,7 +158,7 @@ class LobbyOverview extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
-        this.componentDidMount(LobbyOverview);
+
     }
 
     blueCircleClick() {
@@ -188,7 +190,7 @@ class LobbyOverview extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
-        this.componentDidMount(LobbyOverview);
+
 
     }
 
@@ -221,7 +223,6 @@ class LobbyOverview extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
-        this.componentDidMount(LobbyOverview);
 
     }
 
@@ -254,7 +255,6 @@ class LobbyOverview extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
-        this.componentDidMount(LobbyOverview);
     }
 
 //the render method also needs an update, disabled the circles in the right box but in the future we need to do a check with the player id not with the token (since it is saved locally)
@@ -278,10 +278,10 @@ class LobbyOverview extends React.Component {
                         <div class="player-box">
                             <p>Username: {this.state.player1_username}</p>
                             <p>Your Color: {this.state.player1_color}</p>
-                            <button className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                            <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                            <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                            <button className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player1_username)} className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player1_username)} className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player1_username)} className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player1_username)} className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
                             <p> Ready: {`${this.state.player1_status}`} </p>
 
                         </div>
@@ -290,10 +290,10 @@ class LobbyOverview extends React.Component {
                         <div className="player-box">
                             <p>Username: {this.state.player2_username} </p>
                             <p>Your Color: {this.state.player2_color}</p>
-                            <button className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                            <button className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                            <button className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                            <button className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)} className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)} className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)} className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)} className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
                             <p> Ready: {`${this.state.player2_status}`} </p>
 
                         </div>
