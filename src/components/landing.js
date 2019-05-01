@@ -46,9 +46,9 @@ class Landing extends React.Component {
                         <div>
                             <p className="titleSantorini">Santorini</p>
                             <Button onClick={() => {
-                                this.props.history.push("/game/dashboard");
-                            }}>Dashboard</Button>
-                            <Button className="spacer">Regeln</Button>
+                                this.props.history.push("/normalModeLobby");
+                            }}>Let's Play</Button>
+                            <Button className="spacer">Ruls</Button>
                         </div>
                     </div>
                 </div>

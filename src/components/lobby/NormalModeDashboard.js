@@ -118,7 +118,7 @@ class NormalModeDashboard extends React.Component {
                             {this.state.games.map(game => {
                                 return (
                                     <PlayerContainer key={game.id}
-                                                     //JUWE: 29.04.19 chnaged seItem key from gameId to gameID
+                                                     disabled={!(game.size === 2)}
                                                      onClick={() => (localStorage.setItem("gameID", game.id), this.join_lobby(), this.props.history.push({
                                                          pathname: `/game/${game.id}`,
                                                          state: game.id

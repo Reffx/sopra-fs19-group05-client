@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   margin: 6px 0;
-  width: 280px;
+  width: 450px;
   padding: 10px;
   border-radius: 6px;
   display: flex;
@@ -16,6 +16,16 @@ const GameID = styled.div`
   margin-left: 5px;
 `;
 
+const Player1 = styled.div`
+  margin-left: auto;
+  margin-right: 10px;
+  font-weight: bold;
+`;
+const Size = styled.div`
+  margin-left: auto;
+  margin-right: 10px;
+  font-weight: bold;
+`;
 const Status = styled.div`
   margin-left: auto;
   margin-right: 10px;
@@ -34,7 +44,8 @@ const GameView = ({ game }) => {
     return (
         <Container>
             <GameID>Game: {game.id}</GameID>
-            <Status>Players: {game.players}</Status>
+            <Player1>Player1: {game.player1.username}</Player1>
+            <Size>Size: {game.size}</Size>
         </Container>
     );
 };
