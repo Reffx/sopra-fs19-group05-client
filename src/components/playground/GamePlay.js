@@ -6,6 +6,8 @@ import {getDomain} from "../../helpers/getDomain";
 import Playfield from "../shared/models/Playfield";
 
 
+
+
 const box1 = new Field();
 box1.gameId = localStorage.getItem("gameId");
 const box2 = new Field();
@@ -71,7 +73,6 @@ class GamePlay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
             alertText: "This is a message.",
         };
     }
@@ -134,6 +135,7 @@ class GamePlay extends React.Component {
                     this.saveField(box23, tempField, 22);
                     this.saveField(box24, tempField, 23);
                     this.saveField(box25, tempField, 24);
+                    console.log(box13);
                     console.log(box13.id);
                 }
             })
@@ -177,8 +179,9 @@ class GamePlay extends React.Component {
         this.setState(box);
     }
 
+
+
     innerBoxLayout(box) {
-        box.occupation = true;
         console.log(box.occupation);
         if (box.occupation === false && box.height === "1") {
             return "text1";
@@ -203,12 +206,12 @@ class GamePlay extends React.Component {
                 <div className="mainHorizontally">
                     <div className="left"> left</div>
                     <div className="playField">
-                        <div className="playField-row">
+                        <div>
                             <div className="box1 white box" onClick={() => {
                                 this.changeLvl(box1)
                             }}>
                                 <div id={box1.layout}>
-                                    <div className={this.innerBoxLayout(box1)}>{box1.height}</div>
+                                    <div className={this.innerBoxLayout(box1)}>{null}</div>
                                 </div>
                             </div>
                             <div className="box2 black box" onClick={() => {
@@ -241,34 +244,153 @@ class GamePlay extends React.Component {
                             </div>
                         </div>
                         <div>
-                            <div className="box-2 box black"></div>
-                            <div className="box-7 box white"></div>
-                            <div className="box-12 box black"></div>
-                            <div className="box-17 box white"></div>
-                            <div className="box-22 box black"></div>
+                            <div className="box6 black box" onClick={() => {
+                                this.changeLvl(box6)
+                            }}>
+                                <div id={box6.layout}>
+                                    <div className={this.innerBoxLayout(box6)}>{null}</div>
+                                </div>
+                            </div>
+                            <div className="box7 white box" onClick={() => {
+                                this.changeLvl(box7)
+                            }}>
+                                <div id={box7.layout}>
+                                    <div className={this.innerBoxLayout(box7)}>{box7.height}</div>
+                                </div>
+                            </div>
+                            <div className="box8 black box" onClick={() => {
+                                this.changeLvl(box8)
+                            }}>
+                                <div id={box8.layout}>
+                                    <div className={this.innerBoxLayout(box8)}>{box8.height}</div>
+                                </div>
+                            </div>
+                            <div className="box9 white box" onClick={() => {
+                                this.changeLvl(box9)
+                            }}>
+                                <div id={box9.layout}>
+                                    <div className={this.innerBoxLayout(box9)}>{box9.height}</div>
+                                </div>
+                            </div>
+                            <div className="box10 black box" onClick={() => {
+                                this.changeLvl(box10)
+                            }}>
+                                <div id={box10.layout}>
+                                    <div className={this.innerBoxLayout(box10)}>{box10.height}</div>
+                                </div>
+                            </div>
                         </div>
                         <div>
 
-                            <div className="box-3 box white"></div>
-                            <div className="box-8 box black"></div>
-                            <div className="box-13 box white"></div>
-                            <div className="box-18 box black"></div>
-                            <div className="box-23 box white"></div>
+                            <div className="box11 white box" onClick={() => {
+                                this.changeLvl(box11)
+                            }}>
+                                <div id={box11.layout}>
+                                    <div className={this.innerBoxLayout(box11)}>{null}</div>
+                                </div>
+                            </div>
+                            <div className="box12 black box" onClick={() => {
+                                this.changeLvl(box12)
+                            }}>
+                                <div id={box12.layout}>
+                                    <div className={this.innerBoxLayout(box12)}>{box12.height}</div>
+                                </div>
+                            </div>
+                            <div className="box13 white box" onClick={() => {
+                                this.changeLvl(box13)
+                            }}>
+                                <div id={box13.layout}>
+                                    <div className={this.innerBoxLayout(box13)}>{box13.height}</div>
+                                </div>
+                            </div>
+                            <div className="box14 black box" onClick={() => {
+                                this.changeLvl(box14)
+                            }}>
+                                <div id={box14.layout}>
+                                    <div className={this.innerBoxLayout(box14)}>{box14.height}</div>
+                                </div>
+                            </div>
+                            <div className="box15 white box" onClick={() => {
+                                this.changeLvl(box15)
+                            }}>
+                                <div id={box15.layout}>
+                                    <div className={this.innerBoxLayout(box15)}>{box15.height}</div>
+                                </div>
+                            </div>
                         </div>
                         <div>
-
-                            <div className="box-4 box black"></div>
-                            <div className="box-9 box white"></div>
-                            <div className="box-14 box black"></div>
-                            <div className="box-19 box white"></div>
-                            <div className="box-24 box black"></div>
+                            <div className="box16 black box" onClick={() => {
+                                this.changeLvl(box16)
+                            }}>
+                                <div id={box16.layout}>
+                                    <div className={this.innerBoxLayout(box16)}>{null}</div>
+                                </div>
+                            </div>
+                            <div className="box17 white box" onClick={() => {
+                                this.changeLvl(box17)
+                            }}>
+                                <div id={box17.layout}>
+                                    <div className={this.innerBoxLayout(box17)}>{box17.height}</div>
+                                </div>
+                            </div>
+                            <div className="box18 black box" onClick={() => {
+                                this.changeLvl(box18)
+                            }}>
+                                <div id={box18.layout}>
+                                    <div className={this.innerBoxLayout(box18)}>{box18.height}</div>
+                                </div>
+                            </div>
+                            <div className="box19 white box" onClick={() => {
+                                this.changeLvl(box19)
+                            }}>
+                                <div id={box19.layout}>
+                                    <div className={this.innerBoxLayout(box19)}>{box19.height}</div>
+                                </div>
+                            </div>
+                            <div className="box20 black box" onClick={() => {
+                                this.changeLvl(box20)
+                            }}>
+                                <div id={box20.layout}>
+                                    <div className={this.innerBoxLayout(box20)}>{box20.height}</div>
+                                </div>
+                            </div>
                         </div>
                         <div>
-                            <li className="box-5 box white"></li>
-                            <li className="box-10 box black"></li>
-                            <li className="box-15 box white"></li>
-                            <li className="box-20 box black"></li>
-                            <li className="box-25 box white"></li>
+                            <div className="box21 white box" onClick={() => {
+                                this.changeLvl(box21)
+                            }}>
+                                <div id={box21.layout}>
+                                    <div className={this.innerBoxLayout(box21)}>{null}</div>
+                                </div>
+                            </div>
+                            <div className="box22 black box" onClick={() => {
+                                this.changeLvl(box22)
+                            }}>
+                                <div id={box22.layout}>
+                                    <div className={this.innerBoxLayout(box22)}>{box22.height}</div>
+                                </div>
+                            </div>
+                            <div className="box23 white box" onClick={() => {
+                                this.changeLvl(box23)
+                            }}>
+                                <div id={box23.layout}>
+                                    <div className={this.innerBoxLayout(box23)}>{box23.height}</div>
+                                </div>
+                            </div>
+                            <div className="box24 black box" onClick={() => {
+                                this.changeLvl(box24)
+                            }}>
+                                <div id={box24.layout}>
+                                    <div className={this.innerBoxLayout(box24)}>{box24.height}</div>
+                                </div>
+                            </div>
+                            <div className="box25 white box" onClick={() => {
+                                this.changeLvl(box25)
+                            }}>
+                                <div id={box25.layout}>
+                                    <div className={this.innerBoxLayout(box25)}>{box25.height}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="right">right</div>
