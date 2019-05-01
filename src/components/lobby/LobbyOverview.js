@@ -16,6 +16,7 @@ const ButtonContainer = styled.div`
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
+  display: row;
 `;
 
 
@@ -73,12 +74,8 @@ class LobbyOverview extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "Game coudn't be created!"})
                 }
-                if (this.player1_status === true && this.player2_status === true) {
-                    this.props.history.push(`/game/${localStorage.getItem("gameID")}/gameplay`);
-                }
-                else {
                     this.componentDidMount(LobbyOverview);
-                }
+
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
@@ -300,7 +297,7 @@ class LobbyOverview extends React.Component {
                     </div>
                 </div>
                 <Container>
-                    <ButtonContainer>
+                    <ButtonContainer/>
                         <Button
                             width="30%"
                             onClick={() => {
@@ -309,7 +306,18 @@ class LobbyOverview extends React.Component {
                         >
                             Ready to Play
                         </Button>
-                    </ButtonContainer>
+                        <ButtonContainer/>
+                        <ButtonContainer/>
+                        <Button
+                            disabled={(this.state.player1_status === false) || (this.state.player2_status === false)}
+                            width="30%"
+                            onClick={() => {
+                                this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay`)
+                            }}
+                        >
+                            Go to the Playground
+                        </Button>
+                    <ButtonContainer/>
                 </Container>
             </div>
         );

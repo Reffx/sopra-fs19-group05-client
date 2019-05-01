@@ -67,32 +67,35 @@ class NormalModeDashboard extends React.Component {
     }
 
     //JUWE 29.04.19: changed getItem from key: gameId to gameID
-    join_lobby() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/player`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(
-                localStorage.getItem("userID")
-            )
-        })
-            .then(returnedGame => {
-                if (returnedGame.status === 404 || returnedGame.status === 500  ) {
-                    //  has to be modified for game
-                    this.setState({alertText: "Game coudn't be created!"})
-                }
-                if(returnedGame.status === 409){
-                    this.setState({alertText: "Lobby is full!"})
-                }
+    join_lobby(size) {
+        if(size !== 2) {
+            fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/player`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(
+                    localStorage.getItem("userID")
+                )
             })
-            .catch(err => {
-                if (err.message.match(/Failed to fetch/)) {
-                    alert("The server cannot be reached. Did you start it?");
-                } else {
-                    alert(`Something went wrong during the creation: ${err.message}`);
-                }
-            });
+                .then(returnedGame => {
+                    if (returnedGame.status === 404 || returnedGame.status === 500) {
+                        //  has to be modified for game
+                        this.setState({alertText: "Game coudn't be created!"})
+                    } else if (returnedGame.status === 409) {
+                        this.setState({alertText: "Lobby is full!"})
+                    } else {
+                        this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
+                    }
+                })
+                .catch(err => {
+                    if (err.message.match(/Failed to fetch/)) {
+                        alert("The server cannot be reached. Did you start it?");
+                    } else {
+                        alert(`Something went wrong during the creation: ${err.message}`);
+                    }
+                });
+        }
     }
 
     render() {
@@ -120,10 +123,7 @@ class NormalModeDashboard extends React.Component {
                                 return (
                                     <PlayerContainer key={game.id}
                                                      disabled={!(game.size === 2)}
-                                                     onClick={() => (localStorage.setItem("gameID", game.id), this.join_lobby(), this.props.history.push({
-                                                         pathname: `/game/${game.id}`,
-                                                         state: game.id
-                                                     }))}>
+                                                     onClick={() => (localStorage.setItem("gameID", game.id), this.join_lobby(game.size))}>
                                         <GameView game={game}/>
                                     </PlayerContainer>
                                 );
