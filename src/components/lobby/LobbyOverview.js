@@ -39,7 +39,7 @@ class LobbyOverview extends React.Component {
 
     leave_lobby() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}`, {
-            method: "Delete",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
@@ -59,6 +59,7 @@ class LobbyOverview extends React.Component {
                     alert(`Something went wrong during leaving the lobby: ${err.message}`);
                 }
             });
+        this.componentDidMount(LobbyOverview);
     }
 
     ready() {
