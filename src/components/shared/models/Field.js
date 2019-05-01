@@ -7,7 +7,7 @@ class Field {
         this.id = null;
         this.fieldNum = null;
         this.height = null;
-        this.occupation = null;
+        this.occupier = null;
         this.reachedMaxHeight = null;
         this.x_coordinate = null;
         this.y_coordinate = null;
