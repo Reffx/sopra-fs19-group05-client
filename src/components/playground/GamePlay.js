@@ -4,6 +4,20 @@ import Worker from "../shared/models/Worker";
 import Field from "../shared/models/Field";
 import {getDomain} from "../../helpers/getDomain";
 import Playfield from "../shared/models/Playfield";
+import styled from "styled-components";
+import {BaseContainer} from "../../helpers/layout";
+import {Button} from "../../views/design/Button";
+
+const ButtonContainer = styled.div`
+  display: row;
+  justify-content: center;
+  margin-top: 20px;
+`;
+const Container = styled(BaseContainer)`
+  color: white;
+  text-align: center;
+  display: row;
+`;
 
 
 const box1 = new Field();
@@ -71,6 +85,7 @@ class GamePlay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            player_is_playing: null,
             alertText: "This is a message.",
             beginnerId: null,
         };
@@ -78,6 +93,8 @@ class GamePlay extends React.Component {
 
 
     componentDidMount() {
+        this.get_game();
+        this.setBeginner();
     }
 
     alertMessage() {
@@ -92,9 +109,39 @@ class GamePlay extends React.Component {
         singleField.x_coordinate = tempField[i].x_coordinate;
         singleField.y_coordinate = tempField[i].y_coordinate;
     }
+    get_game(){
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(async response => {
+                if (response.status !== 404 || response.player1 !== null) {
+                    //console.log(localStorage.getItem("userID"));
+
+                    this.setState({
+                        player1_username: response.player1.username,
+                        player1_id: response.player1.id,
+                        player1_status: response.player1.status,
+                        player1_color: response.player1.color,
+                        player1_gameID: response.player1.gameId,
+                        player2_username: response.player2.username,
+                        player2_id: response.player2.id,
+                        player2_status: response.player2.status,
+                        player2_color: response.player2.color,
+                        player2_gameID: response.player2.gameId,})
+                    }
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Something went wrong fetching the games: " + err);
+            })
+    }
 
     setBeginner() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/beginner`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/beginner`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -102,12 +149,10 @@ class GamePlay extends React.Component {
         })
             .then(response => response.json())
             .then(async beginnerId => {
-                // delays continuous execution of an async operation for 0.8 seconds.
-                // This is just a fake async call, so that the spinner can be displayed
-                // feel free to remove it :)
-                await new Promise(resolve => setTimeout(resolve, 800));
                 this.setState({beginnerId: beginnerId});
                 console.log(this.state.beginnerId);
+                this.state.alertText= "Player with UserID "+JSON.stringify(this.state.beginnerId) +" can beginn";
+                this.state.player_is_playing = beginnerId
             })
             .catch(err => {
                 console.log(err);
@@ -172,7 +217,6 @@ class GamePlay extends React.Component {
 
 
     changeLvl(box) {
-        this.setBeginner();
     //   this.create_field();
         if (box.layout === "level2") {
             box.layout = "level3"
@@ -233,7 +277,21 @@ class GamePlay extends React.Component {
             <div className="fixedPixels-div">
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
-                    <div className="left"> left</div>
+                    <div className="left">
+                        <p>UserId: {this.state.player1_id} </p>
+                        <p>Username: {this.state.player1_username} </p>
+                        <p>Color: {this.state.player1_color}</p>
+                        <ButtonContainer/>
+                        <Button
+                            disabled={(this.state.player_is_playing !== this.state.player1_id)}
+                            width="50%"
+                            onClick={() => {
+                            }}
+                        >
+                            Finish Action
+                        </Button>
+                        <ButtonContainer/>
+                    </div>
                     <div className="playField">
                         <div>
                             <div className="box1 white box" id={this.getBorder(box1)} onClick={() => {
@@ -422,7 +480,21 @@ class GamePlay extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="right">right</div>
+                    <div className="right">
+                        <p>UserId: {this.state.player2_id} </p>
+                        <p>Username: {this.state.player2_username} </p>
+                        <p>Color: {this.state.player2_color}</p>
+                        <ButtonContainer/>
+                        <Button
+                            disabled={(this.state.player_is_playing !== this.state.player2_id)}
+                            width="50%"
+                            onClick={() => {
+                            }}
+                        >
+                            Finish Action
+                        </Button>
+                        <ButtonContainer/>
+                    </div>
                 </div>
             </div>
         )
