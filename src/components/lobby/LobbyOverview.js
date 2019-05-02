@@ -52,7 +52,6 @@ class LobbyOverview extends React.Component {
                 } else {
                     localStorage.removeItem("gameID");
                     console.log(localStorage.getItem("gameID"));
-                    this.componentDidMount(LobbyOverview);
                     this.props.history.push("/NormalModeLobby");
 
                 }
@@ -93,7 +92,7 @@ class LobbyOverview extends React.Component {
     componentDidMount() {
         // if game gets deleted in backend and frontend still tries to fetch a deleted game
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
-           setInterval(()=>{ if(localStorage.getItem("gameID") == null){
+           setInterval(()=>{ if(localStorage.getItem("gameID") === null ){
                return;
            }
            else{
@@ -116,13 +115,24 @@ class LobbyOverview extends React.Component {
                                player1_gameID: response.player1.gameId,
                            });
                            //console.log(("player1ID: "+this.state.player1_id));
-                           if(response.player2 != null) {
+                           if(response.player2 !== null ) {
                                this.setState({
                                    player2_username: response.player2.username,
                                    player2_id: response.player2.id,
                                    player2_status: response.player2.status,
                                    player2_color: response.player2.color,
                                    player2_gameID: response.player2.gameId,})
+                           }
+                           //below condition is used when player1 or 2 leaves the lobby  --> otherwise player2_name wont update
+                           if(response.player2 === null){
+                               this.setState({
+                                   player2_username: null,
+                                   player2_id: null,
+                                   player2_status: null,
+                                   player2_color: null,
+                                   player2_gameID: null,
+
+                               })
                            }
                        }
 
@@ -132,7 +142,7 @@ class LobbyOverview extends React.Component {
                        console.log(err);
                        alert("Something went wrong fetching the games: " + err);
                    });
-           }}, 1000)
+           }}, 100)
     }
 
 //created for every color a function in order to set the state to the clicked color --> needs an update (not the best way to do it)
