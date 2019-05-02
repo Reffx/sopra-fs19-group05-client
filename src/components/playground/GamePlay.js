@@ -89,8 +89,8 @@ class GamePlay extends React.Component {
         super(props);
         this.state = {
             player_is_playing: null,
-            player1 : null,
-            player2: null,
+            player1 : Player,
+            player2 : Player,
             alertText: "This is a message.",
             beginnerId: null,
         };
@@ -126,19 +126,6 @@ class GamePlay extends React.Component {
             .then(async response => {
                 if (response.status !== 404 || response.player1 !== null) {
                     // console.log(localStorage.getItem("userID"));
-                    this.setState({
-                        player1_username: response.player1.username,
-                        player1_id: response.player1.id,
-                        player1_status: response.player1.status,
-                        player1_color: response.player1.color,
-                        player1_gameID: response.player1.gameId,
-                        player2_username: response.player2.username,
-                        player2_id: response.player2.id,
-                        player2_status: response.player2.status,
-                        player2_color: response.player2.color,
-                        player2_gameID: response.player2.gameId,
-                    });
-
                     const Player1 = new Player();
                     Player1.id = response.player1.id;
                     Player1.gameId = response.player1.id;
@@ -172,6 +159,10 @@ class GamePlay extends React.Component {
                     Player2.worker2.position = response.player2.worker2.position;
                     Player2.worker2.next = response.player2.worker2.next;
                     Player2.worker2.winner = response.player2.worker2.winner;
+                    this.setState({
+                        player1: Player1,
+                        player2: Player2,
+                    });
 
                 }
             })
@@ -315,11 +306,11 @@ class GamePlay extends React.Component {
     }
 
     getPlayerColor() {
-        if (localStorage.getItem("userID") === this.state.player1_id.toString()) {
-            return this.state.player1_color;
+        if (localStorage.getItem("userID") === this.state.player1.id.toString()) {
+            return this.state.player1.color;
         } else if
-        (localStorage.getItem("userID") === this.state.player2_id.toString()) {
-            return this.state.player2_color;
+        (localStorage.getItem("userID") === this.state.player2.id.toString()) {
+            return this.state.player2.color;
         }
     }
 
@@ -349,12 +340,12 @@ class GamePlay extends React.Component {
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className="left">
-                        <p>UserId: {this.state.player1_id} </p>
-                        <p>Username: {this.state.player1_username} </p>
-                        <p>Color: {this.state.player1_color}</p>
+                        <p>UserId: {this.state.player1.id} </p>
+                        <p>Username: {this.state.player1.username} </p>
+                        <p>Color: {this.state.player1.color}</p>
                         <ButtonContainer/>
                         <Button
-                            disabled={(this.state.player_is_playing !== this.state.player1_id)}
+                            disabled={(this.state.player_is_playing !== this.state.player1.id)}
                             width="50%"
                             onClick={() => {
                             }}
@@ -552,12 +543,12 @@ class GamePlay extends React.Component {
                         </div>
                     </div>
                     <div className="right">
-                        <p>UserId: {this.state.player2_id} </p>
-                        <p>Username: {this.state.player2_username} </p>
-                        <p>Color: {this.state.player2_color}</p>
+                        <p>UserId: {this.state.player2.id} </p>
+                        <p>Username: {this.state.player2.username} </p>
+                        <p>Color: {this.state.player2.color}</p>
                         <ButtonContainer/>
                         <Button
-                            disabled={(this.state.player_is_playing !== this.state.player2_id)}
+                            disabled={(this.state.player_is_playing !== this.state.player2.id)}
                             width="50%"
                             onClick={() => {
                             }}
