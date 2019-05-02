@@ -30,10 +30,6 @@ class NormalModeLobby extends React.Component {
 
 
     create_lobby() {
-        if (localStorage.getItem("gameID") != null) {
-            alert("You are already in a lobby!");
-            this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
-        }
         fetch(`${getDomain()}/games`, {
             method: "POST",
             headers: {

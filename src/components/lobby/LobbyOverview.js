@@ -50,7 +50,11 @@ class LobbyOverview extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "You could not leave the lobby"})
                 } else {
+                    localStorage.removeItem("gameID");
+                    console.log(localStorage.getItem("gameID"));
+                    this.componentDidMount(LobbyOverview);
                     this.props.history.push("/NormalModeLobby");
+
                 }
             })
             .catch(err => {
@@ -87,42 +91,48 @@ class LobbyOverview extends React.Component {
     }
 
     componentDidMount() {
+        // if game gets deleted in backend and frontend still tries to fetch a deleted game
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
-        setInterval(()=> {fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(response => response.json())
-            .then(async response => {
-                if (response.status !== 404 || response.player1 !== null) {
-                    //console.log(localStorage.getItem("userID"));
+           setInterval(()=>{ if(localStorage.getItem("gameID") == null){
+               return;
+           }
+           else{
+               fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+                   method: "GET",
+                   headers: {
+                       "Content-Type": "application/json"
+                   }
+               })
+                   .then(response => response.json())
+                   .then(async response => {
+                       if (response.status !== 404 || response.player1 !== null) {
+                           //console.log(localStorage.getItem("userID"));
 
-                    this.setState({
-                        player1_username: response.player1.username,
-                        player1_id: response.player1.id,
-                        player1_status: response.player1.status,
-                        player1_color: response.player1.color,
-                        player1_gameID: response.player1.gameId,
-                    });
-                    //console.log(("player1ID: "+this.state.player1_id));
-                    if(response.player2 != null) {
-                        this.setState({
-                            player2_username: response.player2.username,
-                            player2_id: response.player2.id,
-                            player2_status: response.player2.status,
-                            player2_color: response.player2.color,
-                            player2_gameID: response.player2.gameId,})
-                    }
-                }
+                           this.setState({
+                               player1_username: response.player1.username,
+                               player1_id: response.player1.id,
+                               player1_status: response.player1.status,
+                               player1_color: response.player1.color,
+                               player1_gameID: response.player1.gameId,
+                           });
+                           //console.log(("player1ID: "+this.state.player1_id));
+                           if(response.player2 != null) {
+                               this.setState({
+                                   player2_username: response.player2.username,
+                                   player2_id: response.player2.id,
+                                   player2_status: response.player2.status,
+                                   player2_color: response.player2.color,
+                                   player2_gameID: response.player2.gameId,})
+                           }
+                       }
 
-                await new Promise(resolve => setTimeout(resolve, 2000));
-            })
-            .catch(err => {
-                console.log(err);
-                alert("Something went wrong fetching the games: " + err);
-            });}, 100);
+                       await new Promise(resolve => setTimeout(resolve, 2000));
+                   })
+                   .catch(err => {
+                       console.log(err);
+                       alert("Something went wrong fetching the games: " + err);
+                   });
+           }}, 1000)
     }
 
 //created for every color a function in order to set the state to the clicked color --> needs an update (not the best way to do it)
