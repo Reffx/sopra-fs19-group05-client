@@ -1,5 +1,6 @@
 import React from "react";
 import "./GamePlay.css";
+import "./PlayerColor.css";
 import Worker from "../shared/models/Worker";
 import Field from "../shared/models/Field";
 import {getDomain} from "../../helpers/getDomain";
@@ -109,7 +110,8 @@ class GamePlay extends React.Component {
         singleField.x_coordinate = tempField[i].x_coordinate;
         singleField.y_coordinate = tempField[i].y_coordinate;
     }
-    get_game(){
+
+    get_game() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
             method: "GET",
             headers: {
@@ -131,8 +133,9 @@ class GamePlay extends React.Component {
                         player2_id: response.player2.id,
                         player2_status: response.player2.status,
                         player2_color: response.player2.color,
-                        player2_gameID: response.player2.gameId,})
-                    }
+                        player2_gameID: response.player2.gameId,
+                    })
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -150,8 +153,8 @@ class GamePlay extends React.Component {
             .then(response => response.json())
             .then(async beginnerId => {
                 this.setState({beginnerId: beginnerId});
-                console.log(this.state.beginnerId);
-                this.state.alertText= "Player with UserID "+JSON.stringify(this.state.beginnerId) +" can beginn";
+                // console.log(this.state.beginnerId);
+                this.state.alertText = "Player with UserID " + JSON.stringify(this.state.beginnerId) + " can beginn";
                 this.state.player_is_playing = beginnerId
             })
             .catch(err => {
@@ -201,9 +204,9 @@ class GamePlay extends React.Component {
                     this.saveField(box23, tempField, 22);
                     this.saveField(box24, tempField, 23);
                     this.saveField(box25, tempField, 24);
-                    console.log(box13);
-                    console.log(box13.fieldNum);
-                    console.log(box13.occupation);
+                    //console.log(box13);
+                    //console.log(box13.fieldNum);
+                    //console.log(box13.occupation);
                 }
             })
             .catch(err => {
@@ -217,7 +220,8 @@ class GamePlay extends React.Component {
 
 
     changeLvl(box) {
-    //   this.create_field();
+
+        //   this.create_field();
         if (box.layout === "level2") {
             box.layout = "level3"
         }
@@ -248,8 +252,18 @@ class GamePlay extends React.Component {
 
     getBorder(box) {
         //console.log(box.id);
+        box.id = 1;
         if (box.id === 1)
             return "border";
+    }
+
+    getPlayerColor() {
+        if (localStorage.getItem("userID") === this.state.player1_id.toString()) {
+            return this.state.player1_color;
+        } else if
+        (localStorage.getItem("userID") === this.state.player2_id.toString()) {
+            return this.state.player2_color;
+        }
     }
 
 
@@ -263,11 +277,11 @@ class GamePlay extends React.Component {
         } else if (box.occupier === null && box.height === "3") {
             return "text3";
         } else if (box.height === "1" && box.occupier === true) {
-            return "player1-div-lvl-1"
+            return ("player-div-lvl-1-" + this.getPlayerColor());
         } else if (box.height === "2" && box.occupier === true) {
-            return "player1-div-lvl-2"
+            return ("player-div-lvl-2-" + this.getPlayerColor());
         } else if (box.height === "3" && box.occupier === true) {
-            return "player1-div-lvl-3"
+            return ("player-div-lvl-3-" + this.getPlayerColor());
         }
     }
 

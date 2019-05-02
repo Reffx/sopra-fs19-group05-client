@@ -89,39 +89,6 @@
     margin: auto;
 }
 
-.player1-div-lvl-1{
-    height: 50px;
-    width: 50px;
-    margin: auto;
-    margin-top: 11px;
-    z-index: 10;
-    border: 10px solid blue;
-    border-radius: 50px;
-    background-color: blue;
-}
-
-
-.player1-div-lvl-2{
-    height: 50px;
-    width: 50px;
-    margin: auto;
-    margin-top: 2px;
-    z-index: 10;
-    border: 10px solid blue;
-    border-radius: 50px;
-    background-color: blue;
-}
-
-.player1-div-lvl-3{
-    height: 50px;
-    width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
-    z-index: 10;
-    border: 10px solid blue;
-    border-radius: 50px;
-    background-color: blue;
-}
 
 .text{
     text-align: center;

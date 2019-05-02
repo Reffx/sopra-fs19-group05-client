@@ -30,6 +30,10 @@ class NormalModeLobby extends React.Component {
 
 
     create_lobby() {
+        if (localStorage.getItem("gameID") != null) {
+            alert("You are already in a lobby!");
+            this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
+        }
         fetch(`${getDomain()}/games`, {
             method: "POST",
             headers: {
@@ -44,26 +48,26 @@ class NormalModeLobby extends React.Component {
                 isPlaying: false,
             })
         })
-                .then(response => response.json())
-                .then(returnedGame => {
-                    if (returnedGame.status === 404 || returnedGame.status === 500) {
-                        //  has to be modified for game
-                        this.setState({alertText: "Game coudn't be created!"})
-                    } else {
-                        console.log(returnedGame);
-                        const Game = new GameModel(returnedGame);
-                        localStorage.setItem("gameID", Game.id);
-                        //this.props.history.push({pathname:`/game/${Game.gameId}`});
-                        this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
-                    }
-                })
-                .catch(err => {
-                    if (err.message.match(/Failed to fetch/)) {
-                        alert("The server cannot be reached. Did you start it?");
-                    } else {
-                        alert(`Something went wrong during the creation: ${err.message}`);
-                    }
-                });
+            .then(response => response.json())
+            .then(returnedGame => {
+                if (returnedGame.status === 404 || returnedGame.status === 500) {
+                    //  has to be modified for game
+                    this.setState({alertText: "Game coudn't be created!"})
+                } else {
+                    console.log(returnedGame);
+                    const Game = new GameModel(returnedGame);
+                    localStorage.setItem("gameID", Game.id);
+                    //this.props.history.push({pathname:`/game/${Game.gameId}`});
+                    this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
     }
 
 

@@ -1,0 +1,135 @@
+.player-div-lvl-1-BLUE{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    margin-top: 11px;
+    z-index: 10;
+    border: 10px solid blue;
+    border-radius: 50px;
+    background-color: blue;
+}
+
+
+.player-div-lvl-2-BLUE{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    margin-top: 2px;
+    z-index: 10;
+    border: 10px solid blue;
+    border-radius: 50px;
+    background-color: blue;
+}
+
+.player-div-lvl-3-BLUE{
+    height: 50px;
+    width: 50px;
+    margin-left: -10px;
+    margin-top: -10px;
+    z-index: 10;
+    border: 10px solid blue;
+    border-radius: 50px;
+    background-color: blue;
+}
+
+.player-div-lvl-1-YELLOW{
+     height: 50px;
+     width: 50px;
+     margin: auto;
+     margin-top: 11px;
+     z-index: 10;
+     border: 10px solid yellow;
+     border-radius: 50px;
+     background-color: yellow;
+ }
+
+
+.player-div-lvl-2-YELLOW{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    margin-top: 2px;
+    z-index: 10;
+    border: 10px solid yellow;
+    border-radius: 50px;
+    background-color: yellow;
+}
+
+.player-div-lvl-3-YELLOW{
+    height: 50px;
+    width: 50px;
+    margin-left: -10px;
+    margin-top: -10px;
+    z-index: 10;
+    border: 10px solid yellow;
+    border-radius: 50px;
+    background-color: yellow;
+}
+
+.player-div-lvl-1-PINK{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    margin-top: 11px;
+    z-index: 10;
+    border: 10px solid deeppink;
+    border-radius: 50px;
+    background-color: deeppink;
+}
+
+
+.player-div-lvl-2-PINK{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    margin-top: 2px;
+    z-index: 10;
+    border: 10px solid deeppink;
+    border-radius: 50px;
+    background-color: deeppink;
+}
+
+.player-div-lvl-3-PINK {
+    height: 50px;
+    width: 50px;
+    margin-left: -10px;
+    margin-top: -10px;
+    z-index: 10;
+    border: 10px solid red;
+    border-radius: 50px;
+    background-color: red;
+}
+
+.player-div-lvl-1-RED{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    margin-top: 11px;
+    z-index: 10;
+    border: 10px solid red;
+    border-radius: 50px;
+    background-color: red;
+}
+
+
+.player-div-lvl-2-RED{
+    height: 50px;
+    width: 50px;
+    margin: auto;
+    margin-top: 2px;
+    z-index: 10;
+    border: 10px solid red;
+    border-radius: 50px;
+    background-color: red;
+}
+
+.player-div-lvl-3-RED{
+    height: 50px;
+    width: 50px;
+    margin-left: -10px;
+    margin-top: -10px;
+    z-index: 10;
+    border: 10px solid red;
+    border-radius: 50px;
+    background-color: red;
+}
