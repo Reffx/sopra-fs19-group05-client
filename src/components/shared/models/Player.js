@@ -1,3 +1,5 @@
+import "./Worker";
+
 /**
  * PlayerView model
  */
@@ -9,6 +11,8 @@ class Player {
         this.gameId = null;
         this.isReady = null;
         this.color = null;
+        this.worker1 = new Worker(null);
+        this.worker2 = new Worker(null);
         Object.assign(this, data);
     }
 }

@@ -95,9 +95,9 @@
     margin-left: -10px;
     margin-top: -10px;
     z-index: 10;
-    border: 10px solid red;
+    border: 10px solid deeppink;
     border-radius: 50px;
-    background-color: red;
+    background-color: deeppink;
 }
 
 .player-div-lvl-1-RED{

@@ -16,11 +16,12 @@ const GameID = styled.div`
   margin-left: 5px;
 `;
 
-const Player1 = styled.div`
+const Player1tag = styled.div`
   margin-left: auto;
   margin-right: 10px;
   font-weight: bold;
 `;
+
 const Size = styled.div`
   margin-left: auto;
   margin-right: 10px;
@@ -44,7 +45,7 @@ const GameView = ({ game }) => {
     return (
         <Container>
             <GameID>Game: {game.id}</GameID>
-            <Player1>Player1: {game.player1.username}</Player1>
+            <Player1tag>Player1: {game.player1.username}</Player1tag>
             <Size>Size: {game.size}</Size>
         </Container>
     );

@@ -1,13 +1,15 @@
 import React from "react";
 import "./GamePlay.css";
 import "./PlayerColor.css";
+import styled from "styled-components";
 import Worker from "../shared/models/Worker";
 import Field from "../shared/models/Field";
 import {getDomain} from "../../helpers/getDomain";
 import Playfield from "../shared/models/Playfield";
-import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
 import {Button} from "../../views/design/Button";
+import Player from "../shared/models/Player";
+
 
 const ButtonContainer = styled.div`
   display: row;
@@ -87,6 +89,8 @@ class GamePlay extends React.Component {
         super(props);
         this.state = {
             player_is_playing: null,
+            player1 : null,
+            player2: null,
             alertText: "This is a message.",
             beginnerId: null,
         };
@@ -121,8 +125,7 @@ class GamePlay extends React.Component {
             .then(response => response.json())
             .then(async response => {
                 if (response.status !== 404 || response.player1 !== null) {
-                    //console.log(localStorage.getItem("userID"));
-
+                    // console.log(localStorage.getItem("userID"));
                     this.setState({
                         player1_username: response.player1.username,
                         player1_id: response.player1.id,
@@ -134,13 +137,67 @@ class GamePlay extends React.Component {
                         player2_status: response.player2.status,
                         player2_color: response.player2.color,
                         player2_gameID: response.player2.gameId,
-                    })
+                    });
+
+                    const Player1 = new Player();
+                    Player1.id = response.player1.id;
+                    Player1.gameId = response.player1.id;
+                    Player1.username  = response.player1.username;
+                    Player1.color = response.player1.color;
+                    Player1.status = response.player1.status;
+                    Player1.worker1.workerId = response.player1.worker1.workerId;
+                    Player1.worker1.playerId = response.player1.worker1.playerId;
+                    Player1.worker1.position = response.player1.worker1.position;
+                    Player1.worker1.next = response.player1.worker1.next;
+                    Player1.worker1.winner = response.player1.worker1.winner;
+                    Player1.worker2.workerId = response.player1.worker2.workerId;
+                    Player1.worker2.playerId = response.player1.worker2.playerId;
+                    Player1.worker2.position = response.player1.worker2.position;
+                    Player1.worker2.next = response.player1.worker2.next;
+                    Player1.worker2.winner = response.player1.worker2.winner;
+                    console.log("Player1 of GET games/{gameID}", Player1);
+                    const Player2 = new Player();
+                    Player2.id = response.player2.id;
+                    Player2.gameId = response.player2.id;
+                    Player2.username  = response.player2.username;
+                    Player2.color = response.player2.color;
+                    Player2.status = response.player2.status;
+                    Player2.worker1.workerId = response.player2.worker1.workerId;
+                    Player2.worker1.playerId = response.player2.worker1.playerId;
+                    Player2.worker1.position = response.player2.worker1.position;
+                    Player2.worker1.next = response.player2.worker1.next;
+                    Player2.worker1.winner = response.player2.worker1.winner;
+                    Player2.worker2.workerId = response.player2.worker2.workerId;
+                    Player2.worker2.playerId = response.player2.worker2.playerId;
+                    Player2.worker2.position = response.player2.worker2.position;
+                    Player2.worker2.next = response.player2.worker2.next;
+                    Player2.worker2.winner = response.player2.worker2.winner;
+
                 }
             })
             .catch(err => {
                 console.log(err);
                 alert("Something went wrong fetching the games: " + err);
             })
+    }
+
+    player1PlaceWorker(){
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/status`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(returnedGame => {
+
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
     }
 
     setBeginner() {
