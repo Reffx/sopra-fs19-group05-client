@@ -33,6 +33,7 @@ function logout() {
     localStorage.removeItem("id");
     localStorage.removeItem("username");
     localStorage.removeItem("name");
+    localStorage.removeItem("gameID");
 }
 
 const toolbar = props => (
