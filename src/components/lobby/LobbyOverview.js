@@ -7,6 +7,7 @@ import GameModel from "../shared/models/GameModel";
 import {Button} from "../../views/design/Button";
 import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
+import {nextTick} from "q";
 
 const ButtonContainer = styled.div`
   display: row;
@@ -131,7 +132,16 @@ class LobbyOverview extends React.Component {
                                    player2_status: null,
                                    player2_color: null,
                                    player2_gameID: null,
-
+                               })
+                           }
+                           //added this if statement to avoid the fetch error after player1 leaves lobby and lobbysize is 1 which means there is no player2
+                           if(response.player1 === null){
+                               this.setState({
+                                   player1_username: null,
+                                   player1_id: null,
+                                   player1_status: null,
+                                   player1_color: null,
+                                   player1_gameID: null,
                                })
                            }
                        }
