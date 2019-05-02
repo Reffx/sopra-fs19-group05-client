@@ -6,8 +6,6 @@ import {getDomain} from "../../helpers/getDomain";
 import Playfield from "../shared/models/Playfield";
 
 
-
-
 const box1 = new Field();
 box1.gameId = localStorage.getItem("gameId");
 const box2 = new Field();
@@ -74,6 +72,7 @@ class GamePlay extends React.Component {
         super(props);
         this.state = {
             alertText: "This is a message.",
+            beginnerId: null,
         };
     }
 
@@ -92,6 +91,28 @@ class GamePlay extends React.Component {
         singleField.reachedMaxHeight = tempField[i].reachedMaxHeight;
         singleField.x_coordinate = tempField[i].x_coordinate;
         singleField.y_coordinate = tempField[i].y_coordinate;
+    }
+
+    setBeginner() {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/beginner`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(async beginnerId => {
+                // delays continuous execution of an async operation for 0.8 seconds.
+                // This is just a fake async call, so that the spinner can be displayed
+                // feel free to remove it :)
+                await new Promise(resolve => setTimeout(resolve, 800));
+                this.setState({beginnerId: beginnerId});
+                console.log(this.state.beginnerId);
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Something went wrong fetching the games: " + err);
+            });
     }
 
 
@@ -151,7 +172,8 @@ class GamePlay extends React.Component {
 
 
     changeLvl(box) {
-        this.create_field();
+        this.setBeginner();
+    //   this.create_field();
         if (box.layout === "level2") {
             box.layout = "level3"
         }
@@ -180,15 +202,16 @@ class GamePlay extends React.Component {
         this.setState(box);
     }
 
-    getBorder(box){
+    getBorder(box) {
         //console.log(box.id);
         if (box.id === 1)
-        return "border";
+            return "border";
     }
-    
+
 
     innerBoxLayout(box) {
-     //   console.log(box.occupation);
+        box.occupier = true;
+        //   console.log(box.occupation);
         if (box.occupier === null && box.height === "1") {
             return "text1";
         } else if (box.occupier === null && box.height === "2") {
