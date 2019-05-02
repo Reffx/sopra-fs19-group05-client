@@ -36,7 +36,10 @@ class GodModeLobby extends React.Component {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                player1: localStorage.getItem("userID"),
+                player1: {
+                    id: localStorage.getItem("userID"),
+                    username: localStorage.getItem("username"),
+                },
                 gameMode: "GOD",
             })
         })
