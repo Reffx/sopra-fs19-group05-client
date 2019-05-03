@@ -188,11 +188,11 @@ class GamePlay extends React.Component {
                 this.state.playing_step = "set_worker";
                 if(this.state.beginnerId === this.state.player1.id){
                     this.state.player_is_playing = this.state.player1;
-                    alert(this.state.player_is_playing.id)
+                    alert(this.state.player_is_playing.id)//just for testing
                 }
                 else{
-                    this.state.player_is_playing = this.state.player2
-                    alert(this.state.player_is_playing.id)
+                    this.state.player_is_playing = this.state.player2;
+                    alert(this.state.player_is_playing.id)//just for testing
                 }
             })
             .catch(err => {
@@ -382,6 +382,7 @@ class GamePlay extends React.Component {
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className="left">
+                        <h2>Player 1</h2>
                         <p>UserId: {this.state.player1.id} </p>
                         <p>Username: {this.state.player1.username} </p>
                         <p>Color: {this.state.player1.color}</p>
@@ -584,6 +585,7 @@ class GamePlay extends React.Component {
                         </div>
                     </div>
                     <div className="right">
+                        <h2>Player 2</h2>
                         <p>UserId: {this.state.player2.id} </p>
                         <p>Username: {this.state.player2.username} </p>
                         <p>Color: {this.state.player2.color}</p>
