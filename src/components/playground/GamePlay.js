@@ -250,6 +250,7 @@ class GamePlay extends React.Component {
             if (this.state.playing_step === "select_field_to_build"){
             }
         }*/
+
     }
 
   /*  set_worker(fieldNumber) {
@@ -379,9 +380,8 @@ class GamePlay extends React.Component {
     }
 
 
-  /*  changeLvl(box) {
-
-        //   this.create_field();
+    changeLvl(box) {
+        this.create_field();
         if (box.layout === "level2") {
             box.layout = "level3"
         }
@@ -408,7 +408,7 @@ class GamePlay extends React.Component {
         ;
         this.state.box2.workerId = "player1-div";
         this.setState(box);
-    } */
+    }
 
 
     getBorder(box) {
@@ -490,7 +490,7 @@ class GamePlay extends React.Component {
                         <div>
                             <div className="box1 white box" id={this.getBorder(field1)}
                                  onClick={() => {
-                                     this.get_action(field1)
+                                     this.changeLvl(field1)
                                  }}>
                                 <div id={field1.layout}>
                                     <div className={this.innerBoxLayout(field1)}>{null}</div>
