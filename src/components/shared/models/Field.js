@@ -1,4 +1,5 @@
 import "./Worker";
+
 /**
  * Field model
  */
@@ -7,7 +8,7 @@ class Field {
         this.id = null;
         this.fieldNum = null;
         this.height = null;
-        this.occupier = null;
+        this.occupier = new Worker(null);
         this.reachedMaxHeight = null;
         this.x_coordinate = null;
         this.y_coordinate = null;

@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Worker from "../shared/models/Worker";
 import Field from "../shared/models/Field";
 import {getDomain} from "../../helpers/getDomain";
-import Playfield from "../shared/models/Playfield";
+import PlayField from "../shared/models/PlayField";
 import {BaseContainer} from "../../helpers/layout";
 import {Button} from "../../views/design/Button";
 import Player from "../shared/models/Player";
@@ -23,56 +23,58 @@ const Container = styled(BaseContainer)`
 `;
 
 
-const box1 = new Field();
-box1.gameId = localStorage.getItem("gameId");
-const box2 = new Field();
-box2.gameId = localStorage.getItem("gameId");
-const box3 = new Field();
-box3.gameId = localStorage.getItem("gameId");
-const box4 = new Field();
-box4.gameId = localStorage.getItem("gameId");
-const box5 = new Field();
-box5.gameId = localStorage.getItem("gameId");
-const box6 = new Field();
-box6.gameId = localStorage.getItem("gameId");
-const box7 = new Field();
-box7.gameId = localStorage.getItem("gameId");
-const box8 = new Field();
-box8.gameId = localStorage.getItem("gameId");
-const box9 = new Field();
-box9.gameId = localStorage.getItem("gameId");
-const box10 = new Field();
-box10.gameId = localStorage.getItem("gameId");
-const box11 = new Field();
-box11.gameId = localStorage.getItem("gameId");
-const box12 = new Field();
-box12.gameId = localStorage.getItem("gameId");
-const box13 = new Field();
-box13.gameId = localStorage.getItem("gameId");
-const box14 = new Field();
-box14.gameId = localStorage.getItem("gameId");
-const box15 = new Field();
-box15.gameId = localStorage.getItem("gameId");
-const box16 = new Field();
-box16.gameId = localStorage.getItem("gameId");
-const box17 = new Field();
-box17.gameId = localStorage.getItem("gameId");
-const box18 = new Field();
-box18.gameId = localStorage.getItem("gameId");
-const box19 = new Field();
-box19.gameId = localStorage.getItem("gameId");
-const box20 = new Field();
-box20.gameId = localStorage.getItem("gameId");
-const box21 = new Field();
-box21.gameId = localStorage.getItem("gameId");
-const box22 = new Field();
-box22.gameId = localStorage.getItem("gameId");
-const box23 = new Field();
-box23.gameId = localStorage.getItem("gameId");
-const box24 = new Field();
-box24.gameId = localStorage.getItem("gameId");
-const box25 = new Field();
-box25.gameId = localStorage.getItem("gameId");
+const field1 = new Field();
+const field2 = new Field();
+const field3 = new Field();
+const field4 = new Field();
+const field5 = new Field();
+const field6 = new Field();
+const field7 = new Field();
+const field8 = new Field();
+const field9 = new Field();
+const field10 = new Field();
+const field11 = new Field();
+const field12 = new Field();
+const field13 = new Field();
+const field14 = new Field();
+const field15 = new Field();
+const field16 = new Field();
+const field17 = new Field();
+const field18 = new Field();
+const field19 = new Field();
+const field20 = new Field();
+const field21 = new Field();
+const field22 = new Field();
+const field23 = new Field();
+const field24 = new Field();
+const field25 = new Field();
+
+field1.gameId = localStorage.getItem("gameId");
+field2.gameId = localStorage.getItem("gameId");
+field3.gameId = localStorage.getItem("gameId");
+field4.gameId = localStorage.getItem("gameId");
+field5.gameId = localStorage.getItem("gameId");
+field6.gameId = localStorage.getItem("gameId");
+field7.gameId = localStorage.getItem("gameId");
+field8.gameId = localStorage.getItem("gameId");
+field9.gameId = localStorage.getItem("gameId");
+field10.gameId = localStorage.getItem("gameId");
+field11.gameId = localStorage.getItem("gameId");
+field12.gameId = localStorage.getItem("gameId");
+field13.gameId = localStorage.getItem("gameId");
+field14.gameId = localStorage.getItem("gameId");
+field15.gameId = localStorage.getItem("gameId");
+field16.gameId = localStorage.getItem("gameId");
+field17.gameId = localStorage.getItem("gameId");
+field18.gameId = localStorage.getItem("gameId");
+field19.gameId = localStorage.getItem("gameId");
+field20.gameId = localStorage.getItem("gameId");
+field21.gameId = localStorage.getItem("gameId");
+field22.gameId = localStorage.getItem("gameId");
+field23.gameId = localStorage.getItem("gameId");
+field24.gameId = localStorage.getItem("gameId");
+field25.gameId = localStorage.getItem("gameId");
+
 
 const worker1p1 = new Worker();
 worker1p1.gameId = localStorage.getItem("gameId");
@@ -90,34 +92,53 @@ class GamePlay extends React.Component {
         this.state = {
             player_is_playing: new Player(),
             playing_step: null,
-            player1 : Player,
-            player2 : Player,
+            myPlayField: PlayField,
+            player1: Player,
+            player2: Player,
             alertText: "This is a message.",
             beginnerId: null,
             selected_worker: null,
+            box1: Field,
+            box2: Field,
+            box3: Field,
+            box4: Field,
+            box5: Field,
+            box6: Field,
+            box7: Field,
+            box8: Field,
+            box9: Field,
+            box10: Field,
+            box11: Field,
+            box12: Field,
+            box13: Field,
+            box14: Field,
+            box15: Field,
+            box16: Field,
+            box17: Field,
+            box18: Field,
+            box19: Field,
+            box20: Field,
+            box21: Field,
+            box22: Field,
+            box23: Field,
+            box24: Field,
+            box25: Field,
         };
     }
 
 
     componentDidMount() {
         this.get_game();
+        this.create_field();
     }
 
     alertMessage() {
         return this.state.alertText
     }
 
-    saveField(singleField, tempField, i) {
-        singleField.id = tempField[i].id;
-        singleField.fieldNum = tempField[i].fieldNum;
-        singleField.occupation = tempField[i].occupation;
-        singleField.reachedMaxHeight = tempField[i].reachedMaxHeight;
-        singleField.x_coordinate = tempField[i].x_coordinate;
-        singleField.y_coordinate = tempField[i].y_coordinate;
-    }
 
     get_game() {
-        this.setBeginner()
+        // this.setBeginner();
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
             method: "GET",
             headers: {
@@ -131,7 +152,7 @@ class GamePlay extends React.Component {
                     const Player1 = new Player();
                     Player1.id = response.player1.id;
                     Player1.gameId = response.player1.id;
-                    Player1.username  = response.player1.username;
+                    Player1.username = response.player1.username;
                     Player1.color = response.player1.color;
                     Player1.status = response.player1.status;
                     Player1.worker1.workerId = response.player1.worker1.workerId;
@@ -144,14 +165,16 @@ class GamePlay extends React.Component {
                     Player1.worker2.position = response.player1.worker2.position;
                     Player1.worker2.next = response.player1.worker2.next;
                     Player1.worker2.winner = response.player1.worker2.winner;
-                    console.log("Player1 of GET games/{gameID}", Player1);
+                    // console.log("Player1 of GET games/{gameID}", Player1);
                     const Player2 = new Player();
                     Player2.id = response.player2.id;
                     Player2.gameId = response.player2.id;
-                    Player2.username  = response.player2.username;
+                    Player2.username = response.player2.username;
                     Player2.color = response.player2.color;
                     Player2.status = response.player2.status;
                     Player2.worker1.workerId = response.player2.worker1.workerId;
+                    //console.log(Player2.worker1.workerId);
+                    //console.log(response.player2.worker1.workerId);
                     Player2.worker1.playerId = response.player2.worker1.playerId;
                     Player2.worker1.position = response.player2.worker1.position;
                     Player2.worker1.next = response.player2.worker1.next;
@@ -165,7 +188,8 @@ class GamePlay extends React.Component {
                         player1: Player1,
                         player2: Player2,
                     });
-
+                    // console.log(field1);
+                    //console.log(this.state.player1.worker1.color);
                 }
             })
             .catch(err => {
@@ -173,7 +197,8 @@ class GamePlay extends React.Component {
                 alert("Something went wrong fetching the games: " + err);
             })
     }
-    setBeginner() {
+
+ /*   setBeginner() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/beginner`, {
             method: "GET",
             headers: {
@@ -186,11 +211,10 @@ class GamePlay extends React.Component {
                 // console.log(this.state.beginnerId);
                 this.state.alertText = "Player with UserID " + JSON.stringify(this.state.beginnerId) + " can begin";
                 this.state.playing_step = "set_worker";
-                if(this.state.beginnerId === this.state.player1.id){
+                if (this.state.beginnerId === this.state.player1.id) {
                     this.state.player_is_playing = this.state.player1;
                     alert(this.state.player_is_playing.id)//just for testing
-                }
-                else{
+                } else {
                     this.state.player_is_playing = this.state.player2;
                     alert(this.state.player_is_playing.id)//just for testing
                 }
@@ -199,16 +223,19 @@ class GamePlay extends React.Component {
                 console.log(err);
                 alert("Something went wrong fetching the games: " + err);
             });
-    }
-    change_player_is_playing(){
-        if(this.state.player_is_playing.id === this.state.player1.id){
-            this.state.player_is_playing= this.state.player2
+    } */
+
+  /*  change_player_is_playing() {
+        if (this.state.player_is_playing.id === this.state.player1.id) {
+            this.state.player_is_playing = this.state.player2
+        } else {
+            this.state.player_is_playing = this.state.player1
         }
-        else{
-            this.state.player_is_playing= this.state.player1
-        }
-    }
-    get_action(fieldNumber){
+    } */
+
+    get_action(box) {
+        this.create_field();
+        /*
         if(localStorage.getItem("userID") === this.state.player_is_playing.id) {
             alert("hi");
             if (this.state.playing_step === "place_worker") {
@@ -222,13 +249,13 @@ class GamePlay extends React.Component {
             }
             if (this.state.playing_step === "select_field_to_build"){
             }
-        }
+        }*/
     }
-    set_worker(fieldNumber) {
+
+  /*  set_worker(fieldNumber) {
         if (this.state.player_is_playing.worker1.position === 0) {
             this.state.selected_worker = this.state.player_is_playing.worker1.id
-        }
-        else{
+        } else {
             this.state.selected_worker = this.state.player_is_playing.worker2.id
         }
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${fieldNumber}/${this.state.selected_worker}/place`, {
@@ -249,13 +276,14 @@ class GamePlay extends React.Component {
             });
         this.change_player_is_playing();
         this.get_game()
-        if(this.state.player1.worker1.position !== 0 && this.state.player1.worker2.position !== 0 && this.state.player2.worker1.position !== 0 && this.state.player2.worker2.position !== 0 ){
-            this.state.playing_step= "select_worker_for_moving"
+        if (this.state.player1.worker1.position !== 0 && this.state.player1.worker2.position !== 0 && this.state.player2.worker1.position !== 0 && this.state.player2.worker2.position !== 0) {
+            this.state.playing_step = "select_worker_for_moving"
         }
-    }
+    } */
+
 
     create_field() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameId")}/board/create`, {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/board/create`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -263,42 +291,72 @@ class GamePlay extends React.Component {
         })
             .then(response => response.json())
             .then(returnedPlayfield => {
-                if (returnedPlayfield.status === 404 || returnedPlayfield.status === 500) {
-                    //  has to be modified for game
-                    this.setState({alertText: "Playfield coudn't be created!"})
-                } else {
-                    const playfield = new Playfield(returnedPlayfield);
-                    var tempField = playfield.allFields;
-                    this.saveField(box1, tempField, 0);
-                    this.saveField(box2, tempField, 1);
-                    this.saveField(box3, tempField, 2);
-                    this.saveField(box4, tempField, 3);
-                    this.saveField(box5, tempField, 4);
-                    this.saveField(box6, tempField, 5);
-                    this.saveField(box7, tempField, 6);
-                    this.saveField(box8, tempField, 7);
-                    this.saveField(box9, tempField, 8);
-                    this.saveField(box10, tempField, 9);
-                    this.saveField(box11, tempField, 10);
-                    this.saveField(box12, tempField, 11);
-                    this.saveField(box13, tempField, 12);
-                    this.saveField(box14, tempField, 13);
-                    this.saveField(box15, tempField, 14);
-                    this.saveField(box16, tempField, 15);
-                    this.saveField(box17, tempField, 16);
-                    this.saveField(box18, tempField, 17);
-                    this.saveField(box19, tempField, 18);
-                    this.saveField(box20, tempField, 19);
-                    this.saveField(box21, tempField, 20);
-                    this.saveField(box22, tempField, 21);
-                    this.saveField(box23, tempField, 22);
-                    this.saveField(box24, tempField, 23);
-                    this.saveField(box25, tempField, 24);
-                    //console.log(box13);
-                    //console.log(box13.fieldNum);
-                    //console.log(box13.occupation);
+                    if (returnedPlayfield.status === 404 || returnedPlayfield.status === 500) {
+                        //  has to be modified for game
+                        this.setState({alertText: "Playfield coudn't be created!"})
+                    } else {
+                        const playfield = new PlayField(returnedPlayfield);
+                        var tempField = playfield.allFields;
+                        this.saveField(field1, tempField, 0);
+                        this.saveField(field2, tempField, 1);
+                        this.saveField(field3, tempField, 2);
+                        this.saveField(field4, tempField, 3);
+                        this.saveField(field5, tempField, 4);
+                        this.saveField(field6, tempField, 5);
+                        this.saveField(field7, tempField, 6);
+                        this.saveField(field8, tempField, 7);
+                        this.saveField(field9, tempField, 8);
+                        this.saveField(field10, tempField, 9);
+                        this.saveField(field11, tempField, 10);
+                        this.saveField(field12, tempField, 11);
+                        this.saveField(field13, tempField, 12);
+                        this.saveField(field14, tempField, 13);
+                        this.saveField(field15, tempField, 14);
+                        this.saveField(field16, tempField, 15);
+                        this.saveField(field17, tempField, 16);
+                        this.saveField(field18, tempField, 17);
+                        this.saveField(field19, tempField, 18);
+                        this.saveField(field20, tempField, 19);
+                        this.saveField(field21, tempField, 20);
+                        this.saveField(field22, tempField, 21);
+                        this.saveField(field23, tempField, 22);
+                        this.saveField(field24, tempField, 23);
+                        this.saveField(field25, tempField, 24);
+                        this.setState({
+                            box1: field1,
+                            box2: field2,
+                            box3: field3,
+                            box4: field4,
+                            box5: field5,
+                            box6: field6,
+                            box7: field7,
+                            box8: field8,
+                            box9: field9,
+                            box10: field10,
+                            box11: field11,
+                            box12: field12,
+                            box13: field13,
+                            box14: field14,
+                            box15: field15,
+                            box16: field16,
+                            box17: field17,
+                            box18: field18,
+                            box19: field19,
+                            box20: field20,
+                            box21: field21,
+                            box22: field22,
+                            box23: field23,
+                            box24: field24,
+                            box25: field25,
+                            myPlayField: tempField,
+                        });
+                        //console.log(box13);
+                        //console.log(box13.fieldNum);
+                        //console.log(box13.occupation);
+                        //console.log(this.state.box1);
+                    }
                 }
-            })
+            )
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
                     alert("The server cannot be reached. Did you start it?");
@@ -306,10 +364,22 @@ class GamePlay extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
+        //console.log(this.state.myPlayField[13 -1 ]);
+        // this.updateFields(this.state.myPlayField);
+        //console.log(this.state.box1);
+    }
+
+    saveField(singleField, tempField, i) {
+        singleField.id = tempField[i].id;
+        singleField.fieldNum = tempField[i].fieldNum;
+        singleField.occupier = tempField[i].occupier;
+        singleField.occupier.playerId = tempField[i].occupier.playerId;
+        singleField.x_coordinate = tempField[i].x_coordinate;
+        singleField.y_coordinate = tempField[i].y_coordinate;
     }
 
 
-    changeLvl(box) {
+  /*  changeLvl(box) {
 
         //   this.create_field();
         if (box.layout === "level2") {
@@ -336,29 +406,47 @@ class GamePlay extends React.Component {
             box.height = "1"
         }
         ;
-        box2.workerId = "player1-div";
+        this.state.box2.workerId = "player1-div";
         this.setState(box);
-    }
+    } */
+
 
     getBorder(box) {
         //console.log(box.id);
-        box.id = 1;
-        if (box.id === 1)
-            return "border";
+        //    box.id = 1;
+        //  if (box.id === 1)
+        //          return "border";
+//
     }
 
-    getPlayerColor() {
-        if (localStorage.getItem("userID") === this.state.player1.id.toString()) {
-            return this.state.player1.color;
-        } else if
-        (localStorage.getItem("userID") === this.state.player2.id.toString()) {
-            return this.state.player2.color;
-        }
+    getPlayerColor(i) {
+      //  console.log(this.state.player1.id);
+        // return this.state.player1.color;
+       // console.log(this.state.player1.color);
+      //  console.log(box);
+         //   console.log(box.occupier.playerId);
+            if (i === 1) {
+                return this.state.player1.color;
+            } else if
+            (i === 1) {
+                return this.state.player2.color;
+            }
+
     }
 
 
     innerBoxLayout(box) {
-        box.occupier = true;
+        if (box.occupier != null) {
+            console.log(box);
+            console.log(box.fieldNum);
+            console.log(box.occupier);
+            console.log(field1.occupier.playerId);
+            return ("player-div-lvl-0-" + this.getPlayerColor(1));
+        }
+        //console.log(box.id);
+        if (box.id === 1) {
+            return ("player-div-lvl-1-BLUE" + this.getPlayerColor(box));
+        }
         //   console.log(box.occupation);
         if (box.occupier === null && box.height === "1") {
             return "text1";
@@ -377,6 +465,7 @@ class GamePlay extends React.Component {
 
 
     render() {
+
         return (
             <div className="fixedPixels-div">
                 <div className="message-div">{this.alertMessage()}</div>
@@ -399,187 +488,201 @@ class GamePlay extends React.Component {
                     </div>
                     <div className="playField">
                         <div>
-                            <div className="box1 white box" id={this.getBorder(box1)} onClick={() => {
-                                this.get_action(box1)
-                            }}>
-                                <div id={box1.layout}>
-                                    <div className={this.innerBoxLayout(box1)}>{null}</div>
+                            <div className="box1 white box" id={this.getBorder(field1)}
+                                 onClick={() => {
+                                     this.get_action(field1)
+                                 }}>
+                                <div id={field1.layout}>
+                                    <div className={this.innerBoxLayout(field1)}>{null}</div>
                                 </div>
                             </div>
-                            <div className="box2 black box" id={this.getBorder(box2)} onClick={() => {
-                                this.get_action(box2)
+                            <div className="box2 black box" id={this.getBorder(this.state.box2)} onClick={() => {
+                                this.get_action(this.state.box2)
                             }}>
-                                <div id={box2.layout}>
-                                    <div className={this.innerBoxLayout(box2)}>{box2.height}</div>
+                                <div id={this.state.box2.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box2)}>{this.state.box2.height}</div>
                                 </div>
                             </div>
                             <div className="box3 white box" onClick={() => {
-                                this.get_action(box3)
+                                this.get_action(this.state.box3)
                             }}>
-                                <div id={box3.layout}>
-                                    <div className={this.innerBoxLayout(box3)}>{box3.height}</div>
+                                <div id={this.state.box3.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box3)}>{this.state.box3.height}</div>
                                 </div>
                             </div>
                             <div className="box4 black box" onClick={() => {
-                                this.get_action(box4)
+                                this.get_action(this.state.box4)
                             }}>
-                                <div id={box4.layout}>
-                                    <div className={this.innerBoxLayout(box4)}>{box4.height}</div>
+                                <div id={this.state.box4.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box4)}>{this.state.box4.height}</div>
                                 </div>
                             </div>
                             <div className="box5 white box" onClick={() => {
-                                this.get_action(box5)
+                                this.get_action(this.state.box5)
                             }}>
-                                <div id={box5.layout}>
-                                    <div className={this.innerBoxLayout(box5)}>{box5.height}</div>
+                                <div id={this.state.box5.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box5)}>{this.state.box5.height}</div>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div className="box6 black box" onClick={() => {
-                                this.get_action(box6)
+                                this.get_action(this.state.box6)
                             }}>
-                                <div id={box6.layout}>
-                                    <div className={this.innerBoxLayout(box6)}>{null}</div>
+                                <div id={this.state.box6.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box6)}>{null}</div>
                                 </div>
                             </div>
                             <div className="box7 white box" onClick={() => {
-                                this.get_action(box7)
+                                this.get_action(this.state.box7)
                             }}>
-                                <div id={box7.layout}>
-                                    <div className={this.innerBoxLayout(box7)}>{box7.height}</div>
+                                <div id={this.state.box7.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box7)}>{this.state.box7.height}</div>
                                 </div>
                             </div>
                             <div className="box8 black box" onClick={() => {
-                                this.get_action(box8)
+                                this.get_action(this.state.box8)
                             }}>
-                                <div id={box8.layout}>
-                                    <div className={this.innerBoxLayout(box8)}>{box8.height}</div>
+                                <div id={this.state.box8.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box8)}>{this.state.box8.height}</div>
                                 </div>
                             </div>
                             <div className="box9 white box" onClick={() => {
-                                this.get_action(box9)
+                                this.get_action(this.state.box9)
                             }}>
-                                <div id={box9.layout}>
-                                    <div className={this.innerBoxLayout(box9)}>{box9.height}</div>
+                                <div id={this.state.box9.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box9)}>{this.state.box9.height}</div>
                                 </div>
                             </div>
                             <div className="box10 black box" onClick={() => {
-                                this.get_action(box10)
+                                this.get_action(this.state.box10)
                             }}>
-                                <div id={box10.layout}>
-                                    <div className={this.innerBoxLayout(box10)}>{box10.height}</div>
+                                <div id={this.state.box10.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box10)}>{this.state.box10.height}</div>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div className="box11 white box" onClick={() => {
-                                this.get_action(box11)
+                                this.get_action(this.state.box11)
                             }}>
-                                <div id={box11.layout}>
-                                    <div className={this.innerBoxLayout(box11)}>{null}</div>
+                                <div id={this.state.box11.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box11)}>{null}</div>
                                 </div>
                             </div>
                             <div className="box12 black box" onClick={() => {
-                                this.get_action(box12)
+                                this.get_action(this.state.box12)
                             }}>
-                                <div id={box12.layout}>
-                                    <div className={this.innerBoxLayout(box12)}>{box12.height}</div>
+                                <div id={this.state.box12.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box12)}>{this.state.box12.height}</div>
                                 </div>
                             </div>
                             <div className="box13 white box" onClick={() => {
-                                this.get_action(box13)
+                                this.get_action(this.state.box13)
                             }}>
-                                <div id={box13.layout}>
-                                    <div className={this.innerBoxLayout(box13)}>{box13.height}</div>
+                                <div id={this.state.box13.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box13)}>{this.state.box13.height}</div>
                                 </div>
                             </div>
                             <div className="box14 black box" onClick={() => {
-                                this.get_action(box14)
+                                this.get_action(this.state.box14)
                             }}>
-                                <div id={box14.layout}>
-                                    <div className={this.innerBoxLayout(box14)}>{box14.height}</div>
+                                <div id={this.state.box14.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box14)}>{this.state.box14.height}</div>
                                 </div>
                             </div>
                             <div className="box15 white box" onClick={() => {
-                                this.get_action(box15)
+                                this.get_action(this.state.box15)
                             }}>
-                                <div id={box15.layout}>
-                                    <div className={this.innerBoxLayout(box15)}>{box15.height}</div>
+                                <div id={this.state.box15.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box15)}>{this.state.box15.height}</div>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div className="box16 black box" onClick={() => {
-                                this.get_action(box16)
+                                this.get_action(this.state.box16)
                             }}>
-                                <div id={box16.layout}>
-                                    <div className={this.innerBoxLayout(box16)}>{null}</div>
+                                <div id={this.state.box16.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box16)}>{null}</div>
                                 </div>
                             </div>
                             <div className="box17 white box" onClick={() => {
-                                this.get_action(box17)
+                                this.get_action(this.state.box17)
                             }}>
-                                <div id={box17.layout}>
-                                    <div className={this.innerBoxLayout(box17)}>{box17.height}</div>
+                                <div id={this.state.box17.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box17)}>{this.state.box17.height}</div>
                                 </div>
                             </div>
                             <div className="box18 black box" onClick={() => {
-                                this.get_action(box18)
+                                this.get_action(this.state.box18)
                             }}>
-                                <div id={box18.layout}>
-                                    <div className={this.innerBoxLayout(box18)}>{box18.height}</div>
+                                <div id={this.state.box18.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box18)}>{this.state.box18.height}</div>
                                 </div>
                             </div>
                             <div className="box19 white box" onClick={() => {
-                                this.get_action(box19)
+                                this.get_action(this.state.box19)
                             }}>
-                                <div id={box19.layout}>
-                                    <div className={this.innerBoxLayout(box19)}>{box19.height}</div>
+                                <div id={this.state.box19.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box19)}>{this.state.box19.height}</div>
                                 </div>
                             </div>
                             <div className="box20 black box" onClick={() => {
-                                this.get_action(box20)
+                                this.get_action(this.state.box20)
                             }}>
-                                <div id={box20.layout}>
-                                    <div className={this.innerBoxLayout(box20)}>{box20.height}</div>
+                                <div id={this.state.box20.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box20)}>{this.state.box20.height}</div>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <div className="box21 white box" onClick={() => {
-                                this.get_action(box21)
+                                this.get_action(this.state.box21)
                             }}>
-                                <div id={box21.layout}>
-                                    <div className={this.innerBoxLayout(box21)}>{null}</div>
+                                <div id={this.state.box21.layout}>
+                                    <div className={this.innerBoxLayout(this.state.box21)}>{null}</div>
                                 </div>
                             </div>
                             <div className="box22 black box" onClick={() => {
-                                this.get_action(box22)
+                                this.get_action(this.state.box22)
                             }}>
-                                <div id={box22.layout}>
-                                    <div className={this.innerBoxLayout(box22)}>{box22.height}</div>
+                                <div id={this.state.box22.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box22)}>{this.state.box22.height}</div>
                                 </div>
                             </div>
                             <div className="box23 white box" onClick={() => {
-                                this.get_action(box23)
+                                this.get_action(this.state.box23)
                             }}>
-                                <div id={box23.layout}>
-                                    <div className={this.innerBoxLayout(box23)}>{box23.height}</div>
+                                <div id={this.state.box23.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box23)}>{this.state.box23.height}</div>
                                 </div>
                             </div>
                             <div className="box24 black box" onClick={() => {
-                                this.get_action(box24)
+                                this.get_action(this.state.box24)
                             }}>
-                                <div id={box24.layout}>
-                                    <div className={this.innerBoxLayout(box24)}>{box24.height}</div>
+                                <div id={this.state.box24.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box24)}>{this.state.box24.height}</div>
                                 </div>
                             </div>
                             <div className="box25 white box" onClick={() => {
-                                this.get_action(box25)
+                                this.get_action(this.state.box25)
                             }}>
-                                <div id={box25.layout}>
-                                    <div className={this.innerBoxLayout(box25)}>{box25.height}</div>
+                                <div id={this.state.box25.layout}>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box25)}>{this.state.box25.height}</div>
                                 </div>
                             </div>
                         </div>
