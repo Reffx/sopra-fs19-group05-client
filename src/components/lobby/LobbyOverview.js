@@ -152,10 +152,9 @@ class LobbyOverview extends React.Component {
                        console.log(err);
                        alert("Something went wrong fetching the games: " + err);
                    });
-           }}, 100)
+           }}, 1000)
     }
 
-//created for every color a function in order to set the state to the clicked color --> needs an update (not the best way to do it)
     redCircleClick() {
         localStorage.setItem("color", "RED");
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {

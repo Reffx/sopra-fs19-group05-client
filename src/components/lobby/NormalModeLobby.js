@@ -50,8 +50,8 @@ class NormalModeLobby extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "Game coudn't be created!"})
                 } else {
-                    console.log(returnedGame);
                     const Game = new GameModel(returnedGame);
+                    console.log(Game);
                     localStorage.setItem("gameID", Game.id);
                     //this.props.history.push({pathname:`/game/${Game.gameId}`});
                     this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
