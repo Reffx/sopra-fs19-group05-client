@@ -9,6 +9,7 @@ import PlayField from "../shared/models/PlayField";
 import {BaseContainer} from "../../helpers/layout";
 import {Button} from "../../views/design/Button";
 import Player from "../shared/models/Player";
+import State from "../shared/models/State.js";
 
 
 const ButtonContainer = styled.div`
@@ -21,6 +22,10 @@ const Container = styled(BaseContainer)`
   text-align: center;
   display: row;
 `;
+
+const state = new State();
+
+
 
 const field0 = new Field();
 const field1 = new Field();
@@ -136,6 +141,16 @@ class GamePlay extends React.Component {
         return this.state.alertText
     }
 
+    setStatePlayer1setWorker() {
+    state.state = "PlaceWorker1";
+    state.playerId = this.state.player1.id;
+    }
+
+    setStatePlayer1setWorker() {
+        state.state = "PlaceWorker2";
+        state.playerId = this.state.player2.id;
+    }
+
 
     get_game() {
         // this.setBeginner();
@@ -236,7 +251,7 @@ class GamePlay extends React.Component {
     get_action(box) {
         this.create_field();
         this.set_worker(box);
-        
+
         console.log(this.state.player1.worker1.workerId);
 
 
