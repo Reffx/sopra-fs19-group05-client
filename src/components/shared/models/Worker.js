@@ -3,12 +3,12 @@
  */
 class Worker {
     constructor(data = {}) {
-        this.layout = null;
         this.workerId = null;
         this.playerId = null;
         this.position = null;
         this.next = null;
         this.winner = null;
+        this.layout = null;
         Object.assign(this, data);
     }
 }

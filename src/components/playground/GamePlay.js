@@ -10,6 +10,7 @@ import {BaseContainer} from "../../helpers/layout";
 import {Button} from "../../views/design/Button";
 import Player from "../shared/models/Player";
 import State from "../shared/models/State.js";
+import GameModel from "../shared/models/GameModel";
 
 
 const ButtonContainer = styled.div`
@@ -94,13 +95,13 @@ class GamePlay extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            player_is_playing: new Player(),
+            player_is_playing: Player,
             playing_step: null,
             myPlayField: PlayField,
             player1: Player,
             player2: Player,
             alertText: "This is a message.",
-            beginnerId: null,
+            players_turn: null,
             selected_worker: null,
             box0: Field,
             box1: Field,
@@ -153,7 +154,6 @@ class GamePlay extends React.Component {
 
 
     get_game() {
-        // this.setBeginner();
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
             method: "GET",
             headers: {
@@ -165,6 +165,7 @@ class GamePlay extends React.Component {
                 if (response.status !== 404 || response.player1 !== null) {
                     // console.log(localStorage.getItem("userID"));
                     const Player1 = new Player();
+                    const Game = new GameModel(response);
                     Player1.id = response.player1.id;
                     Player1.gameId = response.player1.id;
                     Player1.username = response.player1.username;
@@ -205,6 +206,10 @@ class GamePlay extends React.Component {
                     });
                     // console.log(field1);
                     //console.log(this.state.player1.worker1.color);
+                    if(this.state.player1.worker1.position === 0 && this.state.player1.worker2.position === 0 && this.state.player2.worker1.position === 0 &&this.state.player2.worker2.position === 0){
+                        this.set_beginner();
+                        alert("hello");
+                    }
                 }
             })
             .catch(err => {
@@ -213,7 +218,7 @@ class GamePlay extends React.Component {
             })
     }
 
- /*   setBeginner() {
+    set_beginner() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/beginner`, {
             method: "GET",
             headers: {
@@ -222,89 +227,103 @@ class GamePlay extends React.Component {
         })
             .then(response => response.json())
             .then(async beginnerId => {
-                this.setState({beginnerId: beginnerId});
+                this.setState({players_turn: beginnerId});
                 // console.log(this.state.beginnerId);
-                this.state.alertText = "Player with UserID " + JSON.stringify(this.state.beginnerId) + " can begin";
-                this.state.playing_step = "set_worker";
-                if (this.state.beginnerId === this.state.player1.id) {
-                    this.state.player_is_playing = this.state.player1;
-                    alert(this.state.player_is_playing.id)//just for testing
-                } else {
-                    this.state.player_is_playing = this.state.player2;
-                    alert(this.state.player_is_playing.id)//just for testing
-                }
+                this.state.alertText = "Player with UserID " + JSON.stringify(this.state.players_turn) + " can set worker";
+                this.state.playing_step = "place_worker";
             })
             .catch(err => {
                 console.log(err);
                 alert("Something went wrong fetching the games: " + err);
             });
-    } */
+    }
 
-  /*  change_player_is_playing() {
-        if (this.state.player_is_playing.id === this.state.player1.id) {
-            this.state.player_is_playing = this.state.player2
+    change_players_turn() {
+        if (this.state.player1.id === this.state.players_turn) {
+            this.state.players_turn = this.state.player2.id
         } else {
-            this.state.player_is_playing = this.state.player1
+            this.state.players_turn = this.state.player1.id
         }
-    } */
+    }
 
     get_action(box) {
         this.create_field();
-        this.set_worker(box);
-
-        console.log(this.state.player1.worker1.workerId);
-
-
-        if (box.layout === "level2") {
-            box.layout = "level3"
-        }
-        ;
-        if (box.layout === "level1") {
-            box.layout = "level2"
-        }
-        ;
-        if (box.layout == null) {
-            box.layout = "level1"
-        }
-        ;
-        if (box.height === "2") {
-            box.height = "3"
-        }
-        ;
-        if (box.height === "1") {
-            box.height = "2"
-        }
-        ;
-        if (box.height == null) {
-            box.height = "1"
-        }
-        ;
-        this.setState(box);
-        /*
-        if(localStorage.getItem("userID") === this.state.player_is_playing.id) {
-            alert("hi");
+        if(Number(localStorage.getItem("userID")) === this.state.players_turn) {
             if (this.state.playing_step === "place_worker") {
-                this.set_worker(fieldNumber)
+                this.set_worker(box);
+                this.change_players_turn();
+                this.state.alertText = "Player with UserID " + JSON.stringify(this.state.players_turn) + " can set worker";
             }
-            if (this.state.playing_step === "select_worker_for_moving"){
-            }
-            if (this.state.playing_step === "select_field_to_move"){
-            }
-            if (this.state.playing_step === "select_worker_for_building"){
-            }
-            if (this.state.playing_step === "select_field_to_build"){
-            }
-        }*/
+        }
 
+        console.log(this.state.playing_step);
+
+        /*
+                if (box.layout === "level2") {
+                    box.layout = "level3"
+                }
+                ;
+                if (box.layout === "level1") {
+                    box.layout = "level2"
+                }
+                ;
+                if (box.layout == null) {
+                    box.layout = "level1"
+                }
+                ;
+                if (box.height === "2") {
+                    box.height = "3"
+                }
+                ;
+                if (box.height === "1") {
+                    box.height = "2"
+                }
+                ;
+                if (box.height == null) {
+                    box.height = "1"
+                }
+                ;
+                this.setState(box);
+
+
+                    alert("hi");
+                    if (this.state.playing_step === "place_worker") {
+                        this.set_worker(fieldNumber)
+                    }
+                    if (this.state.playing_step === "select_worker_for_moving"){
+                    }
+                    if (this.state.playing_step === "select_field_to_move"){
+                    }
+                    if (this.state.playing_step === "select_worker_for_building"){
+                    }
+                    if (this.state.playing_step === "select_field_to_build"){
+                    }
+                */
+
+    }
+    select_worker(){
+        if(this.state.player1.id === this.state.players_turn){
+            if(this.state.player1.worker1.position === 0){
+                this.state.selected_worker = this.state.player1.worker1.workerId
+            }
+            else{
+                this.state.selected_worker = this.state.player1.worker2.workerId
+            }
+        }
+        else{
+            if(this.state.player2.worker1.position === 0){
+                console.log(this.state.player2.worker1.workerId);
+                this.state.selected_worker = this.state.player2.worker1.workerId
+            }
+            else{
+                this.state.selected_worker = this.state.player2.worker2.workerId
+            }
+        }
     }
 
     set_worker(box) {
-       /* if (this.state.player_is_playing.worker1.position === 0) {
-            this.state.selected_worker = this.state.player_is_playing.worker1.id
-        } else {
-            this.state.selected_worker = this.state.player_is_playing.worker2.id
-        }*/
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.player2.worker1.workerId}/place`, {
+        this.select_worker();
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/place`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -320,7 +339,10 @@ class GamePlay extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
-       // this.get_game()
+        this.get_game();
+        if(this.state.player1.worker1.position !== 0 && this.state.player1.worker2.position !== 0 && this.state.player2.worker1.position !== 0 &&this.state.player2.worker2.position !== 0){
+            this.state.playing_step = "moving"
+        }
     }
 
 
