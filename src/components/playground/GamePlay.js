@@ -137,8 +137,6 @@ class GamePlay extends React.Component {
 
         };
     }
-
-
     componentDidMount() {
        this.get_game();
        this.create_field();
@@ -211,12 +209,11 @@ class GamePlay extends React.Component {
                 if (response.status !== 404 || response.player1 !== null) {
                     // console.log(localStorage.getItem("userID"));
                     const Player1 = new Player(response);
+                    const Player2 = new Player();
                     const game = new GameModel(response);
                     this.setState(game);
                     const Player1Worker1 = new Worker();
                     const Player1Worker2 = new Worker();
-                    const Player2Worker1 = new Worker();
-                    const Player2Worker2 = new Worker();
                     Player1.id = response.player1.id;
                     Player1.gameId = response.player1.id;
                     Player1.username = response.player1.username;
@@ -233,9 +230,6 @@ class GamePlay extends React.Component {
                     Player1Worker2.next = response.player1.worker2.next;
                     Player1Worker2.winner = response.player1.worker2.winner;
                     Player1.worker2.position = response.player1.worker2.position;
-                    // console.log("Player1 of GET games/{gameID}", Player1);
-                    console.log(Player1Worker1);
-                    const Player2 = new Player();
                     Player2.id = response.player2.id;
                     Player2.gameId = response.player2.id;
                     Player2.username = response.player2.username;
@@ -344,7 +338,6 @@ class GamePlay extends React.Component {
                 }
                 ;
             }
-            console.log(placeable);
             if (placeable === true) {
                 fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/move`, {
                     method: "PUT",
@@ -475,7 +468,6 @@ class GamePlay extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
-        this.get_game();
         this.create_field();
     }
 
@@ -559,9 +551,6 @@ class GamePlay extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
-        //console.log(this.state.myPlayField[13 -1 ]);
-        // this.updateFields(this.state.myPlayField);
-        //console.log(this.state.box1);
     }
 
     saveField(singleField, tempField, i) {
@@ -585,11 +574,6 @@ class GamePlay extends React.Component {
     }
 
     getPlayerColor(box) {
-        //  console.log(this.state.player1.id);
-        // return this.state.player1.color;
-        // console.log(this.state.player1.color);
-        //  console.log(box);
-        //   console.log(box.occupier.playerId);
         if (box.occupier.playerId === this.state.player1.id) {
             return this.state.player1.color;
         } else if
@@ -651,16 +635,6 @@ class GamePlay extends React.Component {
                         <p>UserId: {this.state.player1.id} </p>
                         <p>Username: {this.state.player1.username} </p>
                         <p>Color: {this.state.player1.color}</p>
-                        <ButtonContainer/>
-                        <Button
-                            disabled={(this.state.player_is_playing !== this.state.player1.id)}
-                            width="50%"
-                            onClick={() => {
-                            }}
-                        >
-                            Finish Action
-                        </Button>
-                        <ButtonContainer/>
                     </div>
                     <div className="playField">
                         <div>
@@ -880,16 +854,6 @@ class GamePlay extends React.Component {
                         <p>UserId: {this.state.player2.id} </p>
                         <p>Username: {this.state.player2.username} </p>
                         <p>Color: {this.state.player2.color}</p>
-                        <ButtonContainer/>
-                        <Button
-                            disabled={(this.state.player_is_playing !== this.state.player2.id)}
-                            width="50%"
-                            onClick={() => {
-                            }}
-                        >
-                            Finish Action
-                        </Button>
-                        <ButtonContainer/>
                     </div>
                 </div>
             </div>
