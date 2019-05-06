@@ -145,8 +145,8 @@ class GamePlay extends React.Component {
     setStateMovePlayer1() {
         this.setState({
             playing_step: "movePlayer1",
-            player_is_playing: this.state.player1
         });
+        this.state.player_is_playing = this.state.player1;
     }
 
 
@@ -215,6 +215,54 @@ class GamePlay extends React.Component {
             })
     }
 
+    move(box) {
+        if (this.state.highlightedFields === null) {
+            if (box.occupier != null) {
+                if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) { // this.state.player2.worker1.workerId only placeholder
+                    console.log(this.state.player_is_playing.worker1.workerId);
+                    this.setState({selected_worker: this.state.player_is_playing.worker1.workerId});
+                    this.highLight(box);
+                }
+                if (box.occupier.workerId === this.state.player_is_playing.worker2.workerId) {
+                    this.setState({selected_worker: this.state.player_is_playing.worker2.workerId});
+                    this.highLight(box);
+                }
+            }
+        } else if (this.state.highlightedFields != null) {
+            var placeable = false;
+            var i;
+            for (i = 0; i < this.state.highlightedFields.length; i++) {
+                if (box.fieldNum === this.state.highlightedFields[i]) {
+                    placeable = true
+                }
+                ;
+            }
+            console.log(placeable);
+            if (placeable === true) {
+                fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/move`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                })
+                    .then(response => {
+                        this.setState({highlightedFields: null});
+                        window.location.reload();
+                    })
+                    .catch(err => {
+                        if (err.message.match(/Failed to fetch/)) {
+                            alert("The server cannot be reached. Did you start it?");
+                        } else {
+                            alert(`Something went wrong during the creation: ${err.message}`);
+                        }
+                    });
+            } else {
+                this.setState({highlightedFields: null});
+            }
+        }
+    }
+
+
     /* set_beginner() {
          fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/beginner`, {
              method: "GET",
@@ -253,7 +301,7 @@ class GamePlay extends React.Component {
                 }
             } */
         this.setStateMovePlayer1();
-        this.highLight(box);
+        this.move(box);
 
         /*
                 if (box.layout === "level2") {
@@ -281,20 +329,6 @@ class GamePlay extends React.Component {
                 }
                 ;
                 this.setState(box);
-
-
-                    alert("hi");
-                    if (this.state.playing_step === "place_worker") {
-                        this.set_worker(fieldNumber)
-                    }
-                    if (this.state.playing_step === "select_worker_for_moving"){
-                    }
-                    if (this.state.playing_step === "select_field_to_move"){
-                    }
-                    if (this.state.playing_step === "select_worker_for_building"){
-                    }
-                    if (this.state.playing_step === "select_field_to_build"){
-                    }
                 */
 
     }
@@ -308,7 +342,7 @@ class GamePlay extends React.Component {
             }
         } else {
             if (this.state.player2.worker1.position === 0) {
-                console.log(this.state.player2.worker1.workerId);
+                // console.log(this.state.player2.worker1.workerId);
                 this.state.selected_worker = this.state.player2.worker1.workerId
             } else {
                 this.state.selected_worker = this.state.player2.worker2.workerId
@@ -326,7 +360,7 @@ class GamePlay extends React.Component {
             .then(response => response.json())
             .then(returnedFields => {
                     this.setState({highlightedFields: returnedFields});
-                    console.log(this.state.highlightedFields);
+                    //         console.log(this.state.highlightedFields);
                 }
             )
             .catch(err => {
@@ -432,7 +466,7 @@ class GamePlay extends React.Component {
                             box24: field24,
                             myPlayField: tempField,
                         });
-                        console.log(this.state.box13);
+                        //console.log(this.state.box13);
                         //console.log(box13.fieldNum);
                         //console.log(box13.occupation);
                         //console.log(this.state.box1);
@@ -461,8 +495,7 @@ class GamePlay extends React.Component {
 
 
     getBorder(box) {
-        console.log(box.fieldNum);
-        if (this.state.highlightedFields != null){
+        if (this.state.highlightedFields != null) {
             var i;
             for (i = 0; i < this.state.highlightedFields.length; i++) {
                 if (box.fieldNum === this.state.highlightedFields[i])
@@ -556,21 +589,24 @@ class GamePlay extends React.Component {
                                 this.get_action(this.state.box2)
                             }}>
                                 <div id={this.state.box2.layout}>
-                                    <div className={this.innerBoxLayout(this.state.box2)}>{this.state.box2.height}</div>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box2)}>{this.state.box2.height}</div>
                                 </div>
                             </div>
                             <div className="box3 white box" id={this.getBorder(this.state.box3)} onClick={() => {
                                 this.get_action(this.state.box3)
                             }}>
                                 <div id={this.state.box3.layout}>
-                                    <div className={this.innerBoxLayout(this.state.box3)}>{this.state.box3.height}</div>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box3)}>{this.state.box3.height}</div>
                                 </div>
                             </div>
                             <div className="box4 black box" id={this.getBorder(this.state.box4)} onClick={() => {
                                 this.get_action(this.state.box4)
                             }}>
                                 <div id={this.state.box4.layout}>
-                                    <div className={this.innerBoxLayout(this.state.box4)}>{this.state.box4.height}</div>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box4)}>{this.state.box4.height}</div>
                                 </div>
                             </div>
                         </div>
@@ -579,7 +615,8 @@ class GamePlay extends React.Component {
                                 this.get_action(this.state.box5)
                             }}>
                                 <div id={this.state.box5.layout}>
-                                    <div className={this.innerBoxLayout(this.state.box5)}>{this.state.box5.height}</div>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box5)}>{this.state.box5.height}</div>
                                 </div>
                             </div>
                             <div className="box6 black box" id={this.getBorder(this.state.box6)} onClick={() => {
@@ -593,21 +630,24 @@ class GamePlay extends React.Component {
                                 this.get_action(this.state.box7)
                             }}>
                                 <div id={this.state.box7.layout}>
-                                    <div className={this.innerBoxLayout(this.state.box7)}>{this.state.box7.height}</div>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box7)}>{this.state.box7.height}</div>
                                 </div>
                             </div>
                             <div className="box8 black box" id={this.getBorder(this.state.box8)} onClick={() => {
                                 this.get_action(this.state.box8)
                             }}>
                                 <div id={this.state.box8.layout}>
-                                    <div className={this.innerBoxLayout(this.state.box8)}>{this.state.box8.height}</div>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box8)}>{this.state.box8.height}</div>
                                 </div>
                             </div>
                             <div className="box9 white box" id={this.getBorder(this.state.box9)} onClick={() => {
                                 this.get_action(this.state.box9)
                             }}>
                                 <div id={this.state.box9.layout}>
-                                    <div className={this.innerBoxLayout(this.state.box9)}>{this.state.box9.height}</div>
+                                    <div
+                                        className={this.innerBoxLayout(this.state.box9)}>{this.state.box9.height}</div>
                                 </div>
                             </div>
                         </div>
