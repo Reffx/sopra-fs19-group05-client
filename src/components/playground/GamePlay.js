@@ -142,20 +142,10 @@ class GamePlay extends React.Component {
     componentDidMount() {
        this.get_game();
        this.create_field();
-       this.checkStart()
     }
 
     alertMessage() {
         return this.state.alertText
-    }
-
-
-    checkStart() {
-        console.log(this.state.p1w1);
-        /*  if (this.state.game.player1.worker1.position === -1 && this.state.game.player1.worker2.position === -1 && this.state.game.player2.worker1.position === -1 && this.state.game.player2.worker2.position === -1) {
-              this.set_beginner();
-               alert("hello");
-          }*/
     }
 
     set_beginner() {
@@ -167,9 +157,15 @@ class GamePlay extends React.Component {
         })
             .then(response => response.json())
             .then(async beginnerId => {
-                this.setState({players_turn: beginnerId});
+                if(beginnerId === this.state.player1.id){
+                    this.state.player_is_playing = this.state.player1
+                }
+                else{
+                    this.state.player_is_playing = this.state.player2
+                }
                 // console.log(this.state.beginnerId);
-            })
+            });
+        this.setState({alertText: this.state.player_is_playing.username + " can place worker."})
             .catch(err => {
                 console.log(err);
                 alert("Something went wrong fetching the games: " + err);
@@ -189,7 +185,8 @@ class GamePlay extends React.Component {
                 if (response.status !== 404 || response.player1 !== null) {
                     // console.log(localStorage.getItem("userID"));
                     const Player1 = new Player(response);
-                    const Game = new GameModel(response);
+                    const game = new GameModel(response);
+                    this.setState(game);
                     const Player1Worker1 = new Worker();
                     const Player1Worker2 = new Worker();
                     const Player2Worker1 = new Worker();
@@ -209,6 +206,7 @@ class GamePlay extends React.Component {
                     Player1Worker2.position = response.player1.worker2.position;
                     Player1Worker2.next = response.player1.worker2.next;
                     Player1Worker2.winner = response.player1.worker2.winner;
+                    Player1.worker2.position = response.player1.worker2.position;
                     // console.log("Player1 of GET games/{gameID}", Player1);
                     console.log(Player1Worker1);
                     const Player2 = new Player();
@@ -217,7 +215,10 @@ class GamePlay extends React.Component {
                     Player2.username = response.player2.username;
                     Player2.color = response.player2.color;
                     Player2.status = response.player2.status;
-                    Player2.worker1.workerId = response.player2.worker1.workerId;
+                    Player1.worker1.workerId = response.player1.worker1.workerId;
+                    Player1.worker1.position = response.player1.worker1.position;
+                    Player1.worker2.workerId = response.player1.worker2.workerId;
+                    Player1.worker2.position = response.player1.worker2.position;
                     //console.log(Player2.worker1.workerId);
                     //console.log(response.player2.worker1.workerId);
                     Player2.worker1.playerId = response.player2.worker1.playerId;
@@ -229,15 +230,19 @@ class GamePlay extends React.Component {
                     Player2.worker2.position = response.player2.worker2.position;
                     Player2.worker2.next = response.player2.worker2.next;
                     Player2.worker2.winner = response.player2.worker2.winner;
+
                     this.setState({
                         player1: Player1,
                         player2: Player2,
-                        game: Game,
                         p1w1: Player1Worker1,
                         p1w2: Player1Worker2,
                     });
                     //     console.log(this.state.game.status);
-                    //console.log(this.state.player1.worker1.color);
+                    console.log(this.state.gameStatus);
+                    if (this.state.gameStatus === "Start") {
+                        console.log("hello");
+                        this.set_beginner()
+                    }
                 }
             })
             .catch(err => {
@@ -344,10 +349,10 @@ class GamePlay extends React.Component {
 
 
     change_players_turn() {
-        if (this.state.player1.id === this.state.players_turn) {
-            this.state.players_turn = this.state.player2.id
+        if (this.state.player1.id === this.state.player_is_playing.id) {
+            this.state.player_is_playing = this.state.player2
         } else {
-            this.state.players_turn = this.state.player1.id
+            this.state.player_is_playing = this.state.player1
         }
     }
 
@@ -366,34 +371,51 @@ class GamePlay extends React.Component {
     }
 
     get_action(box) {
-        this.create_field();
-        /*    if(Number(localStorage.getItem("userID")) === this.state.players_turn) {
-                if (this.state.playing_step === "place_worker") {
-                    this.set_worker(box);
-                    this.change_players_turn();
-                    this.state.alertText = "Player with UserID " + JSON.stringify(this.state.players_turn) + " can set worker";
+        this.setState({player_is_playing: this.state.player2});
+        //if(Number(localStorage.getItem("userID")) === this.state.player_is_playing.id) {
+            console.log(this.state.gameStatus);
+                if (this.state.gameStatus === "Move2") {
+                    this.setState({player_is_playing: this.state.player2});
+                    console.log("aa");
+                    //this.setState({player_is_playing: this.state.player2});
+                    if(this.state.player2.worker1.position === -1|| this.state.player2.worker2.position === -1){
+                        console.log("hello");
+                        this.set_worker(box);
+                        this.setState({alertText: this.state.player_is_playing.username + " can place worker."})
+                    }
                 }
-            } */
+            if (this.state.gameStatus === "Move1") {
+                console.log(this.state.player1.worker1.position);
+                console.log(this.state.player2.worker1.position);
+                this.setState({player_is_playing: this.state.player1});
+                if(this.state.player1.worker1.position === -1|| this.state.player1.worker2.position === -1){
+                    console.log("cc");
+                    this.set_worker(box);
+                    this.setState({alertText: this.state.player_is_playing.username + " can place worker."})
+                }
+            }
+        this.create_field();
+            //}
         //   this.setStateMovePlayer1();
-        if (this.state.playing_step === "movePlayer1") {
+        /*if (this.state.game.status === "movePlayer1") {
             this.move(box);
 
         }
         this.setStateBuildPlayer1()
         if (this.state.playing_step === "buildPlayer1") {
             this.build(box);
-        }
+        }*/
     }
 
     select_worker() {
-        if (this.state.player1.id === this.state.players_turn) {
-            if (this.state.player1.worker1.position === 0) {
+        if (this.state.player1.id === this.state.player_is_playing.id) {
+            if (this.state.player1.worker1.position === -1) {
                 this.state.selected_worker = this.state.player1.worker1.workerId
             } else {
                 this.state.selected_worker = this.state.player1.worker2.workerId
             }
         } else {
-            if (this.state.player2.worker1.position === 0) {
+            if (this.state.player2.worker1.position === -1) {
                 // console.log(this.state.player2.worker1.workerId);
                 this.state.selected_worker = this.state.player2.worker1.workerId
             } else {
