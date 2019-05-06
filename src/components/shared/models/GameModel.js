@@ -10,8 +10,8 @@ class GameModel {
         this.player2 = Player;
         this.gameMode = null;
         this.size = null;
-        this.creationTime = null;
-        this.isplaying = false;
+        this.gameStatus = null;
+        this.isPlaying = false;
         Object.assign(this, data);
     }
 }

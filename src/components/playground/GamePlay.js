@@ -98,11 +98,17 @@ class GamePlay extends React.Component {
             playing_step: null,
             myPlayField: PlayField,
             player1: Player,
+            p1w1: Worker,
+            p1w2: Worker,
+            p2w1: Worker,
+            p2w2: Worker,
             player2: Player,
+            game: GameModel,
             alertText: "This is a message.",
             players_turn: null,
             selected_worker: null,
             highlightedFields: null,
+            visibleLevels: false,
             box0: Field,
             box1: Field,
             box2: Field,
@@ -134,26 +140,40 @@ class GamePlay extends React.Component {
 
 
     componentDidMount() {
-        this.get_game();
-        this.create_field();
+       this.get_game();
+       this.create_field();
+       this.checkStart()
     }
 
     alertMessage() {
         return this.state.alertText
     }
 
-    setStateMovePlayer1() {
-        this.setState({
-            playing_step: "movePlayer1",
-        });
-        this.state.player_is_playing = this.state.player1;
+
+    checkStart() {
+        console.log(this.state.p1w1);
+        /*  if (this.state.game.player1.worker1.position === -1 && this.state.game.player1.worker2.position === -1 && this.state.game.player2.worker1.position === -1 && this.state.game.player2.worker2.position === -1) {
+              this.set_beginner();
+               alert("hello");
+          }*/
     }
 
-    setStateBuildPlayer1() {
-        this.setState({
-            playing_step: "buildPlayer1",
-        });
-        this.state.player_is_playing = this.state.player1;
+    set_beginner() {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/beginner`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(async beginnerId => {
+                this.setState({players_turn: beginnerId});
+                // console.log(this.state.beginnerId);
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Something went wrong fetching the games: " + err);
+            });
     }
 
 
@@ -168,24 +188,29 @@ class GamePlay extends React.Component {
             .then(async response => {
                 if (response.status !== 404 || response.player1 !== null) {
                     // console.log(localStorage.getItem("userID"));
-                    const Player1 = new Player();
+                    const Player1 = new Player(response);
                     const Game = new GameModel(response);
+                    const Player1Worker1 = new Worker();
+                    const Player1Worker2 = new Worker();
+                    const Player2Worker1 = new Worker();
+                    const Player2Worker2 = new Worker();
                     Player1.id = response.player1.id;
                     Player1.gameId = response.player1.id;
                     Player1.username = response.player1.username;
                     Player1.color = response.player1.color;
                     Player1.status = response.player1.status;
-                    Player1.worker1.workerId = response.player1.worker1.workerId;
-                    Player1.worker1.playerId = response.player1.worker1.playerId;
-                    Player1.worker1.position = response.player1.worker1.position;
-                    Player1.worker1.next = response.player1.worker1.next;
-                    Player1.worker1.winner = response.player1.worker1.winner;
-                    Player1.worker2.workerId = response.player1.worker2.workerId;
-                    Player1.worker2.playerId = response.player1.worker2.playerId;
-                    Player1.worker2.position = response.player1.worker2.position;
-                    Player1.worker2.next = response.player1.worker2.next;
-                    Player1.worker2.winner = response.player1.worker2.winner;
+                    Player1Worker1.workerId = response.player1.worker1.workerId;
+                    Player1Worker1.playerId = response.player1.worker1.playerId;
+                    Player1Worker1.position = response.player1.worker1.position;
+                    Player1Worker1.next = response.player1.worker1.next;
+                    Player1Worker1.winner = response.player1.worker1.winner;
+                    Player1Worker2.workerId = response.player1.worker2.workerId;
+                    Player1Worker2.playerId = response.player1.worker2.playerId;
+                    Player1Worker2.position = response.player1.worker2.position;
+                    Player1Worker2.next = response.player1.worker2.next;
+                    Player1Worker2.winner = response.player1.worker2.winner;
                     // console.log("Player1 of GET games/{gameID}", Player1);
+                    console.log(Player1Worker1);
                     const Player2 = new Player();
                     Player2.id = response.player2.id;
                     Player2.gameId = response.player2.id;
@@ -207,13 +232,12 @@ class GamePlay extends React.Component {
                     this.setState({
                         player1: Player1,
                         player2: Player2,
+                        game: Game,
+                        p1w1: Player1Worker1,
+                        p1w2: Player1Worker2,
                     });
-                    // console.log(field1);
+                    //     console.log(this.state.game.status);
                     //console.log(this.state.player1.worker1.color);
-                    if (this.state.player1.worker1.position === 0 && this.state.player1.worker2.position === 0 && this.state.player2.worker1.position === 0 && this.state.player2.worker2.position === 0) {
-                        //   this.set_beginner();
-                        // alert("hello");
-                    }
                 }
             })
             .catch(err => {
@@ -223,6 +247,7 @@ class GamePlay extends React.Component {
     }
 
     build(box) {
+        this.setState({alertText: this.state.player_is_playing.username + " on turn to build."});
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
                 if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) { // this.state.player2.worker1.workerId only placeholder
@@ -247,14 +272,14 @@ class GamePlay extends React.Component {
             console.log(placeable);
             if (placeable === true) {
                 fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/build`, {
-                    method: "POST",
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
                     },
                 })
                     .then(response => {
                         this.setState({highlightedFields: null});
-                        window.location.reload();
+                        this.create_field();
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -270,6 +295,7 @@ class GamePlay extends React.Component {
     }
 
     move(box) {
+        this.setState({alertText: this.state.player_is_playing.username + " on turn to move."});
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
                 if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) { // this.state.player2.worker1.workerId only placeholder
@@ -294,14 +320,14 @@ class GamePlay extends React.Component {
             console.log(placeable);
             if (placeable === true) {
                 fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/move`, {
-                    method: "POST",
+                    method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
                     },
                 })
                     .then(response => {
                         this.setState({highlightedFields: null});
-                        window.location.reload();
+                        this.create_field();
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -317,32 +343,26 @@ class GamePlay extends React.Component {
     }
 
 
-    /* set_beginner() {
-         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/beginner`, {
-             method: "GET",
-             headers: {
-                 "Content-Type": "application/json"
-             }
-         })
-             .then(response => response.json())
-             .then(async beginnerId => {
-                 this.setState({players_turn: beginnerId});
-                 // console.log(this.state.beginnerId);
-                 this.state.alertText = "Player with UserID " + JSON.stringify(this.state.players_turn) + " can set worker";
-                 this.state.playing_step = "place_worker";
-             })
-             .catch(err => {
-                 console.log(err);
-                 alert("Something went wrong fetching the games: " + err);
-             });
-     } */
-
     change_players_turn() {
         if (this.state.player1.id === this.state.players_turn) {
             this.state.players_turn = this.state.player2.id
         } else {
             this.state.players_turn = this.state.player1.id
         }
+    }
+
+    setStateMovePlayer1() {
+        this.setState({
+            playing_step: "movePlayer1",
+        });
+        this.state.player_is_playing = this.state.player1;
+    }
+
+    setStateBuildPlayer1() {
+        this.setState({
+            playing_step: "buildPlayer1",
+        });
+        this.state.player_is_playing = this.state.player1;
     }
 
     get_action(box) {
@@ -354,7 +374,7 @@ class GamePlay extends React.Component {
                     this.state.alertText = "Player with UserID " + JSON.stringify(this.state.players_turn) + " can set worker";
                 }
             } */
-        //this.setStateMovePlayer1();
+        //   this.setStateMovePlayer1();
         if (this.state.playing_step === "movePlayer1") {
             this.move(box);
 
@@ -363,34 +383,6 @@ class GamePlay extends React.Component {
         if (this.state.playing_step === "buildPlayer1") {
             this.build(box);
         }
-        /*
-                if (box.layout === "level2") {
-                    box.layout = "level3"
-                }
-                ;
-                if (box.layout === "level1") {
-                    box.layout = "level2"
-                }
-                ;
-                if (box.layout == null) {
-                    box.layout = "level1"
-                }
-                ;
-                if (box.height === "2") {
-                    box.height = "3"
-                }
-                ;
-                if (box.height === "1") {
-                    box.height = "2"
-                }
-                ;
-                if (box.height == null) {
-                    box.height = "1"
-                }
-                ;
-                this.setState(box);
-                */
-
     }
 
     select_worker() {
@@ -457,7 +449,7 @@ class GamePlay extends React.Component {
     set_worker(box) {
         this.select_worker();
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/place`, {
-            method: "POST",
+            method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
