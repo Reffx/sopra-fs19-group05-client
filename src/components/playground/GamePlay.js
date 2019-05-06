@@ -103,6 +103,7 @@ class GamePlay extends React.Component {
             players_turn: null,
             selected_worker: null,
             highlightedFields: null,
+            visibleLevels: false,
             box0: Field,
             box1: Field,
             box2: Field,
@@ -254,7 +255,7 @@ class GamePlay extends React.Component {
                 })
                     .then(response => {
                         this.setState({highlightedFields: null});
-                        window.location.reload();
+                        this.create_field();
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -301,7 +302,7 @@ class GamePlay extends React.Component {
                 })
                     .then(response => {
                         this.setState({highlightedFields: null});
-                        window.location.reload();
+                        this.create_field();
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -354,43 +355,15 @@ class GamePlay extends React.Component {
                     this.state.alertText = "Player with UserID " + JSON.stringify(this.state.players_turn) + " can set worker";
                 }
             } */
-        //this.setStateMovePlayer1();
+        this.setStateMovePlayer1();
         if (this.state.playing_step === "movePlayer1") {
             this.move(box);
 
         }
-        this.setStateBuildPlayer1()
+        //this.setStateBuildPlayer1()
         if (this.state.playing_step === "buildPlayer1") {
             this.build(box);
         }
-        /*
-                if (box.layout === "level2") {
-                    box.layout = "level3"
-                }
-                ;
-                if (box.layout === "level1") {
-                    box.layout = "level2"
-                }
-                ;
-                if (box.layout == null) {
-                    box.layout = "level1"
-                }
-                ;
-                if (box.height === "2") {
-                    box.height = "3"
-                }
-                ;
-                if (box.height === "1") {
-                    box.height = "2"
-                }
-                ;
-                if (box.height == null) {
-                    box.height = "1"
-                }
-                ;
-                this.setState(box);
-                */
-
     }
 
     select_worker() {
@@ -639,6 +612,16 @@ class GamePlay extends React.Component {
         } else if (box.height === 3 && box.occupier != null) {
             return ("player-div-lvl-3-" + this.getPlayerColor(box));
         }
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            visibleLevels: true,
+        });
     }
 
 
