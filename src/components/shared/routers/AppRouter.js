@@ -13,8 +13,6 @@ import GodModeLobby from "../../lobby/GodModeLobby";
 import NormalModeDashboard from "../../lobby/NormalModeDashboard";
 import GodModeDashboard from "../../lobby/GodModeDashboard";
 import Game from "../../game/Game";
-
-
 /**
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
@@ -31,9 +29,10 @@ class AppRouter extends React.Component {
                 <Switch>
                     <div>
                         <Route
+                            path="/game"
                             render={() => (
                                 <GameGuard>
-                                    <GameRouter/>
+                                    <GameRouter base={"/game"} />
                                 </GameGuard>
                             )}
                         />
@@ -71,29 +70,9 @@ class AppRouter extends React.Component {
                             path="/register"
                             exact
                             render={() => (
-                                <LoginGuard>
-                                    <Register/>
-                                </LoginGuard>
+                                <Register />
                             )}
                         />
-                        <Route path="/" exact render={() => <Redirect to={"/landing"}/>}/>
-                        <Route
-                            path="/landing"
-                            exact
-                            render={() => (
-                                <Landing/>
-                            )}
-                        />
-                        <Route
-                            path="/login"
-                            exact
-                            render={() => (
-                                <LoginGuard>
-                                    <Login/>
-                                </LoginGuard>
-                            )}
-                        />
-                        <Route path="/" exact render={() => <Redirect to={"/landing"}/>}/>
                         <Route
                             path="/users/:username"
                             exact
@@ -106,13 +85,29 @@ class AppRouter extends React.Component {
                                 <Game/>
                             )}
                         />
+                        <Route
+                            path="/login"
+                            exact
+                            render={() => (
+                                <LoginGuard>
+                                    <Login />
+                                </LoginGuard>
+                            )}
+                        />
+                        <Route
+                            path="/landing"
+                            exact
+                            render={() => (
+                                <Landing/>
+                            )}
+                        />
+                        <Route path="/" exact render={() => <Redirect to={"/login"} />} />
                     </div>
                 </Switch>
             </BrowserRouter>
         );
     }
 }
-
 /*
 * Don't forget to export your component!
  */
