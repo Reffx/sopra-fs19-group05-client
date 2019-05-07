@@ -24,6 +24,10 @@ const Container = styled(BaseContainer)`
   display: row;
 `;
 
+const Checkbox = props => (
+    <input type="checkbox" {...props} />
+)
+
 const gameState = new State();
 
 
@@ -79,6 +83,7 @@ field22.gameId = localStorage.getItem("gameId");
 field23.gameId = localStorage.getItem("gameId");
 field24.gameId = localStorage.getItem("gameId");
 
+var isGoing = true;
 
 const worker1p1 = new Worker();
 worker1p1.gameId = localStorage.getItem("gameId");
@@ -109,6 +114,7 @@ class GamePlay extends React.Component {
             selected_worker: null,
             highlightedFields: null,
             visibleLevels: false,
+            checked: false,
             box0: Field,
             box1: Field,
             box2: Field,
@@ -137,39 +143,98 @@ class GamePlay extends React.Component {
 
         };
     }
-    componentDidMount() {
-       this.get_game();
-       this.create_field();
+
+    handleCheckboxChange = event => {
+        this.setState({checked: event.target.checked});
+        console.log(this.state.checked);
+        if (this.state.checked === false) {
+            this.state.box0.layout = this.state.box0.height;
+            this.state.box1.layout = this.state.box1.height;
+            this.state.box2.layout = this.state.box2.height;
+            this.state.box3.layout = this.state.box3.height;
+            this.state.box4.layout = this.state.box4.height;
+            this.state.box5.layout = this.state.box5.height;
+            this.state.box6.layout = this.state.box6.height;
+            this.state.box7.layout = this.state.box7.height;
+            this.state.box8.layout = this.state.box8.height;
+            this.state.box9.layout = this.state.box9.height;
+            this.state.box10.layout = this.state.box10.height;
+            this.state.box11.layout = this.state.box11.height;
+            this.state.box12.layout = this.state.box12.height;
+            this.state.box13.layout = this.state.box13.height;
+            this.state.box14.layout = this.state.box14.height;
+            this.state.box15.layout = this.state.box15.height;
+            this.state.box16.layout = this.state.box16.height;
+            this.state.box17.layout = this.state.box17.height;
+            this.state.box18.layout = this.state.box18.height;
+            this.state.box19.layout = this.state.box19.height;
+            this.state.box20.layout = this.state.box20.height;
+            this.state.box21.layout = this.state.box21.height;
+            this.state.box22.layout = this.state.box22.height;
+            this.state.box23.layout = this.state.box23.height;
+            this.state.box24.layout = this.state.box24.height;
+        }
+        if (this.state.checked === true) {
+            this.state.box0.layout = null;
+            this.state.box1.layout = null;
+            this.state.box2.layout = null;
+            this.state.box3.layout = null;
+            this.state.box4.layout = null;
+            this.state.box5.layout = null;
+            this.state.box6.layout = null;
+            this.state.box7.layout = null;
+            this.state.box8.layout = null;
+            this.state.box9.layout = null;
+            this.state.box10.layout = null;
+            this.state.box11.layout = null;
+            this.state.box12.layout = null;
+            this.state.box13.layout = null;
+            this.state.box14.layout = null;
+            this.state.box15.layout = null;
+            this.state.box16.layout = null;
+            this.state.box17.layout = null;
+            this.state.box18.layout = null;
+            this.state.box19.layout = null;
+            this.state.box20.layout = null;
+            this.state.box21.layout = null;
+            this.state.box22.layout = null;
+            this.state.box23.layout = null;
+            this.state.box24.layout = null;
+        }
+        this.create_field();
+    }
+
+    componentDidMount(){
+        this.get_game();
+        this.create_field();
     }
 
     alertMessage() {
-        if(this.state.gameStatus === "Move1"){
-            if(this.state.player1.worker1.position === -1|| this.state.player1.worker2.position === -1){
-                this.state.alertText= this.state.player1.username + " can place worker.";
-            }
-            else{
-                this.state.alertText= this.state.player1.username + " can move.";
-            }
-        }
-        if(this.state.gameStatus === "Move2"){
-            if(this.state.player2.worker1.position === -1|| this.state.player2.worker2.position === -1){
-                this.state.alertText= this.state.player2.username + " can place worker.";
-            }
-            else{
-                this.state.alertText= this.state.player2.username + " can move.";
+        if (this.state.gameStatus === "Move1") {
+            if (this.state.player1.worker1.position === -1 || this.state.player1.worker2.position === -1) {
+                this.state.alertText = this.state.player1.username + " can place worker.";
+            } else {
+                this.state.alertText = this.state.player1.username + " can move.";
             }
         }
-        if(this.state.gameStatus === "Build1"){
-            this.state.alertText= this.state.player1.username + " can build.";
+        if (this.state.gameStatus === "Move2") {
+            if (this.state.player2.worker1.position === -1 || this.state.player2.worker2.position === -1) {
+                this.state.alertText = this.state.player2.username + " can place worker.";
+            } else {
+                this.state.alertText = this.state.player2.username + " can move.";
+            }
         }
-        if(this.state.gameStatus === "Build2"){
-            this.state.alertText= this.state.player2.username + " can build.";
+        if (this.state.gameStatus === "Build1") {
+            this.state.alertText = this.state.player1.username + " can build.";
         }
-        if(this.state.gameStatus === "Winner1"){
-            this.state.alertText= this.state.player1.username + " has won."
+        if (this.state.gameStatus === "Build2") {
+            this.state.alertText = this.state.player2.username + " can build.";
         }
-        if(this.state.gameStatus === "Winner2"){
-            this.state.alertText= this.state.player2.username + " has won."
+        if (this.state.gameStatus === "Winner1") {
+            this.state.alertText = this.state.player1.username + " has won."
+        }
+        if (this.state.gameStatus === "Winner2") {
+            this.state.alertText = this.state.player2.username + " has won."
         }
         return this.state.alertText
     }
@@ -183,10 +248,9 @@ class GamePlay extends React.Component {
         })
             .then(response => response.json())
             .then(async beginnerId => {
-                if(beginnerId === this.state.player1.id){
+                if (beginnerId === this.state.player1.id) {
                     this.state.player_is_playing = this.state.player1
-                }
-                else{
+                } else {
                     this.state.player_is_playing = this.state.player2
                 }
                 // console.log(this.state.beginnerId);
@@ -200,76 +264,77 @@ class GamePlay extends React.Component {
 
 
     get_game() {
-        setInterval(()=>{ if(this.state.gameStatus === "Winner1" ||this.state.gameStatus === "Winner2" ){
-            return;
-        }
-        else{
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(response => response.json())
-            .then(async response => {
-                if (response.status !== 404 || response.player1 !== null) {
-                    const Player1 = new Player(response);
-                    const Player2 = new Player();
-                    const game = new GameModel(response);
-                    this.setState(game);
-                    const Player1Worker1 = new Worker();
-                    const Player1Worker2 = new Worker();
-                    Player1.id = response.player1.id;
-                    Player1.gameId = response.player1.id;
-                    Player1.username = response.player1.username;
-                    Player1.color = response.player1.color;
-                    Player1.status = response.player1.status;
-                    Player1Worker1.workerId = response.player1.worker1.workerId;
-                    Player1Worker1.playerId = response.player1.worker1.playerId;
-                    Player1Worker1.position = response.player1.worker1.position;
-                    Player1Worker1.next = response.player1.worker1.next;
-                    Player1Worker1.winner = response.player1.worker1.winner;
-                    Player1Worker2.workerId = response.player1.worker2.workerId;
-                    Player1Worker2.playerId = response.player1.worker2.playerId;
-                    Player1Worker2.position = response.player1.worker2.position;
-                    Player1Worker2.next = response.player1.worker2.next;
-                    Player1Worker2.winner = response.player1.worker2.winner;
-                    Player1.worker2.position = response.player1.worker2.position;
-                    Player2.id = response.player2.id;
-                    Player2.gameId = response.player2.id;
-                    Player2.username = response.player2.username;
-                    Player2.color = response.player2.color;
-                    Player2.status = response.player2.status;
-                    Player1.worker1.workerId = response.player1.worker1.workerId;
-                    Player1.worker1.position = response.player1.worker1.position;
-                    Player1.worker2.workerId = response.player1.worker2.workerId;
-                    Player1.worker2.position = response.player1.worker2.position;
-                    Player2.worker1.playerId = response.player2.worker1.playerId;
-                    Player2.worker1.position = response.player2.worker1.position;
-                    Player2.worker1.next = response.player2.worker1.next;
-                    Player2.worker1.winner = response.player2.worker1.winner;
-                    Player2.worker1.workerId = response.player2.worker1.workerId;
-                    Player2.worker2.workerId = response.player2.worker2.workerId;
-                    Player2.worker2.playerId = response.player2.worker2.playerId;
-                    Player2.worker2.position = response.player2.worker2.position;
-                    Player2.worker2.next = response.player2.worker2.next;
-                    Player2.worker2.winner = response.player2.worker2.winner;
-                    this.setState({
-                        player1: Player1,
-                        player2: Player2,
-                        p1w1: Player1Worker1,
-                        p1w2: Player1Worker2,
-                    });
-                    if (this.state.gameStatus === "Start") {
-                        this.set_beginner()
+        setInterval(() => {
+            if (this.state.gameStatus === "Winner1" || this.state.gameStatus === "Winner2") {
+                return;
+            } else {
+                fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
                     }
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                alert("Something went wrong fetching the games: " + err);
-            })
-        }}, 5000)
+                })
+                    .then(response => response.json())
+                    .then(async response => {
+                        if (response.status !== 404 || response.player1 !== null) {
+                            const Player1 = new Player(response);
+                            const Player2 = new Player();
+                            const game = new GameModel(response);
+                            this.setState(game);
+                            const Player1Worker1 = new Worker();
+                            const Player1Worker2 = new Worker();
+                            Player1.id = response.player1.id;
+                            Player1.gameId = response.player1.id;
+                            Player1.username = response.player1.username;
+                            Player1.color = response.player1.color;
+                            Player1.status = response.player1.status;
+                            Player1Worker1.workerId = response.player1.worker1.workerId;
+                            Player1Worker1.playerId = response.player1.worker1.playerId;
+                            Player1Worker1.position = response.player1.worker1.position;
+                            Player1Worker1.next = response.player1.worker1.next;
+                            Player1Worker1.winner = response.player1.worker1.winner;
+                            Player1Worker2.workerId = response.player1.worker2.workerId;
+                            Player1Worker2.playerId = response.player1.worker2.playerId;
+                            Player1Worker2.position = response.player1.worker2.position;
+                            Player1Worker2.next = response.player1.worker2.next;
+                            Player1Worker2.winner = response.player1.worker2.winner;
+                            Player1.worker2.position = response.player1.worker2.position;
+                            Player2.id = response.player2.id;
+                            Player2.gameId = response.player2.id;
+                            Player2.username = response.player2.username;
+                            Player2.color = response.player2.color;
+                            Player2.status = response.player2.status;
+                            Player1.worker1.workerId = response.player1.worker1.workerId;
+                            Player1.worker1.position = response.player1.worker1.position;
+                            Player1.worker2.workerId = response.player1.worker2.workerId;
+                            Player1.worker2.position = response.player1.worker2.position;
+                            Player2.worker1.playerId = response.player2.worker1.playerId;
+                            Player2.worker1.position = response.player2.worker1.position;
+                            Player2.worker1.next = response.player2.worker1.next;
+                            Player2.worker1.winner = response.player2.worker1.winner;
+                            Player2.worker1.workerId = response.player2.worker1.workerId;
+                            Player2.worker2.workerId = response.player2.worker2.workerId;
+                            Player2.worker2.playerId = response.player2.worker2.playerId;
+                            Player2.worker2.position = response.player2.worker2.position;
+                            Player2.worker2.next = response.player2.worker2.next;
+                            Player2.worker2.winner = response.player2.worker2.winner;
+                            this.setState({
+                                player1: Player1,
+                                player2: Player2,
+                                p1w1: Player1Worker1,
+                                p1w2: Player1Worker2,
+                            });
+                            if (this.state.gameStatus === "Start") {
+                                this.set_beginner()
+                            }
+                        }
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert("Something went wrong fetching the games: " + err);
+                    })
+            }
+        }, 5000)
     }
 
     build(box) {
@@ -365,26 +430,24 @@ class GamePlay extends React.Component {
 
     get_action(box) {
         this.alertMessage();
-            console.log(this.state.gameStatus);
-                if (this.state.gameStatus === "Move2") {
-                    this.state.player_is_playing= this.state.player2;
-                    if(this.state.player2.worker1.position === -1|| this.state.player2.worker2.position === -1){
-                        this.set_worker(box);
-                    }
-                    else{
-                        this.move(box);
-                    }
-                }
-            if (this.state.gameStatus === "Move1") {
-                this.state.player_is_playing= this.state.player1;
-                if(this.state.player1.worker1.position === -1|| this.state.player1.worker2.position === -1){
-                    console.log("cc");
-                    this.set_worker(box);
-                }
-                else{
-                    this.move(box);
-                }
+        console.log(this.state.gameStatus);
+        if (this.state.gameStatus === "Move2") {
+            this.state.player_is_playing = this.state.player2;
+            if (this.state.player2.worker1.position === -1 || this.state.player2.worker2.position === -1) {
+                this.set_worker(box);
+            } else {
+                this.move(box);
             }
+        }
+        if (this.state.gameStatus === "Move1") {
+            this.state.player_is_playing = this.state.player1;
+            if (this.state.player1.worker1.position === -1 || this.state.player1.worker2.position === -1) {
+                console.log("cc");
+                this.set_worker(box);
+            } else {
+                this.move(box);
+            }
+        }
         if (this.state.gameStatus === "Build1") {
             this.state.player_is_playing = this.state.player1;
             this.build(box)
@@ -394,16 +457,15 @@ class GamePlay extends React.Component {
             this.build(box)
         }
         this.create_field();
-            this.get_game() ;
+        this.get_game();
     }
 
     select_worker() {
         console.log(this.state.player_is_playing);
-        if(this.state.player_is_playing.worker1.position === -1){
-            this.state.selected_worker= this.state.player_is_playing.worker1.workerId
-        }
-        else{
-            this.state.selected_worker= this.state.player_is_playing.worker2.workerId
+        if (this.state.player_is_playing.worker1.position === -1) {
+            this.state.selected_worker = this.state.player_is_playing.worker1.workerId
+        } else {
+            this.state.selected_worker = this.state.player_is_playing.worker2.workerId
         }
     }
 
@@ -644,7 +706,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box0)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box0)}>{this.state.box0.height}</div>
+                                        className={this.innerBoxLayout(this.state.box0)}>{this.state.box0.layout}</div>
                                 </div>
                             </div>
                             <div className="box1 white box" id={this.getBorder(this.state.box1)}
@@ -653,7 +715,7 @@ class GamePlay extends React.Component {
                                  }}>
                                 <div id={this.heightLayout(this.state.box1)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box1)}>{this.state.box1.height}</div>
+                                        className={this.innerBoxLayout(this.state.box1)}>{this.state.box1.layout}</div>
                                 </div>
                             </div>
                             <div className="box2 black box" id={this.getBorder(this.state.box2)} onClick={() => {
@@ -661,7 +723,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box2)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box2)}>{this.state.box2.height}</div>
+                                        className={this.innerBoxLayout(this.state.box2)}>{this.state.box2.layout}</div>
                                 </div>
                             </div>
                             <div className="box3 white box" id={this.getBorder(this.state.box3)} onClick={() => {
@@ -669,7 +731,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box3)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box3)}>{this.state.box3.height}</div>
+                                        className={this.innerBoxLayout(this.state.box3)}>{this.state.box3.layout}</div>
                                 </div>
                             </div>
                             <div className="box4 black box" id={this.getBorder(this.state.box4)} onClick={() => {
@@ -677,7 +739,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box4)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box4)}>{this.state.box4.height}</div>
+                                        className={this.innerBoxLayout(this.state.box4)}>{this.state.box4.layout}</div>
                                 </div>
                             </div>
                         </div>
@@ -687,7 +749,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box5)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box5)}>{this.state.box5.height}</div>
+                                        className={this.innerBoxLayout(this.state.box5)}>{this.state.box5.layout}</div>
                                 </div>
                             </div>
                             <div className="box6 black box" id={this.getBorder(this.state.box6)} onClick={() => {
@@ -695,7 +757,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box6)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box6)}>{this.state.box6.height}</div>
+                                        className={this.innerBoxLayout(this.state.box6)}>{this.state.box6.layout}</div>
                                 </div>
                             </div>
                             <div className="box7 white box" id={this.getBorder(this.state.box7)} onClick={() => {
@@ -703,7 +765,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box7)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box7)}>{this.state.box7.height}</div>
+                                        className={this.innerBoxLayout(this.state.box7)}>{this.state.box7.layout}</div>
                                 </div>
                             </div>
                             <div className="box8 black box" id={this.getBorder(this.state.box8)} onClick={() => {
@@ -711,7 +773,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box8)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box8)}>{this.state.box8.height}</div>
+                                        className={this.innerBoxLayout(this.state.box8)}>{this.state.box8.layout}</div>
                                 </div>
                             </div>
                             <div className="box9 white box" id={this.getBorder(this.state.box9)} onClick={() => {
@@ -719,7 +781,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box9)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box9)}>{this.state.box9.height}</div>
+                                        className={this.innerBoxLayout(this.state.box9)}>{this.state.box9.layout}</div>
                                 </div>
                             </div>
                         </div>
@@ -729,7 +791,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box10)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box10)}>{this.state.box10.height}</div>
+                                        className={this.innerBoxLayout(this.state.box10)}>{this.state.box10.layout}</div>
                                 </div>
                             </div>
                             <div className="box11 white box" id={this.getBorder(this.state.box11)} onClick={() => {
@@ -737,7 +799,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box11)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box11)}>{this.state.box11.height}</div>
+                                        className={this.innerBoxLayout(this.state.box11)}>{this.state.box11.layout}</div>
                                 </div>
                             </div>
                             <div className="box12 black box" id={this.getBorder(this.state.box12)} onClick={() => {
@@ -745,7 +807,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box12)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box12)}>{this.state.box12.height}</div>
+                                        className={this.innerBoxLayout(this.state.box12)}>{this.state.box12.layout}</div>
                                 </div>
                             </div>
                             <div className="box13 white box" id={this.getBorder(this.state.box13)} onClick={() => {
@@ -753,7 +815,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box13)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box13)}>{this.state.box13.height}</div>
+                                        className={this.innerBoxLayout(this.state.box13)}>{this.state.box13.layout}</div>
                                 </div>
                             </div>
                             <div className="box14 black box" id={this.getBorder(this.state.box14)} onClick={() => {
@@ -761,7 +823,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box14)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box14)}>{this.state.box14.height}</div>
+                                        className={this.innerBoxLayout(this.state.box14)}>{this.state.box14.layout}</div>
                                 </div>
                             </div>
                         </div>
@@ -771,7 +833,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box15)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box15)}>{this.state.box15.height}</div>
+                                        className={this.innerBoxLayout(this.state.box15)}>{this.state.box15.layout}</div>
                                 </div>
                             </div>
                             <div className="box16 black box" id={this.getBorder(this.state.box16)} onClick={() => {
@@ -779,7 +841,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box16)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box16)}>{this.state.box16.height}</div>
+                                        className={this.innerBoxLayout(this.state.box16)}>{this.state.box16.layout}</div>
                                 </div>
                             </div>
                             <div className="box17 white box" id={this.getBorder(this.state.box17)} onClick={() => {
@@ -787,7 +849,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box17)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box17)}>{this.state.box17.height}</div>
+                                        className={this.innerBoxLayout(this.state.box17)}>{this.state.box17.layout}</div>
                                 </div>
                             </div>
                             <div className="box18 black box" id={this.getBorder(this.state.box18)} onClick={() => {
@@ -795,7 +857,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box18)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box18)}>{this.state.box18.height}</div>
+                                        className={this.innerBoxLayout(this.state.box18)}>{this.state.box18.layout}</div>
                                 </div>
                             </div>
                             <div className="box19 white box" id={this.getBorder(this.state.box19)} onClick={() => {
@@ -803,7 +865,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box19)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box19)}>{this.state.box19.height}</div>
+                                        className={this.innerBoxLayout(this.state.box19)}>{this.state.box19.layout}</div>
                                 </div>
                             </div>
                         </div>
@@ -813,7 +875,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box20)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box20)}>{this.state.box20.height}</div>
+                                        className={this.innerBoxLayout(this.state.box20)}>{this.state.box20.layout}</div>
                                 </div>
                             </div>
                             <div className="box21 white box" id={this.getBorder(this.state.box21)} onClick={() => {
@@ -821,7 +883,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box21)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box21)}>{this.state.box21.height}</div>
+                                        className={this.innerBoxLayout(this.state.box21)}>{this.state.box21.layout}</div>
                                 </div>
                             </div>
                             <div className="box22 black box" id={this.getBorder(this.state.box22)} onClick={() => {
@@ -829,7 +891,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box22)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box22)}>{this.state.box22.height}</div>
+                                        className={this.innerBoxLayout(this.state.box22)}>{this.state.box22.layout}</div>
                                 </div>
                             </div>
                             <div className="box23 white box" id={this.getBorder(this.state.box23)} onClick={() => {
@@ -837,7 +899,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box23)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box23)}>{this.state.box23.height}</div>
+                                        className={this.innerBoxLayout(this.state.box23)}>{this.state.box23.layout}</div>
                                 </div>
                             </div>
                             <div className="box24 black box" id={this.getBorder(this.state.box24)} onClick={() => {
@@ -845,7 +907,7 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box24)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box24)}>{this.state.box24.height}</div>
+                                        className={this.innerBoxLayout(this.state.box24)}>{this.state.box24.layout}</div>
                                 </div>
                             </div>
                         </div>
@@ -857,6 +919,13 @@ class GamePlay extends React.Component {
                         <p>Color: {this.state.player2.color}</p>
                     </div>
                 </div>
+                <label>
+                    <Checkbox
+                        checked={this.state.checked}
+                        onChange={this.handleCheckboxChange}
+                    />
+                    <span>Show numbers?</span>
+                </label>
             </div>
         )
 
