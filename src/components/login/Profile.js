@@ -66,7 +66,7 @@ class Profile extends React.Component {
             birthDate: null,
             token: null,
             editMode: false,
-            editButtonText: "Profil editieren",
+            editButtonText: "Edit Profile",
             oldUsername: null,
             oldBirthDate: null,
             editModeText: "User-Information"
@@ -197,7 +197,7 @@ class Profile extends React.Component {
                                                 }
                                                 this.setState({
                                                     editMode: !this.state.editMode,
-                                                    editButtonText: (!this.state.editMode) ? "Save" : "Edit Profil",
+                                                    editButtonText: (!this.state.editMode) ? "Save" : "Edit Profile",
                                                     editModeText: (!this.state.editMode) ? "Edit User Profile" : "User-Information"
                                                 })
                                             }}

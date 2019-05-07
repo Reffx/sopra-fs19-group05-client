@@ -122,7 +122,7 @@ class Login extends React.Component {
             .then(returnedUser => {
                 if (returnedUser.status === 404 || returnedUser.status === 500) {
                     //  user doesn't exist
-                    this.setState({alertText: "Benutzername oder Passwort sind falsch!"})
+                    this.setState({alertText: "Username or password is wrong!"})
                 } else {
                     console.log(returnedUser);
                     const user = new User(returnedUser);

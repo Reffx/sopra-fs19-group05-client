@@ -116,7 +116,7 @@ class Register extends React.Component {
             .then(response => {
                 if (response.status === 409 || response.status === 500) {
                     //doublicated username
-                    this.setState({alertText: "Dieser Benutzername existiert bereits!"})
+                    this.setState({alertText: "This username already exists!"})
                 } else {
                     this.props.history.push(`/login`);
                 }
