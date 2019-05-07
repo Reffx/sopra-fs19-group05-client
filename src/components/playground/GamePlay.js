@@ -83,15 +83,6 @@ field22.gameId = localStorage.getItem("gameId");
 field23.gameId = localStorage.getItem("gameId");
 field24.gameId = localStorage.getItem("gameId");
 
-var isGoing = true;
-
-const worker1p1 = new Worker();
-worker1p1.gameId = localStorage.getItem("gameId");
-worker1p1.workerId = 1;
-const worker2p1 = new Worker();
-worker2p1.gameId = localStorage.getItem("gameId");
-worker2p1.workerId = 2;
-
 
 class GamePlay extends React.Component {
 
@@ -103,10 +94,6 @@ class GamePlay extends React.Component {
             playing_step: null,
             myPlayField: PlayField,
             player1: Player,
-            p1w1: Worker,
-            p1w2: Worker,
-            p2w1: Worker,
-            p2w2: Worker,
             player2: Player,
             game: GameModel,
             alertText: "This is a message.",
@@ -115,6 +102,7 @@ class GamePlay extends React.Component {
             highlightedFields: null,
             visibleLevels: false,
             checked: false,
+            allBoxes: [],
             box0: Field,
             box1: Field,
             box2: Field,
@@ -144,67 +132,56 @@ class GamePlay extends React.Component {
         };
     }
 
+    updateBoxes() {
+        this.state.allBoxes[0] = this.state.box0;
+        this.state.allBoxes[1] = this.state.box1;
+        this.state.allBoxes[2] = this.state.box2;
+        this.state.allBoxes[3] = this.state.box3;
+        this.state.allBoxes[4] = this.state.box4;
+        this.state.allBoxes[5] = this.state.box5;
+        this.state.allBoxes[6] = this.state.box6;
+        this.state.allBoxes[7] = this.state.box7;
+        this.state.allBoxes[8] = this.state.box8;
+        this.state.allBoxes[9] = this.state.box9;
+        this.state.allBoxes[10] = this.state.box10;
+        this.state.allBoxes[11] = this.state.box11;
+        this.state.allBoxes[12] = this.state.box12;
+        this.state.allBoxes[13] = this.state.box13;
+        this.state.allBoxes[14] = this.state.box14;
+        this.state.allBoxes[15] = this.state.box15;
+        this.state.allBoxes[16] = this.state.box16;
+        this.state.allBoxes[17] = this.state.box17;
+        this.state.allBoxes[18] = this.state.box18;
+        this.state.allBoxes[19] = this.state.box19;
+        this.state.allBoxes[20] = this.state.box20;
+        this.state.allBoxes[21] = this.state.box21;
+        this.state.allBoxes[22] = this.state.box22;
+        this.state.allBoxes[23] = this.state.box23;
+        this.state.allBoxes[24] = this.state.box24;
+    }
+
     handleCheckboxChange = event => {
         this.setState({checked: event.target.checked});
-        console.log(this.state.checked);
+        this.updateBoxes();
         if (this.state.checked === false) {
-            this.state.box0.layout = this.state.box0.height;
-            this.state.box1.layout = this.state.box1.height;
-            this.state.box2.layout = this.state.box2.height;
-            this.state.box3.layout = this.state.box3.height;
-            this.state.box4.layout = this.state.box4.height;
-            this.state.box5.layout = this.state.box5.height;
-            this.state.box6.layout = this.state.box6.height;
-            this.state.box7.layout = this.state.box7.height;
-            this.state.box8.layout = this.state.box8.height;
-            this.state.box9.layout = this.state.box9.height;
-            this.state.box10.layout = this.state.box10.height;
-            this.state.box11.layout = this.state.box11.height;
-            this.state.box12.layout = this.state.box12.height;
-            this.state.box13.layout = this.state.box13.height;
-            this.state.box14.layout = this.state.box14.height;
-            this.state.box15.layout = this.state.box15.height;
-            this.state.box16.layout = this.state.box16.height;
-            this.state.box17.layout = this.state.box17.height;
-            this.state.box18.layout = this.state.box18.height;
-            this.state.box19.layout = this.state.box19.height;
-            this.state.box20.layout = this.state.box20.height;
-            this.state.box21.layout = this.state.box21.height;
-            this.state.box22.layout = this.state.box22.height;
-            this.state.box23.layout = this.state.box23.height;
-            this.state.box24.layout = this.state.box24.height;
+            console.log(this.state.allBoxes[0].height);
+            var i;
+            for (i = 0; i < 24; i++) {
+                if (this.state.allBoxes[i].height != 0) {
+                    this.state.allBoxes[i].layout = this.state.allBoxes[i].height;
+                }
+            }
         }
         if (this.state.checked === true) {
-            this.state.box0.layout = null;
-            this.state.box1.layout = null;
-            this.state.box2.layout = null;
-            this.state.box3.layout = null;
-            this.state.box4.layout = null;
-            this.state.box5.layout = null;
-            this.state.box6.layout = null;
-            this.state.box7.layout = null;
-            this.state.box8.layout = null;
-            this.state.box9.layout = null;
-            this.state.box10.layout = null;
-            this.state.box11.layout = null;
-            this.state.box12.layout = null;
-            this.state.box13.layout = null;
-            this.state.box14.layout = null;
-            this.state.box15.layout = null;
-            this.state.box16.layout = null;
-            this.state.box17.layout = null;
-            this.state.box18.layout = null;
-            this.state.box19.layout = null;
-            this.state.box20.layout = null;
-            this.state.box21.layout = null;
-            this.state.box22.layout = null;
-            this.state.box23.layout = null;
-            this.state.box24.layout = null;
+            var y;
+            for (y = 0; y < 24; y++) {
+                this.state.allBoxes[y].layout = null;
+            }
         }
         this.create_field();
     }
 
-    componentDidMount(){
+    componentDidMount() {
         this.get_game();
         this.create_field();
     }
@@ -281,23 +258,21 @@ class GamePlay extends React.Component {
                             const Player2 = new Player();
                             const game = new GameModel(response);
                             this.setState(game);
-                            const Player1Worker1 = new Worker();
-                            const Player1Worker2 = new Worker();
                             Player1.id = response.player1.id;
                             Player1.gameId = response.player1.id;
                             Player1.username = response.player1.username;
                             Player1.color = response.player1.color;
                             Player1.status = response.player1.status;
-                            Player1Worker1.workerId = response.player1.worker1.workerId;
-                            Player1Worker1.playerId = response.player1.worker1.playerId;
-                            Player1Worker1.position = response.player1.worker1.position;
-                            Player1Worker1.next = response.player1.worker1.next;
-                            Player1Worker1.winner = response.player1.worker1.winner;
-                            Player1Worker2.workerId = response.player1.worker2.workerId;
-                            Player1Worker2.playerId = response.player1.worker2.playerId;
-                            Player1Worker2.position = response.player1.worker2.position;
-                            Player1Worker2.next = response.player1.worker2.next;
-                            Player1Worker2.winner = response.player1.worker2.winner;
+                            Player1.worker1.workerId = response.player1.worker1.workerId;
+                            Player1.worker1.playerId = response.player1.worker1.playerId;
+                            Player1.worker1.position = response.player1.worker1.position;
+                            Player1.worker1.next = response.player1.worker1.next;
+                            Player1.worker1.winner = response.player1.worker1.winner;
+                            Player1.worker2.workerId = response.player1.worker2.workerId;
+                            Player1.worker2.playerId = response.player1.worker2.playerId;
+                            Player1.worker2.position = response.player1.worker2.position;
+                            Player1.worker2.next = response.player1.worker2.next;
+                            Player1.worker2.winner = response.player1.worker2.winner;
                             Player1.worker2.position = response.player1.worker2.position;
                             Player2.id = response.player2.id;
                             Player2.gameId = response.player2.id;
@@ -321,8 +296,6 @@ class GamePlay extends React.Component {
                             this.setState({
                                 player1: Player1,
                                 player2: Player2,
-                                p1w1: Player1Worker1,
-                                p1w2: Player1Worker2,
                             });
                             if (this.state.gameStatus === "Start") {
                                 this.set_beginner()
@@ -706,7 +679,8 @@ class GamePlay extends React.Component {
                             }}>
                                 <div id={this.heightLayout(this.state.box0)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box0)}>{this.state.box0.layout}</div>
+                                        className={this.innerBoxLayout(this.state.box0)}>{this.state.box0.layout}
+                                    </div>
                                 </div>
                             </div>
                             <div className="box1 white box" id={this.getBorder(this.state.box1)}
@@ -715,7 +689,8 @@ class GamePlay extends React.Component {
                                  }}>
                                 <div id={this.heightLayout(this.state.box1)}>
                                     <div
-                                        className={this.innerBoxLayout(this.state.box1)}>{this.state.box1.layout}</div>
+                                        className={this.innerBoxLayout(this.state.box1)}>{this.state.box1.layout}
+                                    </div>
                                 </div>
                             </div>
                             <div className="box2 black box" id={this.getBorder(this.state.box2)} onClick={() => {
