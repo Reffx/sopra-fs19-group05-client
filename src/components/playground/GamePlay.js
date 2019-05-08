@@ -2,6 +2,7 @@ import React from "react";
 import "./GamePlay.css";
 import "./PlayerColor.css";
 import styled from "styled-components";
+import {withRouter} from "react-router-dom";
 import Worker from "../shared/models/Worker";
 import Field from "../shared/models/Field";
 import {getDomain} from "../../helpers/getDomain";
@@ -92,6 +93,7 @@ class GamePlay extends React.Component {
         this.state = {
             player_is_playing: Player,
             playing_step: null,
+            gameStatus: null,
             myPlayField: PlayField,
             player1: Player,
             player2: Player,
@@ -182,8 +184,13 @@ class GamePlay extends React.Component {
     }
 
     componentDidMount() {
-        this.get_game();
-        this.create_field();
+        setInterval(()=>{ if(this.state.gameStatus === "Winner1" || this.state.gameStatus === "Winner2" ){
+            return;
+        }
+        else {
+            this.get_game();
+            this.create_field();
+        }}, 1000)
     }
 
     alertMessage() {
@@ -241,10 +248,6 @@ class GamePlay extends React.Component {
 
 
     get_game() {
-        setInterval(() => {
-            if (this.state.gameStatus === "Winner1" || this.state.gameStatus === "Winner2") {
-                return;
-            } else {
                 fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
                     method: "GET",
                     headers: {
@@ -296,18 +299,20 @@ class GamePlay extends React.Component {
                             this.setState({
                                 player1: Player1,
                                 player2: Player2,
+                                gameStatus: response.gameStatus
                             });
                             if (this.state.gameStatus === "Start") {
                                 this.set_beginner()
                             }
+                            this.create_field()
+                            console.log(this.state.gameStatus)
                         }
                     })
                     .catch(err => {
                         console.log(err);
                         alert("Something went wrong fetching the games: " + err);
                     })
-            }
-        }, 5000)
+
     }
 
     build(box) {
@@ -341,6 +346,7 @@ class GamePlay extends React.Component {
                     .then(response => {
                         this.setState({highlightedFields: null});
                         this.create_field();
+                        this.get_game();
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -387,6 +393,7 @@ class GamePlay extends React.Component {
                     .then(response => {
                         this.setState({highlightedFields: null});
                         this.create_field();
+                        this.get_game();
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -402,8 +409,11 @@ class GamePlay extends React.Component {
     }
 
     get_action(box) {
+        this.get_game();
         this.alertMessage();
-        console.log(this.state.gameStatus);
+        console.log(this.state.player1.id);
+        console.log(this.state.player2.id);
+        console.log(Number(localStorage.getItem("userID")));
         if (this.state.gameStatus === "Move2") {
             this.state.player_is_playing = this.state.player2;
             if (this.state.player2.worker1.position === -1 || this.state.player2.worker2.position === -1) {
@@ -496,6 +506,8 @@ class GamePlay extends React.Component {
         })
             .then(response => {
                 console.log(response);
+                this.get_game();
+                this.create_field();
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
@@ -658,6 +670,51 @@ class GamePlay extends React.Component {
             return ("player-div-lvl-3-" + this.getPlayerColor(box));
         }
     }
+    leave_game(){
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(returnedGame => {
+                if (returnedGame.status === 404 || returnedGame.status === 500) {
+                    //  has to be modified for game
+                    this.setState({alertText: "You could not leave the lobby"})
+                } else {
+                    localStorage.removeItem("gameID");
+                    console.log(localStorage.getItem("gameID"));
+                    this.props.history.push("/NormalModeLobby");
+
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during leaving the lobby: ${err.message}`);
+                }
+            });
+    }
+    surrender(){
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/surrender`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(response => {
+                this.get_game()
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+
+    }
 
 
     render() {
@@ -671,6 +728,15 @@ class GamePlay extends React.Component {
                         <p>UserId: {this.state.player1.id} </p>
                         <p>Username: {this.state.player1.username} </p>
                         <p>Color: {this.state.player1.color}</p>
+                        <ButtonContainer/>
+                        <Button
+                            disabled={(localStorage.getItem("userID") !== String(this.state.player1.id))}
+                            width="50%"
+                            onClick={() => { this.surrender()}}
+                        >
+                            Give Up
+                        </Button>
+                        <ButtonContainer/>
                     </div>
                     <div className="playField">
                         <div>
@@ -892,6 +958,16 @@ class GamePlay extends React.Component {
                         <p>UserId: {this.state.player2.id} </p>
                         <p>Username: {this.state.player2.username} </p>
                         <p>Color: {this.state.player2.color}</p>
+                        <ButtonContainer/>
+                        <Button
+                            disabled={(localStorage.getItem("userID")!== String(this.state.player2.id))}
+                            width="50%"
+                            onClick={() => {this.surrender()
+                            }}
+                        >
+                            Give Up
+                        </Button>
+                        <ButtonContainer/>
                     </div>
                 </div>
                 <label>
@@ -901,6 +977,15 @@ class GamePlay extends React.Component {
                     />
                     <span>Show numbers?</span>
                 </label>
+                <ButtonContainer/>
+                <Button
+                    disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
+                    width="20%"
+                    onClick={() => { this.leave_game();}}
+                >
+                    Leave Game
+                </Button>
+                <ButtonContainer/>
             </div>
         )
 

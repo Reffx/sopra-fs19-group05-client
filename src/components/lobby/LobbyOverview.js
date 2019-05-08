@@ -328,6 +328,7 @@ class LobbyOverview extends React.Component {
                 <Container>
                     <ButtonContainer/>
                         <Button
+                            disabled={(this.state.player1_color === null) ||(this.state.player2_color === null)}
                             width="30%"
                             onClick={() => {
                                 this.ready()
