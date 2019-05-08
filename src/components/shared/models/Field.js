@@ -1,4 +1,4 @@
-import "./Worker";
+import GameWorker from "./GameWorker";
 
 /**
  * Field model
@@ -8,7 +8,7 @@ class Field {
         this.id = null;
         this.fieldNum = null;
         this.height = null;
-        this.occupier = new Worker(null);
+        this.occupier = GameWorker;
         this.reachedMaxHeight = null;
         this.x_coordinate = null;
         this.y_coordinate = null;

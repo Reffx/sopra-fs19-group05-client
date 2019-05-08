@@ -1,4 +1,4 @@
-import "./Worker";
+import GameWorker from "./GameWorker";
 
 /**
  * PlayerView model
@@ -10,8 +10,8 @@ class Player {
         this.color = null;
         this.status = null;
         this.username = null;
-        this.worker1 = new Worker(null);
-        this.worker2 = new Worker(null);
+        this.worker1 = GameWorker;
+        this.worker2 = GameWorker;
         Object.assign(this, data);
     }
 }

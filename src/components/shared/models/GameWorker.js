@@ -1,7 +1,7 @@
 /**
- * Worker model
+ * GameWorker model
  */
-class Worker {
+class GameWorker {
     constructor(data = {}) {
         this.workerId = null;
         this.playerId = null;
@@ -13,4 +13,4 @@ class Worker {
     }
 }
 
-export default Worker;
+export default GameWorker;

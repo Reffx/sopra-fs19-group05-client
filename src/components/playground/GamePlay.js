@@ -3,7 +3,7 @@ import "./GamePlay.css";
 import "./PlayerColor.css";
 import styled from "styled-components";
 import {withRouter} from "react-router-dom";
-import Worker from "../shared/models/Worker";
+import GameWorker from "../shared/models/GameWorker";
 import Field from "../shared/models/Field";
 import {getDomain} from "../../helpers/getDomain";
 import PlayField from "../shared/models/PlayField";
@@ -257,10 +257,11 @@ class GamePlay extends React.Component {
                     .then(response => response.json())
                     .then(async response => {
                         if (response.status !== 404 || response.player1 !== null) {
-                            const Player1 = new Player(response);
+
+                            const Player1 = new Player();
                             const Player2 = new Player();
-                            const game = new GameModel(response);
-                            this.setState(game);
+                          //  const game = new GameModel(response);
+                          //  this.setState(game);
                             Player1.id = response.player1.id;
                             Player1.gameId = response.player1.id;
                             Player1.username = response.player1.username;
@@ -269,12 +270,12 @@ class GamePlay extends React.Component {
                             Player1.worker1.workerId = response.player1.worker1.workerId;
                             Player1.worker1.playerId = response.player1.worker1.playerId;
                             Player1.worker1.position = response.player1.worker1.position;
-                            Player1.worker1.next = response.player1.worker1.next;
+                        //  Player1.worker1.next = response.player1.worker1.next;
                             Player1.worker1.winner = response.player1.worker1.winner;
                             Player1.worker2.workerId = response.player1.worker2.workerId;
                             Player1.worker2.playerId = response.player1.worker2.playerId;
                             Player1.worker2.position = response.player1.worker2.position;
-                            Player1.worker2.next = response.player1.worker2.next;
+                         // Player1.worker2.next = response.player1.worker2.next;
                             Player1.worker2.winner = response.player1.worker2.winner;
                             Player1.worker2.position = response.player1.worker2.position;
                             Player2.id = response.player2.id;
@@ -288,13 +289,13 @@ class GamePlay extends React.Component {
                             Player1.worker2.position = response.player1.worker2.position;
                             Player2.worker1.playerId = response.player2.worker1.playerId;
                             Player2.worker1.position = response.player2.worker1.position;
-                            Player2.worker1.next = response.player2.worker1.next;
+                        //    Player2.worker1.next = response.player2.worker1.next;
                             Player2.worker1.winner = response.player2.worker1.winner;
                             Player2.worker1.workerId = response.player2.worker1.workerId;
                             Player2.worker2.workerId = response.player2.worker2.workerId;
                             Player2.worker2.playerId = response.player2.worker2.playerId;
                             Player2.worker2.position = response.player2.worker2.position;
-                            Player2.worker2.next = response.player2.worker2.next;
+                       //     Player2.worker2.next = response.player2.worker2.next;
                             Player2.worker2.winner = response.player2.worker2.winner;
                             this.setState({
                                 player1: Player1,
@@ -304,7 +305,7 @@ class GamePlay extends React.Component {
                             if (this.state.gameStatus === "Start") {
                                 this.set_beginner()
                             }
-                            this.create_field()
+                           // this.create_field()
                             console.log(this.state.gameStatus)
                         }
                     })
