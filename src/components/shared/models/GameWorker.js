@@ -6,8 +6,8 @@ class GameWorker {
         this.workerId = null;
         this.playerId = null;
         this.position = null;
-        this.next = null;
-        this.winner = null;
+        this.next = false;
+        this.winner = false;
         this.layout = null;
         Object.assign(this, data);
     }
