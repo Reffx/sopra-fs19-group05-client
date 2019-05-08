@@ -260,8 +260,8 @@ class GamePlay extends React.Component {
 
                             const Player1 = new Player();
                             const Player2 = new Player();
-                          //  const game = new GameModel(response);
-                          //  this.setState(game);
+                            const game = new GameModel(response);
+                            this.setState(game);
                             Player1.id = response.player1.id;
                             Player1.gameId = response.player1.id;
                             Player1.username = response.player1.username;
