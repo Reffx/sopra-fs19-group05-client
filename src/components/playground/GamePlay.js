@@ -166,7 +166,6 @@ class GamePlay extends React.Component {
         this.setState({checked: event.target.checked});
         this.updateBoxes();
         if (this.state.checked === false) {
-            console.log(this.state.allBoxes[0].height);
             var i;
             for (i = 0; i < 24; i++) {
                 if (this.state.allBoxes[i].height != 0) {
@@ -272,11 +271,6 @@ class GamePlay extends React.Component {
                             if (this.state.game.gameStatus === "Start") {
                                 this.set_beginner()
                             }
-                           // this.create_field()
-                            console.log(this.state.player2);
-                            console.log(this.state.player_is_playing)
-                            //console.log(this.state.player_is_playing.worker2.workerId);
-                            //console.log(this.state.player_is_playing.worker1.workerId)
                         }
                     })
                     .catch(err => {
@@ -335,8 +329,7 @@ class GamePlay extends React.Component {
     move(box) {
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
-                if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) { // this.state.player2.worker1.workerId only placeholder
-                    console.log(this.state.player_is_playing.worker1.workerId);
+                if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
                     this.setState({selected_worker: this.state.player_is_playing.worker1.workerId});
                     this.highLightMove(box);
                 }
@@ -382,41 +375,45 @@ class GamePlay extends React.Component {
     get_action(box) {
         this.get_game();
         this.alertMessage();
-        console.log("hello" + this.state.player1.id);
-        console.log("figger" +this.state.player2.id);
         if (this.state.game.gameStatus === "Move2") {
             this.state.player_is_playing = this.state.player2;
-            if (this.state.game.player2.worker1.position === -1 || this.state.game.player2.worker2.position === -1) {
-                this.set_worker(box);
-            } else {
-                this.move(box);
+            if(localStorage.getItem("userID") === String(this.state.player2.id)) {
+                if (this.state.game.player2.worker1.position === -1 || this.state.game.player2.worker2.position === -1) {
+                    this.set_worker(box);
+                } else {
+                    this.move(box);
+                }
             }
         }
         if (this.state.game.gameStatus === "Move1") {
             this.state.player_is_playing = this.state.game.player1;
-            if (this.state.game.player1.worker1.position === -1 || this.state.game.player1.worker2.position === -1) {
-                console.log("cc");
-                this.set_worker(box);
-            } else {
-                this.move(box);
+            if(localStorage.getItem("userID") === String(this.state.player1.id)) {
+                if (this.state.game.player1.worker1.position === -1 || this.state.game.player1.worker2.position === -1) {
+                    console.log("cc");
+                    this.set_worker(box);
+                } else {
+                    this.move(box);
+                }
             }
         }
         if (this.state.gameStatus === "Build1") {
-            this.state.player_is_playing = this.state.game.player1;
-            this.build(box)
+            if(localStorage.getItem("userID") === String(this.state.player1.id)) {
+                this.state.player_is_playing = this.state.game.player1;
+                this.build(box)
+            }
         }
+
         if (this.state.gameStatus === "Build2") {
-            this.state.player_is_playing = this.state.game.player2;
-            this.build(box)
+            if(localStorage.getItem("userID") === String(this.state.player2.id)) {
+                this.state.player_is_playing = this.state.game.player2;
+                this.build(box)
+            }
         }
         this.create_field();
         this.get_game();
-        console.log("gg motherfucker");
-        console.log(this.state.player_is_playing)
     }
 
     select_worker() {
-        console.log(this.state.player_is_playing);
         if (this.state.player_is_playing.worker1.position === -1) {
             this.state.selected_worker = this.state.player_is_playing.worker1.workerId
         } else {
@@ -434,7 +431,6 @@ class GamePlay extends React.Component {
             .then(response => response.json())
             .then(returnedFields => {
                     this.setState({highlightedFields: returnedFields});
-                    //         console.log(this.state.highlightedFields);
                 }
             )
             .catch(err => {
@@ -656,7 +652,7 @@ class GamePlay extends React.Component {
                 } else {
                     localStorage.removeItem("gameID");
                     console.log(localStorage.getItem("gameID"));
-                    this.props.push("/NormalModeLobby");
+                    this.props.history.push("/dashboard");
 
                 }
             })
