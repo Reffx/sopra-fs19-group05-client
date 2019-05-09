@@ -108,7 +108,6 @@ class LobbyOverview extends React.Component {
                     .then(async response => {
                         if (response.status !== 404 || response.player1 !== null) {
                             //console.log(localStorage.getItem("userID"));
-
                             this.setState({
                                 player1_username: response.player1.username,
                                 player1_id: response.player1.id,
@@ -220,8 +219,21 @@ class LobbyOverview extends React.Component {
                     alert(`Something went wrong during the creation: ${err.message}`);
                 }
             });
+    }
 
-
+    setLocalStorageOpponent(){
+        if ((this.state.player1_id != null) && (this.state.player2_id != null)) {
+            if (localStorage.getItem("userID") === this.state.player1_id.toString()) {
+                localStorage.setItem("userID_player1", this.state.player1_id);
+                console.log("MyUserId:" + localStorage.getItem("userID"));
+                console.log("I am player 1:" + localStorage.getItem("userID_player1"));
+            }
+            if (localStorage.getItem("userID") === this.state.player2_id.toString()) {
+                localStorage.setItem("userID_player2", this.state.player2_id);
+                console.log("MyUserId:" + localStorage.getItem("userID"));
+                console.log("I am player 2:" + localStorage.getItem("userID_player2"));
+            }
+        }
     }
 
     yellowCircleClick() {
@@ -352,6 +364,7 @@ class LobbyOverview extends React.Component {
                         disabled={(this.state.player1_color === null) || (this.state.player2_color === null)}
                         width="30%"
                         onClick={() => {
+                            this.setLocalStorageOpponent();
                             this.ready()
                         }}
                     >
@@ -365,7 +378,7 @@ class LobbyOverview extends React.Component {
                         onClick={() => {
                             if (this.state.gameMode === "NORMAL") {
                                 this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay`)
-                            } else if (this.state.gameMode === "GOD"){
+                            } else if (this.state.gameMode === "GOD") {
                                 this.props.history.push(`/game/${localStorage.getItem("gameID")}/chooseGodCard`)
                             }
                         }}
