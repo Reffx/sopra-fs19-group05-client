@@ -9,6 +9,12 @@ import GameModel from "../shared/models/GameModel";
 import Player from "../shared/models/Player";
 import User from "../shared/models/User";
 
+const ButtonContainer = styled.div`
+  display: row;
+  justify-content: center;
+  margin-top: 20px;
+`;
+
 class ChooseGodCard extends React.Component {
 
     constructor() {
@@ -38,6 +44,8 @@ class ChooseGodCard extends React.Component {
 
 
     componentDidMount() {
+        localStorage.setItem("GodCardPlayer1", null);
+        localStorage.setItem("GodCardPlayer2", null);
         setInterval(() => {
             if (this.state.chosenCardPlayer1 !== null && this.state.chosenCardPlayer2 !== null) {
                 this.alertText();
@@ -81,20 +89,26 @@ class ChooseGodCard extends React.Component {
                         game: Game,
                         gameStatus: response.gameStatus
                     });
+                    localStorage.setItem("GodCardPlayer1", response.player1.worker1.godCard);
+                    localStorage.setItem("GodCardPlayer2", response.player2.worker1.godCard);
+                    console.log(localStorage.getItem("GodCardPlayer1"));
                     if (this.state.game.gameStatus === "Start") {
                         this.set_beginner()
-                    } else if (this.state.game.gameStatus === "Move1") {
+                    } else if (this.state.game.gameStatus === "Move1" && this.state.game.player1.worker1.godCard === null) {
                         this.state.player_is_choosing = this.state.game.player1;
-                    } else if (this.state.game.gameStatus === "Move2") {
+                    } else if (this.state.game.gameStatus === "Move1" && this.state.game.player1.worker1.godCard !== null) {
                         this.state.player_is_choosing = this.state.game.player2;
+                    } else if (this.state.game.gameStatus === "Move2" && this.state.game.player2.worker1.godCard === null) {
+                        this.state.player_is_choosing = this.state.game.player2;
+                    } else if (this.state.game.gameStatus === "Move2" && this.state.game.player2.worker1.godCard !== null) {
+                        this.state.player_is_choosing = this.state.game.player1;
                     }
                 }
             })
             .catch(err => {
                 console.log(err);
                 alert("Something went wrong fetching the games: " + err);
-            })
-
+            });
     }
 
     set_beginner() {
@@ -134,7 +148,12 @@ class ChooseGodCard extends React.Component {
     choose_card(card) {
         console.log(this.state.player_is_choosing);
         if (String(this.state.player_is_choosing.id) === localStorage.getItem("userID")) {
-            this.setGodCard(card)
+            if (localStorage.getItem("GodCardPlayer1") === String(card)|| localStorage.getItem("GodCardPlayer1") === String(card)){
+                alert("card is taken")
+            }
+            else {
+                this.setGodCard(card)
+            }
         }
     }
 
@@ -208,6 +227,16 @@ class ChooseGodCard extends React.Component {
                     <div class="godCard10"
                     ><p className="godCard-p">Not available yet!</p></div>
                 </div>
+                <ButtonContainer/>
+                <Button
+                        disabled={localStorage.getItem("GodCardPlayer1") === String(null)|| localStorage.getItem("GodCardPlayer1") === String(null)}
+                        width="30%"
+                        onClick={() => {
+                        }}
+                >
+                    Go to Playground
+                </Button>
+                <ButtonContainer/>
             </div>
         )
     }
