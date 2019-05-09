@@ -2,17 +2,7 @@
     display: flex;
     justify-content: space-evenly;
 }
-.left{
-    float: left;
-    width: 20%;
-    color: white;
-}
 
-.right{
-    float: right;
-    width: 20%;
-    color: white;
-}
 
 
 .playField{

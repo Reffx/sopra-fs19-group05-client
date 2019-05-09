@@ -12,6 +12,7 @@ import {Button} from "../../views/design/Button";
 import Player from "../shared/models/Player";
 import State from "../shared/models/State.js";
 import GameModel from "../shared/models/GameModel";
+import "./player_colors_circles.css"
 
 
 const ButtonContainer = styled.div`
@@ -96,7 +97,7 @@ class GamePlay extends React.Component {
             gameStatus: null,
             myPlayField: PlayField,
             player1: Player,
-            player2:  Player,
+            player2: Player,
             game: GameModel,
             alertText: "This is a message.",
             players_turn: null,
@@ -162,10 +163,22 @@ class GamePlay extends React.Component {
         this.state.allBoxes[24] = this.state.box24;
     }
 
-    handleCheckboxChange = event => {
-        this.setState({checked: event.target.checked});
-        this.updateBoxes();
-        if (this.state.checked === false) {
+    componentDidMount() {
+        setInterval(() => {
+            if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
+                this.create_field();
+                return;
+            } else {
+                this.get_game();
+                this.create_field();
+                this.updateBoxes();
+                this.updateLayoutBoxes();
+            }
+        }, 1000)
+    }
+
+    updateLayoutBoxes(){
+        if (this.state.checked === true) {
             var i;
             for (i = 0; i < 24; i++) {
                 if (this.state.allBoxes[i].height != 0) {
@@ -173,7 +186,7 @@ class GamePlay extends React.Component {
                 }
             }
         }
-        if (this.state.checked === true) {
+        if (this.state.checked === false) {
             var y;
             for (y = 0; y < 24; y++) {
                 this.state.allBoxes[y].layout = null;
@@ -182,15 +195,12 @@ class GamePlay extends React.Component {
         this.create_field();
     }
 
-    componentDidMount() {
-        setInterval(()=>{ if(this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2" ){
-            this.create_field();
-        }
-        else {
-            this.get_game();
-            this.create_field();
-        }}, 1000)
+    handleCheckboxChange = event => {
+        this.setState({checked: event.target.checked});
+        this.updateBoxes();
+        this.updateLayoutBoxes();
     }
+
 
     alertMessage() {
         if (this.state.game.gameStatus === "Move1") {
@@ -247,36 +257,36 @@ class GamePlay extends React.Component {
 
 
     get_game() {
-                fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                    .then(response => response.json())
-                    .then(async response => {
-                        if (response.status !== 404 || response.player1 !== null) {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(async response => {
+                if (response.status !== 404 || response.player1 !== null) {
 
-                            const Player1 = new Player();
-                            const Player2 = new Player();
-                            const Game = new GameModel(response);
-                            this.setState(Game);
-                            this.setState({
-                                player1: response.player1,
-                                player2: response.player2,
-                                player_is_playing: response.player1,
-                                game: Game,
-                                gameStatus: response.gameStatus
-                            });
-                            if (this.state.game.gameStatus === "Start") {
-                                this.set_beginner()
-                            }
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        alert("Something went wrong fetching the games: " + err);
-                    })
+                    const Player1 = new Player();
+                    const Player2 = new Player();
+                    const Game = new GameModel(response);
+                    this.setState(Game);
+                    this.setState({
+                        player1: response.player1,
+                        player2: response.player2,
+                        player_is_playing: response.player1,
+                        game: Game,
+                        gameStatus: response.gameStatus
+                    });
+                    if (this.state.game.gameStatus === "Start") {
+                        this.set_beginner()
+                    }
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Something went wrong fetching the games: " + err);
+            })
 
     }
 
@@ -377,7 +387,7 @@ class GamePlay extends React.Component {
         this.alertMessage();
         if (this.state.game.gameStatus === "Move2") {
             this.state.player_is_playing = this.state.player2;
-            if(localStorage.getItem("userID") === String(this.state.player2.id)) {
+            if (localStorage.getItem("userID") === String(this.state.player2.id)) {
                 if (this.state.game.player2.worker1.position === -1 || this.state.game.player2.worker2.position === -1) {
                     this.set_worker(box);
                 } else {
@@ -387,7 +397,7 @@ class GamePlay extends React.Component {
         }
         if (this.state.game.gameStatus === "Move1") {
             this.state.player_is_playing = this.state.game.player1;
-            if(localStorage.getItem("userID") === String(this.state.player1.id)) {
+            if (localStorage.getItem("userID") === String(this.state.player1.id)) {
                 if (this.state.game.player1.worker1.position === -1 || this.state.game.player1.worker2.position === -1) {
                     console.log("cc");
                     this.set_worker(box);
@@ -397,14 +407,14 @@ class GamePlay extends React.Component {
             }
         }
         if (this.state.gameStatus === "Build1") {
-            if(localStorage.getItem("userID") === String(this.state.player1.id)) {
+            if (localStorage.getItem("userID") === String(this.state.player1.id)) {
                 this.state.player_is_playing = this.state.game.player1;
                 this.build(box)
             }
         }
 
         if (this.state.gameStatus === "Build2") {
-            if(localStorage.getItem("userID") === String(this.state.player2.id)) {
+            if (localStorage.getItem("userID") === String(this.state.player2.id)) {
                 this.state.player_is_playing = this.state.game.player2;
                 this.build(box)
             }
@@ -638,7 +648,8 @@ class GamePlay extends React.Component {
             return ("player-div-lvl-3-" + this.getPlayerColor(box));
         }
     }
-    leave_game(){
+
+    leave_game() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}`, {
             method: "PUT",
             headers: {
@@ -664,7 +675,8 @@ class GamePlay extends React.Component {
                 }
             });
     }
-    surrender(){
+
+    surrender() {
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/surrender`, {
             method: "PUT",
             headers: {
@@ -684,6 +696,33 @@ class GamePlay extends React.Component {
 
     }
 
+    getColorCircle(playerColor) {
+        if (playerColor === "BLUE") {
+            return "circle_blue-gameplay";
+        }
+        if (playerColor === "YELLOW") {
+            return "circle_yellow-gameplay";
+        }
+        if (playerColor === "RED") {
+            return "circle_red-gameplay";
+        }
+        if (playerColor === "PINK") {
+            return "circle_pink-gameplay";
+        }
+    }
+
+    isButtonInvisiblePlayer1() {
+        if (localStorage.getItem("userID") !== (localStorage.getItem("userID_player1"))) {
+            return "invisible";
+        }
+    }
+
+    isButtonInvisiblePlayer2() {
+        if (localStorage.getItem("userID") !== (localStorage.getItem("userID_player2"))) {
+            return "invisible";
+        }
+    }
+
 
     render() {
 
@@ -692,17 +731,38 @@ class GamePlay extends React.Component {
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className="left">
-                        <h2>Player 1</h2>
-                        <p>UserId: {this.state.player1.id} </p>
-                        <p>Username: {this.state.player1.username} </p>
-                        <p>Color: {this.state.player1.color}</p>
+                        <div className="player-box-gameplay">
+                            <h2>{this.state.player1.username}</h2>
+                            <div className={this.getColorCircle(this.state.player1.color)}></div>
+                        </div>
+                        <label id={this.isButtonInvisiblePlayer1()}>
+                            <span>Show numbers?</span>
+                            <Checkbox
+                                checked={this.state.checked}
+                                onChange={this.handleCheckboxChange}
+                            />
+
+                        </label>
                         <ButtonContainer/>
-                        <Button
-                            disabled={(localStorage.getItem("userID") !== String(this.state.player1.id))}
-                            width="50%"
-                            onClick={() => { this.surrender()}}
+                        <Button id={this.isButtonInvisiblePlayer1()}
+                                disabled={(localStorage.getItem("userID") !== String(this.state.player1.id))}
+                                width="50%"
+                                onClick={() => {
+                                    this.surrender()
+                                }}
                         >
                             Give Up
+                        </Button>
+                        <ButtonContainer/>
+                        <ButtonContainer/>
+                        <Button id={this.isButtonInvisiblePlayer1()}
+                                disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
+                                width="50%"
+                                onClick={() => {
+                                    this.leave_game();
+                                }}
+                        >
+                            Leave Game
                         </Button>
                         <ButtonContainer/>
                     </div>
@@ -922,38 +982,42 @@ class GamePlay extends React.Component {
                         </div>
                     </div>
                     <div className="right">
-                        <h2>Player 2</h2>
-                        <p>UserId: {this.state.player2.id} </p>
-                        <p>Username: {this.state.player2.username} </p>
-                        <p>Color: {this.state.player2.color}</p>
+                        <div className="player-box-gameplay">
+                            <h2>{this.state.player2.username}</h2>
+                            <div className={this.getColorCircle(this.state.player2.color)}></div>
+                        </div>
+                        <label id={this.isButtonInvisiblePlayer2()}>
+                            <span>Show numbers?</span>
+                            <Checkbox
+                                checked={this.state.checked}
+                                onChange={this.handleCheckboxChange}
+                            />
+
+                        </label>
                         <ButtonContainer/>
-                        <Button
-                            disabled={(localStorage.getItem("userID")!== String(this.state.player2.id))}
-                            width="50%"
-                            onClick={() => {this.surrender()
-                            }}
+                        <Button id={this.isButtonInvisiblePlayer2()}
+                                disabled={(localStorage.getItem("userID") !== String(this.state.player1.id))}
+                                width="50%"
+                                onClick={() => {
+                                    this.surrender()
+                                }}
                         >
                             Give Up
                         </Button>
                         <ButtonContainer/>
+                        <ButtonContainer/>
+                        <Button id={this.isButtonInvisiblePlayer2()}
+                                disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
+                                width="50%"
+                                onClick={() => {
+                                    this.leave_game();
+                                }}
+                        >
+                            Leave Game
+                        </Button>
+                        <ButtonContainer/>
                     </div>
                 </div>
-                <label>
-                    <Checkbox
-                        checked={this.state.checked}
-                        onChange={this.handleCheckboxChange}
-                    />
-                    <span>Show numbers?</span>
-                </label>
-                <ButtonContainer/>
-                <Button
-                    disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
-                    width="20%"
-                    onClick={() => { this.leave_game();}}
-                >
-                    Leave Game
-                </Button>
-                <ButtonContainer/>
             </div>
         )
 
