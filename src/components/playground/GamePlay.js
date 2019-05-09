@@ -184,7 +184,7 @@ class GamePlay extends React.Component {
 
     componentDidMount() {
         setInterval(()=>{ if(this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2" ){
-            return;
+            this.create_field();
         }
         else {
             this.get_game();
