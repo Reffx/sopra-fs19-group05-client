@@ -3,6 +3,7 @@ import styled from "styled-components";
 import {Route} from "react-router-dom";
 import GamePlay from "../../playground/GamePlay";
 import WaitingRoom from "../../lobby/LobbyOverview";
+import GamePlayGodMode from "../../playground/godMode/GamePlayGodMode";
 
 
 const Container = styled.div`
@@ -22,6 +23,12 @@ class GameRouter extends React.Component {
                     exact path="/game/:id/gamePlay"
                     render={() => (
                         <GamePlay base={"/game/gamePlay"}/>
+                    )}
+                />
+                <Route
+                    exact path="/game/:id/gamePlay/GodMode"
+                    render={() => (
+                        <GamePlayGodMode base={"/game/gamePlay"}/>
                     )}
                 />
                 <Route

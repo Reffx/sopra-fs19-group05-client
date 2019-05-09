@@ -1,18 +1,19 @@
 import React from "react";
-import "./GamePlay.css";
-import "./PlayerColor.css";
+import "./../GamePlay.css";
+import "./../PlayerColor.css";
 import styled from "styled-components";
 import {withRouter} from "react-router-dom";
-import GameWorker from "../shared/models/GameWorker";
-import Field from "../shared/models/Field";
-import {getDomain} from "../../helpers/getDomain";
-import PlayField from "../shared/models/PlayField";
-import {BaseContainer} from "../../helpers/layout";
-import {Button} from "../../views/design/Button";
-import Player from "../shared/models/Player";
-import State from "../shared/models/State.js";
-import GameModel from "../shared/models/GameModel";
-import "./player_colors_circles.css"
+import GameWorker from "../../shared/models/GameWorker";
+import Field from "../../shared/models/Field";
+import {getDomain} from "../../../helpers/getDomain";
+import PlayField from "../../shared/models/PlayField";
+import {BaseContainer} from "../../../helpers/layout";
+import {Button} from "../../../views/design/Button";
+import Player from "../../shared/models/Player";
+import State from "../../shared/models/State.js";
+import GameModel from "../../shared/models/GameModel";
+import "./../player_colors_circles.css";
+import "./god_cards.css";
 
 
 const ButtonContainer = styled.div`
@@ -105,7 +106,7 @@ class GamePlayGodMode extends React.Component {
             visibleLevels: false,
             checked: false,
             allBoxes: [],
-            variateForward: null,
+            variateForward: 1,
             box0: Field,
             box1: Field,
             box2: Field,
@@ -357,6 +358,7 @@ class GamePlayGodMode extends React.Component {
                 ;
             }
             if (placeable === true) {
+
                 fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/move`, {
                     method: "PUT",
                     headers: {
@@ -364,6 +366,9 @@ class GamePlayGodMode extends React.Component {
                     },
                 })
                     .then(response => {
+                        console.log(localStorage.getItem("gameID"));
+                        console.log(box.fieldNum);
+                        console.log(this.state.selected_worker);
                         this.setState({highlightedFields: null});
                         this.create_field();
                         this.get_game();
@@ -722,15 +727,48 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
+    getGodCardLayout(godCard) {
+        if (godCard === "Apollo") {
+            return "godCard1-gamePlay";
+        }
+        if (godCard === "Artemis") {
+            return "godCard2-gamePlay";
+        }
+        if (godCard === "Athena") {
+            return "godCard3-gamePlay";
+        }
+        if (godCard === "Atlas") {
+            return "godCard4-gamePlay";
+        }
+        if (godCard === "Dermeter") {
+            return "godCard5-gamePlay";
+        }
+        if (godCard === "Hephaestus") {
+            return "godCard6-gamePlay";
+        }
+        if (godCard === "Hermes") {
+            return "godCard7-gamePlay";
+        }
+        if (godCard === "Minotaur") {
+            return "godCard8-gamePlay";
+        }
+        if (godCard === "Pan") {
+            return "godCard9-gamePlay";
+        }
+        if (godCard === "Prometheus") {
+            return "godCard10-gamePlay";
+        }
+    }
+
 
     render() {
-
         return (
             <div className="fixedPixels-div">
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className="left">
-                        <div className="player-box-gameplay">
+                        <div className="godCard1-gamePlay"></div>
+                        <div className="player-box-gameplay-god">
                             <h2>{this.state.player1.username}</h2>
                             <div className={this.getColorCircle(this.state.player1.color)}></div>
                         </div>
@@ -981,7 +1019,8 @@ class GamePlayGodMode extends React.Component {
                         </div>
                     </div>
                     <div className="right">
-                        <div className="player-box-gameplay">
+                        <div className="godCard5-gamePlay"></div>
+                        <div className="player-box-gameplay-god">
                             <h2>{this.state.player2.username}</h2>
                             <div className={this.getColorCircle(this.state.player2.color)}></div>
                         </div>
@@ -1017,99 +1056,10 @@ class GamePlayGodMode extends React.Component {
                         <ButtonContainer/>
                     </div>
                 </div>
-                <div className="fastForward">
-                    <ButtonContainer/>
-                    <Button
-                        width="20%"
-                        onClick={() => {
-                            this.fastForward();
-                        }}
-                    >
-                        Fast-Forward
-                    </Button>
-                    <ButtonContainer/>
-                </div>
             </div>
         )
 
     }
-
-
-    fastForward() {
-        var i;
-        console.log(this.state.variateForward);
-        if (this.state.variateForward === null) {
-            this.setState({variateForward: 1});
-        }
-        if (this.state.variateForward === 1) {
-            for (i = 0; i < 24; i = i + 3)
-                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            for (i = 3; i < 23; i = i + 5)
-                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            for (i = 0; i < 24; i = i + 2) {
-                if (this.state.allBoxes[i].occupier != null && this.state.allBoxes[i].height != 2 && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            }
-            this.setState({variateForward: 2});;
-        }
-        if (this.state.variateForward === 2) {
-            for (i = 0; i < 24; i = i + 2)
-                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            for (i = 3; i < 23; i = i + 3)
-                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            for (i = 0; i < 24; i = i + 3) {
-                if (this.state.allBoxes[i].occupier != null && this.state.allBoxes[i].height != 2 && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            }
-            this.setState({variateForward: 1});;
-        }
-
-    }
-
-    quickBuild(fieldNum) {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${fieldNum}/build`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(err => {
-                if (err.message.match(/Failed to fetch/)) {
-                    alert("The server cannot be reached. Did you start it?");
-                } else {
-                    alert(`Something went wrong during the creation: ${err.message}`);
-                }
-            });
-    }
-
-
 }
 
 export default GamePlayGodMode;

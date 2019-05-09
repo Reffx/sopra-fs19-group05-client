@@ -1,0 +1,120 @@
+.godCard1-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image:  url("../../lobby/assets/apollo.png");
+    background-size: cover;
+}
+
+.godCard2-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("../../lobby/assets/artemis.png");
+    background-size: cover;
+}
+
+.godCard3-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image:  url("../../lobby/assets/athena.png");
+    background-size: cover;
+}
+
+.godCard4-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image:  url("../../lobby/assets/atlas.png");
+    background-size: cover;
+}
+
+.godCard5-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("../../lobby/assets/dermeter.png");
+    background-size: cover;
+}
+
+.godCard6-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image:  url("../../lobby/assets/hephaestus.png");
+    background-size: cover;
+}
+
+.godCard7-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image:  url("../../lobby/assets/hermes.png");
+    background-size: cover;
+}
+
+.godCard8-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("../../lobby/assets/minotaur.png");
+    background-size: cover;
+}
+
+.godCard9-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("../../lobby/assets/pan.png");
+    background-size: cover;
+}
+
+.godCard10-gamePlay {
+    width: 150px;
+    height: 250px;
+    margin-top: 10px;
+    margin-left: 63px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-size: cover;
+    opacity: 50%;
+    background-image: url("../../lobby/assets/prometheus.png");
+}
