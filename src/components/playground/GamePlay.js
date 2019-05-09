@@ -1009,7 +1009,8 @@ class GamePlay extends React.Component {
                                 disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                 width="50%"
                                 onClick={() => {
-                                    this.leave_game();
+                                    //this.leave_game();
+                                    this.props.history.push('/home')
                                 }}
                         >
                             Leave Game
@@ -1112,4 +1113,4 @@ class GamePlay extends React.Component {
 
 }
 
-export default GamePlay;
+export default withRouter(GamePlay);
