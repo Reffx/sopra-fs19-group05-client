@@ -38,23 +38,23 @@ class ChooseGodCard extends React.Component {
 
 
     componentDidMount() {
-        setInterval(()=>{if( this.state.chosenCardPlayer1 !== null && this.state.chosenCardPlayer2 !== null){
-            this.alertText();
-        }
-        else {
-            this.get_game();
-            this.alertText()
-        }}, 1000)
+        setInterval(() => {
+            if (this.state.chosenCardPlayer1 !== null && this.state.chosenCardPlayer2 !== null) {
+                this.alertText();
+            } else {
+                this.get_game();
+                this.alertText()
+            }
+        }, 1000)
     }
 
     alertText() {
         setInterval(() => {
-            if(this.state.game.player1.worker1.godCard!== null && this.state.game.player2.worker1.godCard!== null){
-                this.setState({alertText: "Both players have chosen their God Cards!"})
-            }
-            else {
-                this.setState({alertText: this.getUserNameChoosing() + " can choose a Card!"})
-            }
+                if (this.state.game.player1.worker1.godCard !== null && this.state.game.player2.worker1.godCard !== null) {
+                    this.setState({alertText: "Both players have chosen their God Cards!"})
+                } else {
+                    this.setState({alertText: this.getUserNameChoosing() + " can choose a Card!"})
+                }
             }, 1000
         );
     }
@@ -81,13 +81,11 @@ class ChooseGodCard extends React.Component {
                         game: Game,
                         gameStatus: response.gameStatus
                     });
-                    if(this.state.game.gameStatus === "Start"){
+                    if (this.state.game.gameStatus === "Start") {
                         this.set_beginner()
-                    }
-                    else if(this.state.game.gameStatus === "Move1"){
+                    } else if (this.state.game.gameStatus === "Move1") {
                         this.state.player_is_choosing = this.state.game.player1;
-                    }
-                    else if (this.state.game.gameStatus === "Move2"){
+                    } else if (this.state.game.gameStatus === "Move2") {
                         this.state.player_is_choosing = this.state.game.player2;
                     }
                 }
@@ -135,7 +133,7 @@ class ChooseGodCard extends React.Component {
 
     choose_card(card) {
         console.log(this.state.player_is_choosing);
-        if(String(this.state.player_is_choosing.id) === localStorage.getItem("userID")) {
+        if (String(this.state.player_is_choosing.id) === localStorage.getItem("userID")) {
             this.setGodCard(card)
         }
     }
@@ -158,12 +156,11 @@ class ChooseGodCard extends React.Component {
                     //  has to be modified for game
                     console.log(myResponse)
                 }
-                if(this.state.player_is_choosing.username === this.state.player1.username){
+                if (this.state.player_is_choosing.username === this.state.player1.username) {
                     this.state.player_is_choosing = this.state.player2;
                     this.state.player_is_not_choosing = this.state.player1;
                     this.alertText()
-                }
-                else if(this.state.player_is_choosing.username === this.state.player2.username){
+                } else if (this.state.player_is_choosing.username === this.state.player2.username) {
                     this.state.player_is_choosing = this.state.player1;
                     this.state.player_is_not_choosing = this.state.player2;
                     this.alertText()
@@ -184,38 +181,23 @@ class ChooseGodCard extends React.Component {
             <div>
                 <h1>{this.state.alertText}</h1>
                 <div className="first-row">
-                    <div class="godCard1" onClick={() => {
-                        this.choose_card(this.state.card1)
-                    }}></div>
+                    <div class="godCard1"><p>Not available yet!</p></div>
                     <div class="godCard2" onClick={() => {
                         this.choose_card(this.state.card2)
                     }}></div>
-                    <div class="godCard3" onClick={() => {
-                        this.choose_card(this.state.card3)
-                    }}></div>
-                    <div class="godCard4" onClick={() => {
-                        this.choose_card(this.state.card4)
-                    }}></div>
-                    <div class="godCard5" onClick={() => {
-                        this.choose_card(this.state.card5)
-                    }}></div>
+                    <div class="godCard3" ><p>Not available yet!</p></div>
+                    <div class="godCard4" ><p>Not available yet!</p></div>
+                    <div class="godCard5" ><p>Not available yet!</p></div>
                 </div>
                 <div className="second-row">
-                    <div class="godCard6" onClick={() => {
-                        this.choose_card(this.state.card6)
-                    }}></div>
-                    <div class="godCard7" onClick={() => {
-                        this.choose_card(this.state.card7)
-                    }}></div>
-                    <div class="godCard8" onClick={() => {
-                        this.choose_card(this.state.card8)
-                    }}></div>
+                    <div class="godCard6" ><p>Not available yet!</p></div>
+                    <div class="godCard7" ><p>Not available yet!</p></div>
+                    <div class="godCard8" ><p>Not available yet!</p></div>
                     <div class="godCard9" onClick={() => {
                         this.choose_card(this.state.card9)
                     }}></div>
-                    <div class="godCard10" onClick={() => {
-                        this.choose_card(this.state.card10)
-                    }}></div>
+                    <div class="godCard10"
+                    ><p>Not available yet!</p></div>
                 </div>
             </div>
         )
