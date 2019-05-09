@@ -139,29 +139,36 @@ class ChooseGodCard extends React.Component {
     }
 
     setGodCard(godCard) {
-        console.log(godCard)
+
+        localStorage.getItem("gameID");
+        console.log(localStorage.getItem("userID"));
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/GodCard`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(
-                godCard
+            body: (
+                godCard.toString()
             )
         })
-            .then(response => response.json())
+            .then(response => response)
             .then(myResponse => {
                 alert(this.state.player_is_choosing.username + " gets the card " + godCard);
                 if (myResponse.status === 404 || myResponse.status === 500) {
                     //  has to be modified for game
                     console.log(myResponse)
                 }
+                console.log(godCard);
+                console.log(this.state.player_is_choosing.username);
+                console.log(this.state.player1.username);
                 if (this.state.player_is_choosing.username === this.state.player1.username) {
+                    localStorage.setItem("GodCardPlayer1", godCard);
                     this.state.player_is_choosing = this.state.player2;
                     this.state.player_is_not_choosing = this.state.player1;
                     this.alertText()
                 } else if (this.state.player_is_choosing.username === this.state.player2.username) {
                     this.state.player_is_choosing = this.state.player1;
+                    localStorage.setItem("GodCardPlayer2", godCard);
                     this.state.player_is_not_choosing = this.state.player2;
                     this.alertText()
                 }
