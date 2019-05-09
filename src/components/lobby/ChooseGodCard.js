@@ -181,25 +181,25 @@ class ChooseGodCard extends React.Component {
             <div>
                 <h1>{this.state.alertText}</h1>
                 <div className="first-row">
-                    <div class="godCard1"><p>Not available yet!</p></div>
+                    <div class="godCard1"><p className="godCard-p">Not available yet!</p></div>
                     <div class="godCard2" onClick={() => {
                         this.choose_card(this.state.card2)
                     }}></div>
-                    <div class="godCard3" ><p>Not available yet!</p></div>
-                    <div class="godCard4" ><p>Not available yet!</p></div>
+                    <div class="godCard3" ><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard4" ><p className="godCard-p">Not available yet!</p></div>
                     <div class="godCard5" onClick={() => {
                         this.choose_card(this.state.card5)
                     }} ></div>
                 </div>
                 <div className="second-row">
-                    <div class="godCard6" ><p>Not available yet!</p></div>
-                    <div class="godCard7" ><p>Not available yet!</p></div>
-                    <div class="godCard8" ><p>Not available yet!</p></div>
+                    <div class="godCard6" ><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard7" ><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard8" ><p className="godCard-p">Not available yet!</p></div>
                     <div class="godCard9" onClick={() => {
                         this.choose_card(this.state.card9)
                     }}></div>
                     <div class="godCard10"
-                    ><p>Not available yet!</p></div>
+                    ><p className="godCard-p">Not available yet!</p></div>
                 </div>
             </div>
         )
