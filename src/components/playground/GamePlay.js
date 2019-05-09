@@ -177,7 +177,7 @@ class GamePlay extends React.Component {
         }, 1000)
     }
 
-    updateLayoutBoxes(){
+    updateLayoutBoxes() {
         if (this.state.checked === true) {
             var i;
             for (i = 0; i < 24; i++) {
@@ -996,7 +996,7 @@ class GamePlay extends React.Component {
                         </label>
                         <ButtonContainer/>
                         <Button id={this.isButtonInvisiblePlayer2()}
-                                disabled={(localStorage.getItem("userID") !== String(this.state.player1.id))}
+                                disabled={(localStorage.getItem("userID") !== String(this.state.player2.id))}
                                 width="50%"
                                 onClick={() => {
                                     this.surrender()
@@ -1018,10 +1018,68 @@ class GamePlay extends React.Component {
                         <ButtonContainer/>
                     </div>
                 </div>
+                <div className="fastForward">
+                    <ButtonContainer/>
+                    <Button
+                        width="20%"
+                        onClick={() => {
+                            this.fastForward();
+                        }}
+                    >
+                        Fast-Forward
+                    </Button>
+                    <ButtonContainer/>
+                </div>
             </div>
         )
 
     }
+
+
+    fastForward() {
+        var i;
+        for (i = 0; i < 24; i = i + 3)
+            if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 4) {
+                this.quickBuild(i);
+                this.get_game();
+                this.create_field();
+            }
+        for (i = 3; i < 23; i = i + 5)
+            if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
+                this.quickBuild(i);
+                this.quickBuild(i);
+                this.get_game();
+                this.create_field();
+            }
+        for (i = 0; i < 24; i = i + 2) {
+            if (this.state.allBoxes[i].occupier != null && this.state.allBoxes[i].height != 2 && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
+                this.quickBuild(i);
+                this.get_game();
+                this.create_field();
+            }
+        }
+    }
+
+    quickBuild(fieldNum) {
+        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${fieldNum}/build`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+    }
+
+
 }
 
 export default GamePlay;
