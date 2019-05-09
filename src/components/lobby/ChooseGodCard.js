@@ -231,7 +231,7 @@ class ChooseGodCard extends React.Component {
                 <Button
                         disabled={localStorage.getItem("GodCardPlayer1") === String(null)|| localStorage.getItem("GodCardPlayer1") === String(null)}
                         width="30%"
-                        onClick={() => {
+                        onClick={() => {this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay/GodMode`);
                         }}
                 >
                     Go to Playground
