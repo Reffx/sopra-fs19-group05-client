@@ -8,6 +8,7 @@ class GameWorker {
         this.position = null;
         this.next = false;
         this.winner = false;
+        this.godCard = null;
         this.layout = null;
         Object.assign(this, data);
     }
