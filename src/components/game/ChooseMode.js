@@ -5,6 +5,7 @@ import "../landing.css";
 import styled from "styled-components";
 
 import Toolbar from '../Toolbar/Toolbar';
+import "./choose_mode.css";
 
 
 export const Button = styled.button`
@@ -46,6 +47,7 @@ class ChooseMode extends React.Component {
                         </div>
                         <div className="rightPart">
                             <div>
+                                <div>
                                 <Button
                                     width="60%"
                                     onClick={() => {
@@ -54,6 +56,8 @@ class ChooseMode extends React.Component {
                                 >
                                     Normal Mode
                                 </Button>
+                                </div>
+                                <div id="button-div">
                                 <Button
                                     width="50%"
                                     onClick={() => {
@@ -62,6 +66,7 @@ class ChooseMode extends React.Component {
                                 >
                                     God Mode
                                 </Button>
+                                </div>
                             </div>
                         </div>
                     </div>

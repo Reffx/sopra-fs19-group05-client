@@ -3,6 +3,7 @@ import {BrowserRouter, Redirect, Route, Switch} from "react-router-dom";
 import {GameGuard} from "../routeProtectors/GameGuard";
 import GameRouter from "./GameRouter";
 import {LoginGuard} from "../routeProtectors/LoginGuard";
+import {HomeGuard} from "../routeProtectors/HomeGuard";
 import Login from "../../login/Login";
 import Register from "../../login/Register";
 import Profile from "../../login/Profile";
@@ -14,6 +15,7 @@ import NormalModeDashboard from "../../lobby/NormalModeDashboard";
 import GodModeDashboard from "../../lobby/GodModeDashboard";
 import Game from "../../game/Game";
 import ChooseGodCard from "../../lobby/ChooseGodCard";
+
 /**
  * Main router of your application.
  * In the following class, different routes are rendered. In our case, there is a Login Route with matches the path "/login"
@@ -33,7 +35,7 @@ class AppRouter extends React.Component {
                             path="/game"
                             render={() => (
                                 <GameGuard>
-                                    <GameRouter base={"/game"} />
+                                    <GameRouter base={"/game"}/>
                                 </GameGuard>
                             )}
                         />
@@ -74,13 +76,6 @@ class AppRouter extends React.Component {
                             )}
                         />
                         <Route
-                            path="/register"
-                            exact
-                            render={() => (
-                                <Register />
-                            )}
-                        />
-                        <Route
                             path="/users/:username"
                             exact
                             render={(props) => (
@@ -97,24 +92,35 @@ class AppRouter extends React.Component {
                             exact
                             render={() => (
                                 <LoginGuard>
-                                    <Login />
+                                    <Login/>
                                 </LoginGuard>
                             )}
                         />
                         <Route
-                            path="/landing"
+                            path="/home"
                             exact
                             render={() => (
                                 <Landing/>
                             )}
                         />
-                        <Route path="/" exact render={() => <Redirect to={"/login"} />} />
+                        <Route
+                            path="/register"
+                            exact
+                            render={() => (
+                                <HomeGuard>
+                                <Register/>
+                                </HomeGuard>
+
+                            )}
+                        />
+                        <Route path="/" exact render={() => <Redirect to={"/login"}/>}/>
                     </div>
                 </Switch>
             </BrowserRouter>
         );
     }
 }
+
 /*
 * Don't forget to export your component!
  */

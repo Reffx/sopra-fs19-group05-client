@@ -29,6 +29,7 @@ function logout() {
             console.log(err);
             alert("Something went wrong fetching the users: " + err);
         });
+    localStorage.removeItem("userID")
     localStorage.removeItem("token");
     localStorage.removeItem("id");
     localStorage.removeItem("username");
@@ -41,7 +42,7 @@ const toolbar = props => (
         <nav className="toolbar_navigation">
             <div></div>
             <div className="toolbar_logo">
-                <NavLink to="/"> Menu</NavLink>
+                <NavLink to="/home"> Menu</NavLink>
             </div>
             <div className="spacer"/>
             <div className="toolbar_navigation-items">
@@ -55,7 +56,7 @@ const toolbar = props => (
                         <li><NavLink to="/chooseMode" activeClassName="main-nav-active">Let's Play!</NavLink></li>
                         <li onClick={() => {
                             logout();
-                        }}><NavLink to="/landing" activeClassName="main-nav-active">Logout!</NavLink></li>
+                        }}><NavLink to="/login" activeClassName="main-nav-active">Logout!</NavLink></li>
                     </ul>}
 
             </div>
