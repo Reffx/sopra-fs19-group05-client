@@ -85,7 +85,6 @@ field22.gameId = localStorage.getItem("gameId");
 field23.gameId = localStorage.getItem("gameId");
 field24.gameId = localStorage.getItem("gameId");
 
-
 class GamePlay extends React.Component {
 
 
@@ -106,6 +105,7 @@ class GamePlay extends React.Component {
             visibleLevels: false,
             checked: false,
             allBoxes: [],
+            variateForward: null,
             box0: Field,
             box1: Field,
             box2: Field,
@@ -285,7 +285,6 @@ class GamePlay extends React.Component {
             })
             .catch(err => {
                 console.log(err);
-                alert("Something went wrong fetching the games: " + err);
             })
 
     }
@@ -745,7 +744,7 @@ class GamePlay extends React.Component {
                         </label>
                         <ButtonContainer/>
                         <Button id={this.isButtonInvisiblePlayer1()}
-                                disabled={(localStorage.getItem("userID") !== String(this.state.player1.id))}
+                                disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
                                 width="50%"
                                 onClick={() => {
                                     this.surrender()
@@ -996,7 +995,7 @@ class GamePlay extends React.Component {
                         </label>
                         <ButtonContainer/>
                         <Button id={this.isButtonInvisiblePlayer2()}
-                                disabled={(localStorage.getItem("userID") !== String(this.state.player2.id))}
+                                disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
                                 width="50%"
                                 onClick={() => {
                                     this.surrender()
@@ -1038,26 +1037,57 @@ class GamePlay extends React.Component {
 
     fastForward() {
         var i;
-        for (i = 0; i < 24; i = i + 3)
-            if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 4) {
-                this.quickBuild(i);
-                this.get_game();
-                this.create_field();
-            }
-        for (i = 3; i < 23; i = i + 5)
-            if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                this.quickBuild(i);
-                this.quickBuild(i);
-                this.get_game();
-                this.create_field();
-            }
-        for (i = 0; i < 24; i = i + 2) {
-            if (this.state.allBoxes[i].occupier != null && this.state.allBoxes[i].height != 2 && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                this.quickBuild(i);
-                this.get_game();
-                this.create_field();
-            }
+        console.log(this.state.variateForward);
+        if (this.state.variateForward === null) {
+            this.setState({variateForward: 1});
         }
+        if (this.state.variateForward === 1) {
+            for (i = 0; i < 24; i = i + 3)
+                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 4) {
+                    this.quickBuild(i);
+                    this.get_game();
+                    this.create_field();
+                }
+            for (i = 3; i < 23; i = i + 5)
+                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
+                    this.quickBuild(i);
+                    this.quickBuild(i);
+                    this.get_game();
+                    this.create_field();
+                }
+            for (i = 0; i < 24; i = i + 2) {
+                if (this.state.allBoxes[i].occupier != null && this.state.allBoxes[i].height != 2 && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
+                    this.quickBuild(i);
+                    this.get_game();
+                    this.create_field();
+                }
+            }
+            this.setState({variateForward: 2});;
+        }
+        if (this.state.variateForward === 2) {
+            for (i = 0; i < 24; i = i + 2)
+                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 4) {
+                    this.quickBuild(i);
+                    this.get_game();
+                    this.create_field();
+                }
+            for (i = 3; i < 23; i = i + 3)
+                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
+                    this.quickBuild(i);
+                    this.quickBuild(i);
+                    this.get_game();
+                    this.create_field();
+                }
+            for (i = 0; i < 24; i = i + 3) {
+                if (this.state.allBoxes[i].occupier != null && this.state.allBoxes[i].height != 2 && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
+                    this.quickBuild(i);
+                    this.get_game();
+                    this.create_field();
+                }
+            }
+            this.setState({variateForward: 1});;
+        }
+
     }
 
     quickBuild(fieldNum) {
