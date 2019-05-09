@@ -172,12 +172,12 @@ class GamePlay extends React.Component {
                 this.get_game();
                 this.create_field();
                 this.updateBoxes();
-                this.changeLayoutBoxes();
+                this.updateLayoutBoxes();
             }
         }, 1000)
     }
 
-    changeLayoutBoxes(){
+    updateLayoutBoxes(){
         if (this.state.checked === true) {
             var i;
             for (i = 0; i < 24; i++) {
@@ -197,14 +197,10 @@ class GamePlay extends React.Component {
 
     handleCheckboxChange = event => {
         this.setState({checked: event.target.checked});
-        setInterval(() => {
-            this.setState();
-        }, 1000);
-
         this.updateBoxes();
-        this.changeLayoutBoxes();
-
+        this.updateLayoutBoxes();
     }
+
 
     alertMessage() {
         if (this.state.game.gameStatus === "Move1") {
