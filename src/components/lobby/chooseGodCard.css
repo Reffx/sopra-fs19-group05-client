@@ -59,7 +59,7 @@
     border-radius: 25px;
     justify-content: center;
     text-align: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("assets/dermeter.png");
+    background-image: url("assets/dermeter.png");
     background-size: cover;
 }
 

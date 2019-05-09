@@ -187,7 +187,9 @@ class ChooseGodCard extends React.Component {
                     }}></div>
                     <div class="godCard3" ><p>Not available yet!</p></div>
                     <div class="godCard4" ><p>Not available yet!</p></div>
-                    <div class="godCard5" ><p>Not available yet!</p></div>
+                    <div class="godCard5" onClick={() => {
+                        this.choose_card(this.state.card5)
+                    }} ></div>
                 </div>
                 <div className="second-row">
                     <div class="godCard6" ><p>Not available yet!</p></div>
