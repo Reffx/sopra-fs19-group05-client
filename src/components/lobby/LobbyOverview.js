@@ -36,6 +36,7 @@ class LobbyOverview extends React.Component {
             player2_status: null,
             player2_color: null,
             player2_gameID: null,
+            gameMode: null,
         };
     }
 
@@ -78,7 +79,7 @@ class LobbyOverview extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "Game coudn't be created!"})
                 }
-                    this.componentDidMount(LobbyOverview);
+                this.componentDidMount(LobbyOverview);
 
             })
             .catch(err => {
@@ -93,66 +94,71 @@ class LobbyOverview extends React.Component {
     componentDidMount() {
         // if game gets deleted in backend and frontend still tries to fetch a deleted game
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
-           setInterval(()=>{ if(localStorage.getItem("gameID") === null ){
-               return;
-           }
-           else{
-               fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
-                   method: "GET",
-                   headers: {
-                       "Content-Type": "application/json"
-                   }
-               })
-                   .then(response => response.json())
-                   .then(async response => {
-                       if (response.status !== 404 || response.player1 !== null) {
-                           //console.log(localStorage.getItem("userID"));
+        setInterval(() => {
+            if (localStorage.getItem("gameID") === null) {
+                return;
+            } else {
+                fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                    .then(response => response.json())
+                    .then(async response => {
+                        if (response.status !== 404 || response.player1 !== null) {
+                            //console.log(localStorage.getItem("userID"));
 
-                           this.setState({
-                               player1_username: response.player1.username,
-                               player1_id: response.player1.id,
-                               player1_status: response.player1.status,
-                               player1_color: response.player1.color,
-                               player1_gameID: response.player1.gameId,
-                           });
-                           //console.log(("player1ID: "+this.state.player1_id));
-                           if(response.player2 !== null ) {
-                               this.setState({
-                                   player2_username: response.player2.username,
-                                   player2_id: response.player2.id,
-                                   player2_status: response.player2.status,
-                                   player2_color: response.player2.color,
-                                   player2_gameID: response.player2.gameId,})
-                           }
-                           //below condition is used when player1 or 2 leaves the lobby  --> otherwise player2_name wont update
-                           if(response.player2 === null){
-                               this.setState({
-                                   player2_username: null,
-                                   player2_id: null,
-                                   player2_status: null,
-                                   player2_color: null,
-                                   player2_gameID: null,
-                               })
-                           }
-                           //added this if statement to avoid the fetch error after player1 leaves lobby and lobbysize is 1 which means there is no player2
-                           if(response.player1 === null){
-                               this.setState({
-                                   player1_username: null,
-                                   player1_id: null,
-                                   player1_status: null,
-                                   player1_color: null,
-                                   player1_gameID: null,
-                               })
-                           }
-                       }
+                            this.setState({
+                                player1_username: response.player1.username,
+                                player1_id: response.player1.id,
+                                player1_status: response.player1.status,
+                                player1_color: response.player1.color,
+                                player1_gameID: response.player1.gameId,
+                            });
+                            //console.log(("player1ID: "+this.state.player1_id));
+                            if (response.player2 !== null) {
+                                this.setState({
+                                    player2_username: response.player2.username,
+                                    player2_id: response.player2.id,
+                                    player2_status: response.player2.status,
+                                    player2_color: response.player2.color,
+                                    player2_gameID: response.player2.gameId,
+                                })
+                            }
+                            //below condition is used when player1 or 2 leaves the lobby  --> otherwise player2_name wont update
+                            if (response.player2 === null) {
+                                this.setState({
+                                    player2_username: null,
+                                    player2_id: null,
+                                    player2_status: null,
+                                    player2_color: null,
+                                    player2_gameID: null,
+                                })
+                            }
+                            //added this if statement to avoid the fetch error after player1 leaves lobby and lobbysize is 1 which means there is no player2
+                            if (response.player1 === null) {
+                                this.setState({
+                                    player1_username: null,
+                                    player1_id: null,
+                                    player1_status: null,
+                                    player1_color: null,
+                                    player1_gameID: null,
+                                })
+                            }
+                            this.setState({
+                                gameMode: response.gameMode
+                            });
+                        }
 
-                       await new Promise(resolve => setTimeout(resolve, 2000));
-                   })
-                   .catch(err => {
-                       console.log(err);
-                       alert("Something went wrong fetching the games: " + err);
-                   });
-           }}, 1000)
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert("Something went wrong fetching the games: " + err);
+                    });
+            }
+        }, 1000)
     }
 
     redCircleClick() {
@@ -170,10 +176,9 @@ class LobbyOverview extends React.Component {
                 if (response.status === 404 || response.status === 500) {
                     this.setState({alertText: "Server couldn't respond correctly!"})
                 }
-                if(response.status === 409){
+                if (response.status === 409) {
                     alert("Color is already in use! Please select another one!")
-                }
-                else {
+                } else {
                     this.componentDidMount(LobbyOverview);
                 }
             })
@@ -202,10 +207,9 @@ class LobbyOverview extends React.Component {
                 if (response.status === 404 || response.status === 500) {
                     this.setState({alertText: "Server couldn't respond correctly!"})
                 }
-                if(response.status === 409){
+                if (response.status === 409) {
                     alert("Color is already in use! Please select another one!")
-                }
-                else {
+                } else {
                     this.componentDidMount(LobbyOverview);
                 }
             })
@@ -235,10 +239,9 @@ class LobbyOverview extends React.Component {
                 if (response.status === 404 || response.status === 500) {
                     this.setState({alertText: "Server couldn't respond correctly!"})
                 }
-                if(response.status === 409){
+                if (response.status === 409) {
                     alert("Color is already in use! Please select another one!")
-                }
-                else {
+                } else {
                     this.componentDidMount(LobbyOverview);
                 }
             })
@@ -267,10 +270,9 @@ class LobbyOverview extends React.Component {
                 if (response.status === 404 || response.status === 500) {
                     this.setState({alertText: "Server couldn't respond correctly!"})
                 }
-                if(response.status === 409){
+                if (response.status === 409) {
                     alert("Color is already in use! Please select another one!")
-                }
-                else {
+                } else {
                     this.componentDidMount(LobbyOverview);
                 }
             })
@@ -283,10 +285,95 @@ class LobbyOverview extends React.Component {
             });
     }
 
+    checkReadyPlayer1() {
+        if (this.state.player1_status === false) {
+            return (<div className="notReady"> ✖ </div>);
+        }
+        if (this.state.player1_status === true) {
+            return (<div className="ready"> ✔ </div>);
+        }
+    }
+
+    checkReadyPlayer2() {
+        if (this.state.player2_status === false) {
+            return (<div className="notReady"> ✖ </div>);
+        }
+        if (this.state.player2_status === true) {
+            return (<div className="ready"> ✔ </div>);
+        }
+    }
+
 
     render() {
         return (
             <div>
+                <h1> {this.state.player1_username}'s Lobby </h1>
+
+                <div class="flexBox">
+                    <div class="first-box">
+                        <div class="player-box">
+                            <p>Username: {this.state.player1_username}</p>
+                            <p>Your Color: {this.state.player1_color}</p>
+                            <button
+                                disabled={!(localStorage.getItem("username") === this.state.player1_username)}
+                                className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                            <button
+                                disabled={!(localStorage.getItem("username") === this.state.player1_username)}
+                                className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                            <button
+                                disabled={!(localStorage.getItem("username") === this.state.player1_username)}
+                                className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                            <button
+                                disabled={!(localStorage.getItem("username") === this.state.player1_username)}
+                                className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                            <p> Ready: {this.checkReadyPlayer1()}</p>
+                        </div>
+                    </div>
+                    <div class="second-box">
+                        <div className="player-box">
+                            <p>Username: {this.state.player2_username} </p>
+                            <p>Your Color: {this.state.player2_color}</p>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)}
+                                    className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)}
+                                    className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)}
+                                    className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)}
+                                    className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                            <p> Ready: {this.checkReadyPlayer2()}</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="margin-top"></div>
+                <Container>
+                    <ButtonContainer/>
+                    <Button
+                        disabled={(this.state.player1_color === null) || (this.state.player2_color === null)}
+                        width="30%"
+                        onClick={() => {
+                            this.ready()
+                        }}
+                    >
+                        Ready to Play
+                    </Button>
+                    <ButtonContainer/>
+                    <ButtonContainer/>
+                    <Button
+                        disabled={(this.state.player1_status === false) || (this.state.player2_status === false)}
+                        width="30%"
+                        onClick={() => {
+                            if (this.state.gameMode === "NORMAL") {
+                                this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay`)
+                            } else if (this.state.gameMode === "GOD"){
+                                this.props.history.push(`/game/${localStorage.getItem("gameID")}/chooseGodCard`)
+                            }
+                        }}
+                    >
+                        Go to the Playground
+                    </Button>
+                    <ButtonContainer/>
+                </Container>
                 <Container>
                     <ButtonContainer/>
                     <Button
@@ -297,56 +384,6 @@ class LobbyOverview extends React.Component {
                     >
                         Leave Lobby
                     </Button>
-                    <ButtonContainer/>
-                </Container>
-                <div class="Lobby-div">
-                    <div class="first-box">
-                        <div class="player-box">
-                            <p>Username: {this.state.player1_username}</p>
-                            <p>Your Color: {this.state.player1_color}</p>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player1_username)} className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player1_username)} className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player1_username)} className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player1_username)} className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
-                            <p> Ready: {`${this.state.player1_status}`} </p>
-
-                        </div>
-                    </div>
-                    <div class="second-box">
-                        <div className="player-box">
-                            <p>Username: {this.state.player2_username} </p>
-                            <p>Your Color: {this.state.player2_color}</p>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)} className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)} className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)} className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)} className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
-                            <p> Ready: {`${this.state.player2_status}`} </p>
-
-                        </div>
-                    </div>
-                </div>
-                <Container>
-                    <ButtonContainer/>
-                        <Button
-                            disabled={(this.state.player1_color === null) ||(this.state.player2_color === null)}
-                            width="30%"
-                            onClick={() => {
-                                this.ready()
-                            }}
-                        >
-                            Ready to Play
-                        </Button>
-                        <ButtonContainer/>
-                        <ButtonContainer/>
-                        <Button
-                            disabled={(this.state.player1_status === false) || (this.state.player2_status === false)}
-                            width="30%"
-                            onClick={() => {
-                                this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay`)
-                            }}
-                        >
-                            Go to the Playground
-                        </Button>
                     <ButtonContainer/>
                 </Container>
             </div>

@@ -1,0 +1,110 @@
+
+.first-row {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+.second-row {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
+
+.godCard1{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/apollo.png");
+    background-size: cover;
+
+}
+
+.godCard2{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/artemis.png");
+    background-size: cover;
+}
+
+.godCard3{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/athena.png");
+    background-size: cover;
+}
+.godCard4{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/atlas.png");
+    background-size: cover;
+}
+.godCard5{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/dermeter.png");
+    background-size: cover;
+}
+
+.godCard6{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/hephaestus.png");
+    background-size: cover;
+}
+
+.godCard7{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/hermes.png");
+    background-size: cover;
+}
+
+.godCard8{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/minotaur.png");
+    background-size: cover;
+}
+.godCard9{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/pan.png");
+    background-size: cover;
+}
+.godCard10{
+    width: 200px;
+    height: 340px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: url("assets/prometheus.png");
+    background-size: cover;
+}

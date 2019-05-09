@@ -9,12 +9,13 @@ import GameModel from "../shared/models/GameModel";
 const ButtonContainer = styled.div`
   display: row;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 25px;
 `;
 
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
+  margin-top: 250px;
 `;
 
 class NormalModeLobby extends React.Component {
