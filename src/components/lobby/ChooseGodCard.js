@@ -172,7 +172,7 @@ class ChooseGodCard extends React.Component {
         })
             .then(response => response)
             .then(myResponse => {
-                alert(this.state.player_is_choosing.username + " gets the card " + godCard);
+
                 if (myResponse.status === 404 || myResponse.status === 500) {
                     //  has to be modified for game
                     console.log(myResponse)

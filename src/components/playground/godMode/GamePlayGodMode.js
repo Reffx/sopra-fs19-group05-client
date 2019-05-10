@@ -740,7 +740,7 @@ class GamePlayGodMode extends React.Component {
         if (godCard === "Atlas") {
             return "godCard4-gamePlay";
         }
-        if (godCard === "Dermeter") {
+        if (godCard === "Demeter") {
             return "godCard5-gamePlay";
         }
         if (godCard === "Hephaestus") {
