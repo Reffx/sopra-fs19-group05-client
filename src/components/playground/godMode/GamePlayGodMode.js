@@ -767,7 +767,7 @@ class GamePlayGodMode extends React.Component {
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className="left">
-                        <div className="godCard1-gamePlay"></div>
+                        <div className={this.getGodCardLayout(localStorage.getItem("GodCardPlayer1"))}></div>
                         <div className="player-box-gameplay-god">
                             <h2>{this.state.player1.username}</h2>
                             <div className={this.getColorCircle(this.state.player1.color)}></div>
@@ -1019,7 +1019,7 @@ class GamePlayGodMode extends React.Component {
                         </div>
                     </div>
                     <div className="right">
-                        <div className="godCard5-gamePlay"></div>
+                        <div className={this.getGodCardLayout(localStorage.getItem("GodCardPlayer2"))}></div>
                         <div className="player-box-gameplay-god">
                             <h2>{this.state.player2.username}</h2>
                             <div className={this.getColorCircle(this.state.player2.color)}></div>

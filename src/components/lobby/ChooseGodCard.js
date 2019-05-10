@@ -148,12 +148,12 @@ class ChooseGodCard extends React.Component {
     choose_card(card) {
         console.log(this.state.player_is_choosing);
         if (String(this.state.player_is_choosing.id) === localStorage.getItem("userID")) {
-            if (localStorage.getItem("GodCardPlayer1") === String(card)|| localStorage.getItem("GodCardPlayer1") === String(card)){
-                alert("card is taken")
-            }
-            else {
-                this.setGodCard(card)
-            }
+            // if (localStorage.getItem("GodCardPlayer1") === String(card)|| localStorage.getItem("GodCardPlayer1") === String(card)){
+            //     alert("card is taken")
+            // }
+            // else {
+            this.setGodCard(card)
+            //  }
         }
     }
 
@@ -211,32 +211,35 @@ class ChooseGodCard extends React.Component {
                     <div class="godCard2" onClick={() => {
                         this.choose_card(this.state.card2)
                     }}></div>
-                    <div class="godCard3" ><p className="godCard-p">Not available yet!</p></div>
-                    <div class="godCard4" ><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard3"><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard4"><p className="godCard-p">Not available yet!</p></div>
                     <div class="godCard5" onClick={() => {
                         this.choose_card(this.state.card5)
-                    }} ></div>
+                    }}></div>
                 </div>
                 <div className="second-row">
-                    <div class="godCard6" ><p className="godCard-p">Not available yet!</p></div>
-                    <div class="godCard7" ><p className="godCard-p">Not available yet!</p></div>
-                    <div class="godCard8" ><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard6"><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard7"><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard8"><p className="godCard-p">Not available yet!</p></div>
                     <div class="godCard9" onClick={() => {
                         this.choose_card(this.state.card9)
                     }}></div>
                     <div class="godCard10"
                     ><p className="godCard-p">Not available yet!</p></div>
                 </div>
+                <div className="centerTheButton">
                 <ButtonContainer/>
                 <Button
-                        disabled={localStorage.getItem("GodCardPlayer1") === String(null)|| localStorage.getItem("GodCardPlayer1") === String(null)}
-                        width="30%"
-                        onClick={() => {this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay/GodMode`);
-                        }}
+                    disabled={localStorage.getItem("GodCardPlayer1") === String(null) || localStorage.getItem("GodCardPlayer1") === String(null)}
+                    width="30%"
+                    onClick={() => {
+                        this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay/GodMode`);
+                    }}
                 >
                     Go to Playground
                 </Button>
                 <ButtonContainer/>
+                </div>
             </div>
         )
     }

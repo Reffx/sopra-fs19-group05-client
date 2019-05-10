@@ -12,8 +12,8 @@
 }
 
 .godCard1 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -23,8 +23,8 @@
 }
 
 .godCard2 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -33,8 +33,8 @@
 }
 
 .godCard3 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -43,8 +43,8 @@
 }
 
 .godCard4 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -53,8 +53,8 @@
 }
 
 .godCard5 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -63,8 +63,8 @@
 }
 
 .godCard6 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -73,8 +73,8 @@
 }
 
 .godCard7 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -83,8 +83,8 @@
 }
 
 .godCard8 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -93,8 +93,8 @@
 }
 
 .godCard9 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -103,8 +103,8 @@
 }
 
 .godCard10 {
-    width: 200px;
-    height: 340px;
+    width: 180px;
+    height: 300px;
     border-radius: 25px;
     justify-content: center;
     text-align: center;
@@ -117,4 +117,9 @@
     padding-top: 80%;
     color: white;
     font-weight: bold;
+}
+
+.centerTheButton{
+    padding-top: 20px;
+    text-align: center;
 }
