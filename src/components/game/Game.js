@@ -5,6 +5,7 @@ import {getDomain} from "../../helpers/getDomain";
 import PlayerView from "../../views/PlayerView";
 import {Spinner} from "../../views/design/Spinner";
 import {withRouter} from "react-router-dom";
+import "./playerView.css";
 
 import Toolbar from '../Toolbar/Toolbar';
 
@@ -63,28 +64,28 @@ class Game extends React.Component {
         return (
             <Container>
                 <Toolbar/>
-                <p></p>
-                <p></p>
-                <h2>Dashboard!</h2>
-                <p>You can find all players here:</p>
-                {!this.state.users ? (
-                    <Spinner/>
-                ) : (
-                    <div>
-                        <Users>
-                            {this.state.users.map(user => {
-                                return (
-                                    <PlayerContainer onClick={() => (this.props.history.push({
-                                        pathname: `/users/${user.id}`,
-                                        state: user.id
-                                    }))} key={user.id}>
-                                        <PlayerView user={user}/>
-                                    </PlayerContainer>
-                                );
-                            })}
-                        </Users>
-                    </div>
-                )}
+                <div className="margin-top-playerView-div">
+                    <h2 className="playerView-h2">Dashboard!</h2>
+                    <p className="playerView-p">You can find all players here:</p>
+                    {!this.state.users ? (
+                        <Spinner/>
+                    ) : (
+                        <div>
+                            <Users>
+                                {this.state.users.map(user => {
+                                    return (
+                                        <PlayerContainer onClick={() => (this.props.history.push({
+                                            pathname: `/users/${user.id}`,
+                                            state: user.id
+                                        }))} key={user.id}>
+                                            <PlayerView user={user}/>
+                                        </PlayerContainer>
+                                    );
+                                })}
+                            </Users>
+                        </div>
+                    )}
+                </div>
             </Container>
         );
     }

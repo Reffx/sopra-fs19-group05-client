@@ -1,5 +1,7 @@
 import React from "react";
 import styled from "styled-components";
+import "./players.css";
+
 
 const Container = styled.div`
   margin: 6px 0;
@@ -13,12 +15,12 @@ const Container = styled.div`
 
 const UserName = styled.div`
   font-weight: lighter;
-  margin-left: 5px;
+  margin-left: 25px;
 `;
 
-const Id = styled.div`
+const PlayerStatus = styled.div`
   margin-left: auto;
-  margin-right: 10px;
+  margin-right: 20px;
   font-weight: bold;
 `;
 
@@ -30,13 +32,14 @@ const Id = styled.div`
  * https://reactjs.org/docs/components-and-props.html
  * @FunctionalComponent
  */
-const PlayerView = ({ user }) => {
-  return (
-    <Container>
-      <UserName>{user.username}</UserName>
-      <Id>Id: {user.id}</Id>
-    </Container>
-  );
+
+const PlayerView = ({user}) => {
+    return (
+        <Container className="background-player">
+            <UserName>{user.username}</UserName>
+            <PlayerStatus>{user.status} </PlayerStatus>
+        </Container>
+    );
 };
 
 export default PlayerView;

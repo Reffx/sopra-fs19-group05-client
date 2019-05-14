@@ -1,0 +1,7 @@
+.background-player {
+    background-image: url("../components/assets/player.png");
+    background-size: cover;
+    background-position:50% 50%;
+    height: 50px;
+    width: 250px;
+}
