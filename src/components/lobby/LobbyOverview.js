@@ -318,8 +318,8 @@ class LobbyOverview extends React.Component {
 
     render() {
         return (
-            <div>
-                <h1> {this.state.player1_username}'s Lobby </h1>
+            <div className="lobby-overview-div">
+                <h1 className="lobby-overview-h1"> {this.state.player1_username}'s Lobby </h1>
 
                 <div class="flexBox">
                     <div class="first-box">

@@ -35,8 +35,8 @@ const Margin = styled.div`
   margin-top: 2em;
 `;
 
-const MarginHead = styled.div`
-  margin-top: 10em;
+const PaddingHead = styled.div`
+  margin-top: 15em;
 `;
 
 const InputField = styled.input`
@@ -170,7 +170,7 @@ class Login extends React.Component {
         return (
             <BaseContainer>
                 <Toolbar/>
-                <MarginHead> </MarginHead>
+                <PaddingHead> </PaddingHead>
                 <FormContainer>
                     <Form>
                         <Margin> </Margin>

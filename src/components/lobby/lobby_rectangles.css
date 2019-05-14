@@ -1,5 +1,14 @@
 /*  this css style sheet provides the styling for the player boxes in the lobby */
 
+.lobby-overview-div{
+    margin-top: 100px;
+}
+
+.lobby-overview-h1{
+    color: black;
+}
+
+
 .flexBox {
     display: flex;
     justify-content: space-evenly;
