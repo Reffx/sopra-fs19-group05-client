@@ -54,7 +54,7 @@ class LobbyOverview extends React.Component {
                 } else {
                     localStorage.removeItem("gameID");
                     console.log(localStorage.getItem("gameID"));
-                    this.props.history.push("/NormalModeLobby");
+                    this.props.history.push("/chooseMode");
 
                 }
             })

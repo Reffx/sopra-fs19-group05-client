@@ -13,7 +13,7 @@ const ButtonContainer = styled.div`
 `;
 
 const Container = styled(BaseContainer)`
-  color: white;
+  color: black;
   text-align: center;
   margin-top: 250px;
 `;

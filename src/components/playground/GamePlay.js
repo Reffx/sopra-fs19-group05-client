@@ -166,9 +166,9 @@ class GamePlay extends React.Component {
     componentDidMount() {
         setInterval(() => {
             if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
-                this.create_field();
                 return;
             } else {
+                console.log("abc");
                 this.get_game();
                 this.create_field();
                 this.updateBoxes();
@@ -662,7 +662,7 @@ class GamePlay extends React.Component {
                 } else {
                     localStorage.removeItem("gameID");
                     console.log(localStorage.getItem("gameID"));
-                    this.props.history.push("/dashboard");
+                    this.props.history.push("/chooseMode");
 
                 }
             })
@@ -758,8 +758,8 @@ class GamePlay extends React.Component {
                                 disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                 width="50%"
                                 onClick={() => {
-                                    //this.leave_game();
-                                    this.props.history.push('/home')
+                                    this.leave_game();
+                                    //this.props.history.push('/home')
                                 }}
                         >
                             Leave Game
@@ -1010,8 +1010,8 @@ class GamePlay extends React.Component {
                                 disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                 width="50%"
                                 onClick={() => {
-                                    //this.leave_game();
-                                    this.props.history.push('/home')
+                                    this.leave_game();
+                                    //this.props.history.push('/home')
                                 }}
                         >
                             Leave Game
