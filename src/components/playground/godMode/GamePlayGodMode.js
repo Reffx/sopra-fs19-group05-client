@@ -291,6 +291,7 @@ class GamePlayGodMode extends React.Component {
     }
 
     build(box) {
+        alert("build(box) function triggered!");
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
                 if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
@@ -312,7 +313,7 @@ class GamePlayGodMode extends React.Component {
                 ;
             }
             if (placeable === true) {
-                fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/build`, {
+                fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/build`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
@@ -337,6 +338,7 @@ class GamePlayGodMode extends React.Component {
     }
 
     move(box) {
+        alert("move(box) function triggered");
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
                 if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
@@ -436,6 +438,7 @@ class GamePlayGodMode extends React.Component {
     }
 
     highLightMove(box) {
+        alert("highligtMove(box) triggered");
         fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/highlight/move`, {
             method: "GET",
             headers: {
@@ -457,6 +460,7 @@ class GamePlayGodMode extends React.Component {
     }
 
     highLightBuild(box) {
+        alert("highlightBuild(box) triggered");
         fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/highlight/build`, {
             method: "GET",
             headers: {

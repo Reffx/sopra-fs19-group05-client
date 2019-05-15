@@ -311,7 +311,7 @@ class GamePlay extends React.Component {
                 ;
             }
             if (placeable === true) {
-                fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/build`, {
+                fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/build`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
