@@ -55,7 +55,9 @@ class LobbyOverview extends React.Component {
                     sessionStorage.removeItem("gameID");
                     console.log(sessionStorage.getItem("gameID"));
                     this.props.history.push("/NormalModeLobby");
-
+                    sessionStorage.removeItem("gameID");
+                    console.log(sessionStorage.getItem("gameID"));
+                    this.props.history.push("/chooseMode");
                 }
             })
             .catch(err => {

@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import "./players.css";
 
 const Container = styled.div`
   margin: 6px 0;
@@ -11,25 +12,16 @@ const Container = styled.div`
   border: 1px solid #ffffff26;
 `;
 
-const GameID = styled.div`
-  font-weight: lighter;
-  margin-left: 5px;
-`;
 
 const Player1tag = styled.div`
-  margin-left: auto;
+  margin-left: 30px;
   margin-right: 10px;
   font-weight: bold;
 `;
 
 const Size = styled.div`
   margin-left: auto;
-  margin-right: 10px;
-  font-weight: bold;
-`;
-const Status = styled.div`
-  margin-left: auto;
-  margin-right: 10px;
+  margin-right: 30px;
   font-weight: bold;
 `;
 
@@ -43,9 +35,8 @@ const Status = styled.div`
  */
 const GameView = ({ game }) => {
     return (
-        <Container>
-            <GameID>Game: {game.id}</GameID>
-            <Player1tag>Player1: {game.player1.username}</Player1tag>
+        <Container className="background-player">
+            <Player1tag>Host: {game.player1.username}</Player1tag>
             <Size>Size: {game.size}</Size>
         </Container>
     );
