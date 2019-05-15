@@ -69,13 +69,13 @@ class NormalModeDashboard extends React.Component {
     //JUWE 29.04.19: changed getItem from key: gameId to gameID
     join_lobby(size) {
         if(size !== 2) {
-            fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/player`, {
+            fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/player`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(
-                    localStorage.getItem("userID")
+                    sessionStorage.getItem("userID")
                 )
             })
                 .then(returnedGame => {
@@ -85,7 +85,7 @@ class NormalModeDashboard extends React.Component {
                     } else if (returnedGame.status === 409) {
                         this.setState({alertText: "Lobby is full!"})
                     } else {
-                        this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
+                        this.props.history.push(`/game/${sessionStorage.getItem("gameID")}`);
                     }
                 })
                 .catch(err => {
@@ -123,7 +123,7 @@ class NormalModeDashboard extends React.Component {
                                 return (
                                     <PlayerContainer key={game.id}
                                                      disabled={!(game.size === 2)}
-                                                     onClick={() => (localStorage.setItem("gameID", game.id), this.join_lobby(game.size))}>
+                                                     onClick={() => (sessionStorage.setItem("gameID", game.id), this.join_lobby(game.size))}>
                                         <GameView game={game}/>
                                     </PlayerContainer>
                                 );

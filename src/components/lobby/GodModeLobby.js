@@ -38,8 +38,8 @@ class GodModeLobby extends React.Component {
             },
             body: JSON.stringify({
                 player1: {
-                    id: localStorage.getItem("userID"),
-                    username: localStorage.getItem("username"),
+                    id: sessionStorage.getItem("userID"),
+                    username: sessionStorage.getItem("username"),
                 },
                 gameMode: "GOD",
             })
@@ -52,7 +52,7 @@ class GodModeLobby extends React.Component {
                 } else {
                     console.log(returnedGame);
                     const Game = new GameModel(returnedGame);
-                    localStorage.setItem("gameID", Game.id);
+                    sessionStorage.setItem("gameID", Game.id);
                     this.props.history.push({pathname: `/game/${Game.id}`});
                     //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
                 }

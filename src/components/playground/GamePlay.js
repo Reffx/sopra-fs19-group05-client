@@ -59,31 +59,31 @@ const field22 = new Field();
 const field23 = new Field();
 const field24 = new Field();
 
-field0.gameId = localStorage.getItem("gameId");
-field1.gameId = localStorage.getItem("gameId");
-field2.gameId = localStorage.getItem("gameId");
-field3.gameId = localStorage.getItem("gameId");
-field4.gameId = localStorage.getItem("gameId");
-field5.gameId = localStorage.getItem("gameId");
-field6.gameId = localStorage.getItem("gameId");
-field7.gameId = localStorage.getItem("gameId");
-field8.gameId = localStorage.getItem("gameId");
-field9.gameId = localStorage.getItem("gameId");
-field10.gameId = localStorage.getItem("gameId");
-field11.gameId = localStorage.getItem("gameId");
-field12.gameId = localStorage.getItem("gameId");
-field13.gameId = localStorage.getItem("gameId");
-field14.gameId = localStorage.getItem("gameId");
-field15.gameId = localStorage.getItem("gameId");
-field16.gameId = localStorage.getItem("gameId");
-field17.gameId = localStorage.getItem("gameId");
-field18.gameId = localStorage.getItem("gameId");
-field19.gameId = localStorage.getItem("gameId");
-field20.gameId = localStorage.getItem("gameId");
-field21.gameId = localStorage.getItem("gameId");
-field22.gameId = localStorage.getItem("gameId");
-field23.gameId = localStorage.getItem("gameId");
-field24.gameId = localStorage.getItem("gameId");
+field0.gameId = sessionStorage.getItem("gameId");
+field1.gameId = sessionStorage.getItem("gameId");
+field2.gameId = sessionStorage.getItem("gameId");
+field3.gameId = sessionStorage.getItem("gameId");
+field4.gameId = sessionStorage.getItem("gameId");
+field5.gameId = sessionStorage.getItem("gameId");
+field6.gameId = sessionStorage.getItem("gameId");
+field7.gameId = sessionStorage.getItem("gameId");
+field8.gameId = sessionStorage.getItem("gameId");
+field9.gameId = sessionStorage.getItem("gameId");
+field10.gameId = sessionStorage.getItem("gameId");
+field11.gameId = sessionStorage.getItem("gameId");
+field12.gameId = sessionStorage.getItem("gameId");
+field13.gameId = sessionStorage.getItem("gameId");
+field14.gameId = sessionStorage.getItem("gameId");
+field15.gameId = sessionStorage.getItem("gameId");
+field16.gameId = sessionStorage.getItem("gameId");
+field17.gameId = sessionStorage.getItem("gameId");
+field18.gameId = sessionStorage.getItem("gameId");
+field19.gameId = sessionStorage.getItem("gameId");
+field20.gameId = sessionStorage.getItem("gameId");
+field21.gameId = sessionStorage.getItem("gameId");
+field22.gameId = sessionStorage.getItem("gameId");
+field23.gameId = sessionStorage.getItem("gameId");
+field24.gameId = sessionStorage.getItem("gameId");
 
 class GamePlay extends React.Component {
 
@@ -233,7 +233,7 @@ class GamePlay extends React.Component {
     }
 
     set_beginner() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/beginner`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/beginner`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -257,7 +257,7 @@ class GamePlay extends React.Component {
 
 
     get_game() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -311,7 +311,7 @@ class GamePlay extends React.Component {
                 ;
             }
             if (placeable === true) {
-                fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/build`, {
+                fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/build`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
@@ -357,7 +357,7 @@ class GamePlay extends React.Component {
                 ;
             }
             if (placeable === true) {
-                fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/move`, {
+                fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/move`, {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json"
@@ -386,7 +386,7 @@ class GamePlay extends React.Component {
         this.alertMessage();
         if (this.state.game.gameStatus === "Move2") {
             this.state.player_is_playing = this.state.player2;
-            if (localStorage.getItem("userID") === String(this.state.player2.id)) {
+            if (sessionStorage.getItem("userID") === String(this.state.player2.id)) {
                 if (this.state.game.player2.worker1.position === -1 || this.state.game.player2.worker2.position === -1) {
                     this.set_worker(box);
                 } else {
@@ -396,7 +396,7 @@ class GamePlay extends React.Component {
         }
         if (this.state.game.gameStatus === "Move1") {
             this.state.player_is_playing = this.state.game.player1;
-            if (localStorage.getItem("userID") === String(this.state.player1.id)) {
+            if (sessionStorage.getItem("userID") === String(this.state.player1.id)) {
                 if (this.state.game.player1.worker1.position === -1 || this.state.game.player1.worker2.position === -1) {
                     console.log("cc");
                     this.set_worker(box);
@@ -406,14 +406,14 @@ class GamePlay extends React.Component {
             }
         }
         if (this.state.gameStatus === "Build1") {
-            if (localStorage.getItem("userID") === String(this.state.player1.id)) {
+            if (sessionStorage.getItem("userID") === String(this.state.player1.id)) {
                 this.state.player_is_playing = this.state.game.player1;
                 this.build(box)
             }
         }
 
         if (this.state.gameStatus === "Build2") {
-            if (localStorage.getItem("userID") === String(this.state.player2.id)) {
+            if (sessionStorage.getItem("userID") === String(this.state.player2.id)) {
                 this.state.player_is_playing = this.state.game.player2;
                 this.build(box)
             }
@@ -431,7 +431,7 @@ class GamePlay extends React.Component {
     }
 
     highLightMove(box) {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/highlight/move`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/highlight/move`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -452,7 +452,7 @@ class GamePlay extends React.Component {
     }
 
     highLightBuild(box) {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/highlight/build`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/highlight/build`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -475,7 +475,7 @@ class GamePlay extends React.Component {
 
     set_worker(box) {
         this.select_worker();
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/place`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/place`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -498,7 +498,7 @@ class GamePlay extends React.Component {
 
 
     create_field() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/board/create`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/board/create`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -649,7 +649,7 @@ class GamePlay extends React.Component {
     }
 
     leave_game() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -660,8 +660,8 @@ class GamePlay extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "You could not leave the lobby"})
                 } else {
-                    localStorage.removeItem("gameID");
-                    console.log(localStorage.getItem("gameID"));
+                    sessionStorage.removeItem("gameID");
+                    console.log(sessionStorage.getItem("gameID"));
                     this.props.history.push("/dashboard");
 
                 }
@@ -676,7 +676,7 @@ class GamePlay extends React.Component {
     }
 
     surrender() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/surrender`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}/surrender`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -711,13 +711,13 @@ class GamePlay extends React.Component {
     }
 
     isButtonInvisiblePlayer1() {
-        if (localStorage.getItem("userID") !== (localStorage.getItem("userID_player1"))) {
+        if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player1"))) {
             return "invisible";
         }
     }
 
     isButtonInvisiblePlayer2() {
-        if (localStorage.getItem("userID") !== (localStorage.getItem("userID_player2"))) {
+        if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player2"))) {
             return "invisible";
         }
     }
@@ -1093,7 +1093,7 @@ class GamePlay extends React.Component {
     }
 
     quickBuild(fieldNum) {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${fieldNum}/build`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${fieldNum}/build`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"

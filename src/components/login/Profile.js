@@ -172,7 +172,7 @@ class Profile extends React.Component {
 
     render() {
         const textElement = this.getText();
-        if (localStorage.getItem("token") === null) {
+        if (sessionStorage.getItem("token") === null) {
             return (<Container><h1>You must be logged in to view this page!</h1></Container>)
         } else {
             if (this.state.username === null) {
@@ -188,7 +188,7 @@ class Profile extends React.Component {
                                 <div>
                                     <ButtonContainer>
                                         <Button
-                                            disabled={!(localStorage.getItem("token") === this.state.token) || !this.state.username}
+                                            disabled={!(sessionStorage.getItem("token") === this.state.token) || !this.state.username}
                                             width="100%"
                                             onClick={() => {
                                                 if (this.state.editMode) {

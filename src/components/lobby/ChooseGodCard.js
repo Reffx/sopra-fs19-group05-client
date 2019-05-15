@@ -44,8 +44,8 @@ class ChooseGodCard extends React.Component {
 
 
     componentDidMount() {
-        localStorage.setItem("GodCardPlayer1", null);
-        localStorage.setItem("GodCardPlayer2", null);
+        sessionStorage.setItem("GodCardPlayer1", null);
+        sessionStorage.setItem("GodCardPlayer2", null);
         setInterval(() => {
             if (this.state.chosenCardPlayer1 !== null && this.state.chosenCardPlayer2 !== null) {
                 this.alertText();
@@ -68,7 +68,7 @@ class ChooseGodCard extends React.Component {
     }
 
     get_game() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -89,10 +89,10 @@ class ChooseGodCard extends React.Component {
                         game: Game,
                         gameStatus: response.gameStatus
                     });
-                    localStorage.setItem("GodCardPlayer1", response.player1.worker1.godCard);
-                    localStorage.setItem("GodCardPlayer2", response.player2.worker1.godCard);
-                    console.log("GodCardPlayer1:" + localStorage.getItem("GodCardPlayer1"));
-                    console.log("GodCardPlayer2:" + localStorage.getItem("GodCardPlayer2"));
+                    sessionStorage.setItem("GodCardPlayer1", response.player1.worker1.godCard);
+                    sessionStorage.setItem("GodCardPlayer2", response.player2.worker1.godCard);
+                    console.log("GodCardPlayer1:" + sessionStorage.getItem("GodCardPlayer1"));
+                    console.log("GodCardPlayer2:" + sessionStorage.getItem("GodCardPlayer2"));
                     if (this.state.game.gameStatus === "Start") {
                         this.set_beginner()
                     } else if (this.state.game.gameStatus === "Move1" && this.state.game.player1.worker1.godCard === null) {
@@ -113,7 +113,7 @@ class ChooseGodCard extends React.Component {
     }
 
     set_beginner() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/beginner`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/beginner`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"
@@ -149,8 +149,8 @@ class ChooseGodCard extends React.Component {
     choose_card(card) {
         console.log(this.state.player_is_choosing);
         alert(card);
-        if (String(this.state.player_is_choosing.id) === localStorage.getItem("userID")) {
-            if (localStorage.getItem("GodCardPlayer1") === String(card) || localStorage.getItem("GodCardPlayer1") === String(card)) {
+        if (String(this.state.player_is_choosing.id) === sessionStorage.getItem("userID")) {
+            if (sessionStorage.getItem("GodCardPlayer1") === String(card) || sessionStorage.getItem("GodCardPlayer1") === String(card)) {
                 alert({card} + "card is taken");
             } else {
                 this.setGodCard(card)
@@ -159,9 +159,9 @@ class ChooseGodCard extends React.Component {
     }
 
     setGodCard(godCard) {
-        localStorage.getItem("gameID");
-        console.log(localStorage.getItem("userID"));
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/GodCard`, {
+        sessionStorage.getItem("gameID");
+        console.log(sessionStorage.getItem("userID"));
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}/GodCard`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -181,13 +181,13 @@ class ChooseGodCard extends React.Component {
                 console.log(this.state.player_is_choosing.username);
                 console.log(this.state.player1.username);
                 if (this.state.player_is_choosing.username === this.state.player1.username) {
-                    localStorage.setItem("GodCardPlayer1", godCard);
+                    sessionStorage.setItem("GodCardPlayer1", godCard);
                     this.state.player_is_choosing = this.state.player2;
                     this.state.player_is_not_choosing = this.state.player1;
                     this.alertText()
                 } else if (this.state.player_is_choosing.username === this.state.player2.username) {
                     this.state.player_is_choosing = this.state.player1;
-                    localStorage.setItem("GodCardPlayer2", godCard);
+                    sessionStorage.setItem("GodCardPlayer2", godCard);
                     this.state.player_is_not_choosing = this.state.player2;
                     this.alertText()
                 }
@@ -244,10 +244,10 @@ class ChooseGodCard extends React.Component {
                 <div className="centerTheButton">
                     <ButtonContainer/>
                     <Button
-                        disabled={localStorage.getItem("GodCardPlayer1") === String(null) || localStorage.getItem("GodCardPlayer1") === String(null)}
+                        disabled={sessionStorage.getItem("GodCardPlayer1") === String(null) || sessionStorage.getItem("GodCardPlayer1") === String(null)}
                         width="30%"
                         onClick={() => {
-                            this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay/GodMode`);
+                            this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay/GodMode`);
                         }}
                     >
                         Go to Playground

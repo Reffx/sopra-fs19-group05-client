@@ -41,7 +41,7 @@ class LobbyOverview extends React.Component {
     }
 
     leave_lobby() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -52,8 +52,8 @@ class LobbyOverview extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "You could not leave the lobby"})
                 } else {
-                    localStorage.removeItem("gameID");
-                    console.log(localStorage.getItem("gameID"));
+                    sessionStorage.removeItem("gameID");
+                    console.log(sessionStorage.getItem("gameID"));
                     this.props.history.push("/NormalModeLobby");
 
                 }
@@ -68,7 +68,7 @@ class LobbyOverview extends React.Component {
     }
 
     ready() {
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/status`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}/status`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
@@ -95,10 +95,10 @@ class LobbyOverview extends React.Component {
         // if game gets deleted in backend and frontend still tries to fetch a deleted game
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
         setInterval(() => {
-            if (localStorage.getItem("gameID") === null) {
+            if (sessionStorage.getItem("gameID") === null) {
                 return;
             } else {
-                fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}`, {
+                fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json"
@@ -161,14 +161,14 @@ class LobbyOverview extends React.Component {
     }
 
     redCircleClick() {
-        localStorage.setItem("color", "RED");
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {
+        sessionStorage.setItem("color", "RED");
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}/color`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(
-                localStorage.getItem("color")
+                sessionStorage.getItem("color")
             )
         })
             .then(response => {
@@ -192,14 +192,14 @@ class LobbyOverview extends React.Component {
     }
 
     blueCircleClick() {
-        localStorage.setItem("color", "BLUE");
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {
+        sessionStorage.setItem("color", "BLUE");
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}/color`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(
-                localStorage.getItem("color")
+                sessionStorage.getItem("color")
             )
         })
             .then(response => {
@@ -223,28 +223,28 @@ class LobbyOverview extends React.Component {
 
     setLocalStorageOpponent(){
         if ((this.state.player1_id != null) && (this.state.player2_id != null)) {
-            if (localStorage.getItem("userID") === this.state.player1_id.toString()) {
-                localStorage.setItem("userID_player1", this.state.player1_id);
-                console.log("MyUserId:" + localStorage.getItem("userID"));
-                console.log("I am player 1:" + localStorage.getItem("userID_player1"));
+            if (sessionStorage.getItem("userID") === this.state.player1_id.toString()) {
+                sessionStorage.setItem("userID_player1", this.state.player1_id);
+                console.log("MyUserId:" + sessionStorage.getItem("userID"));
+                console.log("I am player 1:" + sessionStorage.getItem("userID_player1"));
             }
-            if (localStorage.getItem("userID") === this.state.player2_id.toString()) {
-                localStorage.setItem("userID_player2", this.state.player2_id);
-                console.log("MyUserId:" + localStorage.getItem("userID"));
-                console.log("I am player 2:" + localStorage.getItem("userID_player2"));
+            if (sessionStorage.getItem("userID") === this.state.player2_id.toString()) {
+                sessionStorage.setItem("userID_player2", this.state.player2_id);
+                console.log("MyUserId:" + sessionStorage.getItem("userID"));
+                console.log("I am player 2:" + sessionStorage.getItem("userID_player2"));
             }
         }
     }
 
     yellowCircleClick() {
-        localStorage.setItem("color", "YELLOW");
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {
+        sessionStorage.setItem("color", "YELLOW");
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}/color`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(
-                localStorage.getItem("color")
+                sessionStorage.getItem("color")
             )
         })
             .then(response => {
@@ -268,14 +268,14 @@ class LobbyOverview extends React.Component {
     }
 
     pinkCircleClick() {
-        localStorage.setItem("color", "PINK");
-        fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/color`, {
+        sessionStorage.setItem("color", "PINK");
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}/color`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(
-                localStorage.getItem("color")
+                sessionStorage.getItem("color")
             )
         })
             .then(response => {
@@ -327,16 +327,16 @@ class LobbyOverview extends React.Component {
                             <p>Username: {this.state.player1_username}</p>
                             <p>Your Color: {this.state.player1_color}</p>
                             <button
-                                disabled={!(localStorage.getItem("username") === this.state.player1_username)}
+                                disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
                                 className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
                             <button
-                                disabled={!(localStorage.getItem("username") === this.state.player1_username)}
+                                disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
                                 className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
                             <button
-                                disabled={!(localStorage.getItem("username") === this.state.player1_username)}
+                                disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
                                 className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
                             <button
-                                disabled={!(localStorage.getItem("username") === this.state.player1_username)}
+                                disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
                                 className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
                             <p> Ready: {this.checkReadyPlayer1()}</p>
                         </div>
@@ -345,13 +345,13 @@ class LobbyOverview extends React.Component {
                         <div className="player-box">
                             <p>Username: {this.state.player2_username} </p>
                             <p>Your Color: {this.state.player2_color}</p>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)}
+                            <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
                                     className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)}
+                            <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
                                     className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)}
+                            <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
                                     className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                            <button disabled={!(localStorage.getItem("username") === this.state.player2_username)}
+                            <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
                                     className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
                             <p> Ready: {this.checkReadyPlayer2()}</p>
                         </div>
@@ -377,9 +377,9 @@ class LobbyOverview extends React.Component {
                         width="30%"
                         onClick={() => {
                             if (this.state.gameMode === "NORMAL") {
-                                this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay`)
+                                this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay`)
                             } else if (this.state.gameMode === "GOD") {
-                                this.props.history.push(`/game/${localStorage.getItem("gameID")}/chooseGodCard`)
+                                this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/chooseGodCard`)
                             }
                         }}
                     >

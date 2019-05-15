@@ -38,8 +38,8 @@ class NormalModeLobby extends React.Component {
             },
             body: JSON.stringify({
                 player1: {
-                    id: localStorage.getItem("userID"),
-                    username: localStorage.getItem("username"),
+                    id: sessionStorage.getItem("userID"),
+                    username: sessionStorage.getItem("username"),
                 },
                 gameMode: "NORMAL",
                 isPlaying: false,
@@ -53,9 +53,9 @@ class NormalModeLobby extends React.Component {
                 } else {
                     const Game = new GameModel(returnedGame);
                     console.log(Game);
-                    localStorage.setItem("gameID", Game.id);
+                    sessionStorage.setItem("gameID", Game.id);
                     //this.props.history.push({pathname:`/game/${Game.gameId}`});
-                    this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
+                    this.props.history.push(`/game/${sessionStorage.getItem("gameID")}`);
                 }
             })
             .catch(err => {

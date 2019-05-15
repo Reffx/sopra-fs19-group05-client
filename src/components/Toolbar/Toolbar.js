@@ -7,7 +7,7 @@ import {getDomain} from "../../helpers/getDomain";
 
 
 function notLoggedIn() {
-    if (localStorage.getItem("token") === null) {
+    if (sessionStorage.getItem("token") === null) {
         return true;
     } else {
         return false;
@@ -15,7 +15,7 @@ function notLoggedIn() {
 }
 
 function logout() {
-    let curToken = localStorage.getItem("token");
+    let curToken = sessionStorage.getItem("token");
     fetch(`${getDomain()}/users`, {
         method: "PUT",
         headers: {
@@ -29,12 +29,12 @@ function logout() {
             console.log(err);
             alert("Something went wrong fetching the users: " + err);
         });
-    localStorage.removeItem("userID")
-    localStorage.removeItem("token");
-    localStorage.removeItem("id");
-    localStorage.removeItem("username");
-    localStorage.removeItem("name");
-    localStorage.removeItem("gameID");
+    sessionStorage.removeItem("userID")
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("id");
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("name");
+    sessionStorage.removeItem("gameID");
 }
 
 const toolbar = props => (

@@ -31,7 +31,7 @@ export const Button = styled.button`
 class ChooseMode extends React.Component {
 
     render() {
-        if (localStorage.getItem("token") !== null) {
+        if (sessionStorage.getItem("token") !== null) {
             return (
                 <div>
                     <Toolbar/>

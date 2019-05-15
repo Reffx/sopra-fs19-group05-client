@@ -126,9 +126,9 @@ class Login extends React.Component {
                 } else {
                     console.log(returnedUser);
                     const user = new User(returnedUser);
-                    localStorage.setItem("token", user.token);
-                    localStorage.setItem("userID", user.id);
-                    localStorage.setItem("username", user.username);
+                    sessionStorage.setItem("token", user.token);
+                    sessionStorage.setItem("userID", user.id);
+                    sessionStorage.setItem("username", user.username);
                     this.props.history.push(`/home`);
                 }
             })
