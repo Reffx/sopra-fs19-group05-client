@@ -91,7 +91,8 @@ class ChooseGodCard extends React.Component {
                     });
                     localStorage.setItem("GodCardPlayer1", response.player1.worker1.godCard);
                     localStorage.setItem("GodCardPlayer2", response.player2.worker1.godCard);
-                    console.log(localStorage.getItem("GodCardPlayer1"));
+                    console.log("GodCardPlayer1:" + localStorage.getItem("GodCardPlayer1"));
+                    console.log("GodCardPlayer2:" + localStorage.getItem("GodCardPlayer2"));
                     if (this.state.game.gameStatus === "Start") {
                         this.set_beginner()
                     } else if (this.state.game.gameStatus === "Move1" && this.state.game.player1.worker1.godCard === null) {
@@ -147,18 +148,17 @@ class ChooseGodCard extends React.Component {
 
     choose_card(card) {
         console.log(this.state.player_is_choosing);
+        alert(card);
         if (String(this.state.player_is_choosing.id) === localStorage.getItem("userID")) {
-            // if (localStorage.getItem("GodCardPlayer1") === String(card)|| localStorage.getItem("GodCardPlayer1") === String(card)){
-            //     alert("card is taken")
-            // }
-            // else {
-            this.setGodCard(card)
-            //  }
+            if (localStorage.getItem("GodCardPlayer1") === String(card) || localStorage.getItem("GodCardPlayer1") === String(card)) {
+                alert({card} + "card is taken");
+            } else {
+                this.setGodCard(card)
+            }
         }
     }
 
     setGodCard(godCard) {
-
         localStorage.getItem("gameID");
         console.log(localStorage.getItem("userID"));
         fetch(`${getDomain()}/games/${localStorage.getItem("gameID")}/${localStorage.getItem("userID")}/GodCard`, {
@@ -205,40 +205,54 @@ class ChooseGodCard extends React.Component {
     render() {
         return (
             <div>
-                <h1>{this.state.alertText}</h1>
+                <h1 className="chooseGodCard-h1">{this.state.alertText}</h1>
                 <div className="first-row">
-                    <div class="godCard1"><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard1" onClick={() => {
+                        this.choose_card(this.state.card1)
+                    }}></div>
                     <div class="godCard2" onClick={() => {
                         this.choose_card(this.state.card2)
                     }}></div>
-                    <div class="godCard3"><p className="godCard-p">Not available yet!</p></div>
-                    <div class="godCard4"><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard3" onClick={() => {
+                        this.choose_card(this.state.card3)
+                    }}></div>
+                    <div class="godCard4" onClick={() => {
+                        this.choose_card(this.state.card4)
+                    }}></div>
                     <div class="godCard5" onClick={() => {
                         this.choose_card(this.state.card5)
                     }}></div>
                 </div>
                 <div className="second-row">
-                    <div class="godCard6"><p className="godCard-p">Not available yet!</p></div>
-                    <div class="godCard7"><p className="godCard-p">Not available yet!</p></div>
-                    <div class="godCard8"><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard6" onClick={() => {
+                        this.choose_card(this.state.card6)
+                    }}></div>
+                    <div class="godCard7" onClick={() => {
+                        this.choose_card(this.state.card7)
+                    }}></div>
+                    <div class="godCard8" onClick={() => {
+                        this.choose_card(this.state.card8)
+                    }}></div>
                     <div class="godCard9" onClick={() => {
                         this.choose_card(this.state.card9)
                     }}></div>
-                    <div class="godCard10"
-                    ><p className="godCard-p">Not available yet!</p></div>
+                    <div class="godCard10" onClick={() => {
+                        this.choose_card(this.state.card10)
+                    }}
+                    ></div>
                 </div>
                 <div className="centerTheButton">
-                <ButtonContainer/>
-                <Button
-                    disabled={localStorage.getItem("GodCardPlayer1") === String(null) || localStorage.getItem("GodCardPlayer1") === String(null)}
-                    width="30%"
-                    onClick={() => {
-                        this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay/GodMode`);
-                    }}
-                >
-                    Go to Playground
-                </Button>
-                <ButtonContainer/>
+                    <ButtonContainer/>
+                    <Button
+                        disabled={localStorage.getItem("GodCardPlayer1") === String(null) || localStorage.getItem("GodCardPlayer1") === String(null)}
+                        width="30%"
+                        onClick={() => {
+                            this.props.history.push(`/game/${localStorage.getItem("gameID")}/gamePlay/GodMode`);
+                        }}
+                    >
+                        Go to Playground
+                    </Button>
+                    <ButtonContainer/>
                 </div>
             </div>
         )
