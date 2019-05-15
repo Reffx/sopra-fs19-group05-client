@@ -25,8 +25,8 @@ class ChooseGodCard extends React.Component {
             chosenCardPlayer1: null,
             chosenCardPlayer2: null,
             alertText: "",
-            player1: Player,
-            player2: Player,
+            player1: null,
+            player2: null,
             card1: "Apollo",
             card2: "Artemis",
             card3: "Athena",
@@ -54,7 +54,6 @@ class ChooseGodCard extends React.Component {
     }
 
 
-
     get_game() {
         fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
             method: "GET",
@@ -75,16 +74,18 @@ class ChooseGodCard extends React.Component {
                         player2: response.player2,
                         player_is_playing: response.player1,
                         game: Game,
-                        gameStatus: response.gameStatus
+                        gameStatus: response.gameStatus,
+                        chosenCardPlayer1: response.player1.worker1.godCard,
+                        chosenCardPlayer2: response.player2.worker1.godCard,
                     });
-                    if(this.state.player2.worker1.godCard === "None"){
+                    if (this.state.player2.worker1.godCard === "None") {
                         this.setState({alertText: "Player1 can choose 2 GodCards as selection!"})
                     }
-                    if(this.state.player2.worker1.godCard !== "None"){
+                    if (this.state.player2.worker1.godCard !== "None") {
                         this.setState({player_is_playing: this.state.player2});
                         this.setState({alertText: "Player2 can choose one of the two GodCards!"})
                     }
-                    if(this.state.gameStatus !== "Start"){
+                    if (this.state.gameStatus !== "Start") {
                         this.setState({alertText: "GodCards are given, may the better win!"})
                     }
                 }
@@ -113,22 +114,20 @@ class ChooseGodCard extends React.Component {
 
 
     choose_card(card) {
-        if( String(this.state.player_is_playing.id) === sessionStorage.getItem("userID")){
-            if(this.state.player_is_playing === this.state.player1){
-                if(this.state.player1.worker1.godCard === "None"){
+        if (String(this.state.player_is_playing.id) === sessionStorage.getItem("userID")) {
+            if (this.state.player_is_playing === this.state.player1) {
+                if (this.state.player1.worker1.godCard === "None") {
                     this.setGodCard(card, this.state.player1.id)
-                }
-                else{
+                } else {
                     this.setGodCard(card, this.state.player2.id)
                 }
             }
-            if(this.state.player_is_playing === this.state.player2){
-                if(this.state.player1.worker1.godCard === card){
+            if (this.state.player_is_playing === this.state.player2) {
+                if (this.state.player1.worker1.godCard === card) {
                     this.setGodCard(this.state.player2.worker1.godCard, this.state.player1.id);
                     this.setGodCard(card, this.state.player2.id);
                     this.set_beginner()
-                }
-                else{
+                } else {
                     this.set_beginner()
                 }
             }
@@ -148,7 +147,6 @@ class ChooseGodCard extends React.Component {
         })
             .then(response => response)
             .then(myResponse => {
-
                 if (myResponse.status === 404 || myResponse.status === 500) {
                     //  has to be modified for game
                     console.log(myResponse)
@@ -163,42 +161,48 @@ class ChooseGodCard extends React.Component {
             });
     }
 
+    getBorderSelected(card) {
+        if (this.state.chosenCardPlayer1 === card || this.state.chosenCardPlayer2 === card) {
+            return "godCard-border"
+        }
+    }
+
 
     render() {
         return (
             <div>
                 <h1 className="chooseGodCard-h1">{this.state.alertText}</h1>
                 <div className="first-row">
-                    <div class="godCard1" onClick={() => {
+                    <div class="godCard1" id={this.getBorderSelected(this.state.card1)} onClick={() => {
                         this.choose_card(this.state.card1)
                     }}></div>
-                    <div class="godCard2" onClick={() => {
+                    <div class="godCard2" id={this.getBorderSelected(this.state.card2)} onClick={() => {
                         this.choose_card(this.state.card2)
                     }}></div>
-                    <div class="godCard3" onClick={() => {
+                    <div class="godCard3" id={this.getBorderSelected(this.state.card3)} onClick={() => {
                         this.choose_card(this.state.card3)
                     }}></div>
-                    <div class="godCard4" onClick={() => {
+                    <div class="godCard4" id={this.getBorderSelected(this.state.card4)} onClick={() => {
                         this.choose_card(this.state.card4)
                     }}></div>
-                    <div class="godCard5" onClick={() => {
+                    <div class="godCard5" id={this.getBorderSelected(this.state.card5)} onClick={() => {
                         this.choose_card(this.state.card5)
                     }}></div>
                 </div>
                 <div className="second-row">
-                    <div class="godCard6" onClick={() => {
+                    <div class="godCard6" id={this.getBorderSelected(this.state.card6)} onClick={() => {
                         this.choose_card(this.state.card6)
                     }}></div>
-                    <div class="godCard7" onClick={() => {
+                    <div class="godCard7" id={this.getBorderSelected(this.state.card7)} onClick={() => {
                         this.choose_card(this.state.card7)
                     }}></div>
-                    <div class="godCard8" onClick={() => {
+                    <div class="godCard8" id={this.getBorderSelected(this.state.card8)} onClick={() => {
                         this.choose_card(this.state.card8)
                     }}></div>
-                    <div class="godCard9" onClick={() => {
+                    <div class="godCard9" id={this.getBorderSelected(this.state.card9)} onClick={() => {
                         this.choose_card(this.state.card9)
                     }}></div>
-                    <div class="godCard10" onClick={() => {
+                    <div class="godCard10" id={this.getBorderSelected(this.state.card10)} onClick={() => {
                         this.choose_card(this.state.card10)
                     }}
                     ></div>

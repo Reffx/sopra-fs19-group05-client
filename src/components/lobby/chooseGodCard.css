@@ -127,3 +127,7 @@
 .chooseGodCard-h1{
     color: black;
 }
+
+#godCard-border {
+    border: solid green 5px;
+}
