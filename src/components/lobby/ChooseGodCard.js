@@ -77,10 +77,10 @@ class ChooseGodCard extends React.Component {
                         game: Game,
                         gameStatus: response.gameStatus
                     });
-                    if(this.state.player2.worker1.godCard === null){
+                    if(this.state.player2.worker1.godCard === "None"){
                         this.setState({alertText: "Player1 can choose 2 GodCards as selection!"})
                     }
-                    if(this.state.player2.worker1.godCard !== null){
+                    if(this.state.player2.worker1.godCard !== "None"){
                         this.setState({player_is_playing: this.state.player2});
                         this.setState({alertText: "Player2 can choose one of the two GodCards!"})
                     }
@@ -115,7 +115,7 @@ class ChooseGodCard extends React.Component {
     choose_card(card) {
         if( String(this.state.player_is_playing.id) === sessionStorage.getItem("userID")){
             if(this.state.player_is_playing === this.state.player1){
-                if(this.state.player1.worker1.godCard === null){
+                if(this.state.player1.worker1.godCard === "None"){
                     this.setGodCard(card, this.state.player1.id)
                 }
                 else{
