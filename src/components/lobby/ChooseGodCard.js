@@ -86,7 +86,7 @@ class ChooseGodCard extends React.Component {
                         this.setState({alertText: "Player2 can choose one of the two GodCards!"})
                     }
                     if (this.state.gameStatus !== "Start") {
-                        this.setState({alertText: "GodCards are given, may the better win!"})
+                        this.setState({alertText: this.state.player1.username + " has "+this.state.player1.worker1.godCard+", " +this.state.player2.username+ " has "+this.state.player2.worker1.godCard})
                     }
                 }
             })
