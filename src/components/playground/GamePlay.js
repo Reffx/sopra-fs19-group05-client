@@ -1,8 +1,8 @@
 import React from "react";
+import {withRouter} from "react-router-dom";
 import "./GamePlay.css";
 import "./PlayerColor.css";
 import styled from "styled-components";
-import {withRouter} from "react-router-dom";
 import GameWorker from "../shared/models/GameWorker";
 import Field from "../shared/models/Field";
 import {getDomain} from "../../helpers/getDomain";
@@ -58,32 +58,6 @@ const field21 = new Field();
 const field22 = new Field();
 const field23 = new Field();
 const field24 = new Field();
-
-field0.gameId = sessionStorage.getItem("gameId");
-field1.gameId = sessionStorage.getItem("gameId");
-field2.gameId = sessionStorage.getItem("gameId");
-field3.gameId = sessionStorage.getItem("gameId");
-field4.gameId = sessionStorage.getItem("gameId");
-field5.gameId = sessionStorage.getItem("gameId");
-field6.gameId = sessionStorage.getItem("gameId");
-field7.gameId = sessionStorage.getItem("gameId");
-field8.gameId = sessionStorage.getItem("gameId");
-field9.gameId = sessionStorage.getItem("gameId");
-field10.gameId = sessionStorage.getItem("gameId");
-field11.gameId = sessionStorage.getItem("gameId");
-field12.gameId = sessionStorage.getItem("gameId");
-field13.gameId = sessionStorage.getItem("gameId");
-field14.gameId = sessionStorage.getItem("gameId");
-field15.gameId = sessionStorage.getItem("gameId");
-field16.gameId = sessionStorage.getItem("gameId");
-field17.gameId = sessionStorage.getItem("gameId");
-field18.gameId = sessionStorage.getItem("gameId");
-field19.gameId = sessionStorage.getItem("gameId");
-field20.gameId = sessionStorage.getItem("gameId");
-field21.gameId = sessionStorage.getItem("gameId");
-field22.gameId = sessionStorage.getItem("gameId");
-field23.gameId = sessionStorage.getItem("gameId");
-field24.gameId = sessionStorage.getItem("gameId");
 
 class GamePlay extends React.Component {
 
@@ -665,6 +639,8 @@ class GamePlay extends React.Component {
                     this.setState({alertText: "You could not leave the lobby"})
                 } else {
                     sessionStorage.removeItem("gameID");
+                    sessionStorage.removeItem("userID_player1");
+                    sessionStorage.removeItem("userID_player2");
                 }
             })
             .catch(err => {

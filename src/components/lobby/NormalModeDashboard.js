@@ -86,6 +86,8 @@ class NormalModeDashboard extends React.Component {
                     } else if (returnedGame.status === 409) {
                         this.setState({alertText: "Lobby is full!"})
                     } else {
+                        sessionStorage.removeItem("userID_player1");
+                        sessionStorage.removeItem("userID_player2");
                         this.props.history.push(`/game/${sessionStorage.getItem("gameID")}`);
                     }
                 })

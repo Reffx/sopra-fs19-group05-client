@@ -57,7 +57,8 @@ class NormalModeLobby extends React.Component {
                     const Game = new GameModel(returnedGame);
                     console.log(Game);
                     sessionStorage.setItem("gameID", Game.id);
-                    //this.props.history.push({pathname:`/game/${Game.gameId}`});
+                    sessionStorage.removeItem("userID_player1");
+                    sessionStorage.removeItem("userID_player2");
                     this.props.history.push(`/game/${sessionStorage.getItem("gameID")}`);
                 }
             })

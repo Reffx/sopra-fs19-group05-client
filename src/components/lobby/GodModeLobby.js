@@ -53,8 +53,9 @@ class GodModeLobby extends React.Component {
                     console.log(returnedGame);
                     const Game = new GameModel(returnedGame);
                     sessionStorage.setItem("gameID", Game.id);
+                    sessionStorage.removeItem("userID_player1");
+                    sessionStorage.removeItem("userID_player2");
                     this.props.history.push({pathname: `/game/${Game.id}`});
-                    //this.props.history.push(`/game/${localStorage.getItem("gameID")}`);
                 }
             })
             .catch(err => {

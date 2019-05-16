@@ -1,8 +1,8 @@
 import React from "react";
+import {withRouter} from "react-router-dom";
 import "./../GamePlay.css";
 import "./../PlayerColor.css";
 import styled from "styled-components";
-import {withRouter} from "react-router-dom";
 import GameWorker from "../../shared/models/GameWorker";
 import Field from "../../shared/models/Field";
 import {getDomain} from "../../../helpers/getDomain";
@@ -88,7 +88,6 @@ field24.gameId = sessionStorage.getItem("gameId");
 
 class GamePlayGodMode extends React.Component {
 
-
     constructor(props) {
         super(props);
         this.state = {
@@ -167,8 +166,8 @@ class GamePlayGodMode extends React.Component {
     componentDidMount() {
         setInterval(() => {
             if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
-                this.create_field();
-                return;
+                // console.log("winner 1 or 2 exists")
+                //CLEAR INTERVALL HERE
             } else {
                 this.get_game();
                 this.create_field();
@@ -670,9 +669,8 @@ class GamePlayGodMode extends React.Component {
                     this.setState({alertText: "You could not leave the lobby"})
                 } else {
                     sessionStorage.removeItem("gameID");
-                    console.log(sessionStorage.getItem("gameID"));
-                    this.props.history.push("/dashboard");
-
+                    sessionStorage.removeItem("userID_player1");
+                    sessionStorage.removeItem("userID_player2");
                 }
             })
             .catch(err => {
@@ -682,6 +680,7 @@ class GamePlayGodMode extends React.Component {
                     alert(`Something went wrong during leaving the lobby: ${err.message}`);
                 }
             });
+        this.props.history.push("/chooseMode");
     }
 
     surrender() {
