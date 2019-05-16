@@ -106,6 +106,7 @@ class GamePlay extends React.Component {
             checked: false,
             allBoxes: [],
             variateForward: null,
+            finished: false,
             box0: Field,
             box1: Field,
             box2: Field,
@@ -166,7 +167,8 @@ class GamePlay extends React.Component {
     componentDidMount() {
         setInterval(() => {
             if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
-                return;
+                // console.log("winner 1 or 2 exists")
+               //CLEAR INTERVALL HERE
             } else {
                 console.log("abc");
                 this.get_game();
@@ -251,43 +253,45 @@ class GamePlay extends React.Component {
         this.setState({alertText: this.state.player_is_playing.username + " can place worker."})
             .catch(err => {
                 console.log(err);
-                alert("Something went wrong fetching the games: " + err);
+                alert("Something went wrong fetching the beginner: " + err);
             });
     }
 
 
     get_game() {
-        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-            .then(response => response.json())
-            .then(async response => {
-                if (response.status !== 404 || response.player1 !== null) {
-
-                    const Player1 = new Player();
-                    const Player2 = new Player();
-                    const Game = new GameModel(response);
-                    this.setState(Game);
-                    this.setState({
-                        player1: response.player1,
-                        player2: response.player2,
-                        player_is_playing: response.player1,
-                        game: Game,
-                        gameStatus: response.gameStatus
-                    });
-                    if (this.state.game.gameStatus === "Start") {
-                        this.set_beginner()
-                    }
+        if ((this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")) {
+            fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json"
                 }
             })
-            .catch(err => {
-                console.log(err);
-            })
+                .then(response => response.json())
+                .then(async response => {
+                    if (response.status !== 404 || response.player1 !== null) {
 
+                        const Player1 = new Player();
+                        const Player2 = new Player();
+                        const Game = new GameModel(response);
+                        this.setState(Game);
+                        this.setState({
+                            player1: response.player1,
+                            player2: response.player2,
+                            player_is_playing: response.player1,
+                            game: Game,
+                            gameStatus: response.gameStatus
+                        });
+                        if (this.state.game.gameStatus === "Start") {
+                            this.set_beginner()
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
+
 
     build(box) {
         if (this.state.highlightedFields === null) {
@@ -661,11 +665,6 @@ class GamePlay extends React.Component {
                     this.setState({alertText: "You could not leave the lobby"})
                 } else {
                     sessionStorage.removeItem("gameID");
-                    console.log(sessionStorage.getItem("gameID"));
-                    this.props.history.push("/dashboard");
-                    sessionStorage.removeItem("gameID");
-                    console.log(localStorage.getItem("gameID"));
-                    this.props.history.push("/chooseMode");
                 }
             })
             .catch(err => {
@@ -675,6 +674,7 @@ class GamePlay extends React.Component {
                     alert(`Something went wrong during leaving the lobby: ${err.message}`);
                 }
             });
+        this.props.history.push("/chooseMode");
     }
 
     surrender() {
@@ -685,7 +685,7 @@ class GamePlay extends React.Component {
             },
         })
             .then(response => {
-                this.get_game()
+                this.get_game();
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
@@ -1066,7 +1066,8 @@ class GamePlay extends React.Component {
                     this.create_field();
                 }
             }
-            this.setState({variateForward: 2});;
+            this.setState({variateForward: 2});
+            ;
         }
         if (this.state.variateForward === 2) {
             for (i = 0; i < 24; i = i + 2)
@@ -1089,7 +1090,8 @@ class GamePlay extends React.Component {
                     this.create_field();
                 }
             }
-            this.setState({variateForward: 1});;
+            this.setState({variateForward: 1});
+            ;
         }
 
     }

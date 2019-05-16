@@ -37,6 +37,8 @@ class LobbyOverview extends React.Component {
             player2_color: null,
             player2_gameID: null,
             gameMode: null,
+            gameStatus: null,
+            intervalId: null,
         };
     }
 
@@ -53,10 +55,6 @@ class LobbyOverview extends React.Component {
                     this.setState({alertText: "You could not leave the lobby"})
                 } else {
                     sessionStorage.removeItem("gameID");
-                    console.log(sessionStorage.getItem("gameID"));
-                    this.props.history.push("/NormalModeLobby");
-                    sessionStorage.removeItem("gameID");
-                    console.log(sessionStorage.getItem("gameID"));
                     this.props.history.push("/chooseMode");
                 }
             })
@@ -93,74 +91,88 @@ class LobbyOverview extends React.Component {
             });
     }
 
+
     componentDidMount() {
+        this.get_game();
         // if game gets deleted in backend and frontend still tries to fetch a deleted game
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
         setInterval(() => {
-            if (sessionStorage.getItem("gameID") === null) {
-                return;
-            } else {
-                fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                })
-                    .then(response => response.json())
-                    .then(async response => {
-                        if (response.status !== 404 || response.player1 !== null) {
-                            //console.log(localStorage.getItem("userID"));
-                            this.setState({
-                                player1_username: response.player1.username,
-                                player1_id: response.player1.id,
-                                player1_status: response.player1.status,
-                                player1_color: response.player1.color,
-                                player1_gameID: response.player1.gameId,
-                            });
-                            //console.log(("player1ID: "+this.state.player1_id));
-                            if (response.player2 !== null) {
-                                this.setState({
-                                    player2_username: response.player2.username,
-                                    player2_id: response.player2.id,
-                                    player2_status: response.player2.status,
-                                    player2_color: response.player2.color,
-                                    player2_gameID: response.player2.gameId,
-                                })
-                            }
-                            //below condition is used when player1 or 2 leaves the lobby  --> otherwise player2_name wont update
-                            if (response.player2 === null) {
-                                this.setState({
-                                    player2_username: null,
-                                    player2_id: null,
-                                    player2_status: null,
-                                    player2_color: null,
-                                    player2_gameID: null,
-                                })
-                            }
-                            //added this if statement to avoid the fetch error after player1 leaves lobby and lobbysize is 1 which means there is no player2
-                            if (response.player1 === null) {
-                                this.setState({
-                                    player1_username: null,
-                                    player1_id: null,
-                                    player1_status: null,
-                                    player1_color: null,
-                                    player1_gameID: null,
-                                })
-                            }
-                            this.setState({
-                                gameMode: response.gameMode
-                            });
-                        }
-
-                        await new Promise(resolve => setTimeout(resolve, 2000));
-                    })
-                    .catch(err => {
-                        console.log(err);
-                        alert("Something went wrong fetching the games: " + err);
-                    });
+            if (this.state.gameStatus === "Start") {
+                console.log(this.state.gameStatus);
+                console.log("I FETCH LOBBY OVERVIEW!!!");
+                this.get_game();
+            } else if (this.state.gameStatus === "notStart"){
+               // console.log("LobbyOverview done")
+                //CLEAR INTERVALL HERE
             }
         }, 1000)
     }
+
+
+
+
+    get_game() {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => response.json())
+            .then(async response => {
+                if (response.status !== 404 || response.player1 !== null) {
+                    //console.log(localStorage.getItem("userID"));
+                    this.setState({
+                        player1_username: response.player1.username,
+                        player1_id: response.player1.id,
+                        player1_status: response.player1.status,
+                        player1_color: response.player1.color,
+                        player1_gameID: response.player1.gameId,
+                    });
+                    //console.log(("player1ID: "+this.state.player1_id));
+                    if (response.player2 !== null) {
+                        this.setState({
+                            player2_username: response.player2.username,
+                            player2_id: response.player2.id,
+                            player2_status: response.player2.status,
+                            player2_color: response.player2.color,
+                            player2_gameID: response.player2.gameId,
+                        })
+                    }
+                    //below condition is used when player1 or 2 leaves the lobby  --> otherwise player2_name wont update
+                    if (response.player2 === null) {
+                        this.setState({
+                            player2_username: null,
+                            player2_id: null,
+                            player2_status: null,
+                            player2_color: null,
+                            player2_gameID: null,
+                        })
+                    }
+                    //added this if statement to avoid the fetch error after player1 leaves lobby and lobbysize is 1 which means there is no player2
+                    if (response.player1 === null) {
+                        this.setState({
+                            player1_username: null,
+                            player1_id: null,
+                            player1_status: null,
+                            player1_color: null,
+                            player1_gameID: null,
+                        })
+                    }
+                    this.setState({
+                        gameMode: response.gameMode,
+                        gameStatus: response.gameStatus
+                    });
+                }
+
+                await new Promise(resolve => setTimeout(resolve, 2000));
+            })
+            .catch(err => {
+                console.log(err);
+                alert("Something went wrong fetching the games LobbyOverview!!!: " + err);
+            });
+    }
+
 
     redCircleClick() {
         sessionStorage.setItem("color", "RED");
@@ -223,7 +235,7 @@ class LobbyOverview extends React.Component {
             });
     }
 
-    setLocalStorageOpponent(){
+    setLocalStorageOpponent() {
         if ((this.state.player1_id != null) && (this.state.player2_id != null)) {
             if (sessionStorage.getItem("userID") === this.state.player1_id.toString()) {
                 sessionStorage.setItem("userID_player1", this.state.player1_id);
@@ -378,6 +390,7 @@ class LobbyOverview extends React.Component {
                         disabled={(this.state.player1_status === false) || (this.state.player2_status === false)}
                         width="30%"
                         onClick={() => {
+                            this.state.gameStatus = "notStart";
                             if (this.state.gameMode === "NORMAL") {
                                 this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay`)
                             } else if (this.state.gameMode === "GOD") {
@@ -403,7 +416,6 @@ class LobbyOverview extends React.Component {
                 </Container>
             </div>
         );
-
     }
 }
 

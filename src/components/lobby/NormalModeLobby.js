@@ -31,6 +31,9 @@ class NormalModeLobby extends React.Component {
 
 
     create_lobby() {
+        if (sessionStorage.getItem("gameID") != null){
+            this.leave_lobby();
+        }
         fetch(`${getDomain()}/games`, {
             method: "POST",
             headers: {
@@ -63,6 +66,35 @@ class NormalModeLobby extends React.Component {
                     alert("The server cannot be reached. Did you start it?");
                 } else {
                     alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+    }
+
+    leave_lobby() {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(returnedGame => {
+                if (returnedGame.status === 404 || returnedGame.status === 500) {
+                    //  has to be modified for game
+                    this.setState({alertText: "You could not leave the lobby"})
+                } else {
+                    sessionStorage.removeItem("gameID");
+                    console.log(sessionStorage.getItem("gameID"));
+                    this.props.history.push("/NormalModeLobby");
+                    sessionStorage.removeItem("gameID");
+                    console.log(sessionStorage.getItem("gameID"));
+                    this.props.history.push("/chooseMode");
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during leaving the lobby: ${err.message}`);
                 }
             });
     }
