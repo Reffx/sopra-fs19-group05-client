@@ -658,7 +658,7 @@ class GamePlayGodMode extends React.Component {
     }
 
     leave_game() {
-        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${sessionStorage.getItem("userID")}`, {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json"
