@@ -30,7 +30,7 @@ class ChooseGodCard extends React.Component {
             card1: "Apollo",
             card1Inactive: "NONE",
             card2: "Artemis",
-            card2Inactive: "InactiveArtemis",
+            card2Inactive: "NONE",
             card3: "Athena",
             card3Inactive: "NONE",
             card4: "Atlas",
@@ -184,8 +184,8 @@ class ChooseGodCard extends React.Component {
         if (godCard === this.state.card2 && id === this.state.player1.id){
             sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card2Inactive);
         }
-        if (godCard === this.state.card3 && id === this.state.player1.id){
-            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card4Inactive);
+        if (((godCard === this.state.card3) || (godCard === "InactiveAthena")) && (id === this.state.player1.id)){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card3Inactive);
         }
         if (godCard === this.state.card4 && id === this.state.player1.id){
             sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card4Inactive);
@@ -214,8 +214,8 @@ class ChooseGodCard extends React.Component {
         if (godCard === this.state.card2 && id === this.state.player2.id){
             sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card2Inactive);
         }
-        if (godCard === this.state.card3 && id === this.state.player2.id){
-            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card4Inactive);
+        if ((godCard === this.state.card3 || (godCard === "InactiveAthena")) && (id === this.state.player2.id)){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card3Inactive);
         }
         if (godCard === this.state.card4 && id === this.state.player2.id){
             sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card4Inactive);
@@ -248,36 +248,36 @@ class ChooseGodCard extends React.Component {
                 <h1 className="chooseGodCard-h1">{this.state.alertText}</h1>
                 <div className="first-row">
                     <div class="godCard1" id={this.getBorderSelected(this.state.card1)} onClick={() => {
-                        this.choose_card(this.state.card1, this.state.card1Inactive)
+                        this.choose_card(this.state.card1)
                     }}></div>
                     <div class="godCard2" id={this.getBorderSelected(this.state.card2)} onClick={() => {
-                        this.choose_card(this.state.card2, this.state.card2Inactive)
+                        this.choose_card(this.state.card2)
                     }}></div>
                     <div class="godCard3" id={this.getBorderSelected("InactiveAthena")} onClick={() => {
-                        this.choose_card(this.state.card3, this.state.card3Inactive)
+                        this.choose_card(this.state.card3)
                     }}></div>
                     <div class="godCard4" id={this.getBorderSelected(this.state.card4)} onClick={() => {
-                        this.choose_card(this.state.card4, this.state.card4Inactive)
+                        this.choose_card(this.state.card4)
                     }}></div>
                     <div class="godCard5" id={this.getBorderSelected(this.state.card5)} onClick={() => {
-                        this.choose_card(this.state.card5, this.state.card5Inactive)
+                        this.choose_card(this.state.card5)
                     }}></div>
                 </div>
                 <div className="second-row">
                     <div class="godCard6" id={this.getBorderSelected(this.state.card6)} onClick={() => {
-                        this.choose_card(this.state.card6, this.state.card6Inactive)
+                        this.choose_card(this.state.card6)
                     }}></div>
                     <div class="godCard7" id={this.getBorderSelected(this.state.card7)} onClick={() => {
-                        this.choose_card(this.state.card7, this.state.card7Inactive)
+                        this.choose_card(this.state.card7)
                     }}></div>
                     <div class="godCard8" id={this.getBorderSelected(this.state.card8)} onClick={() => {
-                        this.choose_card(this.state.card8, this.state.card8Inactive)
+                        this.choose_card(this.state.card8)
                     }}></div>
                     <div class="godCard9" id={this.getBorderSelected(this.state.card9)} onClick={() => {
-                        this.choose_card(this.state.card9, this.state.card9Inactive)
+                        this.choose_card(this.state.card9)
                     }}></div>
                     <div class="godCard10" id={this.getBorderSelected(this.state.card10)} onClick={() => {
-                        this.choose_card(this.state.card10, this.state.card10Inactive)
+                        this.choose_card(this.state.card10)
                     }}
                     ></div>
                 </div>
