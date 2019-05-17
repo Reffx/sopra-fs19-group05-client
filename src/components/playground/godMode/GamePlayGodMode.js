@@ -300,6 +300,7 @@ class GamePlayGodMode extends React.Component {
     }
 
     build(box) {
+        alert(sessionStorage.getItem("GodCardPlayer1Inactive"));
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
                 if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
@@ -743,7 +744,7 @@ class GamePlayGodMode extends React.Component {
     }
 
     isButtonInvisiblePlayer1GodActivation() {
-        if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player1")) || (this.state.hasChosenHisGodCardPlayer1 === true) || (this.state.gameStatus !== "Move1")) {
+        if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player1")) || (this.state.hasChosenHisGodCardPlayer1 === true) || (this.state.gameStatus !== "Move1") || (sessionStorage.getItem("GodCardPlayer1Inactive") === "NONE") || (this.state.game.player1.worker1.position === -1 || this.state.game.player1.worker2.position === -1)) {
             return "invisible";
         }
     }
@@ -755,7 +756,7 @@ class GamePlayGodMode extends React.Component {
     }
 
     isButtonInvisiblePlayer2GodActivation() {
-        if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player2")) || (this.state.hasChosenHisGodCardPlayer2 === true) || (this.state.gameStatus !== "Move2")) {
+        if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player2")) || (this.state.hasChosenHisGodCardPlayer2 === true) || (this.state.gameStatus !== "Move2") || (sessionStorage.getItem("GodCardPlayer2Inactive") === "NONE") || (this.state.game.player2.worker1.position === -1 || this.state.game.player2.worker2.position === -1)) {
             return "invisible";
         }
     }

@@ -123,19 +123,19 @@ class ChooseGodCard extends React.Component {
     }
 
 
-    choose_card(card, cardInactive) {
+    choose_card(card) {
         if (String(this.state.player_is_playing.id) === sessionStorage.getItem("userID")) {
             if (this.state.player_is_playing === this.state.player1) {
                 if (this.state.player1.worker1.godCard === "None") {
-                    this.setGodCard(card, this.state.player1.id, cardInactive)
+                    this.setGodCard(card, this.state.player1.id)
                 } else {
-                    this.setGodCard(card, this.state.player2.id, cardInactive)
+                    this.setGodCard(card, this.state.player2.id)
                 }
             }
             if (this.state.player_is_playing === this.state.player2) {
                 if (this.state.player1.worker1.godCard === card) {
-                    this.setGodCard(this.state.player2.worker1.godCard, this.state.player1.id, cardInactive);
-                    this.setGodCard(card, this.state.player2.id, cardInactive);
+                    this.setGodCard(this.state.player2.worker1.godCard, this.state.player1.id);
+                    this.setGodCard(card, this.state.player2.id);
                     this.set_beginner()
                 } else {
                     this.set_beginner()
@@ -144,7 +144,7 @@ class ChooseGodCard extends React.Component {
         }
     }
 
-    setGodCard(godCard, id, inactiveGodCard) {
+    setGodCard(godCard, id) {
         console.log(sessionStorage.getItem("userID"));
         fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${id}/GodCard`, {
             method: "PUT",
@@ -160,15 +160,6 @@ class ChooseGodCard extends React.Component {
                 if (myResponse.status === 404 || myResponse.status === 500) {
                     //  has to be modified for game
                     console.log(myResponse)
-                    alert("id:" + id + "statePlayer1:" + this.state.player1.id);
-                    if (id === this.state.player1.id) {
-                        sessionStorage.setItem("GodCardPlayer1Inactive", inactiveGodCard);
-                        alert(sessionStorage.getItem("GodCardPlayer1Inactive"));
-                    }
-                    if (id === this.state.player2.id) {
-                        sessionStorage.setItem("GodCardPlayer2Inactive", inactiveGodCard);
-                        alert(sessionStorage.getItem("GodCardPlayer2Inactive"));
-                    }
                 }
             })
             .catch(err => {
@@ -184,6 +175,70 @@ class ChooseGodCard extends React.Component {
         if (this.state.chosenCardPlayer1 === card || this.state.chosenCardPlayer2 === card) {
             return "godCard-border"
         }
+    }
+
+    setSessionStorageInactiveCard(godCard, id){
+        if (godCard === this.state.card1 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card1Inactive);
+        }
+        if (godCard === this.state.card2 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card2Inactive);
+        }
+        if (godCard === this.state.card3 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card4Inactive);
+        }
+        if (godCard === this.state.card4 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card4Inactive);
+        }
+        if (godCard === this.state.card5 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card5Inactive);
+        }
+        if (godCard === this.state.card6 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card6Inactive);
+        }
+        if (godCard === this.state.card7 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card7Inactive);
+        }
+        if (godCard === this.state.card8 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card8Inactive);
+        }
+        if (godCard === this.state.card9 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card9Inactive);
+        }
+        if (godCard === this.state.card10 && id === this.state.player1.id){
+            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card10Inactive);
+        }
+        if (godCard === this.state.card1 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card1Inactive);
+        }
+        if (godCard === this.state.card2 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card2Inactive);
+        }
+        if (godCard === this.state.card3 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card4Inactive);
+        }
+        if (godCard === this.state.card4 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card4Inactive);
+        }
+        if (godCard === this.state.card5 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card5Inactive);
+        }
+        if (godCard === this.state.card6 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card6Inactive);
+        }
+        if (godCard === this.state.card7 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card7Inactive);
+        }
+        if (godCard === this.state.card8 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card8Inactive);
+        }
+        if (godCard === this.state.card9 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card9Inactive);
+        }
+        if (godCard === this.state.card10 && id === this.state.player2.id){
+            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card10Inactive);
+        }
+
     }
 
 
@@ -234,6 +289,11 @@ class ChooseGodCard extends React.Component {
                         onClick={() => {
                             sessionStorage.setItem("GodCardPlayer1", this.state.player1.worker1.godCard);
                             sessionStorage.setItem("GodCardPlayer2", this.state.player2.worker1.godCard);
+                            alert(sessionStorage.getItem("GodCardPlayer1"));
+                            alert(this.state.player1.id);
+                            this.setSessionStorageInactiveCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
+                            this.setSessionStorageInactiveCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
+                            alert(sessionStorage.getItem("GodCardPlayer1Inactive"));
                             this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay/GodMode`);
                         }}
                     >
