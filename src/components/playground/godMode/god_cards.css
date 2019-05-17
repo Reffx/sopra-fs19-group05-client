@@ -118,3 +118,7 @@
     opacity: 50%;
     background-image: url("../../lobby/assets/prometheus.png");
 }
+
+.godCard-Border-gamePlay{
+    border: 8px solid green;
+}

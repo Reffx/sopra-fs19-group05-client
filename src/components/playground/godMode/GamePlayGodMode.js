@@ -106,6 +106,8 @@ class GamePlayGodMode extends React.Component {
             checked: false,
             allBoxes: [],
             variateForward: 1,
+            hasChosenHisGodCardPlayer1: false,
+            hasChosenHisGodCardPlayer2: false,
             box0: Field,
             box1: Field,
             box2: Field,
@@ -131,8 +133,14 @@ class GamePlayGodMode extends React.Component {
             box22: Field,
             box23: Field,
             box24: Field,
-
-        };
+            godCardPlayer1Active: sessionStorage.getItem("GodCardPlayer1"),
+            godCardPlayer1Inactive: sessionStorage.getItem("GodCardPlayer1"),
+            godCardPlayer2Active: sessionStorage.getItem("GodCardPlayer2"),
+            godCardPlayer2Inactive: sessionStorage.getItem("GodCardPlayer2"),
+            godCardLayoutPlayer1: null,
+            godCardLayoutPlayer2: null,
+        }
+        ;
     }
 
     updateBoxes() {
@@ -276,7 +284,9 @@ class GamePlayGodMode extends React.Component {
                         player2: response.player2,
                         player_is_playing: response.player1,
                         game: Game,
-                        gameStatus: response.gameStatus
+                        gameStatus: response.gameStatus,
+                        godCardLayoutPlayer1: response.player1.worker1.godCard,
+                        godCardLayoutPlayer2: response.player2.worker1.godCard,
                     });
                     if (this.state.game.gameStatus === "Start") {
                         this.set_beginner()
@@ -388,6 +398,7 @@ class GamePlayGodMode extends React.Component {
     get_action(box) {
         this.get_game();
         this.alertMessage();
+        this.resetHasChosenHisGodCard();
         if (this.state.game.gameStatus === "Move2") {
             this.state.player_is_playing = this.state.player2;
             if (sessionStorage.getItem("userID") === String(this.state.player2.id)) {
@@ -715,8 +726,24 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
+    resetHasChosenHisGodCard() {
+        if (this.state.gameStatus === "Move1") {
+            this.setState({hasChosenHisGodCardPlayer2: false})
+        }
+        if (this.state.gameStatus === "Move2") {
+            this.setState({hasChosenHisGodCardPlayer1: false})
+        }
+
+    }
+
     isButtonInvisiblePlayer1() {
         if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player1"))) {
+            return "invisible";
+        }
+    }
+
+    isButtonInvisiblePlayer1GodActivation() {
+        if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player1")) || (this.state.hasChosenHisGodCardPlayer1 === true) || (this.state.gameStatus !== "Move1")) {
             return "invisible";
         }
     }
@@ -727,36 +754,89 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
-    getGodCardLayout(godCard) {
-        if (godCard === "Apollo") {
-            return "godCard1-gamePlay";
+    isButtonInvisiblePlayer2GodActivation() {
+        if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player2")) || (this.state.hasChosenHisGodCardPlayer2 === true) || (this.state.gameStatus !== "Move2")) {
+            return "invisible";
         }
+    }
+
+    setGodCard(godCard, id) {
+        console.log(sessionStorage.getItem("userID"));
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${id}/GodCard`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: (
+                godCard.toString()
+            )
+        })
+            .then(response => response)
+            .then(myResponse => {
+                if (myResponse.status === 404 || myResponse.status === 500) {
+                    //  has to be modified for game
+                    console.log(myResponse)
+                }
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the putting of the GodCard: ${err.message}`);
+                }
+            });
+    }
+
+    getGodCardLayout(godCard) {
+        // Following the godCards that needs to be activated
         if (godCard === "Artemis") {
+            return "godCard2-gamePlay godCard-Border-gamePlay";
+        }
+        if (godCard === "InactiveArtemis") {
             return "godCard2-gamePlay";
         }
-        if (godCard === "Athena") {
-            return "godCard3-gamePlay";
-        }
         if (godCard === "Atlas") {
+            return "godCard4-gamePlay godCard-Border-gamePlay";
+        }
+        if (godCard === "InactiveAtlas") {
             return "godCard4-gamePlay";
         }
         if (godCard === "Demeter") {
+            return "godCard5-gamePlay godCard-Border-gamePlay";
+        }
+        if (godCard === "InactiveDemeter") {
             return "godCard5-gamePlay";
         }
         if (godCard === "Hephaestus") {
+            return "godCard6-gamePlay godCard-Border-gamePlay";
+        }
+        if (godCard === "InactiveHephaestus") {
             return "godCard6-gamePlay";
         }
         if (godCard === "Hermes") {
+            return "godCard7-gamePlay godCard-Border-gamePlay";
+        }
+        if (godCard === "InactiveHermes") {
             return "godCard7-gamePlay";
         }
+        if (godCard === "Prometheus") {
+            return "godCard10-gamePlay godCard-Border-gamePlay";
+        }
+        if (godCard === "InactivePrometheus") {
+            return "godCard10-gamePlay";
+        }
+        // Following the passiv GodCards
+        if (godCard === "Apollo") {
+            return "godCard1-gamePlay godCard-Border-gamePlay";
+        }
         if (godCard === "Minotaur") {
-            return "godCard8-gamePlay";
+            return "godCard8-gamePlay godCard-Border-gamePlay";
         }
         if (godCard === "Pan") {
-            return "godCard9-gamePlay";
+            return "godCard9-gamePlay godCard-Border-gamePlay";
         }
-        if (godCard === "Prometheus") {
-            return "godCard10-gamePlay";
+        if (godCard === "Athena" || godCard === "InactiveAthena") {
+            return "godCard3-gamePlay godCard-Border-gamePlay";
         }
     }
 
@@ -767,7 +847,7 @@ class GamePlayGodMode extends React.Component {
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className="left">
-                        <div className={this.getGodCardLayout(sessionStorage.getItem("GodCardPlayer1"))}></div>
+                        <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer1)}></div>
                         <div className="player-box-gameplay-god">
                             <h2>{this.state.player1.username}</h2>
                             <div className={this.getColorCircle(this.state.player1.color)}></div>
@@ -1019,7 +1099,7 @@ class GamePlayGodMode extends React.Component {
                         </div>
                     </div>
                     <div className="right">
-                        <div className={this.getGodCardLayout(sessionStorage.getItem("GodCardPlayer2"))}></div>
+                        <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer2)}></div>
                         <div className="player-box-gameplay-god">
                             <h2>{this.state.player2.username}</h2>
                             <div className={this.getColorCircle(this.state.player2.color)}></div>
@@ -1056,6 +1136,46 @@ class GamePlayGodMode extends React.Component {
                         <ButtonContainer/>
                     </div>
                 </div>
+                <ButtonContainer/>
+                <Button id={this.isButtonInvisiblePlayer1GodActivation()}
+                        width="50%"
+                        onClick={() => {
+                            this.setGodCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
+                        }}
+                >
+                    Yes P1
+                </Button>
+                <ButtonContainer/>
+                <ButtonContainer/>
+                <Button id={this.isButtonInvisiblePlayer1GodActivation()}
+                        width="50%"
+                        onClick={() => {
+                            this.setState({hasChosenHisGodCardPlayer1: true});
+                        }}
+                >
+                    No P1
+                </Button>
+                <ButtonContainer/>
+                <ButtonContainer/>
+                <Button id={this.isButtonInvisiblePlayer2GodActivation()}
+                        width="50%"
+                        onClick={() => {
+                            this.setGodCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
+                        }}
+                >
+                    Yes P2
+                </Button>
+                <ButtonContainer/>
+                <ButtonContainer/>
+                <Button id={this.isButtonInvisiblePlayer2GodActivation()}
+                        width="50%"
+                        onClick={() => {
+                            this.setState({hasChosenHisGodCardPlayer2: true});
+                        }}
+                >
+                    No P2
+                </Button>
+                <ButtonContainer/>
             </div>
         )
 
