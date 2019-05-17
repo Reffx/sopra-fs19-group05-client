@@ -266,16 +266,10 @@ class GamePlay extends React.Component {
         }
     }
 
-
     build(box) {
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
-                if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
-                    this.setState({selected_worker: this.state.player_is_playing.worker1.workerId});
-                    this.highLightBuild(box);
-                }
-                if (box.occupier.workerId === this.state.player_is_playing.worker2.workerId) {
-                    this.setState({selected_worker: this.state.player_is_playing.worker2.workerId});
+                if (box.occupier.workerId === this.state.selected_worker) {
                     this.highLightBuild(box);
                 }
             }
