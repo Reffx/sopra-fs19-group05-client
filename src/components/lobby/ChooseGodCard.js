@@ -275,27 +275,27 @@ class ChooseGodCard extends React.Component {
             <div>
                 <h1 className="chooseGodCard-h1">{this.state.alertText}</h1>
                 <div className="first-row">
-                    <div class="godCard1" id={this.getBorderSelected(this.state.card1)} onClick={() => {
+                    <div class="godCard1" id={this.getBorderSelected("Apollo")} onClick={() => {
                         this.choose_card(this.state.card1, this.state.card1Inactive)
                     }}></div>
-                    <div class="godCard2" id={this.getBorderSelected(this.state.card2)} onClick={() => {
+                    <div class="godCard2" id={this.getBorderSelected(this.state.card2Inactive)} onClick={() => {
                         this.choose_card(this.state.card2, this.state.card2Inactive)
                     }}></div>
                     <div class="godCard3" id={this.getBorderSelected("InactiveAthena")} onClick={() => {
                         this.choose_card(this.state.card3, this.state.card3Inactive)
                     }}></div>
-                    <div class="godCard4" id={this.getBorderSelected(this.state.card4)} onClick={() => {
+                    <div class="godCard4" id={this.getBorderSelected(this.state.card4Inactive)} onClick={() => {
                         this.choose_card(this.state.card4, this.state.card4Inactive)
                     }}></div>
-                    <div class="godCard5" id={this.getBorderSelected(this.state.card5)} onClick={() => {
+                    <div class="godCard5" id={this.getBorderSelected(this.state.card5Inactive)} onClick={() => {
                         this.choose_card(this.state.card5, this.state.card5Inactive)
                     }}></div>
                 </div>
                 <div className="second-row">
-                    <div class="godCard6" id={this.getBorderSelected(this.state.card6)} onClick={() => {
+                    <div class="godCard6" id={this.getBorderSelected(this.state.card6Inactive)} onClick={() => {
                         this.choose_card(this.state.card6, this.state.card6Inactive)
                     }}></div>
-                    <div class="godCard7" id={this.getBorderSelected(this.state.card7)} onClick={() => {
+                    <div class="godCard7" id={this.getBorderSelected(this.state.card7Inactive)} onClick={() => {
                         this.choose_card(this.state.card7, this.state.card7Inactive)
                     }}></div>
                     <div class="godCard8" id={this.getBorderSelected(this.state.card8)} onClick={() => {
@@ -304,7 +304,7 @@ class ChooseGodCard extends React.Component {
                     <div class="godCard9" id={this.getBorderSelected(this.state.card9)} onClick={() => {
                         this.choose_card(this.state.card9, this.state.card9Inactive)
                     }}></div>
-                    <div class="godCard10" id={this.getBorderSelected(this.state.card10)} onClick={() => {
+                    <div class="godCard10" id={this.getBorderSelected(this.state.card10Inactive)} onClick={() => {
                         this.choose_card(this.state.card10, this.state.card10Inactive)
                     }}
                     ></div>

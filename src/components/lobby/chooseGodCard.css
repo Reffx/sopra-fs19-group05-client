@@ -68,7 +68,7 @@
     border-radius: 25px;
     justify-content: center;
     text-align: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("assets/hephaestus.png");
+    background-image:  url("assets/hephaestus.png");
     background-size: cover;
 }
 
@@ -78,7 +78,7 @@
     border-radius: 25px;
     justify-content: center;
     text-align: center;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("assets/hermes.png");
+    background-image: url("assets/hermes.png");
     background-size: cover;
 }
 
@@ -110,7 +110,7 @@
     text-align: center;
     background-size: cover;
     opacity: 50%;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("assets/prometheus.png");
+    background-image:  url("assets/prometheus.png");
 }
 
 .godCard-p {
@@ -130,4 +130,15 @@
 
 #godCard-border {
     border: solid green 5px;
+}
+
+
+.godCardsdfgdsgsdfgdfsg6 {
+    width: 180px;
+    height: 300px;
+    border-radius: 25px;
+    justify-content: center;
+    text-align: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("assets/hephaestus.png");
+    background-size: cover;
 }
