@@ -30,7 +30,7 @@ class ChooseGodCard extends React.Component {
             card1: "Apollo",
             card1Inactive: "NONE",
             card2: "Artemis",
-            card2Inactive: "NONE",
+            card2Inactive: "InactiveArtemis",
             card3: "Athena",
             card3Inactive: "NONE",
             card4: "Atlas",
