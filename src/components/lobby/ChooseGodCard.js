@@ -289,11 +289,8 @@ class ChooseGodCard extends React.Component {
                         onClick={() => {
                             sessionStorage.setItem("GodCardPlayer1", this.state.player1.worker1.godCard);
                             sessionStorage.setItem("GodCardPlayer2", this.state.player2.worker1.godCard);
-                            alert(sessionStorage.getItem("GodCardPlayer1"));
-                            alert(this.state.player1.id);
                             this.setSessionStorageInactiveCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
                             this.setSessionStorageInactiveCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
-                            alert(sessionStorage.getItem("GodCardPlayer1Inactive"));
                             this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay/GodMode`);
                         }}
                     >
