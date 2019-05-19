@@ -1185,4 +1185,4 @@ class GamePlayGodMode extends React.Component {
     }
 }
 
-export default GamePlayGodMode;
+export default withRouter(GamePlayGodMode);
