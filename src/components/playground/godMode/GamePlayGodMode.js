@@ -185,6 +185,7 @@ class GamePlayGodMode extends React.Component {
                 this.get_game();
                 this.ButtonPlayer1GodActivation();
                 this.ButtonPlayer2GodActivation();
+                this.resetHasChosenHisGodCard();
                 this.create_field();
                 this.updateBoxes();
                 this.updateLayoutBoxes();
@@ -405,7 +406,6 @@ class GamePlayGodMode extends React.Component {
     get_action(box) {
         this.get_game();
         this.alertMessage();
-        this.resetHasChosenHisGodCard();
         if (this.state.game.gameStatus === "Move2") {
             this.state.player_is_playing = this.state.player2;
             if (sessionStorage.getItem("userID") === String(this.state.player2.id)) {
