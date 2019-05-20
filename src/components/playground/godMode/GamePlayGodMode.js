@@ -21,6 +21,7 @@ const ButtonContainer = styled.div`
   justify-content: center;
   margin-top: 20px;
 `;
+
 const Container = styled(BaseContainer)`
   color: white;
   text-align: center;
@@ -771,7 +772,7 @@ class GamePlayGodMode extends React.Component {
             this.setState({
                 Player2_Button_chooseGodActivation_visibility: "invisible",
             });
-        } else{
+        } else {
             this.setState({
                 Player2_Button_chooseGodActivation_visibility: "none",
             });
@@ -864,42 +865,67 @@ class GamePlayGodMode extends React.Component {
             <div className="fixedPixels-div">
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
-                    <div className="left">
-                        <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer1)}></div>
-                        <div className="player-box-gameplay-god">
+                    <div className="left-god">
+                        <div className="player-name-gameplay-god">
                             <h2>{this.state.player1.username}</h2>
                             <div className={this.getColorCircle(this.state.player1.color)}></div>
                         </div>
-                        <label id={this.isButtonInvisiblePlayer1()}>
-                            <span>Show numbers?</span>
-                            <Checkbox
-                                checked={this.state.checked}
-                                onChange={this.handleCheckboxChange}
-                            />
-
-                        </label>
-                        <ButtonContainer/>
-                        <Button id={this.isButtonInvisiblePlayer1()}
-                                disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
-                                width="50%"
-                                onClick={() => {
-                                    this.surrender()
-                                }}
-                        >
-                            Give Up
-                        </Button>
-                        <ButtonContainer/>
-                        <ButtonContainer/>
-                        <Button id={this.isButtonInvisiblePlayer1()}
-                                disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
-                                width="50%"
-                                onClick={() => {
-                                    this.leave_game();
-                                }}
-                        >
-                            Leave Game
-                        </Button>
-                        <ButtonContainer/>
+                        <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer1)}></div>
+                        <p className="use-margin-10px" id={this.state.Player1_Button_chooseGodActivation_visibility}>Use
+                            Godcard?</p>
+                        <div className="godActivation-div">
+                            <Button id={this.state.Player1_Button_chooseGodActivation_visibility}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.setGodCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
+                                        this.setState({hasChosenHisGodCardPlayer1: true});
+                                    }}
+                            >
+                                Yes
+                            </Button>
+                            <Button id={this.state.Player1_Button_chooseGodActivation_visibility}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.setState({hasChosenHisGodCardPlayer1: true});
+                                    }}
+                            >
+                                No
+                            </Button>
+                        </div>
+                        <div id={this.isButtonInvisiblePlayer1()} className="player-box-gameplay-god-out">
+                            <hr className="break-box"/>
+                            <div className="use-margin-5px">
+                                <label >
+                                    <span>Show numbers?</span>
+                                    <Checkbox
+                                        checked={this.state.checked}
+                                        onChange={this.handleCheckboxChange}
+                                    />
+                                </label>
+                            </div>
+                            <ButtonContainer/>
+                            <Button
+                                    disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.surrender()
+                                    }}
+                            >
+                                Give Up
+                            </Button>
+                            <ButtonContainer/>
+                            <ButtonContainer/>
+                            <Button
+                                    disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.leave_game();
+                                    }}
+                            >
+                                Leave Game
+                            </Button>
+                            <ButtonContainer/>
+                        </div>
                     </div>
                     <div className="playField">
                         <div>
@@ -1116,87 +1142,69 @@ class GamePlayGodMode extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="right">
-                        <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer2)}></div>
-                        <div className="player-box-gameplay-god">
+                    <div className="right-god">
+                        <div className="player-name-gameplay-god">
                             <h2>{this.state.player2.username}</h2>
                             <div className={this.getColorCircle(this.state.player2.color)}></div>
                         </div>
-                        <label id={this.isButtonInvisiblePlayer2()}>
-                            <span>Show numbers?</span>
-                            <Checkbox
-                                checked={this.state.checked}
-                                onChange={this.handleCheckboxChange}
-                            />
-
-                        </label>
-                        <ButtonContainer/>
-                        <Button id={this.isButtonInvisiblePlayer2()}
-                                disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
-                                width="50%"
-                                onClick={() => {
-                                    this.surrender()
-                                }}
-                        >
-                            Give Up
-                        </Button>
-                        <ButtonContainer/>
-                        <ButtonContainer/>
-                        <Button id={this.isButtonInvisiblePlayer2()}
-                                disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
-                                width="50%"
-                                onClick={() => {
-                                    this.leave_game();
-                                }}
-                        >
-                            Leave Game
-                        </Button>
-                        <ButtonContainer/>
+                        <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer2)}></div>
+                        <p className="use-margin-10px" id={this.state.Player2_Button_chooseGodActivation_visibility}>Use
+                            Godcard?</p>
+                        <div className="godActivation-div">
+                            <Button id={this.state.Player2_Button_chooseGodActivation_visibility}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.setGodCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
+                                        this.setState({hasChosenHisGodCardPlayer2: true});
+                                    }}
+                            >
+                                Yes
+                            </Button>
+                            <Button id={this.state.Player2_Button_chooseGodActivation_visibility}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.setState({hasChosenHisGodCardPlayer2: true});
+                                    }}
+                            >
+                                No
+                            </Button>
+                        </div>
+                        <div id={this.isButtonInvisiblePlayer2()} className="player-box-gameplay-god-out">
+                            <hr className="break-box"/>
+                            <div className="use-margin-5px">
+                                <label >
+                                    <span>Show numbers?</span>
+                                    <Checkbox
+                                        checked={this.state.checked}
+                                        onChange={this.handleCheckboxChange}
+                                    />
+                                </label>
+                            </div>
+                            <ButtonContainer/>
+                            <Button
+                                    disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.surrender()
+                                    }}
+                            >
+                                Give Up
+                            </Button>
+                            <ButtonContainer/>
+                            <ButtonContainer/>
+                            <Button
+                                    disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.leave_game();
+                                    }}
+                            >
+                                Leave Game
+                            </Button>
+                            <ButtonContainer/>
+                        </div>
                     </div>
                 </div>
-                <ButtonContainer/>
-                <Button id={this.state.Player1_Button_chooseGodActivation_visibility}
-                        width="50%"
-                        onClick={() => {
-                            this.setGodCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
-                            this.setState({hasChosenHisGodCardPlayer1: true});
-                        }}
-                >
-                    Yes P1
-                </Button>
-                <ButtonContainer/>
-                <ButtonContainer/>
-                <Button id={this.state.Player1_Button_chooseGodActivation_visibility}
-                        width="50%"
-                        onClick={() => {
-                            this.setState({hasChosenHisGodCardPlayer1: true});
-                        }}
-                >
-                    No P1
-                </Button>
-                <ButtonContainer/>
-                <ButtonContainer/>
-                <Button id={this.state.Player2_Button_chooseGodActivation_visibility}
-                        width="50%"
-                        onClick={() => {
-                            this.setGodCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
-                            this.setState({hasChosenHisGodCardPlayer2: true});
-
-                        }}
-                >
-                    Yes P2
-                </Button>
-                <ButtonContainer/>
-                <ButtonContainer/>
-                <Button id={this.state.Player2_Button_chooseGodActivation_visibility}
-                        width="50%"
-                        onClick={() => {
-                            this.setState({hasChosenHisGodCardPlayer2: true});
-                        }}
-                >
-                    No P2
-                </Button>
-                <ButtonContainer/>
             </div>
         )
 
