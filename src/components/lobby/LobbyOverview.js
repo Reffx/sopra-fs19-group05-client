@@ -333,7 +333,7 @@ class LobbyOverview extends React.Component {
     render() {
         return (
             <div className="lobby-overview-div">
-                <h1 className="lobby-overview-h1"> {this.state.player1_username}'s Lobby </h1>
+                <h1 className="lobby-overview-h1"> {this.state.player1_username}'s {this.state.gameMode} Mode Lobby </h1>
 
                 <div class="flexBox">
                     <div class="first-box">
@@ -398,7 +398,7 @@ class LobbyOverview extends React.Component {
                             }
                         }}
                     >
-                        Go to the Playground
+                        Go to the Playground/ God Card Selection
                     </Button>
                     <ButtonContainer/>
                 </Container>
