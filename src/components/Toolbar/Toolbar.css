@@ -1,10 +1,14 @@
+
 .toolbar {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: white;
+    background-image: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)), url("../assets/greecenavbar.jpg");
+    background-size: 120px;
     height: 60px;
+    font-size: 20px;
+    font-family: 'Luckiest Guy', cursive;
 }
 
 .toolbar_navigation {

@@ -1,9 +1,9 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-
 import "./Toolbar.css";
 import {getDomain} from "../../helpers/getDomain";
+
 
 
 function notLoggedIn() {
@@ -39,6 +39,8 @@ function logout() {
 
 const toolbar = props => (
     <header className="toolbar">
+        <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+        </link>
         <nav className="toolbar_navigation">
             <div></div>
             <div className="toolbar_logo">
@@ -61,7 +63,9 @@ const toolbar = props => (
 
             </div>
         </nav>
+
     </header>
+
 );
 
 
