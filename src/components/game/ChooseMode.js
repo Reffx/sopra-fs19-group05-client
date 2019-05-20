@@ -28,11 +28,11 @@ class ChooseMode extends React.Component {
                     <main style={{marginTop: '64px'}}>
                     </main>
                     <div className="container">
-                        <div className="leftPart">
+                        <div className="leftPart-chooseMode">
                             <div className="left-picture-overview">
                             </div>
                         </div>
-                        <div className="rightPart">
+                        <div className="rightPart-chooseMode">
                             <div>
                                 <div>
                                 <Button className="rock-button"

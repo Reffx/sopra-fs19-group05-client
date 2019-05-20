@@ -8,22 +8,12 @@ import styled from "styled-components";
 
 export const Button = styled.button`
   &:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
   }
   padding: 10px;
-  font-weight: 700;
-  font-size: 20px;
-  text-align: center;
-  color: rgba(255, 255, 255, 1);
   width: ${props => props.width || null};
-  height: 45px;
-  width: 150px;
-  border: none;
-  border-radius: 20px;
   cursor: ${props => (props.disabled ? "default" : "pointer")};
   opacity: ${props => (props.disabled ? 0.4 : 1)};
-  background: rgb(16, 89, 255);
-  transition: all 0.3s ease;
 `;
 
 class Landing extends React.Component {
@@ -42,10 +32,10 @@ class Landing extends React.Component {
                     <div className="rightPart">
                         <div>
                             <div className="titleSantorini"></div>
-                            <Button onClick={() => {
+                            <Button className="rock-button-landing-1" onClick={() => {
                                 this.props.history.push("/chooseMode");
                             }}>Let's Play</Button>
-                            <Button className="spacer">Rules</Button>
+                            <Button className="rock-button-landing-2 spacer">Rules</Button>
                         </div>
                     </div>
                 </div>

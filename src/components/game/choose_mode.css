@@ -23,3 +23,11 @@
     background-size: cover;
     box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.5);
 }
+
+.leftPart-chooseMode {
+    margin-right: 100px;
+}
+
+.rightPart-chooseMode {
+    margin-left: 100px;
+}

@@ -2,7 +2,7 @@
     padding-top: 300px;
     display: flex;
     /*  border: 10px solid black; */
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .leftPart {
@@ -10,7 +10,7 @@
 }
 
 .rightPart {
-    margin-right: 300px;
+    margin-right: 100px;
 }
 
 .titleSantorini {
@@ -24,12 +24,14 @@
     background-size: cover;
     background-position:50% 50%;
     margin-block-end: 25px;
-    margin-block-start: 0px;
+    margin-block-start: -80px;
     height: 180px;
     width: 600px;
+    margin-left: 0px;
 }
 
 .title-img{
+    margin-right: 50px;
     background-image: url("./assets/title_landing.png");
     background-size: cover;
     background-position:50% 50%;
@@ -40,4 +42,38 @@
 
 .spacer {
     margin-left: 75px;
+}
+
+.rock-button-landing-1 {
+    margin-top: 50px;
+    margin-left: 0px;
+    margin-bottom: -80px;
+    float: left;
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Luckiest Guy', cursive;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    height: 90px;
+    width: 300px;
+    transition: all 0.3s ease;
+    background-image: url("./assets/button_1.png");
+    background-size: cover;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.5);
+}
+
+.rock-button-landing-2 {
+    margin-top: 130px;
+    margin-left:50px;
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Luckiest Guy', cursive;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    height: 65px;
+    width: 240px;
+    transition: all 0.3s ease;
+    background-image: url("./assets/button_1.png");
+    background-size: cover;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.5);
 }
