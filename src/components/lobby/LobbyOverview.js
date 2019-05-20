@@ -308,19 +308,19 @@ class LobbyOverview extends React.Component {
 
     checkReadyPlayer1() {
         if (this.state.player1_status === false) {
-            return (<div className="notReady"> ✖ </div>);
+            return (<div> Ready? <div className="notReady"> ✖ </div></div>);
         }
         if (this.state.player1_status === true) {
-            return (<div className="ready"> ✔ </div>);
+            return (<div> Ready? <div className="ready"> ✔ </div></div>);
         }
     }
 
     checkReadyPlayer2() {
         if (this.state.player2_status === false) {
-            return (<div className="notReady"> ✖ </div>);
+            return (<div> Ready? <div className="notReady"> ✖ </div></div>);
         }
         if (this.state.player2_status === true) {
-            return (<div className="ready"> ✔ </div>);
+            return (<div> Ready? <div className="ready"> ✔ </div></div>);
         }
     }
 
@@ -393,9 +393,10 @@ class LobbyOverview extends React.Component {
     render() {
         return (
             <div className="lobby-overview-div">
+                <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+                </link>
                 <h1 className="lobby-overview-h1"> {this.state.player1_username}'s {this.state.gameMode} Mode
                     Lobby </h1>
-
                 <div class="flexBox">
                     <div class={this.getColorOverviewBox(this.state.player1_color)}>
                         <div class="player-box">
@@ -415,7 +416,7 @@ class LobbyOverview extends React.Component {
                                     disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
                                     className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
                             </div>
-                            <p className="ready-p"> Ready? {this.checkReadyPlayer1()}</p>
+                            <p className="ready-p"> {this.checkReadyPlayer1()}</p>
                         </div>
                     </div>
                     <div className={this.getColorOverviewBox(this.state.player2_color)}>
@@ -432,7 +433,7 @@ class LobbyOverview extends React.Component {
                                 <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
                                         className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
                             </div>
-                            <p className="ready-p"> Ready? {this.checkReadyPlayer2()}</p>
+                            <p className="ready-p">{this.checkReadyPlayer2()}</p>
                         </div>
                     </div>
                 </div>
