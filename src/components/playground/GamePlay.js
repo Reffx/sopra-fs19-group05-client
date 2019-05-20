@@ -106,6 +106,10 @@ class GamePlay extends React.Component {
             box22: Field,
             box23: Field,
             box24: Field,
+            positionP1W1: null,
+            positionP1W2: null,
+            positionP2W1: null,
+            positionP2W2: null
 
         };
     }
@@ -142,7 +146,7 @@ class GamePlay extends React.Component {
         setInterval(() => {
             if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
                 // console.log("winner 1 or 2 exists")
-               //CLEAR INTERVALL HERE
+                //CLEAR INTERVALL HERE
             } else {
                 console.log("abc");
                 this.get_game();
@@ -253,7 +257,11 @@ class GamePlay extends React.Component {
                             player2: response.player2,
                             player_is_playing: response.player1,
                             game: Game,
-                            gameStatus: response.gameStatus
+                            gameStatus: response.gameStatus,
+                            positionP1W1: response.player1.worker1.position,
+                            positionP1W2: response.player1.worker2.position,
+                            positionP2W1: response.player2.worker1.position,
+                            positionP2W2: response.player2.worker2.position
                         });
                         if (this.state.game.gameStatus === "Start") {
                             this.set_beginner()
@@ -293,6 +301,7 @@ class GamePlay extends React.Component {
                         this.setState({highlightedFields: null});
                         this.create_field();
                         this.get_game();
+                        this.state.selected_worker = null;
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -349,6 +358,7 @@ class GamePlay extends React.Component {
                     });
             } else {
                 this.setState({highlightedFields: null});
+                this.state.selected_worker = null;
             }
         }
     }
@@ -466,6 +476,7 @@ class GamePlay extends React.Component {
                 }
             });
         this.create_field();
+        this.state.selected_worker = null;
     }
 
 
@@ -579,9 +590,15 @@ class GamePlay extends React.Component {
         }
     }
 
+    isStarted() {
+        if (this.state.positionP1W1 === -1 || this.state.positionP1W2 === -1 || this.state.positionP2W1 === -1 || this.state.positionP2W2 === -1) {
+            return false;
+        }
+    }
+
 
     innerBoxLayout(box) {
-        if (box.occupier === null && box.height === 0) {
+        if ((box.occupier === null && box.height === 0)) {
             return ("text");
         } else if (box.occupier === null && box.height === 1) {
             return "text1";
@@ -589,6 +606,16 @@ class GamePlay extends React.Component {
             return "text2";
         } else if (box.occupier === null && box.height === 3) {
             return "text3";
+        } else if ((this.state.selected_worker != null) && (box.height === 0 && box.occupier.workerId === this.state.selected_worker) && (this.isStarted() === false)) {
+            return ("player-div-lvl-0-" + this.getPlayerColor(box)) + " text";
+        } else if ((this.state.selected_worker != null) && (box.height === 0 && box.occupier.workerId === this.state.selected_worker)) {
+            return ("player-div-lvl-0-active-" + this.getPlayerColor(box)) + " text";
+        } else if ((this.state.selected_worker != null) && (box.height === 1 && box.occupier.workerId === this.state.selected_worker)) {
+            return ("player-div-lvl-1-active-" + this.getPlayerColor(box));
+        } else if ((this.state.selected_worker != null) && (box.height === 2 && box.occupier.workerId === this.state.selected_worker)) {
+            return ("player-div-lvl-2-active-" + this.getPlayerColor(box));
+        } else if ((this.state.selected_worker != null) && (box.height === 3 && box.occupier.workerId === this.state.selected_worker)) {
+            return ("player-div-lvl-3-active-" + this.getPlayerColor(box));
         } else if (box.height === 0 && box.occupier != null) {
             return ("player-div-lvl-0-" + this.getPlayerColor(box)) + " text";
         } else if (box.height === 1 && box.occupier != null) {
@@ -694,6 +721,44 @@ class GamePlay extends React.Component {
         }
     }
 
+    getLeftBoxDesign() {
+        if (this.state.gameStatus === "Move1" || this.state.gameStatus === "Build1") {
+            if (this.state.player1.color === "BLUE") {
+                return "active-blue";
+            }
+            if (this.state.player1.color === "YELLOW") {
+                return "active-yellow";
+            }
+            if (this.state.player1.color === "RED") {
+                return "active-red";
+            }
+            if (this.state.player1.color === "PINK") {
+                return "active-pink";
+            }
+        } else {
+            return "player-box-div"
+        }
+    }
+
+    getRightBoxDesign() {
+        if (this.state.gameStatus === "Move2" || this.state.gameStatus === "Build2") {
+            if (this.state.player2.color === "BLUE") {
+                return "active-blue";
+            }
+            if (this.state.player2.color === "YELLOW") {
+                return "active-yellow";
+            }
+            if (this.state.player2.color === "RED") {
+                return "active-red";
+            }
+            if (this.state.player2.color === "PINK") {
+                return "active-pink";
+            }
+        } else {
+            return "player-box-div"
+        }
+    }
+
 
     render() {
 
@@ -701,7 +766,7 @@ class GamePlay extends React.Component {
             <div className="fixedPixels-div">
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
-                    <div className="left">
+                    <div className={this.getLeftBoxDesign()}>
                         <div className="player-box-gameplay">
                             <h2>{this.state.player1.username}</h2>
                             <div className={this.getColorCircle(this.state.player1.color)}></div>
@@ -953,7 +1018,7 @@ class GamePlay extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="right">
+                    <div className={this.getRightBoxDesign()}>
                         <div className="player-box-gameplay">
                             <h2>{this.state.player2.username}</h2>
                             <div className={this.getColorCircle(this.state.player2.color)}></div>

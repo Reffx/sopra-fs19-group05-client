@@ -143,6 +143,10 @@ class GamePlayGodMode extends React.Component {
             godCardLayoutPlayer2: null,
             Player1_Button_chooseGodActivation_visibility: null,
             Player2_Button_chooseGodActivation_visibility: null,
+            positionP1W1: null,
+            positionP1W2: null,
+            positionP2W1: null,
+            positionP2W2: null
         }
         ;
     }
@@ -297,6 +301,11 @@ class GamePlayGodMode extends React.Component {
                         gameStatus: response.gameStatus,
                         godCardLayoutPlayer1: response.player1.worker1.godCard,
                         godCardLayoutPlayer2: response.player2.worker1.godCard,
+                        positionP1W1: response.player1.worker1.position,
+                        positionP1W2: response.player1.worker2.position,
+                        positionP2W1: response.player2.worker1.position,
+                        positionP2W2: response.player2.worker2.position,
+
                     });
                     if (this.state.game.gameStatus === "Start") {
                         this.set_beginner()
@@ -312,12 +321,7 @@ class GamePlayGodMode extends React.Component {
     build(box) {
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
-                if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
-                    this.setState({selected_worker: this.state.player_is_playing.worker1.workerId});
-                    this.highLightBuild(box);
-                }
-                if (box.occupier.workerId === this.state.player_is_playing.worker2.workerId) {
-                    this.setState({selected_worker: this.state.player_is_playing.worker2.workerId});
+                if (box.occupier.workerId === this.state.selected_worker) {
                     this.highLightBuild(box);
                 }
             }
@@ -341,6 +345,7 @@ class GamePlayGodMode extends React.Component {
                         this.setState({highlightedFields: null});
                         this.create_field();
                         this.get_game();
+                        this.state.selected_worker = null;
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -401,6 +406,7 @@ class GamePlayGodMode extends React.Component {
                     });
             } else {
                 this.setState({highlightedFields: null});
+                this.state.selected_worker = null;
             }
         }
     }
@@ -519,6 +525,7 @@ class GamePlayGodMode extends React.Component {
                 }
             });
         this.create_field();
+        this.state.selected_worker = null;
     }
 
 
@@ -632,9 +639,15 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
+    isStarted() {
+        if (this.state.positionP1W1 === -1 || this.state.positionP1W2 === -1 || this.state.positionP2W1 === -1 || this.state.positionP2W2 === -1) {
+            return false;
+        }
+    }
+
 
     innerBoxLayout(box) {
-        if (box.occupier === null && box.height === 0) {
+        if ((box.occupier === null && box.height === 0)) {
             return ("text");
         } else if (box.occupier === null && box.height === 1) {
             return "text1";
@@ -642,6 +655,16 @@ class GamePlayGodMode extends React.Component {
             return "text2";
         } else if (box.occupier === null && box.height === 3) {
             return "text3";
+        } else if ((this.state.selected_worker != null) && (box.height === 0 && box.occupier.workerId === this.state.selected_worker) && (this.isStarted() === false)) {
+            return ("player-div-lvl-0-" + this.getPlayerColor(box)) + " text";
+        } else if ((this.state.selected_worker != null) && (box.height === 0 && box.occupier.workerId === this.state.selected_worker)) {
+            return ("player-div-lvl-0-active-" + this.getPlayerColor(box)) + " text";
+        } else if ((this.state.selected_worker != null) && (box.height === 1 && box.occupier.workerId === this.state.selected_worker)) {
+            return ("player-div-lvl-1-active-" + this.getPlayerColor(box));
+        } else if ((this.state.selected_worker != null) && (box.height === 2 && box.occupier.workerId === this.state.selected_worker)) {
+            return ("player-div-lvl-2-active-" + this.getPlayerColor(box));
+        } else if ((this.state.selected_worker != null) && (box.height === 3 && box.occupier.workerId === this.state.selected_worker)) {
+            return ("player-div-lvl-3-active-" + this.getPlayerColor(box));
         } else if (box.height === 0 && box.occupier != null) {
             return ("player-div-lvl-0-" + this.getPlayerColor(box)) + " text";
         } else if (box.height === 1 && box.occupier != null) {
@@ -891,8 +914,8 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
-    getLeftBoxDesign(){
-        if (this.state.gameStatus === "Move1" || this.state.gameStatus === "Build1"){
+    getLeftBoxDesign() {
+        if (this.state.gameStatus === "Move1" || this.state.gameStatus === "Build1") {
             if (this.state.player1.color === "BLUE") {
                 return "right-god-active-blue";
             }
@@ -910,8 +933,8 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
-    getRightBoxDesign(){
-        if (this.state.gameStatus === "Move2" || this.state.gameStatus === "Build2"){
+    getRightBoxDesign() {
+        if (this.state.gameStatus === "Move2" || this.state.gameStatus === "Build2") {
             if (this.state.player2.color === "BLUE") {
                 return "left-god-active-blue";
             }

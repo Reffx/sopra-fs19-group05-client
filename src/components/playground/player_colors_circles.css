@@ -1,10 +1,53 @@
-.left{
+.player-box-div{
     float: left;
     width: 20%;
     color: white;
     background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
     border-radius: 25px;
     text-align: center;
+}
+
+.active-pink{
+    float: left;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 5px 5px 5px 5px deeppink;
+}
+
+.active-red{
+    float: left;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 5px 5px 5px 5px red;
+
+}
+
+.active-blue{
+    float: left;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 5px 5px 5px 5px blue;
+
+}
+
+.active-yellow{
+    float: left;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 5px 5px 5px 5px yellow;
+
 }
 
 .left-god{
