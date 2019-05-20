@@ -18,6 +18,54 @@
     margin-bottom: -80px;
 }
 
+.left-god-active-pink{
+    float: left;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    box-shadow: 5px 5px 5px 5px deeppink;
+}
+
+.left-god-active-red{
+    float: left;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    box-shadow: 5px 5px 5px 5px red;
+}
+
+.left-god-active-blue{
+    float: left;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    box-shadow: 5px 5px 5px 5px blue;
+}
+
+.left-god-active-yellow{
+    float: left;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    box-shadow: 5px 5px 5px 5px yellow;
+}
+
 .right{
     float: right;
     width: 20%;
@@ -37,8 +85,56 @@
     text-align: center;
     margin-top: -80px;
     margin-bottom: -80px;
-
 }
+
+.right-god-active-blue{
+    float: right;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    box-shadow: 5px 5px 5px 5px blue;
+}
+
+.right-god-active-red{
+    float: right;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    box-shadow: 5px 5px 5px 5px red;
+}
+
+.right-god-active-pink{
+    float: right;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    box-shadow: 5px 5px 5px 5px deeppink;
+}
+
+.right-god-active-yellow{
+    float: right;
+    width: 20%;
+    color: white;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
+    border-radius: 25px;
+    text-align: center;
+    margin-top: -80px;
+    margin-bottom: -80px;
+    box-shadow: 5px 5px 5px 5px yellow;
+}
+
 
 .circle_blue-gameplay {
     width: 50px;

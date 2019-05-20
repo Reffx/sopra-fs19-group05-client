@@ -6,9 +6,11 @@
     border-radius: 25px;
     justify-content: center;
     text-align: center;
-    background-image:  url("../../lobby/assets/apollo.png");
+    background-image: url("../../lobby/assets/apollo.png");
     background-size: cover;
+    background-position: center;
 }
+
 
 .godCard2-gamePlay {
     width: 180px;
@@ -20,6 +22,7 @@
     text-align: center;
     background-image: url("../../lobby/assets/artemis.png");
     background-size: cover;
+    background-position: center;
 }
 
 .godCard3-gamePlay {
@@ -30,8 +33,9 @@
     border-radius: 25px;
     justify-content: center;
     text-align: center;
-    background-image:  url("../../lobby/assets/athena.png");
+    background-image: url("../../lobby/assets/athena.png");
     background-size: cover;
+    background-position: center;
 }
 
 .godCard4-gamePlay {
@@ -42,8 +46,9 @@
     border-radius: 25px;
     justify-content: center;
     text-align: center;
-    background-image:  url("../../lobby/assets/atlas.png");
+    background-image: url("../../lobby/assets/atlas.png");
     background-size: cover;
+    background-position: center;
 }
 
 .godCard5-gamePlay {
@@ -56,6 +61,7 @@
     text-align: center;
     background-image: url("../../lobby/assets/dermeter.png");
     background-size: cover;
+    background-position: center;
 }
 
 .godCard6-gamePlay {
@@ -66,8 +72,9 @@
     border-radius: 25px;
     justify-content: center;
     text-align: center;
-    background-image:  url("../../lobby/assets/hephaestus.png");
+    background-image: url("../../lobby/assets/hephaestus.png");
     background-size: cover;
+    background-position: center;
 }
 
 .godCard7-gamePlay {
@@ -78,8 +85,9 @@
     border-radius: 25px;
     justify-content: center;
     text-align: center;
-    background-image:  url("../../lobby/assets/hermes.png");
+    background-image: url("../../lobby/assets/hermes.png");
     background-size: cover;
+    background-position: center;
 }
 
 .godCard8-gamePlay {
@@ -92,6 +100,7 @@
     text-align: center;
     background-image: url("../../lobby/assets/minotaur.png");
     background-size: cover;
+    background-position: center;
 }
 
 .godCard9-gamePlay {
@@ -104,6 +113,7 @@
     text-align: center;
     background-image: url("../../lobby/assets/pan.png");
     background-size: cover;
+    background-position: center;
 }
 
 .godCard10-gamePlay {
@@ -117,8 +127,299 @@
     background-size: cover;
     opacity: 50%;
     background-image: url("../../lobby/assets/prometheus.png");
+    background-position: center;
 }
 
-.godCard-Border-gamePlay{
+.godCard-Border-gamePlay {
     border: 8px solid green;
+}
+
+.godCard1-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard1-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may move into an opponent Worker’s space by forcing their Worker to the space yours just vacated.";
+}
+
+.godCard1-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard2-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard2-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may move one additional time, but not back to its initial space.";
+}
+
+.godCard2-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard3-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard3-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "If one of your Workers moved up on your last turn, opponent Workers cannot move up this turn.";
+}
+
+.godCard3-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard4-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard4-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may build a dome at any level.";
+}
+
+.godCard4-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard5-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard5-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may build one additional time, but not on the same space.";
+}
+
+.godCard5-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard6-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard6-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may build one additional block (not dome) on top of your first block.";
+}
+
+.godCard6-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard7-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard7-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "If your Workers do not move up or down, they may each move any number of times (even zero), and then either builds.";
+}
+
+.godCard7-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard8-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard8-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may move into an opponent Worker’s space, if their Worker can be forced one space straight backwards to an unoccupied space at any level.";
+}
+
+.godCard8-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard9-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard9-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: " You also win if your Worker moves down two or more levels.";
+}
+
+.godCard9-gamePlay:hover:after {
+    opacity: 1;
+}
+
+.godCard10-gamePlay:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard10-gamePlay:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    top: 253px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "If your Worker does not move up, it may build both before and after moving.";
+}
+
+.godCard10-gamePlay:hover:after {
+    opacity: 1;
 }

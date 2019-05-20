@@ -188,6 +188,8 @@ class GamePlayGodMode extends React.Component {
                 this.resetHasChosenHisGodCard();
                 this.create_field();
                 this.updateBoxes();
+                this.getLeftBoxDesign();
+                this.getRightBoxDesign();
                 this.updateLayoutBoxes();
             }
         }, 1000)
@@ -889,13 +891,51 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
+    getLeftBoxDesign(){
+        if (this.state.gameStatus === "Move1" || this.state.gameStatus === "Build1"){
+            if (this.state.player1.color === "BLUE") {
+                return "right-god-active-blue";
+            }
+            if (this.state.player1.color === "YELLOW") {
+                return "right-god-active-yellow";
+            }
+            if (this.state.player1.color === "RED") {
+                return "right-god-active-red";
+            }
+            if (this.state.player1.color === "PINK") {
+                return "right-god-active-pink";
+            }
+        } else {
+            return "right-god"
+        }
+    }
+
+    getRightBoxDesign(){
+        if (this.state.gameStatus === "Move2" || this.state.gameStatus === "Build2"){
+            if (this.state.player2.color === "BLUE") {
+                return "left-god-active-blue";
+            }
+            if (this.state.player2.color === "YELLOW") {
+                return "left-god-active-yellow";
+            }
+            if (this.state.player2.color === "RED") {
+                return "left-god-active-red";
+            }
+            if (this.state.player2.color === "PINK") {
+                return "left-god-active-pink";
+            }
+        } else {
+            return "left-god"
+        }
+    }
+
 
     render() {
         return (
             <div className="fixedPixels-div">
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
-                    <div className="left-god">
+                    <div className={this.getLeftBoxDesign()}>
                         <div className="player-name-gameplay-god">
                             <h2>{this.state.player1.username}</h2>
                             <div className={this.getColorCircle(this.state.player1.color)}></div>
@@ -1175,7 +1215,7 @@ class GamePlayGodMode extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <div className="right-god">
+                    <div className={this.getRightBoxDesign()}>
                         <div className="player-name-gameplay-god">
                             <h2>{this.state.player2.username}</h2>
                             <div className={this.getColorCircle(this.state.player2.color)}></div>
