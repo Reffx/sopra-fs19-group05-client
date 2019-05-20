@@ -60,7 +60,7 @@ class ChooseGodCard extends React.Component {
             if (this.state.gameStatus === "Start" || this.state.gameStatus === null) {
                 this.get_game();
             }
-        }, 2000)
+        }, 1000)
     }
 
 
