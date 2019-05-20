@@ -142,3 +142,282 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url("assets/hephaestus.png");
     background-size: cover;
 }
+.godCard1:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard1:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may move into an opponent Worker’s space by forcing their Worker to the space yours just vacated.";
+}
+
+.godCard1:hover:after {
+    opacity: 1;
+}
+
+.godCard2:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard2:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may move one additional time, but not back to its initial space.";
+}
+
+.godCard2:hover:after {
+    opacity: 1;
+}
+
+.godCard3:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard3:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "If one of your Workers moved up on your last turn, opponent Workers cannot move up this turn.";
+}
+
+.godCard3:hover:after {
+    opacity: 1;
+}
+
+.godCard4:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard4:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may build a dome at any level.";
+}
+
+.godCard4:hover:after {
+    opacity: 1;
+}
+
+.godCard5:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard5:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may build one additional time, but not on the same space.";
+}
+
+.godCard5:hover:after {
+    opacity: 1;
+}
+
+.godCard6:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard6:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may build one additional block (not dome) on top of your first block.";
+}
+
+.godCard6:hover:after {
+    opacity: 1;
+}
+
+.godCard7:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard7:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "If your Workers do not move up or down, they may each move any number of times (even zero), and then either builds.";
+}
+
+.godCard7:hover:after {
+    opacity: 1;
+}
+
+.godCard8:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard8:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "Your Worker may move into an opponent Worker’s space, if their Worker can be forced one space straight backwards to an unoccupied space at any level.";
+}
+
+.godCard8:hover:after {
+    opacity: 1;
+}
+
+.godCard9:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard9:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: " You also win if your Worker moves down two or more levels.";
+}
+
+.godCard9:hover:after {
+    opacity: 1;
+}
+
+.godCard10:hover {
+    background-size: 105%;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.godCard10:after {
+    padding-top: 70px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 25px;
+    position: absolute;
+    width: 160px;
+    height: 230px;
+    margin-left: -90px;
+    font-weight: bold;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.8);
+    opacity: 0;
+    transition: 1s;
+    content: "If your Worker does not move up, it may build both before and after moving.";
+}
+
+.godCard10:hover:after {
+    opacity: 1;
+}
