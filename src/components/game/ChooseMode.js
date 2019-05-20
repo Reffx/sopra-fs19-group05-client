@@ -13,7 +13,6 @@ export const Button = styled.button`
     transform: translateY(-3px);
   }
   padding: 10px;
-  font-weight: 700;
   width: ${props => props.width || null};
   cursor: ${props => (props.disabled ? "default" : "pointer")};
   opacity: ${props => (props.disabled ? 0.4 : 1)};
