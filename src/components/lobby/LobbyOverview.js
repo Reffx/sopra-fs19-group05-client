@@ -97,13 +97,8 @@ class LobbyOverview extends React.Component {
         // if game gets deleted in backend and frontend still tries to fetch a deleted game
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
         setInterval(() => {
-            if (this.state.gameStatus === "Start") {
-                console.log(this.state.gameStatus);
-                console.log("I FETCH LOBBY OVERVIEW!!!");
+            if (sessionStorage.getItem("gameID") !== null && this.state.gameStatus === "Start") {
                 this.get_game();
-            } else if (this.state.gameStatus === "notStart"){
-               // console.log("LobbyOverview done")
-                //CLEAR INTERVALL HERE
             }
         }, 1000)
     }
