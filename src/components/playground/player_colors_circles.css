@@ -101,9 +101,9 @@
 }
 
 .player-box-gameplay-god-out {
+    margin-top: 10px;
     margin-left: 66.8px;
     position: absolute;
-    bottom: 120px;
     width: 140px
 }
 .player-box-gameplay-god-out button{
@@ -137,5 +137,9 @@
 }
 
 #invisible{
+    display: none;
+}
+
+.invisible{
     display: none;
 }

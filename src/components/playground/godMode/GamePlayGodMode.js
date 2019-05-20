@@ -175,14 +175,15 @@ class GamePlayGodMode extends React.Component {
     }
 
     componentDidMount() {
+        this.passiveGodCardPlayer1();
         setInterval(() => {
             if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
                 // console.log("winner 1 or 2 exists")
                 //CLEAR INTERVALL HERE
             } else {
                 this.get_game();
-                this.isButtonInvisiblePlayer1GodActivation();
-                this.isButtonInvisiblePlayer2GodActivation();
+                this.ButtonPlayer1GodActivation();
+                this.ButtonPlayer2GodActivation();
                 this.create_field();
                 this.updateBoxes();
                 this.updateLayoutBoxes();
@@ -747,19 +748,32 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
-    isButtonInvisiblePlayer1GodActivation() {
+    ButtonPlayer1GodActivation() {
         if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player1")) || (this.state.hasChosenHisGodCardPlayer1 === true) || (this.state.gameStatus !== "Move1") || (sessionStorage.getItem("GodCardPlayer1Inactive") === "NONE") || (this.state.player1.worker1.position === -1 || this.state.player1.worker2.position === -1)) {
             this.setState({
-                Player1_Button_chooseGodActivation_visibility: "invisible",
+                Player1_Button_chooseGodActivation_visibility: true,
             });
             console.log(this.state.Player1_Button_chooseGodActivation_visibility);
         } else {
             this.setState({
-                Player1_Button_chooseGodActivation_visibility: "none",
+                Player1_Button_chooseGodActivation_visibility: false,
             });
             console.log(this.state.Player1_Button_chooseGodActivation_visibility);
         }
     }
+
+    passiveGodCardPlayer1(){
+        if (sessionStorage.getItem("GodCardPlayer1Inactive") === "NONE"){
+            return "invisible";
+        }
+    }
+
+    passiveGodCardPlayer2(){
+        if (sessionStorage.getItem("GodCardPlayer2Inactive") === "NONE"){
+            return "invisible";
+        }
+    }
+
 
     isButtonInvisiblePlayer2() {
         if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player2"))) {
@@ -767,14 +781,14 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
-    isButtonInvisiblePlayer2GodActivation() {
+    ButtonPlayer2GodActivation() {
         if (sessionStorage.getItem("userID") !== (sessionStorage.getItem("userID_player2")) || (this.state.hasChosenHisGodCardPlayer2 === true) || (this.state.gameStatus !== "Move2") || (sessionStorage.getItem("GodCardPlayer2Inactive") === "NONE") || (this.state.player2.worker1.position === -1 || this.state.player2.worker2.position === -1)) {
             this.setState({
-                Player2_Button_chooseGodActivation_visibility: "invisible",
+                Player2_Button_chooseGodActivation_visibility: true,
             });
         } else {
             this.setState({
-                Player2_Button_chooseGodActivation_visibility: "none",
+                Player2_Button_chooseGodActivation_visibility: false,
             });
         }
     }
@@ -871,10 +885,10 @@ class GamePlayGodMode extends React.Component {
                             <div className={this.getColorCircle(this.state.player1.color)}></div>
                         </div>
                         <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer1)}></div>
-                        <p className="use-margin-10px" id={this.state.Player1_Button_chooseGodActivation_visibility}>Use
+                        <p className={this.passiveGodCardPlayer1()} id={this.isButtonInvisiblePlayer1()}>Use
                             Godcard?</p>
-                        <div className="godActivation-div">
-                            <Button id={this.state.Player1_Button_chooseGodActivation_visibility}
+                        <div id={this.isButtonInvisiblePlayer1()} className={this.passiveGodCardPlayer1() + " godActivation-div"}>
+                            <Button disabled={this.state.Player1_Button_chooseGodActivation_visibility}
                                     width="50%"
                                     onClick={() => {
                                         this.setGodCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
@@ -883,7 +897,7 @@ class GamePlayGodMode extends React.Component {
                             >
                                 Yes
                             </Button>
-                            <Button id={this.state.Player1_Button_chooseGodActivation_visibility}
+                            <Button disabled={this.state.Player1_Button_chooseGodActivation_visibility}
                                     width="50%"
                                     onClick={() => {
                                         this.setState({hasChosenHisGodCardPlayer1: true});
@@ -893,7 +907,7 @@ class GamePlayGodMode extends React.Component {
                             </Button>
                         </div>
                         <div id={this.isButtonInvisiblePlayer1()} className="player-box-gameplay-god-out">
-                            <hr className="break-box"/>
+                            <hr id={this.passiveGodCardPlayer1()} className="break-box"/>
                             <div className="use-margin-5px">
                                 <label >
                                     <span>Show numbers?</span>
@@ -1148,10 +1162,10 @@ class GamePlayGodMode extends React.Component {
                             <div className={this.getColorCircle(this.state.player2.color)}></div>
                         </div>
                         <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer2)}></div>
-                        <p className="use-margin-10px" id={this.state.Player2_Button_chooseGodActivation_visibility}>Use
+                        <p className={this.passiveGodCardPlayer2()} id={this.isButtonInvisiblePlayer2()}>Use
                             Godcard?</p>
-                        <div className="godActivation-div">
-                            <Button id={this.state.Player2_Button_chooseGodActivation_visibility}
+                        <div id={this.isButtonInvisiblePlayer2()} className={this.passiveGodCardPlayer2() + " godActivation-div"}>
+                            <Button disabled={this.state.Player2_Button_chooseGodActivation_visibility}
                                     width="50%"
                                     onClick={() => {
                                         this.setGodCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
@@ -1160,7 +1174,7 @@ class GamePlayGodMode extends React.Component {
                             >
                                 Yes
                             </Button>
-                            <Button id={this.state.Player2_Button_chooseGodActivation_visibility}
+                            <Button disabled={this.state.Player2_Button_chooseGodActivation_visibility}
                                     width="50%"
                                     onClick={() => {
                                         this.setState({hasChosenHisGodCardPlayer2: true});
@@ -1170,7 +1184,7 @@ class GamePlayGodMode extends React.Component {
                             </Button>
                         </div>
                         <div id={this.isButtonInvisiblePlayer2()} className="player-box-gameplay-god-out">
-                            <hr className="break-box"/>
+                            <hr id={this.passiveGodCardPlayer2()} className="break-box"/>
                             <div className="use-margin-5px">
                                 <label >
                                     <span>Show numbers?</span>
