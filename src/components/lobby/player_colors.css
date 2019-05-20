@@ -7,7 +7,7 @@ TODO: When lobby page is ready adjust the position of the circles on the page an
     -moz-border-radius: 25px;
     border-radius: 25px;
     background: red;
-    margin: auto;
+    margin: 20px;
     cursor: pointer;
 }
 
@@ -26,7 +26,7 @@ or to disable a color that is already picked by the opponent*/
     -moz-border-radius: 25px;
     border-radius: 25px;
     background: blue;
-    margin: auto;
+    margin: 20px;
     cursor: pointer;
 }
 
@@ -41,7 +41,7 @@ or to disable a color that is already picked by the opponent*/
     -moz-border-radius: 25px;
     border-radius: 25px;
     background: yellow;
-    margin: auto;
+    margin: 20px;
     cursor: pointer;
 }
 
@@ -57,7 +57,7 @@ or to disable a color that is already picked by the opponent*/
     -moz-border-radius: 25px;
     border-radius: 25px;
     background: deeppink;
-    margin: auto;
+    margin: 20px;
     cursor: pointer;
 }
 

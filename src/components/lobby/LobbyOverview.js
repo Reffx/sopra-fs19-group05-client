@@ -39,6 +39,7 @@ class LobbyOverview extends React.Component {
             gameMode: null,
             gameStatus: null,
             intervalId: null,
+            Player1WaitingMessage: "Waiting for Player",
         };
     }
 
@@ -99,11 +100,10 @@ class LobbyOverview extends React.Component {
         setInterval(() => {
             if (sessionStorage.getItem("gameID") !== null && this.state.gameStatus === "Start") {
                 this.get_game();
+                this.changeMessage();
             }
         }, 1000)
     }
-
-
 
 
     get_game() {
@@ -324,45 +324,115 @@ class LobbyOverview extends React.Component {
         }
     }
 
+    changeMessage() {
+        console.log(this.state.player2_username);
+        if (this.state.player2_username != null) {
+            this.setState({
+                Player1WaitingMessage: this.state.player2_username
+            });
+        }
+        if (this.state.player2_username === null && this.state.Player1WaitingMessage !== "Waiting for Player" && (this.state.Player1WaitingMessage !== "Waiting for Player.") && (this.state.Player1WaitingMessage !== "Waiting for Player..") && (this.state.Player1WaitingMessage !== "Waiting for Player...")) {
+            this.setState({
+                Player1WaitingMessage: "Waiting for Player"
+            });
+        }
+        if (this.state.Player1WaitingMessage === "Waiting for Player") {
+            setTimeout(() => {
+                this.setState({
+                    Player1WaitingMessage: "Waiting for Player."
+                });
+            }, 500);
+        } else if (this.state.Player1WaitingMessage === "Waiting for Player.") {
+            setTimeout(() => {
+                this.setState({
+                    Player1WaitingMessage: "Waiting for Player.."
+                });
+            }, 500);
+        } else if (this.state.Player1WaitingMessage === "Waiting for Player..") {
+            setTimeout(() => {
+                this.setState({
+                    Player1WaitingMessage: "Waiting for Player..."
+                });
+            }, 500);
+        } else if (this.state.Player1WaitingMessage === "Waiting for Player...") {
+            setTimeout(() => {
+                this.setState({
+                    Player1WaitingMessage: "Waiting for Player"
+                });
+            }, 500);
+        }
+    }
+
+    isColorBoxVisibleP1() {
+        if (this.state.player1_username !== sessionStorage.getItem("username")) {
+            return "invisible"
+        }
+    }
+
+    isColorBoxVisibleP2() {
+        if (this.state.player2_username !== sessionStorage.getItem("username")) {
+            return "invisible"
+        }
+    }
+
+    getColorOverviewBox(color) {
+        if (color === "RED") {
+            return "overview-box-red";
+        } else if (color === "BLUE") {
+            return "overview-box-blue";
+        } else if (color === "YELLOW") {
+            return "overview-box-yellow";
+        } else if (color === "PINK") {
+            return "overview-box-pink";
+        } else {
+            return "overview-box"
+        }
+    }
+
 
     render() {
         return (
             <div className="lobby-overview-div">
-                <h1 className="lobby-overview-h1"> {this.state.player1_username}'s {this.state.gameMode} Mode Lobby </h1>
+                <h1 className="lobby-overview-h1"> {this.state.player1_username}'s {this.state.gameMode} Mode
+                    Lobby </h1>
 
                 <div class="flexBox">
-                    <div class="first-box">
+                    <div class={this.getColorOverviewBox(this.state.player1_color)}>
                         <div class="player-box">
-                            <p>Username: {this.state.player1_username}</p>
-                            <p>Your Color: {this.state.player1_color}</p>
-                            <button
-                                disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
-                                className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                            <button
-                                disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
-                                className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                            <button
-                                disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
-                                className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                            <button
-                                disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
-                                className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
-                            <p> Ready: {this.checkReadyPlayer1()}</p>
+                            <p>{this.state.player1_username}</p>
+                            <div className={this.isColorBoxVisibleP1()}>
+                                <p>Choose your Color:</p>
+                                <button
+                                    disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
+                                    className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                                <button
+                                    disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
+                                    className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                                <button
+                                    disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
+                                    className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                                <button
+                                    disabled={!(sessionStorage.getItem("username") === this.state.player1_username)}
+                                    className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                            </div>
+                            <p className="ready-p"> Ready? {this.checkReadyPlayer1()}</p>
                         </div>
                     </div>
-                    <div class="second-box">
+                    <div className={this.getColorOverviewBox(this.state.player2_color)}>
                         <div className="player-box">
-                            <p>Username: {this.state.player2_username} </p>
-                            <p>Your Color: {this.state.player2_color}</p>
-                            <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
-                                    className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                            <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
-                                    className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                            <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
-                                    className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                            <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
-                                    className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
-                            <p> Ready: {this.checkReadyPlayer2()}</p>
+                            <p>{this.state.Player1WaitingMessage} </p>
+                            <div className={this.isColorBoxVisibleP2()}>
+                                <p>Choose your Color:</p>
+                                <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
+                                        className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                                <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
+                                        className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                                <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
+                                        className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                                <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
+                                        className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                            </div>
+                            <p className="ready-p"> Ready? {this.checkReadyPlayer2()}</p>
                         </div>
                     </div>
                 </div>
