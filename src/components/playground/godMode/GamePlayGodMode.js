@@ -14,6 +14,7 @@ import State from "../../shared/models/State.js";
 import GameModel from "../../shared/models/GameModel";
 import "./../player_colors_circles.css";
 import "./god_cards.css";
+import "./player_box_god.css";
 
 
 const ButtonContainer = styled.div`
@@ -732,6 +733,21 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
+    getColorButton(playerColor) {
+        if (playerColor === "BLUE") {
+            return "button-blue";
+        }
+        if (playerColor === "YELLOW") {
+            return "button-yellow";
+        }
+        if (playerColor === "RED") {
+            return "button-red";
+        }
+        if (playerColor === "PINK") {
+            return "button-pink";
+        }
+    }
+
     resetHasChosenHisGodCard() {
         if (this.state.gameStatus === "Move1") {
             this.setState({hasChosenHisGodCardPlayer2: false})
@@ -762,14 +778,14 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
-    passiveGodCardPlayer1(){
-        if (sessionStorage.getItem("GodCardPlayer1Inactive") === "NONE"){
+    passiveGodCardPlayer1() {
+        if (sessionStorage.getItem("GodCardPlayer1Inactive") === "NONE") {
             return "invisible";
         }
     }
 
-    passiveGodCardPlayer2(){
-        if (sessionStorage.getItem("GodCardPlayer2Inactive") === "NONE"){
+    passiveGodCardPlayer2() {
+        if (sessionStorage.getItem("GodCardPlayer2Inactive") === "NONE") {
             return "invisible";
         }
     }
@@ -887,8 +903,10 @@ class GamePlayGodMode extends React.Component {
                         <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer1)}></div>
                         <p className={this.passiveGodCardPlayer1()} id={this.isButtonInvisiblePlayer1()}>Use
                             Godcard?</p>
-                        <div id={this.isButtonInvisiblePlayer1()} className={this.passiveGodCardPlayer1() + " godActivation-div"}>
-                            <Button disabled={this.state.Player1_Button_chooseGodActivation_visibility}
+                        <div id={this.isButtonInvisiblePlayer1()}
+                             className={this.passiveGodCardPlayer1() + " godActivation-div"}>
+                            <Button className={this.getColorButton(this.state.player1.color)}
+                                    disabled={this.state.Player1_Button_chooseGodActivation_visibility}
                                     width="50%"
                                     onClick={() => {
                                         this.setGodCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
@@ -897,7 +915,8 @@ class GamePlayGodMode extends React.Component {
                             >
                                 Yes
                             </Button>
-                            <Button disabled={this.state.Player1_Button_chooseGodActivation_visibility}
+                            <Button className={this.getColorButton(this.state.player1.color)}
+                                    disabled={this.state.Player1_Button_chooseGodActivation_visibility}
                                     width="50%"
                                     onClick={() => {
                                         this.setState({hasChosenHisGodCardPlayer1: true});
@@ -909,7 +928,7 @@ class GamePlayGodMode extends React.Component {
                         <div id={this.isButtonInvisiblePlayer1()} className="player-box-gameplay-god-out">
                             <hr id={this.passiveGodCardPlayer1()} className="break-box"/>
                             <div className="use-margin-5px">
-                                <label >
+                                <label>
                                     <span>Show numbers?</span>
                                     <Checkbox
                                         checked={this.state.checked}
@@ -918,7 +937,7 @@ class GamePlayGodMode extends React.Component {
                                 </label>
                             </div>
                             <ButtonContainer/>
-                            <Button
+                            <Button className={this.getColorButton(this.state.player1.color)}
                                     disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
                                     width="50%"
                                     onClick={() => {
@@ -929,7 +948,7 @@ class GamePlayGodMode extends React.Component {
                             </Button>
                             <ButtonContainer/>
                             <ButtonContainer/>
-                            <Button
+                            <Button className={this.getColorButton(this.state.player1.color)}
                                     disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                     width="50%"
                                     onClick={() => {
@@ -1164,8 +1183,10 @@ class GamePlayGodMode extends React.Component {
                         <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer2)}></div>
                         <p className={this.passiveGodCardPlayer2()} id={this.isButtonInvisiblePlayer2()}>Use
                             Godcard?</p>
-                        <div id={this.isButtonInvisiblePlayer2()} className={this.passiveGodCardPlayer2() + " godActivation-div"}>
-                            <Button disabled={this.state.Player2_Button_chooseGodActivation_visibility}
+                        <div id={this.isButtonInvisiblePlayer2()}
+                             className={this.passiveGodCardPlayer2() + " godActivation-div"}>
+                            <Button className={this.getColorButton(this.state.player2.color)}
+                                    disabled={this.state.Player2_Button_chooseGodActivation_visibility}
                                     width="50%"
                                     onClick={() => {
                                         this.setGodCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
@@ -1174,7 +1195,8 @@ class GamePlayGodMode extends React.Component {
                             >
                                 Yes
                             </Button>
-                            <Button disabled={this.state.Player2_Button_chooseGodActivation_visibility}
+                            <Button className={this.getColorButton(this.state.player2.color)}
+                                    disabled={this.state.Player2_Button_chooseGodActivation_visibility}
                                     width="50%"
                                     onClick={() => {
                                         this.setState({hasChosenHisGodCardPlayer2: true});
@@ -1186,7 +1208,7 @@ class GamePlayGodMode extends React.Component {
                         <div id={this.isButtonInvisiblePlayer2()} className="player-box-gameplay-god-out">
                             <hr id={this.passiveGodCardPlayer2()} className="break-box"/>
                             <div className="use-margin-5px">
-                                <label >
+                                <label>
                                     <span>Show numbers?</span>
                                     <Checkbox
                                         checked={this.state.checked}
@@ -1195,7 +1217,7 @@ class GamePlayGodMode extends React.Component {
                                 </label>
                             </div>
                             <ButtonContainer/>
-                            <Button
+                            <Button className={this.getColorButton(this.state.player2.color)}
                                     disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
                                     width="50%"
                                     onClick={() => {
@@ -1206,7 +1228,7 @@ class GamePlayGodMode extends React.Component {
                             </Button>
                             <ButtonContainer/>
                             <ButtonContainer/>
-                            <Button
+                            <Button className={this.getColorButton(this.state.player2.color)}
                                     disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                     width="50%"
                                     onClick={() => {
