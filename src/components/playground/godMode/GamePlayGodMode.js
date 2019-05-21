@@ -146,7 +146,7 @@ class GamePlayGodMode extends React.Component {
             positionP1W1: null,
             positionP1W2: null,
             positionP2W1: null,
-            positionP2W2: null
+            positionP2W2: null,
         }
         ;
     }
@@ -319,10 +319,23 @@ class GamePlayGodMode extends React.Component {
 
     }
 
+    buildPrometheus(box) {
+        if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
+            this.setState({selected_worker: this.state.player_is_playing.worker1.workerId});
+            this.highLightMove(box);
+        }
+        if (box.occupier.workerId === this.state.player_is_playing.worker2.workerId) {
+            this.setState({selected_worker: this.state.player_is_playing.worker2.workerId});
+            this.highLightMove(box);
+        }
+    }
+
     build(box) {
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
-                if (box.occupier.workerId === this.state.selected_worker) {
+                if ((this.state.gameStatus === "Build1") && (sessionStorage.getItem("GodCardPlayer1") === "Prometheus") || (this.state.gameStatus === "Build2") && (sessionStorage.getItem("GodCardPlayer2") === "Prometheus")) {
+                    this.buildPrometheus(box);
+                } else if (box.occupier.workerId === this.state.selected_worker || box.occupier.workerId === this.state.selected_worker2) {
                     this.highLightBuild(box);
                 }
             }
@@ -428,7 +441,6 @@ class GamePlayGodMode extends React.Component {
             this.state.player_is_playing = this.state.game.player1;
             if (sessionStorage.getItem("userID") === String(this.state.player1.id)) {
                 if (this.state.game.player1.worker1.position === -1 || this.state.game.player1.worker2.position === -1) {
-                    console.log("cc");
                     this.set_worker(box);
                 } else {
                     this.move(box);
@@ -782,14 +794,13 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
-    resetSelectedWorker(){
-        if (((this.state.gameStatus === "Move1") || (this.state.gameStatus === "Build1")) && (sessionStorage.getItem("userID") === this.state.game.player2.id) && (sessionStorage.getItem("GodCardPlayer2") !== "Hephaestus")) {
+    resetSelectedWorker() {
+        console.log(sessionStorage.getItem("GodCardPlayer1"));
+        if (((this.state.gameStatus === "Move1") || (this.state.gameStatus === "Build1")) && (sessionStorage.getItem("userID") === this.state.game.player2.id.toString())) {
             this.state.selected_worker = null;
-            console.log(this.state.selected_worker);
         }
-        if (((this.state.gameStatus === "Move2") || (this.state.gameStatus === "Build2")) && (sessionStorage.getItem("userID") === this.state.game.player1.id) && (sessionStorage.getItem("GodCardPlayer1") !== "Hephaestus")) {
+        if (((this.state.gameStatus === "Move2") || (this.state.gameStatus === "Build2")) && (sessionStorage.getItem("userID") === this.state.game.player1.id.toString())) {
             this.state.selected_worker = null;
-            console.log(this.state.selected_worker);
         }
     }
 
@@ -804,12 +815,12 @@ class GamePlayGodMode extends React.Component {
             this.setState({
                 Player1_Button_chooseGodActivation_visibility: true,
             });
-            console.log(this.state.Player1_Button_chooseGodActivation_visibility);
+            // console.log(this.state.Player1_Button_chooseGodActivation_visibility);
         } else {
             this.setState({
                 Player1_Button_chooseGodActivation_visibility: false,
             });
-            console.log(this.state.Player1_Button_chooseGodActivation_visibility);
+            //  console.log(this.state.Player1_Button_chooseGodActivation_visibility);
         }
     }
 
