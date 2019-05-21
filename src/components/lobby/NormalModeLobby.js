@@ -2,14 +2,19 @@ import React from "react";
 import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
 import {getDomain} from "../../helpers/getDomain";
-import {Button} from "../../views/design/Button";
+
 import {withRouter} from "react-router-dom";
 import GameModel from "../shared/models/GameModel";
 
-const ButtonContainer = styled.div`
-  display: row;
-  justify-content: center;
-  margin-top: 25px;
+
+export const Button = styled.button`
+  &:hover {
+    transform: translateY(-3px);
+  }
+  padding: 10px;
+  width: ${props => props.width || null};
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
+  opacity: ${props => (props.disabled ? 0.4 : 1)};
 `;
 
 const Container = styled(BaseContainer)`
@@ -107,36 +112,36 @@ class NormalModeLobby extends React.Component {
                 <h2>Choose Option</h2>
                 <p></p>
                 <div>
-                    <ButtonContainer/>
-                    <Button
-                        width="30%"
-                        onClick={() => {
-                            this.create_lobby();
-                        }}
-                    >
-                        Create Lobby
-                    </Button>
-                    <ButtonContainer/>
-                    <ButtonContainer/>
-                    <Button
-                        width="30%"
-                        onClick={() => {
-                            this.props.history.push("/NormalModeDashboard");
-                        }}
-                    >
-                        Join Lobby
-                    </Button>
-                    <ButtonContainer/>
-                    <ButtonContainer/>
-                    <Button
-                        width="30%"
-                        onClick={() => {
-                            this.props.history.push("/chooseMode");
-                        }}
-                    >
-                        Back
-                    </Button>
-                    <ButtonContainer/>
+                    <div id="button-div">
+                        <Button className="rock-button"
+                                width="50%"
+                                onClick={() => {
+                                    this.create_lobby();
+                                }}
+                        >
+                            Create Lobby
+                        </Button>
+                    </div>
+                    <div id="button-div">
+                        <Button className="rock-button"
+                                width="50%"
+                                onClick={() => {
+                                    this.props.history.push("/NormalModeDashboard");
+                                }}
+                        >
+                            Join Lobby
+                        </Button>
+                    </div>
+                    <div id="button-div">
+                        <Button className="rock-button"
+                                width="50%"
+                                onClick={() => {
+                                    this.props.history.push("/chooseMode");
+                                }}
+                        >
+                            Back
+                        </Button>
+                    </div>
                 </div>
             </Container>
         );
