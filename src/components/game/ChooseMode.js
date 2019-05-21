@@ -16,6 +16,7 @@ export const Button = styled.button`
   width: ${props => props.width || null};
   cursor: ${props => (props.disabled ? "default" : "pointer")};
   opacity: ${props => (props.disabled ? 0.4 : 1)};
+  
 `;
 
 class ChooseMode extends React.Component {

@@ -26,7 +26,7 @@ const Form = styled.div`
   padding-left: 37px;
   padding-right: 37px;
   border-radius: 5px;
-  background: linear-gradient(rgb(153, 153, 153), rgb(105, 105, 105));
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8));
   transition: opacity 0.5s ease, transform 0.5s ease;
 `;
 

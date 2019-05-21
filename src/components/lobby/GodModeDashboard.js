@@ -6,12 +6,17 @@ import GameView from "../../views/GameView";
 import {Spinner} from "../../views/design/Spinner";
 import {withRouter} from "react-router-dom";
 
-import {Button} from "../../views/design/Button";
+import "../game/choose_mode.css";
 
-const ButtonContainer = styled.div`
-  display: row;
-  justify-content: center;
-  margin-top: 20px;
+export const Button = styled.button`
+  &:hover {
+    transform: translateY(-3px);
+  }
+  padding: 10px;
+  width: ${props => props.width || null};
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
+  opacity: ${props => (props.disabled ? 0.4 : 1)};
+  
 `;
 
 const Container = styled(BaseContainer)`
@@ -101,19 +106,10 @@ class GodModeDashboard extends React.Component {
     render() {
         return (
             <Container>
-
-                <h2>Dashboard!</h2>
+                <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+                </link>
+                <h1_lobby>Dashboard!</h1_lobby>
                 <p>Here you see all God Mode Games, click on Game to join:</p>
-                <ButtonContainer/>
-                <Button
-                    width="30%"
-                    onClick={() => {
-                        this.props.history.push("/godModeLobby");
-                    }}
-                >
-                    Back
-                </Button>
-                <ButtonContainer/>
                 {!this.state.games ? (
                     <Spinner/>
                 ) : (
@@ -131,6 +127,16 @@ class GodModeDashboard extends React.Component {
                         </Games>
                     </div>
                 )}
+                <div>
+                    <Button className="rock_dashbord-button"
+                            width="60%"
+                            onClick={() => {
+                                this.props.history.push("/chooseMode");
+                            }}
+                    >
+                        Back
+                    </Button>
+                </div>
             </Container>
         );
     }

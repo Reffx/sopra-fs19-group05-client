@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
 import {getDomain} from "../../helpers/getDomain";
+import "../game/choose_mode.css";
 
 import {withRouter} from "react-router-dom";
 import GameModel from "../shared/models/GameModel";
@@ -109,10 +110,11 @@ class NormalModeLobby extends React.Component {
     render() {
         return (
             <Container>
-                <h2>Choose Option</h2>
+                <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+                </link>
+                <h1_lobby>Choose Option</h1_lobby>
                 <p></p>
-                <div>
-                    <div id="button-div">
+                    <div>
                         <Button className="rock-button"
                                 width="50%"
                                 onClick={() => {
@@ -142,7 +144,6 @@ class NormalModeLobby extends React.Component {
                             Back
                         </Button>
                     </div>
-                </div>
             </Container>
         );
     }
