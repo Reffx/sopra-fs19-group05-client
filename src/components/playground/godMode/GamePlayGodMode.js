@@ -190,6 +190,7 @@ class GamePlayGodMode extends React.Component {
                 this.ButtonPlayer1GodActivation();
                 this.ButtonPlayer2GodActivation();
                 this.resetHasChosenHisGodCard();
+                this.resetSelectedWorker();
                 this.create_field();
                 this.updateBoxes();
                 this.getLeftBoxDesign();
@@ -345,7 +346,6 @@ class GamePlayGodMode extends React.Component {
                         this.setState({highlightedFields: null});
                         this.create_field();
                         this.get_game();
-                        this.state.selected_worker = null;
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -780,7 +780,17 @@ class GamePlayGodMode extends React.Component {
         if (this.state.gameStatus === "Move2") {
             this.setState({hasChosenHisGodCardPlayer1: false})
         }
+    }
 
+    resetSelectedWorker(){
+        if (((this.state.gameStatus === "Move1") || (this.state.gameStatus === "Build1")) && (sessionStorage.getItem("userID") === this.state.game.player2.id) && (sessionStorage.getItem("GodCardPlayer2") !== "Hephaestus")) {
+            this.state.selected_worker = null;
+            console.log(this.state.selected_worker);
+        }
+        if (((this.state.gameStatus === "Move2") || (this.state.gameStatus === "Build2")) && (sessionStorage.getItem("userID") === this.state.game.player1.id) && (sessionStorage.getItem("GodCardPlayer1") !== "Hephaestus")) {
+            this.state.selected_worker = null;
+            console.log(this.state.selected_worker);
+        }
     }
 
     isButtonInvisiblePlayer1() {

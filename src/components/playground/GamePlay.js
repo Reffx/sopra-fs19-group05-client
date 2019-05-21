@@ -759,6 +759,15 @@ class GamePlay extends React.Component {
         }
     }
 
+    getPlayFieldLayout() {
+        if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
+            return "playField-winner";
+        } else {
+            return "playField";
+        }
+    }
+
+
 
     render() {
 
@@ -803,7 +812,7 @@ class GamePlay extends React.Component {
                         </Button>
                         <ButtonContainer/>
                     </div>
-                    <div className="playField">
+                    <div className={this.getPlayFieldLayout()}>
                         <div>
                             <div className="box0 black box" id={this.getBorder(this.state.box0)} onClick={() => {
                                 this.get_action(this.state.box0)

@@ -6,6 +6,13 @@
 .playField{
     width: 500px;
     position: relative;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.5);
+}
+
+.playField-winner{
+    width: 500px;
+    position: relative;
+    box-shadow: 10px 10px 10px 10px goldenrod;
 }
 
 .white {
@@ -24,7 +31,8 @@
 }
 
 #border{
-    border: solid green 5px;
+    border: ridge green 5px;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0, 0.8);
 }
 
 #level1{
