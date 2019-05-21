@@ -78,7 +78,9 @@ class GodModeLobby extends React.Component {
     render() {
         return (
             <Container>
-                <h2>Choose Option</h2>
+                <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+                </link>
+                <h1_lobby>Choose Option</h1_lobby>
                     <div id="button-div">
                         <Button className="rock-button"
                                 width="50%"
