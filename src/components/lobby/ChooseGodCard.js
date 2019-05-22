@@ -148,8 +148,10 @@ class ChooseGodCard extends React.Component {
 
     choose_card(card, inactiveCard) {
         if (String(this.state.player_is_playing.id) === sessionStorage.getItem("userID")) {
+            console.log(card, inactiveCard);
             if (this.state.player_is_playing === this.state.player1) {
                 if (this.state.player1.worker1.godCard === "None") {
+                    console.log(card, inactiveCard, "a");
                     this.setGodCard(card, this.state.player1.id, inactiveCard)
                 } else if (this.state.player1.worker1.godCard !== "None" && this.return_active_card(this.state.player1.worker1.godCard) !== card) {
                     this.setGodCard(card, this.state.player2.id, inactiveCard)
@@ -202,7 +204,10 @@ class ChooseGodCard extends React.Component {
     }
 
     getBorderSelected(card) {
-        if (this.state.chosenCardPlayer1 === card || this.state.chosenCardPlayer2 === card) {
+        if (this.state.chosenCardPlayer1 === card || this.state.chosenCardPlayer2 === card ) {
+            return "godCard-border"
+        }
+        else if (this.return_active_card(this.state.chosenCardPlayer1)=== card || this.return_active_card(this.state.chosenCardPlayer2)=== card){
             return "godCard-border"
         }
     }
@@ -296,7 +301,10 @@ class ChooseGodCard extends React.Component {
             return ("godCard" + n.toString());
         } else if ((this.state.chosenCardPlayer1 === card) || (this.state.chosenCardPlayer2 === card)) {
             return "godCard" + n.toString();
-        } else {
+        }
+        else if (this.return_active_card(this.state.chosenCardPlayer1)=== card || this.return_active_card(this.state.chosenCardPlayer2)=== card){
+            return "godCard" + n.toString();
+        }else {
             return "godCard" + n.toString() + "-dark";
     }
     }
@@ -317,8 +325,8 @@ class ChooseGodCard extends React.Component {
                          id={this.getBorderSelected(this.state.card2Inactive)} onClick={() => {
                         this.choose_card(this.state.card2, this.state.card2Inactive)
                     }}></div>
-                    <div class={this.darkenGodCard(3, "InactiveAthena")}
-                         id={this.getBorderSelected("InactiveAthena")} onClick={() => {
+                    <div class={this.darkenGodCard(3, "Athena")}
+                         id={this.getBorderSelected("Athena")} onClick={() => {
                         this.choose_card(this.state.card3, this.state.card3Inactive)
                     }}></div>
                     <div class={this.darkenGodCard(4, this.state.card4Inactive)}

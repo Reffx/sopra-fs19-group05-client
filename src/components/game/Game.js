@@ -65,7 +65,7 @@ class Game extends React.Component {
             <Container>
                 <Toolbar/>
                 <div className="margin-top-playerView-div">
-                    <h2 className="playerView-h2">Dashboard!</h2>
+                    <h1_lobby>Dashboard!</h1_lobby>
                     <p className="playerView-p">You can find all players here:</p>
                     {!this.state.users ? (
                         <Spinner/>
