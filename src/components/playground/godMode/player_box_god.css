@@ -10,8 +10,18 @@
     position: absolute;
     width: 140px
 }
-.player-box-gameplay-god-out button{
+.hermes-Button{
     width: 140px;
+    margin-top: 10px;
+}
+
+.useGodCard-Button{
+    margin-top: 10px;
+    width: 150px;
+}
+
+.button-extras{
+    width: 100px;
 }
 
 .godActivation-div{
@@ -20,9 +30,6 @@
     justify-content: space-evenly;
 }
 
-.godActivation-div button{
-    width: 80px;
-}
 
 .use-margin-5px{
     margin-top:5px;

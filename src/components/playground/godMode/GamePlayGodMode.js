@@ -147,7 +147,6 @@ class GamePlayGodMode extends React.Component {
             positionP1W2: null,
             positionP2W1: null,
             positionP2W2: null,
-            hasPrometheusBuilt: false,
         }
         ;
     }
@@ -320,7 +319,7 @@ class GamePlayGodMode extends React.Component {
 
     }
 
-    buildPrometheus(box) {
+    buildNonSelectedWorker(box) {
         if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
             this.setState({selected_worker: this.state.player_is_playing.worker1.workerId});
             this.highLightMove(box);
@@ -333,12 +332,10 @@ class GamePlayGodMode extends React.Component {
 
     build(box) {
         console.log(this.state.game.player1.worker1.godCard);
-        console.log(this.state.hasPrometheusBuilt);
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
-                if (((this.state.gameStatus === "Build1") && (this.state.game.player1.worker1.godCard === "Prometheus")) || ((this.state.gameStatus === "Build2") && (this.state.game.player2.worker1.godCard === "Prometheus")) || (this.state.hasPrometheusBuilt === false)) {
-                    this.buildPrometheus(box);
-                } else if (box.occupier.workerId === this.state.selected_worker || box.occupier.workerId === this.state.selected_worker2) {
+                if (this.state.selected_worker === null) {this.buildNonSelectedWorker(box); //}
+                } else if (box.occupier.workerId === this.state.selected_worker) {
                     this.highLightBuild(box);
                 }
             }
@@ -352,11 +349,6 @@ class GamePlayGodMode extends React.Component {
                 ;
             }
             if (placeable === true) {
-                if ((this.state.game.player1.worker1.godCard === "Prometheus" && this.state.gameStatus === "Build1") || (this.state.game.player2.worker1.godCard === "Prometheus" && this.state.gameStatus === "Build2")) {
-                   if (this.state.hasPrometheusBuilt === false) {
-                        this.state.hasPrometheusBuilt = true;
-                    }
-                }
                 fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/build`, {
                     method: "PUT",
                     headers: {
@@ -367,8 +359,6 @@ class GamePlayGodMode extends React.Component {
                         this.setState({highlightedFields: null});
                         this.create_field();
                         this.get_game();
-                        console.log(this.state.hasPrometheusBuilt);
-
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -963,6 +953,25 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
+    hermesBuildStatus() {
+        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${this.state.player_is_playing.id}/status`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+        })
+            .then(response => {
+
+            })
+            .catch(err => {
+                if (err.message.match(/Failed to fetch/)) {
+                    alert("The server cannot be reached. Did you start it?");
+                } else {
+                    alert(`Something went wrong during the creation: ${err.message}`);
+                }
+            });
+    }
+
     getRightBoxDesign() {
         if (this.state.gameStatus === "Move2" || this.state.gameStatus === "Build2") {
             if (this.state.player2.color === "BLUE") {
@@ -982,6 +991,88 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
+    getGodButtonsPlayer1() {
+        if (sessionStorage.getItem("GodCardPlayer1") === "Hermes") {
+            return (
+                <div>
+                    <Button className={this.getColorButton(this.state.player1.color) + " hermes-Button"}
+                            disabled={this.state.Player1_Button_chooseGodActivation_visibility}
+                            width="50%"
+                            onClick={() => {
+                                this.setGodCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
+                                this.setState({hasChosenHisGodCardPlayer1: true});
+                            }}
+                    >
+                        Use GodCard
+                    </Button>
+                    <Button className={this.getColorButton(this.state.player1.color) + " hermes-Button"}
+                            disabled={(this.state.gameStatus !== "Move1")}
+                            width="50%"
+                            onClick={() => {
+                                this.hermesBuildStatus();
+                                this.setState({hasChosenHisGodCardPlayer1: true});
+                            }}
+                    >
+                        Stop Moving
+                    </Button>
+                </div>);
+        }
+        if (sessionStorage.getItem("GodCardPlayer1") !== "Hermes") {
+            return (
+                <Button className={this.getColorButton(this.state.player1.color) + " useGodCard-Button"}
+                        disabled={this.state.Player1_Button_chooseGodActivation_visibility}
+                        width="50%"
+                        onClick={() => {
+                            this.setGodCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
+                            this.setState({hasChosenHisGodCardPlayer1: true});
+                        }}
+                >
+                    Use Godcard!
+                </Button>);
+        }
+    }
+
+    getGodButtonsPlayer2() {
+        if (sessionStorage.getItem("GodCardPlayer2") === "Hermes") {
+            return (
+                <div>
+                    <Button className={this.getColorButton(this.state.player2.color) + " hermes-Button"}
+                            disabled={this.state.Player2_Button_chooseGodActivation_visibility}
+                            width="50%"
+                            onClick={() => {
+                                this.setGodCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
+                                this.setState({hasChosenHisGodCardPlayer2: true});
+                            }}
+                    >
+                        Use GodCard
+                    </Button>
+                    <Button className={this.getColorButton(this.state.player2.color) + " hermes-Button"}
+                            disabled={(this.state.gameStatus !== "Move2")}
+                            width="50%"
+                            onClick={() => {
+                                this.hermesBuildStatus();
+                                this.setState({hasChosenHisGodCardPlayer2: true});
+                            }}
+                    >
+                        Stop Moving
+                    </Button>
+                </div>);
+        }
+        if (sessionStorage.getItem("GodCardPlayer2") !== "Hermes") {
+            return (
+                <Button className={this.getColorButton(this.state.player2.color) + " useGodCard-Button"}
+                        disabled={this.state.Player2_Button_chooseGodActivation_visibility}
+                        width="50%"
+                        onClick={() => {
+                            this.setGodCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
+                            this.setState({hasChosenHisGodCardPlayer2: true});
+                        }}
+                >
+                    Use Godcard!
+                </Button>);
+        }
+    }
+
 
     render() {
         return (
@@ -994,29 +1085,9 @@ class GamePlayGodMode extends React.Component {
                             <div className={this.getColorCircle(this.state.player1.color)}></div>
                         </div>
                         <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer1)}></div>
-                        <p className={this.passiveGodCardPlayer1()} id={this.isButtonInvisiblePlayer1()}>Use
-                            Godcard?</p>
                         <div id={this.isButtonInvisiblePlayer1()}
                              className={this.passiveGodCardPlayer1() + " godActivation-div"}>
-                            <Button className={this.getColorButton(this.state.player1.color)}
-                                    disabled={this.state.Player1_Button_chooseGodActivation_visibility}
-                                    width="50%"
-                                    onClick={() => {
-                                        this.setGodCard(sessionStorage.getItem("GodCardPlayer1"), this.state.player1.id);
-                                        this.setState({hasChosenHisGodCardPlayer1: true});
-                                    }}
-                            >
-                                Yes
-                            </Button>
-                            <Button className={this.getColorButton(this.state.player1.color)}
-                                    disabled={this.state.Player1_Button_chooseGodActivation_visibility}
-                                    width="50%"
-                                    onClick={() => {
-                                        this.setState({hasChosenHisGodCardPlayer1: true});
-                                    }}
-                            >
-                                No
-                            </Button>
+                            {this.getGodButtonsPlayer1()}
                         </div>
                         <div id={this.isButtonInvisiblePlayer1()} className="player-box-gameplay-god-out">
                             <hr id={this.passiveGodCardPlayer1()} className="break-box"/>
@@ -1030,7 +1101,7 @@ class GamePlayGodMode extends React.Component {
                                 </label>
                             </div>
                             <ButtonContainer/>
-                            <Button className={this.getColorButton(this.state.player1.color)}
+                            <Button className={this.getColorButton(this.state.player1.color) + " button-extras"}
                                     disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
                                     width="50%"
                                     onClick={() => {
@@ -1041,7 +1112,7 @@ class GamePlayGodMode extends React.Component {
                             </Button>
                             <ButtonContainer/>
                             <ButtonContainer/>
-                            <Button className={this.getColorButton(this.state.player1.color)}
+                            <Button className={this.getColorButton(this.state.player1.color) + " button-extras"}
                                     disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                     width="50%"
                                     onClick={() => {
@@ -1274,29 +1345,9 @@ class GamePlayGodMode extends React.Component {
                             <div className={this.getColorCircle(this.state.player2.color)}></div>
                         </div>
                         <div className={this.getGodCardLayout(this.state.godCardLayoutPlayer2)}></div>
-                        <p className={this.passiveGodCardPlayer2()} id={this.isButtonInvisiblePlayer2()}>Use
-                            Godcard?</p>
                         <div id={this.isButtonInvisiblePlayer2()}
                              className={this.passiveGodCardPlayer2() + " godActivation-div"}>
-                            <Button className={this.getColorButton(this.state.player2.color)}
-                                    disabled={this.state.Player2_Button_chooseGodActivation_visibility}
-                                    width="50%"
-                                    onClick={() => {
-                                        this.setGodCard(sessionStorage.getItem("GodCardPlayer2"), this.state.player2.id);
-                                        this.setState({hasChosenHisGodCardPlayer2: true});
-                                    }}
-                            >
-                                Yes
-                            </Button>
-                            <Button className={this.getColorButton(this.state.player2.color)}
-                                    disabled={this.state.Player2_Button_chooseGodActivation_visibility}
-                                    width="50%"
-                                    onClick={() => {
-                                        this.setState({hasChosenHisGodCardPlayer2: true});
-                                    }}
-                            >
-                                No
-                            </Button>
+                            {this.getGodButtonsPlayer2()}
                         </div>
                         <div id={this.isButtonInvisiblePlayer2()} className="player-box-gameplay-god-out">
                             <hr id={this.passiveGodCardPlayer2()} className="break-box"/>
@@ -1310,7 +1361,7 @@ class GamePlayGodMode extends React.Component {
                                 </label>
                             </div>
                             <ButtonContainer/>
-                            <Button className={this.getColorButton(this.state.player2.color)}
+                            <Button className={this.getColorButton(this.state.player2.color) + " button-extras"}
                                     disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
                                     width="50%"
                                     onClick={() => {
@@ -1321,7 +1372,7 @@ class GamePlayGodMode extends React.Component {
                             </Button>
                             <ButtonContainer/>
                             <ButtonContainer/>
-                            <Button className={this.getColorButton(this.state.player2.color)}
+                            <Button className={this.getColorButton(this.state.player2.color) + " button-extras"}
                                     disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                     width="50%"
                                     onClick={() => {
