@@ -3,18 +3,21 @@ import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
 import {getDomain} from "../../helpers/getDomain";
 import {withRouter} from "react-router-dom";
-import {Button} from "../../views/design/Button";
+import {Button_1} from "../../views/design/Button";
+import "../game/choose_mode.css"
 
 
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const Container = styled(BaseContainer)`
   color: white;
+  padding-top: 150px;
   text-align: center;
+  height: 700px;
 `;
 
 const InputField = styled.input`
@@ -180,6 +183,8 @@ class Profile extends React.Component {
             }
             return (
                 <BaseContainer>
+                    <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+                    </link>
                     <Container>
                         <Form>
                             <h1>{this.state.editModeText}</h1>
@@ -187,7 +192,7 @@ class Profile extends React.Component {
                                 {textElement}
                                 <div>
                                     <ButtonContainer>
-                                        <Button
+                                        <Button_1 className= "rock_dashbord-button"
                                             disabled={!(sessionStorage.getItem("token") === this.state.token) || !this.state.username}
                                             width="100%"
                                             onClick={() => {
@@ -203,17 +208,16 @@ class Profile extends React.Component {
                                             }}
                                         >
                                             {this.state.editButtonText}
-                                        </Button>
+                                        </Button_1>
                                     </ButtonContainer>
                                     <ButtonContainer>
-                                        <Button
-                                            width="100%"
+                                        <Button_1 className= "rock_dashbord-button"
                                             onClick={() => {
                                                 this.props.history.push("/dashboard");
                                             }}
                                         >
                                             Back
-                                        </Button>
+                                        </Button_1>
                                     </ButtonContainer>
                                 </div>
                             </PlayerContainer>
