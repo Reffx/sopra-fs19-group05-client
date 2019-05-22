@@ -6,6 +6,7 @@ import PlayerView from "../../views/PlayerView";
 import {Spinner} from "../../views/design/Spinner";
 import {withRouter} from "react-router-dom";
 import "./playerView.css";
+import "./choose_mode.css";
 
 import Toolbar from '../Toolbar/Toolbar';
 
@@ -63,6 +64,8 @@ class Game extends React.Component {
     render() {
         return (
             <Container>
+                <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+                </link>
                 <Toolbar/>
                 <div className="margin-top-playerView-div">
                     <h1_lobby>Dashboard!</h1_lobby>
