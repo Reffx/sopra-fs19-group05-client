@@ -44,7 +44,7 @@ const toolbar = props => (
         <nav className="toolbar_navigation">
             <div></div>
             <div className="toolbar_logo">
-                <NavLink to="/home"> Menu</NavLink>
+                <NavLink to="/home">Santori</NavLink>
             </div>
             <div className="spacer"/>
             <div className="toolbar_navigation-items">

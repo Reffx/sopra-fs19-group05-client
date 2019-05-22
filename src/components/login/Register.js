@@ -21,7 +21,7 @@ const Form = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 60%;
-  height: 450px;
+  height: 550px;
   font-size: 16px;
   font-weight: 300;
   padding-left: 37px;
