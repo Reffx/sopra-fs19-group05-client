@@ -160,7 +160,7 @@ class ChooseGodCard extends React.Component {
             if (this.state.player_is_playing === this.state.player1) {
                 if (this.state.player1.worker1.godCard === "None") {
                     this.setGodCard(card, this.state.player1.id, inactiveCard)
-                } else {
+                } else if (this.state.player1.worker1.godCard !== "None" && this.return_active_card(this.state.player1.worker1.godCard) !==card){
                     this.setGodCard(card, this.state.player2.id, inactiveCard)
                 }
             }

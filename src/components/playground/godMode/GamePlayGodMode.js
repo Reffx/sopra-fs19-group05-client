@@ -1010,7 +1010,7 @@ class GamePlayGodMode extends React.Component {
                             width="50%"
                             onClick={() => {
                                 this.hermesBuildStatus();
-                                this.setState({hasChosenHisGodCardPlayer1: true});
+                                this.setState({hasChosenHisGodCardPlayer1: false});
                             }}
                     >
                         Stop Moving
