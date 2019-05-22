@@ -24,6 +24,7 @@ const Form = styled.div`
   height: 550px;
   font-size: 16px;
   font-weight: 300;
+  margin-top: 50px;
   padding-left: 37px;
   padding-right: 37px;
   border-radius: 5px;
