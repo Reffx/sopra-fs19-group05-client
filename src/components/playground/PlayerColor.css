@@ -30,7 +30,7 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 11px;
+    margin-top: 15px;
     z-index: 10;
     border: 10px solid blue;
     border-radius: 50px;
@@ -42,7 +42,7 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 11px;
+    margin-top: 15px;
     z-index: 10;
     border: 10px solid blue;
     border-radius: 50px;
@@ -57,7 +57,8 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 2px;
+    margin-top: -1px;
+    margin-left: -1px;
     z-index: 10;
     border: 10px solid blue;
     border-radius: 50px;
@@ -70,7 +71,8 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 2px;
+    margin-top: -1px;
+    margin-left: -1px;
     z-index: 10;
     border: 10px solid blue;
     border-radius: 50px;
@@ -83,8 +85,8 @@
 .player-div-lvl-3-BLUE{
     height: 50px;
     width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -13px;
     z-index: 10;
     border: 10px solid blue;
     border-radius: 50px;
@@ -96,8 +98,8 @@
 .player-div-lvl-3-active-BLUE{
     height: 50px;
     width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -13px;
     z-index: 10;
     border: 10px solid blue;
     border-radius: 50px;
@@ -138,7 +140,7 @@
      height: 50px;
      width: 50px;
      margin: auto;
-     margin-top: 11px;
+     margin-top: 15px;
      z-index: 10;
      border: 10px solid yellow;
      border-radius: 50px;
@@ -150,7 +152,7 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 11px;
+    margin-top: 15px;
     z-index: 10;
     border: 10px solid yellow;
     border-radius: 50px;
@@ -165,7 +167,8 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 2px;
+    margin-top: -1px;
+    margin-left: -1px;
     z-index: 10;
     border: 10px solid yellow;
     border-radius: 50px;
@@ -177,7 +180,8 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 2px;
+    margin-top: -1px;
+    margin-left: -1px;
     z-index: 10;
     border: 10px solid yellow;
     border-radius: 50px;
@@ -190,8 +194,8 @@
 .player-div-lvl-3-YELLOW{
     height: 50px;
     width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -13px;
     z-index: 10;
     border: 10px solid yellow;
     border-radius: 50px;
@@ -202,8 +206,8 @@
 .player-div-lvl-3-active-YELLOW{
     height: 50px;
     width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -13px;
     z-index: 10;
     border: 10px solid yellow;
     border-radius: 50px;
@@ -244,7 +248,7 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 11px;
+    margin-top: 15px;
     z-index: 10;
     border: 10px solid deeppink;
     border-radius: 50px;
@@ -256,7 +260,7 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 11px;
+    margin-top: 15px;
     z-index: 10;
     border: 10px solid deeppink;
     border-radius: 50px;
@@ -271,7 +275,8 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 2px;
+    margin-top: -1px;
+    margin-left: -1px;
     z-index: 10;
     border: 10px solid deeppink;
     border-radius: 50px;
@@ -283,7 +288,8 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 2px;
+    margin-top: -1px;
+    margin-left: -1px;
     z-index: 10;
     border: 10px solid deeppink;
     border-radius: 50px;
@@ -296,8 +302,8 @@
 .player-div-lvl-3-PINK {
     height: 50px;
     width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -13px;
     z-index: 10;
     border: 10px solid deeppink;
     border-radius: 50px;
@@ -308,8 +314,8 @@
 .player-div-lvl-3-active-PINK{
     height: 50px;
     width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -13px;
     z-index: 10;
     border: 10px solid deeppink;
     border-radius: 50px;
@@ -350,7 +356,7 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 11px;
+    margin-top: 15px;
     z-index: 10;
     border: 10px solid red;
     border-radius: 50px;
@@ -362,7 +368,7 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 11px;
+    margin-top: 15px;
     z-index: 10;
     border: 10px solid red;
     border-radius: 50px;
@@ -376,7 +382,8 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 2px;
+    margin-top: -1px;
+    margin-left: -1px;
     z-index: 10;
     border: 10px solid red;
     border-radius: 50px;
@@ -391,7 +398,8 @@
     height: 50px;
     width: 50px;
     margin: auto;
-    margin-top: 2px;
+    margin-top: -1px;
+    margin-left: -1px;
     z-index: 10;
     border: 10px solid red;
     border-radius: 50px;
@@ -402,8 +410,8 @@
 .player-div-lvl-3-RED{
     height: 50px;
     width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -13px;
     z-index: 10;
     border: 10px solid red;
     border-radius: 50px;
@@ -414,8 +422,8 @@
 .player-div-lvl-3-active-RED{
     height: 50px;
     width: 50px;
-    margin-left: -10px;
-    margin-top: -10px;
+    margin-left: -13px;
+    margin-top: -13px;;
     z-index: 10;
     border: 10px solid red;
     border-radius: 50px;

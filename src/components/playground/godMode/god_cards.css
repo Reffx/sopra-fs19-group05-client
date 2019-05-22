@@ -131,7 +131,7 @@
 }
 
 .godCard-Border-gamePlay {
-    border: 8px solid green;
+    box-shadow: 5px 5px 5px 5px goldenrod;
 }
 
 .godCard1-gamePlay:hover {
