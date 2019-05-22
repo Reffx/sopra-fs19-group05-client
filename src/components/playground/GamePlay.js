@@ -721,6 +721,21 @@ class GamePlay extends React.Component {
         }
     }
 
+    getColorButton(playerColor) {
+        if (playerColor === "BLUE") {
+            return "button-blue";
+        }
+        if (playerColor === "YELLOW") {
+            return "button-yellow";
+        }
+        if (playerColor === "RED") {
+            return "button-red";
+        }
+        if (playerColor === "PINK") {
+            return "button-pink";
+        }
+    }
+
     getLeftBoxDesign() {
         if (this.state.gameStatus === "Move1" || this.state.gameStatus === "Build1") {
             if (this.state.player1.color === "BLUE") {
@@ -789,7 +804,8 @@ class GamePlay extends React.Component {
 
                         </label>
                         <ButtonContainer/>
-                        <Button id={this.isButtonInvisiblePlayer1()}
+                        <Button className={this.getColorButton(this.state.player1.color) + " button-extras"}
+                            id={this.isButtonInvisiblePlayer1()}
                                 disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
                                 width="50%"
                                 onClick={() => {
@@ -800,7 +816,8 @@ class GamePlay extends React.Component {
                         </Button>
                         <ButtonContainer/>
                         <ButtonContainer/>
-                        <Button id={this.isButtonInvisiblePlayer1()}
+                        <Button className={this.getColorButton(this.state.player1.color) + " button-extras"}
+                            id={this.isButtonInvisiblePlayer1()}
                                 disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                 width="50%"
                                 onClick={() => {
@@ -1041,7 +1058,8 @@ class GamePlay extends React.Component {
 
                         </label>
                         <ButtonContainer/>
-                        <Button id={this.isButtonInvisiblePlayer2()}
+                        <Button className={this.getColorButton(this.state.player2.color) + " button-extras"}
+                            id={this.isButtonInvisiblePlayer2()}
                                 disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
                                 width="50%"
                                 onClick={() => {
@@ -1052,7 +1070,8 @@ class GamePlay extends React.Component {
                         </Button>
                         <ButtonContainer/>
                         <ButtonContainer/>
-                        <Button id={this.isButtonInvisiblePlayer2()}
+                        <Button className={this.getColorButton(this.state.player2.color) + " button-extras"}
+                            id={this.isButtonInvisiblePlayer2()}
                                 disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
                                 width="50%"
                                 onClick={() => {
