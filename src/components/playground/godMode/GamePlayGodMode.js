@@ -1087,6 +1087,8 @@ class GamePlayGodMode extends React.Component {
     render() {
         return (
             <div className="fixedPixels-div">
+                <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+                </link>
                 <div className="message-div">{this.alertMessage()}</div>
                 <div className="mainHorizontally">
                     <div className={this.getLeftBoxDesign()}>
