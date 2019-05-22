@@ -32,7 +32,7 @@ class ChooseGodCard extends React.Component {
             card2: "Artemis",
             card2Inactive: "InactiveArtemis",
             card3: "Athena",
-            card3Inactive: "NONE",
+            card3Inactive: "InactiveAthena",
             card4: "Atlas",
             card4Inactive: "InactiveAtlas",
             card5: "Demeter",
@@ -68,9 +68,11 @@ class ChooseGodCard extends React.Component {
             return "Apollo"
         } else if (inactiveCard === "InactiveArtemis") {
             return "Artemis"
-        } else if (inactiveCard === "Athena") {
+        } else if (inactiveCard === "InactiveAthena") {
             return "Athena"
-        } else if (inactiveCard === "InactiveAtlas") {
+        }  else if (inactiveCard === "Athena") {
+            return "Athena"
+        }else if (inactiveCard === "InactiveAtlas") {
             return "Atlas"
         } else if (inactiveCard === "InactiveDemeter") {
             return "Demeter"
@@ -156,7 +158,9 @@ class ChooseGodCard extends React.Component {
                 }
             }
             if (this.state.player_is_playing === this.state.player2) {
+                console.log(card, inactiveCard);
                 if (this.state.player1.worker1.godCard === card || this.state.player1.worker1.godCard === inactiveCard) {
+                    console.log(card, inactiveCard);
                     this.setGodCard(this.return_active_card(this.state.player2.worker1.godCard), this.state.player1.id, this.state.player2.worker1.godCard);//not working like that
                     this.setGodCard(card, this.state.player2.id, inactiveCard);
                     this.set_beginner()
@@ -175,7 +179,7 @@ class ChooseGodCard extends React.Component {
         } else {
             tempCard = inactiveGodCard;
         }
-        alert(tempCard);
+        console.log(tempCard);
         fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${id}/GodCard`, {
             method: "PUT",
             headers: {
