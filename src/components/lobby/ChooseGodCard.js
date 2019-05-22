@@ -3,7 +3,7 @@ import "./chooseGodCard.css"
 import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
 import {getDomain} from "../../helpers/getDomain";
-import {Button} from "../../views/design/Button";
+import {Button_1} from "../../views/design/Button";
 import {withRouter} from "react-router-dom";
 import GameModel from "../shared/models/GameModel";
 import Player from "../shared/models/Player";
@@ -63,6 +63,38 @@ class ChooseGodCard extends React.Component {
         }, 1000)
     }
 
+    return_active_card(inactiveCard){
+        if(inactiveCard === "Apollo"){
+            return "Apollo"
+        }
+        else if(inactiveCard === "InactiveArtemis"){
+            return "Artemis"
+        }
+        else if(inactiveCard === "Athena"){
+            return "Athena"
+        }
+        else if(inactiveCard === "InactiveAtlas"){
+            return "Atlas"
+        }
+        else if(inactiveCard === "InactiveDemeter"){
+            return "Demeter"
+        }
+        else if(inactiveCard === "InactiveHephaestus"){
+            return "Hephaestus"
+        }
+        else if(inactiveCard === "InactiveHermes"){
+            return "Hermes"
+        }
+        else if(inactiveCard === "Minotaur"){
+            return "Minotaur"
+        }
+        else if(inactiveCard === "Pan"){
+            return "Pan"
+        }
+        else if(inactiveCard === "InactivePrometheus"){
+            return "Prometheus"
+        }
+    }
 
     get_game() {
         fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}`, {
@@ -96,7 +128,7 @@ class ChooseGodCard extends React.Component {
                         this.setState({alertText: "Player2 can choose one of the two GodCards!"})
                     }
                     if (this.state.gameStatus !== "Start") {
-                        this.setState({alertText: this.state.player1.username + " has " + this.state.player1.worker1.godCard + ", " + this.state.player2.username + " has " + this.state.player2.worker1.godCard})
+                        this.setState({alertText: this.state.player1.username + " has " + this.return_active_card(this.state.player1.worker1.godCard) + ", " + this.state.player2.username + " has " + this.return_active_card(this.state.player2.worker1.godCard)})
                     }
                 }
             })
@@ -133,11 +165,11 @@ class ChooseGodCard extends React.Component {
                 }
             }
             if (this.state.player_is_playing === this.state.player2) {
-                if (this.state.player1.worker1.godCard === card) {
-                    this.setGodCard(this.state.player2.worker1.godCard, this.state.player1.id, inactiveCard);
+                if (this.state.player1.worker1.godCard === card || this.state.player1.worker1.godCard === inactiveCard) {
+                    this.setGodCard(this.return_active_card(this.state.player2.worker1.godCard), this.state.player1.id, this.state.player2.worker1.godCard);//not working like that
                     this.setGodCard(card, this.state.player2.id, inactiveCard);
                     this.set_beginner()
-                } else {
+                } else if (this.state.player2.worker1.godCard === card || this.state.player2.worker1.godCard === inactiveCard) {
                     this.set_beginner()
                 }
             }
@@ -273,6 +305,8 @@ class ChooseGodCard extends React.Component {
     render() {
         return (
             <div>
+                <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
+                </link>
                 <h1 className="chooseGodCard-h1">{this.state.alertText}</h1>
                 <div className="first-row">
                     <div class="godCard1" id={this.getBorderSelected("Apollo")} onClick={() => {
@@ -311,7 +345,7 @@ class ChooseGodCard extends React.Component {
                 </div>
                 <div className="centerTheButton">
                     <ButtonContainer/>
-                    <Button
+                    <Button_1 className = "rock_godCard-button"
                         disabled={this.state.gameStatus === "Start" || this.state.gameStatus === null}
                         width="30%"
                         onClick={() => {
@@ -321,7 +355,7 @@ class ChooseGodCard extends React.Component {
                         }}
                     >
                         Go to Playground
-                    </Button>
+                    </Button_1>
                     <ButtonContainer/>
                 </div>
             </div>

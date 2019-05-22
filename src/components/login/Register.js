@@ -3,8 +3,9 @@ import styled from "styled-components";
 import {BaseContainer} from "../../helpers/layout";
 import {getDomain} from "../../helpers/getDomain";
 import {withRouter} from "react-router-dom";
-import {Button} from "../../views/design/Button";
+import {Button_1} from "../../views/design/Button";
 import Toolbar from '../Toolbar/Toolbar';
+import "../game/choose_mode.css"
 
 const FormContainer = styled.div`
   margin-top: 2em;
@@ -192,7 +193,7 @@ class Register extends React.Component {
                                 }}
                             />
                             <ButtonContainer>
-                                <Button
+                                <Button_1 className= "rock_dashbord-button"
                                     disabled={!this.state.username || !this.state.password || !this.state.birthday}
                                     width="50%"
                                     onClick={() => {
@@ -200,7 +201,7 @@ class Register extends React.Component {
                                     }}
                                 >
                                     Sign Up
-                                </Button>
+                                </Button_1>
                             </ButtonContainer>
                             <Margin> </Margin>
                             <a href="/login" style={{color: '#FCFFF7'}}>Already an Account? Login!</a>
