@@ -40,6 +40,7 @@ class LobbyOverview extends React.Component {
             gameStatus: null,
             intervalId: null,
             Player1WaitingMessage: "Waiting for Player",
+            countdown: 10,
         };
     }
 
@@ -81,7 +82,6 @@ class LobbyOverview extends React.Component {
                     this.setState({alertText: "Game coudn't be created!"})
                 }
                 this.componentDidMount(LobbyOverview);
-
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
@@ -97,13 +97,20 @@ class LobbyOverview extends React.Component {
         this.get_game();
         // if game gets deleted in backend and frontend still tries to fetch a deleted game
         //fetch method threw error, wrong end of json input, changed localstorage.getitem to read window location last index which is the current game Id
-        this.Interval = setInterval(() => {
-            if (sessionStorage.getItem("gameID") !== null && this.state.gameStatus === "Start") {
+        var myInterval;
+        myInterval = setInterval(() => {
+            if (this.state.player1_status === true && this.state.player2_status === true){
+                this.setState({countdown: this.state.countdown - 1});
+                this.checkWeiterleitung();
+                if (this.state.countdown === 0){
+                clearInterval(myInterval);}
+                console.log(this.state.countdown);
+            }
+            else if (sessionStorage.getItem("gameID") !== null && this.state.gameStatus === "Start") {
                 this.get_game();
                 this.changeMessage();
-            } else {clearInterval(this.Interval);
-            console.log("sedoncPartIntervall blabla")}
-        }, 1000)
+            }
+        }, 1500)
     }
 
 
@@ -390,6 +397,24 @@ class LobbyOverview extends React.Component {
         }
     }
 
+    checkWeiterleitung() {
+        if (this.state.countdown <= 0 && (this.state.gameMode === "NORMAL")) {
+            this.state.gameStatus = "notStart";
+            this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay`)
+        } else if (this.state.countdown <= 0 && (this.state.gameMode === "GOD")) {
+            if (this.state.gameMode === "GOD") {
+                this.state.gameStatus = "notStart";
+                this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/chooseGodCard`)
+            }
+        }
+    }
+
+    under10(number){
+        if (number < 10) {return number}
+        else return null;
+    }
+
+
 
     render() {
         return (
@@ -398,6 +423,7 @@ class LobbyOverview extends React.Component {
                 </link>
                 <h1 className="lobby-overview-h1"> {this.state.player1_username}'s {this.state.gameMode} Mode
                     Lobby </h1>
+                <h1 className="countdown-h1"> {this.under10(this.state.countdown)}</h1>
                 <div class="flexBox">
                     <div class={this.getColorOverviewBox(this.state.player1_color)}>
                         <div class="player-box">
@@ -425,14 +451,18 @@ class LobbyOverview extends React.Component {
                             <p>{this.state.Player1WaitingMessage} </p>
                             <div className={this.isColorBoxVisibleP2()}>
                                 <p>Choose your Color:</p>
-                                <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
-                                        className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
-                                <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
-                                        className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
-                                <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
-                                        className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
-                                <button disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
-                                        className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
+                                <button
+                                    disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
+                                    className="circle_red" onClick={this.redCircleClick.bind(this)}></button>
+                                <button
+                                    disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
+                                    className="circle_blue" onClick={this.blueCircleClick.bind(this)}></button>
+                                <button
+                                    disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
+                                    className="circle_yellow" onClick={this.yellowCircleClick.bind(this)}></button>
+                                <button
+                                    disabled={!(sessionStorage.getItem("username") === this.state.player2_username)}
+                                    className="circle_pink" onClick={this.pinkCircleClick.bind(this)}></button>
                             </div>
                             <p className="ready-p">{this.checkReadyPlayer2()}</p>
                         </div>
@@ -440,39 +470,24 @@ class LobbyOverview extends React.Component {
                 </div>
                 <div className="margin-top"></div>
                 <Container>
-                        <ButtonContainer/>
-                        <Button_1 className="rock_lobby_1-button"
-                                onClick={() => {
-                                    this.leave_lobby();
-                                }}
-                        >
-                            Leave Lobby
-                        </Button_1>
-                        <ButtonContainer/>
                     <ButtonContainer/>
-                    <Button_1 className="rock_lobby_2-button"
-                            disabled={(this.state.player1_color === null) || (this.state.player2_color === null)}
-                            onClick={() => {
-                                this.setLocalStorageOpponent();
-                                this.ready()
-                            }}
+                    <Button_1 className="rock_lobby_1-button"
+                              onClick={() => {
+                                  this.leave_lobby();
+                              }}
                     >
-                        Ready to Play
+                        Leave Lobby
                     </Button_1>
                     <ButtonContainer/>
                     <ButtonContainer/>
-                    <Button_1 className="rock_lobby_3-button"
-                            disabled={(this.state.player1_status === false) || (this.state.player2_status === false)}
-                            onClick={() => {
-                                this.state.gameStatus = "notStart";
-                                if (this.state.gameMode === "NORMAL") {
-                                    this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay`)
-                                } else if (this.state.gameMode === "GOD") {
-                                    this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/chooseGodCard`)
-                                }
-                            }}
+                    <Button_1 className="rock_lobby_2-button"
+                              disabled={(this.state.player1_status === true) && (this.state.player2_status === true) || (this.state.player1_color === null) || (this.state.player2_color === null)}
+                              onClick={() => {
+                                  this.setLocalStorageOpponent();
+                                  this.ready();
+                              }}
                     >
-                        Go to the Playground/ God Card Selection
+                        Ready to Play
                     </Button_1>
                     <ButtonContainer/>
                 </Container>
