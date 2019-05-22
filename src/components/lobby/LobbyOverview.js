@@ -19,6 +19,16 @@ const Container = styled(BaseContainer)`
   text-align: center;
   display: row;
 `;
+export const button = styled.button`
+  &:hover {
+    transform: translateY(-3px);
+  }
+  padding: 10px;
+  width: ${props => props.width || null};
+  cursor: ${props => (props.disabled ? "default" : "pointer")};
+  opacity: ${props => (props.disabled ? 0.4 : 1)};
+  
+`;
 
 
 class LobbyOverview extends React.Component {
@@ -440,44 +450,39 @@ class LobbyOverview extends React.Component {
                 </div>
                 <div className="margin-top"></div>
                 <Container>
+                        <ButtonContainer/>
+                        <Button className="rock_lobby_1-button"
+                                onClick={() => {
+                                    this.leave_lobby();
+                                }}
+                        >
+                            Leave Lobby
+                        </Button>
+                        <ButtonContainer/>
                     <ButtonContainer/>
-                    <Button
-                        disabled={(this.state.player1_color === null) || (this.state.player2_color === null)}
-                        width="30%"
-                        onClick={() => {
-                            this.setLocalStorageOpponent();
-                            this.ready()
-                        }}
+                    <Button className="rock_lobby_2-button"
+                            disabled={(this.state.player1_color === null) || (this.state.player2_color === null)}
+                            onClick={() => {
+                                this.setLocalStorageOpponent();
+                                this.ready()
+                            }}
                     >
                         Ready to Play
                     </Button>
                     <ButtonContainer/>
                     <ButtonContainer/>
-                    <Button
-                        disabled={(this.state.player1_status === false) || (this.state.player2_status === false)}
-                        width="30%"
-                        onClick={() => {
-                            this.state.gameStatus = "notStart";
-                            if (this.state.gameMode === "NORMAL") {
-                                this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay`)
-                            } else if (this.state.gameMode === "GOD") {
-                                this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/chooseGodCard`)
-                            }
-                        }}
+                    <Button className="rock_lobby_3-button"
+                            disabled={(this.state.player1_status === false) || (this.state.player2_status === false)}
+                            onClick={() => {
+                                this.state.gameStatus = "notStart";
+                                if (this.state.gameMode === "NORMAL") {
+                                    this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/gamePlay`)
+                                } else if (this.state.gameMode === "GOD") {
+                                    this.props.history.push(`/game/${sessionStorage.getItem("gameID")}/chooseGodCard`)
+                                }
+                            }}
                     >
                         Go to the Playground/ God Card Selection
-                    </Button>
-                    <ButtonContainer/>
-                </Container>
-                <Container>
-                    <ButtonContainer/>
-                    <Button
-                        width="30%"
-                        onClick={() => {
-                            this.leave_lobby();
-                        }}
-                    >
-                        Leave Lobby
                     </Button>
                     <ButtonContainer/>
                 </Container>

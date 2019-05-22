@@ -124,3 +124,42 @@ h1 {
 .invisible{
     display: none;
 }
+.rock_lobby_1-button {
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Luckiest Guy', cursive;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    height: 50px;
+    width: 200px;
+    transition: all 0.3s ease;
+    background-image: url("../assets/button_long.png");
+    background-size: cover;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.5);
+}
+.rock_lobby_2-button {
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Luckiest Guy', cursive;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    height: 50px;
+    width: 250px;
+    transition: all 0.3s ease;
+    background-image: url("../assets/button_long.png");
+    background-size: cover;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.5);
+}
+.rock_lobby_3-button {
+    padding: 10px;
+    font-size: 20px;
+    font-family: 'Luckiest Guy', cursive;
+    text-align: center;
+    color: rgba(0, 0, 0, 1);
+    height: 70px;
+    width: 300px;
+    transition: all 0.3s ease;
+    background-image: url("../assets/button_long.png");
+    background-size: cover;
+    box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.5);
+}
