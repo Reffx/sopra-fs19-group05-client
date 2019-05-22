@@ -130,10 +130,10 @@ h1 {
     font-family: 'Luckiest Guy', cursive;
     text-align: center;
     color: rgba(0, 0, 0, 1);
-    height: 50px;
+    height: 55px;
     width: 200px;
     transition: all 0.3s ease;
-    background-image: url("../assets/button_long.png");
+    background-image: url("../assets/button_1.png");
     background-size: cover;
     box-shadow: 5px 5px 5px 5px rgba(0,0,0,0.5);
 }
@@ -143,7 +143,7 @@ h1 {
     font-family: 'Luckiest Guy', cursive;
     text-align: center;
     color: rgba(0, 0, 0, 1);
-    height: 50px;
+    height: 56px;
     width: 250px;
     transition: all 0.3s ease;
     background-image: url("../assets/button_long.png");

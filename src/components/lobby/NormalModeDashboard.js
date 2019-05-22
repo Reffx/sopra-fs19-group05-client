@@ -129,7 +129,7 @@ class NormalModeDashboard extends React.Component {
                     </div>
                 )}
                 <div>
-                    <Button className="rock_dashbord-button"
+                    <Button className="rock_login-button"
                             width="60%"
                             onClick={() => {
                                 this.props.history.push("/chooseMode");

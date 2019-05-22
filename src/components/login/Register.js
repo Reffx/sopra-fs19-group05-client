@@ -193,7 +193,7 @@ class Register extends React.Component {
                                 }}
                             />
                             <ButtonContainer>
-                                <Button_1 className= "rock_dashbord-button"
+                                <Button_1 className= "rock_login-button"
                                     disabled={!this.state.username || !this.state.password || !this.state.birthday}
                                     width="50%"
                                     onClick={() => {

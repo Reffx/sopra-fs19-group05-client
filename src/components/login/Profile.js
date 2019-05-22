@@ -38,7 +38,7 @@ const Form = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 500px;
+  height: 600px;
   width: 100%;
   font-size: 16px;
   font-weight: 300;
@@ -192,7 +192,7 @@ class Profile extends React.Component {
                                 {textElement}
                                 <div>
                                     <ButtonContainer>
-                                        <Button_1 className= "rock_dashbord-button"
+                                        <Button_1 className= "rock_login-button"
                                             disabled={!(sessionStorage.getItem("token") === this.state.token) || !this.state.username}
                                             width="100%"
                                             onClick={() => {
@@ -211,7 +211,7 @@ class Profile extends React.Component {
                                         </Button_1>
                                     </ButtonContainer>
                                     <ButtonContainer>
-                                        <Button_1 className= "rock_dashbord-button"
+                                        <Button_1 className= "rock_login-button"
                                             onClick={() => {
                                                 this.props.history.push("/dashboard");
                                             }}
