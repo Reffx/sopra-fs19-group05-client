@@ -147,6 +147,7 @@ class GamePlayGodMode extends React.Component {
             positionP1W2: null,
             positionP2W1: null,
             positionP2W2: null,
+            hasPrometheusBuilt: false,
         }
         ;
     }
@@ -331,9 +332,11 @@ class GamePlayGodMode extends React.Component {
     }
 
     build(box) {
+        console.log(this.state.game.player1.worker1.godCard);
+        console.log(this.state.hasPrometheusBuilt);
         if (this.state.highlightedFields === null) {
             if (box.occupier != null) {
-                if ((this.state.gameStatus === "Build1") && (sessionStorage.getItem("GodCardPlayer1") === "Prometheus") || (this.state.gameStatus === "Build2") && (sessionStorage.getItem("GodCardPlayer2") === "Prometheus")) {
+                if (((this.state.gameStatus === "Build1") && (this.state.game.player1.worker1.godCard === "Prometheus")) || ((this.state.gameStatus === "Build2") && (this.state.game.player2.worker1.godCard === "Prometheus")) || (this.state.hasPrometheusBuilt === false)) {
                     this.buildPrometheus(box);
                 } else if (box.occupier.workerId === this.state.selected_worker || box.occupier.workerId === this.state.selected_worker2) {
                     this.highLightBuild(box);
@@ -349,6 +352,11 @@ class GamePlayGodMode extends React.Component {
                 ;
             }
             if (placeable === true) {
+                if ((this.state.game.player1.worker1.godCard === "Prometheus" && this.state.gameStatus === "Build1") || (this.state.game.player2.worker1.godCard === "Prometheus" && this.state.gameStatus === "Build2")) {
+                   if (this.state.hasPrometheusBuilt === false) {
+                        this.state.hasPrometheusBuilt = true;
+                    }
+                }
                 fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${box.fieldNum}/${this.state.selected_worker}/build`, {
                     method: "PUT",
                     headers: {
@@ -359,6 +367,8 @@ class GamePlayGodMode extends React.Component {
                         this.setState({highlightedFields: null});
                         this.create_field();
                         this.get_game();
+                        console.log(this.state.hasPrometheusBuilt);
+
                     })
                     .catch(err => {
                         if (err.message.match(/Failed to fetch/)) {
@@ -795,7 +805,6 @@ class GamePlayGodMode extends React.Component {
     }
 
     resetSelectedWorker() {
-        console.log(sessionStorage.getItem("GodCardPlayer1"));
         if (((this.state.gameStatus === "Move1") || (this.state.gameStatus === "Build1")) && (sessionStorage.getItem("userID") === this.state.game.player2.id.toString())) {
             this.state.selected_worker = null;
         }
