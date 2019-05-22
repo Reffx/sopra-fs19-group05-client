@@ -35,7 +35,9 @@ class Landing extends React.Component {
                             <Button className="rock-button-landing-1" onClick={() => {
                                 this.props.history.push("/chooseMode");
                             }}>Let's Play</Button>
-                            <Button className="rock-button-landing-2 spacer">Rules</Button>
+                            <Button className="rock-button-landing-2 spacer" onClick={() => {
+                                window.open("https://roxley.com/wp-content/uploads/2016/08/Santorini-Rulebook-Web-2016.08.14.pdf");
+                            }}>Rules</Button>
                         </div>
                     </div>
                 </div>
