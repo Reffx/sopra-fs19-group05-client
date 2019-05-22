@@ -1006,10 +1006,11 @@ class GamePlayGodMode extends React.Component {
                         Use GodCard
                     </Button>
                     <Button className={this.getColorButton(this.state.player1.color) + " hermes-Button"}
-                            disabled={(this.state.gameStatus !== "Move1")}
+                            disabled={((this.state.gameStatus !== "Move1") || (!this.state.Player1_Button_chooseGodActivation_visibility))}
                             width="50%"
                             onClick={() => {
                                 this.hermesBuildStatus();
+                                this.state.selected_worker = null;
                                 this.setState({hasChosenHisGodCardPlayer1: true});
                             }}
                     >
@@ -1047,10 +1048,11 @@ class GamePlayGodMode extends React.Component {
                         Use GodCard
                     </Button>
                     <Button className={this.getColorButton(this.state.player2.color) + " hermes-Button"}
-                            disabled={(this.state.gameStatus !== "Move2")}
+                            disabled={((this.state.gameStatus !== "Move2") || (!this.state.Player2_Button_chooseGodActivation_visibility))}
                             width="50%"
                             onClick={() => {
                                 this.hermesBuildStatus();
+                                this.state.selected_worker = null;
                                 this.setState({hasChosenHisGodCardPlayer2: true});
                             }}
                     >
