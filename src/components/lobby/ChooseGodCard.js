@@ -57,15 +57,15 @@ class ChooseGodCard extends React.Component {
             this.setState({alertText: "Select two Gods for Your Game!"})
         }
         if (this.state.player2.worker1.godCard === "None" &&  String(this.state.player2.id) === sessionStorage.getItem("userID")) {
-            this.setState({alertText: "Wait Until Opponent Selected God!"})
+            this.setState({alertText: "Wait Until Opponent Selected Gods!"})
         }
         if (this.state.player2.worker1.godCard !== "None" && String(this.state.player2.id) === sessionStorage.getItem("userID")) {
             this.setState({player_is_playing: this.state.player2});
-            this.setState({alertText: "Choose one of this Gods to be your God!"})
+            this.setState({alertText: "Choose one of this Gods to support your Battle!"})
         }
         if (this.state.player2.worker1.godCard !== "None" && String(this.state.player1.id) === sessionStorage.getItem("userID")) {
             this.setState({player_is_playing: this.state.player2});
-            this.setState({alertText: "Wait until Opponent chose his God!"})
+            this.setState({alertText: "Wait until Opponent chose one God to support his battle!"})
         }
         if (this.state.gameStatus !== "Start") {
             if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
