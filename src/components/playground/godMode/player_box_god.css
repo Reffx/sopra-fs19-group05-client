@@ -56,18 +56,18 @@
 }
 
 .button-red {
-    background-color: red;
+    background-color: red !important;
 }
 
 .button-blue {
-    background-color: blue;
+    background-color: blue !important;
 }
 
 .button-pink {
-    background-color: deeppink;
+    background-color: deeppink !important;
 }
 
 .button-yellow {
-    background-color: yellow;
-    color: black;
+    background-color: yellow !important;
+    color: black !important;
 }
