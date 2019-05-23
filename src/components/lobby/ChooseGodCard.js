@@ -177,7 +177,6 @@ class ChooseGodCard extends React.Component {
         } else {
             tempCard = inactiveGodCard;
         }
-        alert(tempCard);
         fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${id}/GodCard`, {
             method: "PUT",
             headers: {
