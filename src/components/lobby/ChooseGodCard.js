@@ -52,6 +52,31 @@ class ChooseGodCard extends React.Component {
         };
     }
 
+    set_alertText(){
+        if (this.state.player2.worker1.godCard === "None" &&  String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+            this.setState({alertText: "Select two Gods for Your Game!"})
+        }
+        if (this.state.player2.worker1.godCard === "None" &&  String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+            this.setState({alertText: "Wait Until Opponent Selected God!"})
+        }
+        if (this.state.player2.worker1.godCard !== "None" && String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+            this.setState({player_is_playing: this.state.player2});
+            this.setState({alertText: "Choose one of this Gods to be your God!"})
+        }
+        if (this.state.player2.worker1.godCard !== "None" && String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+            this.setState({player_is_playing: this.state.player2});
+            this.setState({alertText: "Wait until Opponent chose his God!"})
+        }
+        if (this.state.gameStatus !== "Start") {
+            if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                this.setState({alertText: this.return_active_card(this.state.player1.worker1.godCard) + " will support your Battle "})
+            }
+            if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                this.setState({alertText: this.return_active_card(this.state.player2.worker1.godCard) + " will support your Battle "})
+            }
+        }
+    }
+
 
     componentDidMount() {
         sessionStorage.setItem("GodCardPlayer1", null);
@@ -111,16 +136,7 @@ class ChooseGodCard extends React.Component {
                         chosenCardPlayer1: response.player1.worker1.godCard,
                         chosenCardPlayer2: response.player2.worker1.godCard,
                     });
-                    if (this.state.player2.worker1.godCard === "None") {
-                        this.setState({alertText: "Player1 can choose 2 GodCards as selection!"})
-                    }
-                    if (this.state.player2.worker1.godCard !== "None") {
-                        this.setState({player_is_playing: this.state.player2});
-                        this.setState({alertText: "Player2 can choose one of the two GodCards!"})
-                    }
-                    if (this.state.gameStatus !== "Start") {
-                        this.setState({alertText: this.state.player1.username + " has " + this.return_active_card(this.state.player1.worker1.godCard) + ", " + this.state.player2.username + " has " + this.return_active_card(this.state.player2.worker1.godCard)})
-                    }
+                    this.set_alertText()
                 }
             })
             .catch(err => {
