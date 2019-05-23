@@ -10,6 +10,15 @@
     background-size: cover;
 }
 
+.left-picture-overview-choose {
+    height: 330px;
+    width: 385px;
+    margin-left: -200px;
+    margin-top: -80px;
+    background-image: url("../assets/chooseMode.png");
+    background-size: cover;
+}
+
 .rock-button {
     padding: 10px;
     font-size: 20px;

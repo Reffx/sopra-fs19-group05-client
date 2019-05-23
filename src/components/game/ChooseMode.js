@@ -30,7 +30,7 @@ class ChooseMode extends React.Component {
                     </main>
                     <div className="container">
                         <div className="leftPart-chooseMode">
-                            <div className="left-picture-overview">
+                            <div className="left-picture-overview-choose">
                             </div>
                         </div>
                         <div className="rightPart-chooseMode">

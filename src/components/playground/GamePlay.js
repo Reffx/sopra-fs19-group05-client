@@ -143,7 +143,7 @@ class GamePlay extends React.Component {
     }
 
     componentDidMount() {
-        var normalModeInterval
+        var normalModeInterval;
         normalModeInterval = setInterval(() => {
             if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
                  console.log("Clear Interval NormalMode:")
@@ -164,7 +164,7 @@ class GamePlay extends React.Component {
     updateLayoutBoxes() {
         if (this.state.checked === true) {
             var i;
-            for (i = 0; i < 24; i++) {
+            for (i = 0; i < 25; i++) {
                 if (this.state.allBoxes[i].height != 0) {
                     this.state.allBoxes[i].layout = this.state.allBoxes[i].height;
                 }
@@ -172,7 +172,7 @@ class GamePlay extends React.Component {
         }
         if (this.state.checked === false) {
             var y;
-            for (y = 0; y < 24; y++) {
+            for (y = 0; y < 25; y++) {
                 this.state.allBoxes[y].layout = null;
             }
         }

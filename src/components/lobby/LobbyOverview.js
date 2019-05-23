@@ -408,7 +408,7 @@ class LobbyOverview extends React.Component {
     }
 
     under10(number){
-        if (number < 10) {return number}
+        if (number < 7) {return number}
         else return null;
     }
 
