@@ -298,7 +298,7 @@ class LobbyOverview extends React.Component {
                     this.setState({alertText: "Server couldn't respond correctly!"})
                 }
                 if (response.status === 409) {
-                    alert("Color is already in use! Please select another one!")
+                    console.log("Color is already in use! Please select another one!")
                 } else {
                     this.componentDidMount(LobbyOverview);
                 }
