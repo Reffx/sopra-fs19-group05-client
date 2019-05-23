@@ -189,29 +189,69 @@ class GamePlay extends React.Component {
     alertMessage() {
         if (this.state.game.gameStatus === "Move1") {
             if (this.state.game.player1.worker1.position === -1 || this.state.game.player1.worker2.position === -1) {
-                this.state.alertText = this.state.game.player1.username + " can place worker.";
+                if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                    this.state.alertText =  "Place your two workers for the battle "
+                }
+                if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                    this.state.alertText= "Wait your Opponent places his workers for the battle"
+                }
             } else {
-                this.state.alertText = this.state.game.player1.username + " can move.";
+                if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                    this.state.alertText=  "You can move, get your victory!"
+                }
+                if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                    this.state.alertText= "Your Opponents moving phase"
+                }
             }
         }
         if (this.state.game.gameStatus === "Move2") {
             if (this.state.game.player2.worker1.position === -1 || this.state.game.player2.worker2.position === -1) {
-                this.state.alertText = this.state.game.player2.username + " can place worker.";
+                if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                    this.state.alertText =  "Place your two workers for the battle"
+                }
+                if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                    this.state.alertText= "Wait your Opponent places his workers for the battle"
+                }
             } else {
-                this.state.alertText = this.state.game.player2.username + " can move.";
+                if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                    this.state.alertText=  "You can move, get your victory!"
+                }
+                if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                    this.state.alertText= "Your Opponents moving phase"
+                }
             }
         }
         if (this.state.game.gameStatus === "Build1") {
-            this.state.alertText = this.state.game.player1.username + " can build.";
+            if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                this.state.alertText=   "You can build, get your victory!"
+            }
+            if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                this.state.alertText= "Your Opponents building phase"
+            }
         }
         if (this.state.game.gameStatus === "Build2") {
-            this.state.alertText = this.state.game.player2.username + " can build.";
+            if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                this.state.alertText=   "You can build, get your victory!"
+            }
+            if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                this.state.alertText= "Your Opponents building phase"
+            }
         }
         if (this.state.game.gameStatus === "Winner1") {
-            this.state.alertText = this.state.game.player1.username + " has won."
+            if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                this.state.alertText=  "Victory, on to the next!"
+            }
+            if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                this.state.alertText= "You were defeated, win next time!"
+            }
         }
         if (this.state.game.gameStatus === "Winner2") {
-            this.state.alertText = this.state.game.player2.username + " has won."
+            if (String(this.state.player2.id) === sessionStorage.getItem("userID")) {
+                this.state.alertText=  "Victory, on to the next!"
+            }
+            if (String(this.state.player1.id) === sessionStorage.getItem("userID")) {
+                this.state.alertText= "You were defeated, win next time!"
+            }
         }
         return this.state.alertText
     }
