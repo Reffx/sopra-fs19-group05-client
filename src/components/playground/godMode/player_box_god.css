@@ -16,12 +16,12 @@
 }
 
 .useGodCard-Button{
-    margin-top: 10px;
-    width: 150px;
+    margin-top: 10px !important;
+    width: 150px !important;
 }
 
 .button-extras{
-    width: 100px;
+    width: 100px !important;
 }
 
 .godActivation-div{
