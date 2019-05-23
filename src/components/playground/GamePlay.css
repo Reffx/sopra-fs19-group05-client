@@ -94,7 +94,7 @@
     width: 1366px;
    /* border: 1px dashed black; */
     margin: auto;
-    margin-top: 100px;
+    margin-top: 85px;
 }
 
 
@@ -120,7 +120,46 @@
     margin-top: -5px;
 }
 
-.fastForward{
-    padding-top: 30px;
-    text-align: center;
+
+.Trophy-left{
+    margin-top: -180px;
+    margin-left: 132px;
+    height: 200px;
+    content: url("../assets/trophy.png");
+}
+
+.Trophy-right{
+    margin-top: -180px;
+    margin-left: 1062px;
+    height: 200px;
+    content: url("../assets/trophy.png");
+}
+
+.Trophy-none{
+    margin-top: -180px;
+    margin-left: 132px;
+    height: 200px;
+}
+
+.Trophy-left-god{
+    padding-bottom: 80px;
+    margin-top: -190px;
+    margin-left: 157px;
+    height: 220px;
+    content: url("../assets/trophy.png");
+}
+
+.Trophy-right-god{
+    padding-bottom: 80px;
+    margin-top: -190px;
+    margin-left: 1089px;
+    height: 220px;
+    content: url("../assets/trophy.png");
+}
+
+.Trophy-none-god{
+    padding-bottom: 80px;
+    margin-top: -190px;
+    margin-left: 157px;
+    height: 220px;
 }

@@ -222,7 +222,7 @@ class ChooseGodCard extends React.Component {
             sessionStorage.setItem("GodCardPlayer1", this.state.card2);
         }
         if (((godCard === this.state.card3) || (godCard === "InactiveAthena")) && (id === this.state.player1.id)) {
-            sessionStorage.setItem("GodCardPlayer1Inactive", this.state.card3Inactive);
+            sessionStorage.setItem("GodCardPlayer1Inactive", "NONE");
             sessionStorage.setItem("GodCardPlayer1", this.state.card3);
         }
         if ((godCard === this.state.card4 || godCard === this.state.card4Inactive) && id === this.state.player1.id) {
@@ -262,7 +262,7 @@ class ChooseGodCard extends React.Component {
             sessionStorage.setItem("GodCardPlayer2", this.state.card2);
         }
         if ((godCard === this.state.card3 || (godCard === "InactiveAthena")) && (id === this.state.player2.id)) {
-            sessionStorage.setItem("GodCardPlayer2Inactive", this.state.card3Inactive);
+            sessionStorage.setItem("GodCardPlayer2Inactive", "NONE");
             sessionStorage.setItem("GodCardPlayer2", this.state.card3);
         }
         if ((godCard === this.state.card4 || godCard === this.state.card4Inactive) && id === this.state.player2.id) {

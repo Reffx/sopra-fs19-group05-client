@@ -72,7 +72,7 @@ class GamePlay extends React.Component {
             player1: Player,
             player2: Player,
             game: GameModel,
-            alertText: "This is a message.",
+            alertText: "Loading...",
             players_turn: null,
             selected_worker: null,
             highlightedFields: null,
@@ -143,9 +143,11 @@ class GamePlay extends React.Component {
     }
 
     componentDidMount() {
-        setInterval(() => {
+        var normalModeInterval
+        normalModeInterval = setInterval(() => {
             if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
-                // console.log("winner 1 or 2 exists")
+                 console.log("Clear Interval NormalMode:")
+                clearInterval(normalModeInterval);
                 //CLEAR INTERVALL HERE
             } else {
                 console.log("abc");
@@ -153,6 +155,8 @@ class GamePlay extends React.Component {
                 this.create_field();
                 this.updateBoxes();
                 this.updateLayoutBoxes();
+                this.getWinnerLayout();
+                console.log("Interval normalMode executed");
             }
         }, 1000)
     }
@@ -782,6 +786,13 @@ class GamePlay extends React.Component {
         }
     }
 
+    getWinnerLayout(){
+        if (this.state.game.gameStatus === "Winner1")
+            return ("Trophy-left")
+        else if (this.state.game.gameStatus === "Winner2")
+            return ("Trophy-right")
+        else return "Trophy-none"
+    }
 
 
     render() {
@@ -791,396 +802,305 @@ class GamePlay extends React.Component {
                 <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
                 </link>
                 <div className="message-div">{this.alertMessage()}</div>
+                <div className={this.getWinnerLayout()}></div>
                 <div className="mainHorizontally">
-                    <div className={this.getLeftBoxDesign()}>
-                        <div className="player-box-gameplay">
-                            <h2>{this.state.player1.username}</h2>
-                            <div className={this.getColorCircle(this.state.player1.color)}></div>
-                        </div>
-                        <label id={this.isButtonInvisiblePlayer1()}>
-                            <span>Show numbers?</span>
-                            <Checkbox
-                                checked={this.state.checked}
-                                onChange={this.handleCheckboxChange}
-                            />
+                        <div className={this.getLeftBoxDesign()}>
+                            <div className="player-box-gameplay">
+                                <h2>{this.state.player1.username}</h2>
+                                <div className={this.getColorCircle(this.state.player1.color)}></div>
+                            </div>
+                            <label id={this.isButtonInvisiblePlayer1()}>
+                                <span>Show numbers?</span>
+                                <Checkbox
+                                    checked={this.state.checked}
+                                    onChange={this.handleCheckboxChange}
+                                />
 
-                        </label>
-                        <ButtonContainer/>
-                        <Button className={this.getColorButton(this.state.player1.color) + " button-extras"}
-                            id={this.isButtonInvisiblePlayer1()}
-                                disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
-                                width="50%"
-                                onClick={() => {
-                                    this.surrender()
-                                }}
-                        >
-                            Give Up
-                        </Button>
-                        <ButtonContainer/>
-                        <ButtonContainer/>
-                        <Button className={this.getColorButton(this.state.player1.color) + " button-extras"}
-                            id={this.isButtonInvisiblePlayer1()}
-                                disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
-                                width="50%"
-                                onClick={() => {
-                                    this.leave_game();
-                                    //this.props.history.push('/home')
-                                }}
-                        >
-                            Leave Game
-                        </Button>
-                        <ButtonContainer/>
-                    </div>
-                    <div className={this.getPlayFieldLayout()}>
-                        <div>
-                            <div className="box0 black box" id={this.getBorder(this.state.box0)} onClick={() => {
-                                this.get_action(this.state.box0)
-                            }}>
-                                <div id={this.heightLayout(this.state.box0)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box0)}>{this.state.box0.layout}
+                            </label>
+                            <ButtonContainer/>
+                            <Button className={this.getColorButton(this.state.player1.color) + " button-extras"}
+                                    id={this.isButtonInvisiblePlayer1()}
+                                    disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.surrender()
+                                    }}
+                            >
+                                Give Up
+                            </Button>
+                            <ButtonContainer/>
+                            <ButtonContainer/>
+                            <Button className={this.getColorButton(this.state.player1.color) + " button-extras"}
+                                    id={this.isButtonInvisiblePlayer1()}
+                                    disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.leave_game();
+                                        //this.props.history.push('/home')
+                                    }}
+                            >
+                                Leave Game
+                            </Button>
+                            <ButtonContainer/>
+                        </div>
+                        <div className={this.getPlayFieldLayout()}>
+                            <div>
+                                <div className="box0 black box" id={this.getBorder(this.state.box0)} onClick={() => {
+                                    this.get_action(this.state.box0)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box0)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box0)}>{this.state.box0.layout}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="box1 white box" id={this.getBorder(this.state.box1)}
+                                     onClick={() => {
+                                         this.get_action(this.state.box1)
+                                     }}>
+                                    <div id={this.heightLayout(this.state.box1)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box1)}>{this.state.box1.layout}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="box2 black box" id={this.getBorder(this.state.box2)} onClick={() => {
+                                    this.get_action(this.state.box2)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box2)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box2)}>{this.state.box2.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box3 white box" id={this.getBorder(this.state.box3)} onClick={() => {
+                                    this.get_action(this.state.box3)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box3)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box3)}>{this.state.box3.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box4 black box" id={this.getBorder(this.state.box4)} onClick={() => {
+                                    this.get_action(this.state.box4)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box4)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box4)}>{this.state.box4.layout}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="box1 white box" id={this.getBorder(this.state.box1)}
-                                 onClick={() => {
-                                     this.get_action(this.state.box1)
-                                 }}>
-                                <div id={this.heightLayout(this.state.box1)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box1)}>{this.state.box1.layout}
+                            <div>
+                                <div className="box5 white box" id={this.getBorder(this.state.box5)} onClick={() => {
+                                    this.get_action(this.state.box5)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box5)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box5)}>{this.state.box5.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box6 black box" id={this.getBorder(this.state.box6)} onClick={() => {
+                                    this.get_action(this.state.box6)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box6)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box6)}>{this.state.box6.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box7 white box" id={this.getBorder(this.state.box7)} onClick={() => {
+                                    this.get_action(this.state.box7)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box7)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box7)}>{this.state.box7.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box8 black box" id={this.getBorder(this.state.box8)} onClick={() => {
+                                    this.get_action(this.state.box8)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box8)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box8)}>{this.state.box8.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box9 white box" id={this.getBorder(this.state.box9)} onClick={() => {
+                                    this.get_action(this.state.box9)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box9)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box9)}>{this.state.box9.layout}</div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="box2 black box" id={this.getBorder(this.state.box2)} onClick={() => {
-                                this.get_action(this.state.box2)
-                            }}>
-                                <div id={this.heightLayout(this.state.box2)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box2)}>{this.state.box2.layout}</div>
+                            <div>
+                                <div className="box10 black box" id={this.getBorder(this.state.box10)} onClick={() => {
+                                    this.get_action(this.state.box10)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box10)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box10)}>{this.state.box10.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box11 white box" id={this.getBorder(this.state.box11)} onClick={() => {
+                                    this.get_action(this.state.box11)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box11)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box11)}>{this.state.box11.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box12 black box" id={this.getBorder(this.state.box12)} onClick={() => {
+                                    this.get_action(this.state.box12)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box12)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box12)}>{this.state.box12.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box13 white box" id={this.getBorder(this.state.box13)} onClick={() => {
+                                    this.get_action(this.state.box13)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box13)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box13)}>{this.state.box13.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box14 black box" id={this.getBorder(this.state.box14)} onClick={() => {
+                                    this.get_action(this.state.box14)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box14)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box14)}>{this.state.box14.layout}</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="box3 white box" id={this.getBorder(this.state.box3)} onClick={() => {
-                                this.get_action(this.state.box3)
-                            }}>
-                                <div id={this.heightLayout(this.state.box3)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box3)}>{this.state.box3.layout}</div>
+                            <div>
+                                <div className="box15 white box" id={this.getBorder(this.state.box15)} onClick={() => {
+                                    this.get_action(this.state.box15)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box15)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box15)}>{this.state.box15.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box16 black box" id={this.getBorder(this.state.box16)} onClick={() => {
+                                    this.get_action(this.state.box16)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box16)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box16)}>{this.state.box16.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box17 white box" id={this.getBorder(this.state.box17)} onClick={() => {
+                                    this.get_action(this.state.box17)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box17)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box17)}>{this.state.box17.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box18 black box" id={this.getBorder(this.state.box18)} onClick={() => {
+                                    this.get_action(this.state.box18)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box18)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box18)}>{this.state.box18.layout}</div>
+                                    </div>
+                                </div>
+                                <div className="box19 white box" id={this.getBorder(this.state.box19)} onClick={() => {
+                                    this.get_action(this.state.box19)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box19)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box19)}>{this.state.box19.layout}</div>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="box4 black box" id={this.getBorder(this.state.box4)} onClick={() => {
-                                this.get_action(this.state.box4)
-                            }}>
-                                <div id={this.heightLayout(this.state.box4)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box4)}>{this.state.box4.layout}</div>
+                            <div>
+                                <div className="box20 black box" id={this.getBorder(this.state.box20)} onClick={() => {
+                                    this.get_action(this.state.box20)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box20)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box20)}>{this.state.box20.layout}</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="box5 white box" id={this.getBorder(this.state.box5)} onClick={() => {
-                                this.get_action(this.state.box5)
-                            }}>
-                                <div id={this.heightLayout(this.state.box5)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box5)}>{this.state.box5.layout}</div>
+                                <div className="box21 white box" id={this.getBorder(this.state.box21)} onClick={() => {
+                                    this.get_action(this.state.box21)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box21)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box21)}>{this.state.box21.layout}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="box6 black box" id={this.getBorder(this.state.box6)} onClick={() => {
-                                this.get_action(this.state.box6)
-                            }}>
-                                <div id={this.heightLayout(this.state.box6)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box6)}>{this.state.box6.layout}</div>
+                                <div className="box22 black box" id={this.getBorder(this.state.box22)} onClick={() => {
+                                    this.get_action(this.state.box22)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box22)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box22)}>{this.state.box22.layout}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="box7 white box" id={this.getBorder(this.state.box7)} onClick={() => {
-                                this.get_action(this.state.box7)
-                            }}>
-                                <div id={this.heightLayout(this.state.box7)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box7)}>{this.state.box7.layout}</div>
+                                <div className="box23 white box" id={this.getBorder(this.state.box23)} onClick={() => {
+                                    this.get_action(this.state.box23)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box23)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box23)}>{this.state.box23.layout}</div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="box8 black box" id={this.getBorder(this.state.box8)} onClick={() => {
-                                this.get_action(this.state.box8)
-                            }}>
-                                <div id={this.heightLayout(this.state.box8)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box8)}>{this.state.box8.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box9 white box" id={this.getBorder(this.state.box9)} onClick={() => {
-                                this.get_action(this.state.box9)
-                            }}>
-                                <div id={this.heightLayout(this.state.box9)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box9)}>{this.state.box9.layout}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="box10 black box" id={this.getBorder(this.state.box10)} onClick={() => {
-                                this.get_action(this.state.box10)
-                            }}>
-                                <div id={this.heightLayout(this.state.box10)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box10)}>{this.state.box10.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box11 white box" id={this.getBorder(this.state.box11)} onClick={() => {
-                                this.get_action(this.state.box11)
-                            }}>
-                                <div id={this.heightLayout(this.state.box11)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box11)}>{this.state.box11.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box12 black box" id={this.getBorder(this.state.box12)} onClick={() => {
-                                this.get_action(this.state.box12)
-                            }}>
-                                <div id={this.heightLayout(this.state.box12)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box12)}>{this.state.box12.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box13 white box" id={this.getBorder(this.state.box13)} onClick={() => {
-                                this.get_action(this.state.box13)
-                            }}>
-                                <div id={this.heightLayout(this.state.box13)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box13)}>{this.state.box13.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box14 black box" id={this.getBorder(this.state.box14)} onClick={() => {
-                                this.get_action(this.state.box14)
-                            }}>
-                                <div id={this.heightLayout(this.state.box14)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box14)}>{this.state.box14.layout}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div>
-                            <div className="box15 white box" id={this.getBorder(this.state.box15)} onClick={() => {
-                                this.get_action(this.state.box15)
-                            }}>
-                                <div id={this.heightLayout(this.state.box15)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box15)}>{this.state.box15.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box16 black box" id={this.getBorder(this.state.box16)} onClick={() => {
-                                this.get_action(this.state.box16)
-                            }}>
-                                <div id={this.heightLayout(this.state.box16)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box16)}>{this.state.box16.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box17 white box" id={this.getBorder(this.state.box17)} onClick={() => {
-                                this.get_action(this.state.box17)
-                            }}>
-                                <div id={this.heightLayout(this.state.box17)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box17)}>{this.state.box17.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box18 black box" id={this.getBorder(this.state.box18)} onClick={() => {
-                                this.get_action(this.state.box18)
-                            }}>
-                                <div id={this.heightLayout(this.state.box18)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box18)}>{this.state.box18.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box19 white box" id={this.getBorder(this.state.box19)} onClick={() => {
-                                this.get_action(this.state.box19)
-                            }}>
-                                <div id={this.heightLayout(this.state.box19)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box19)}>{this.state.box19.layout}</div>
+                                <div className="box24 black box" id={this.getBorder(this.state.box24)} onClick={() => {
+                                    this.get_action(this.state.box24)
+                                }}>
+                                    <div id={this.heightLayout(this.state.box24)}>
+                                        <div
+                                            className={this.innerBoxLayout(this.state.box24)}>{this.state.box24.layout}</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div>
-                            <div className="box20 black box" id={this.getBorder(this.state.box20)} onClick={() => {
-                                this.get_action(this.state.box20)
-                            }}>
-                                <div id={this.heightLayout(this.state.box20)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box20)}>{this.state.box20.layout}</div>
-                                </div>
+                        <div className={this.getRightBoxDesign()}>
+                            <div className="player-box-gameplay">
+                                <h2>{this.state.player2.username}</h2>
+                                <div className={this.getColorCircle(this.state.player2.color)}></div>
                             </div>
-                            <div className="box21 white box" id={this.getBorder(this.state.box21)} onClick={() => {
-                                this.get_action(this.state.box21)
-                            }}>
-                                <div id={this.heightLayout(this.state.box21)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box21)}>{this.state.box21.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box22 black box" id={this.getBorder(this.state.box22)} onClick={() => {
-                                this.get_action(this.state.box22)
-                            }}>
-                                <div id={this.heightLayout(this.state.box22)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box22)}>{this.state.box22.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box23 white box" id={this.getBorder(this.state.box23)} onClick={() => {
-                                this.get_action(this.state.box23)
-                            }}>
-                                <div id={this.heightLayout(this.state.box23)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box23)}>{this.state.box23.layout}</div>
-                                </div>
-                            </div>
-                            <div className="box24 black box" id={this.getBorder(this.state.box24)} onClick={() => {
-                                this.get_action(this.state.box24)
-                            }}>
-                                <div id={this.heightLayout(this.state.box24)}>
-                                    <div
-                                        className={this.innerBoxLayout(this.state.box24)}>{this.state.box24.layout}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className={this.getRightBoxDesign()}>
-                        <div className="player-box-gameplay">
-                            <h2>{this.state.player2.username}</h2>
-                            <div className={this.getColorCircle(this.state.player2.color)}></div>
-                        </div>
-                        <label id={this.isButtonInvisiblePlayer2()}>
-                            <span>Show numbers?</span>
-                            <Checkbox
-                                checked={this.state.checked}
-                                onChange={this.handleCheckboxChange}
-                            />
+                            <label id={this.isButtonInvisiblePlayer2()}>
+                                <span>Show numbers?</span>
+                                <Checkbox
+                                    checked={this.state.checked}
+                                    onChange={this.handleCheckboxChange}
+                                />
 
-                        </label>
-                        <ButtonContainer/>
-                        <Button className={this.getColorButton(this.state.player2.color) + " button-extras"}
-                            id={this.isButtonInvisiblePlayer2()}
-                                disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
-                                width="50%"
-                                onClick={() => {
-                                    this.surrender()
-                                }}
-                        >
-                            Give Up
-                        </Button>
-                        <ButtonContainer/>
-                        <ButtonContainer/>
-                        <Button className={this.getColorButton(this.state.player2.color) + " button-extras"}
-                            id={this.isButtonInvisiblePlayer2()}
-                                disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
-                                width="50%"
-                                onClick={() => {
-                                    this.leave_game();
-                                    //this.props.history.push('/home')
-                                }}
-                        >
-                            Leave Game
-                        </Button>
-                        <ButtonContainer/>
-                    </div>
-                </div>
-                <div className="fastForward">
-                    <ButtonContainer/>
-                    <Button
-                        width="20%"
-                        onClick={() => {
-                            this.fastForward();
-                        }}
-                    >
-                        Fast-Forward
-                    </Button>
-                    <ButtonContainer/>
+                            </label>
+                            <ButtonContainer/>
+                            <Button className={this.getColorButton(this.state.player2.color) + " button-extras"}
+                                    id={this.isButtonInvisiblePlayer2()}
+                                    disabled={(this.state.gameStatus === "Winner1") || (this.state.gameStatus === "Winner2")}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.surrender()
+                                    }}
+                            >
+                                Give Up
+                            </Button>
+                            <ButtonContainer/>
+                            <ButtonContainer/>
+                            <Button className={this.getColorButton(this.state.player2.color) + " button-extras"}
+                                    id={this.isButtonInvisiblePlayer2()}
+                                    disabled={(this.state.gameStatus !== "Winner1") && (this.state.gameStatus !== "Winner2")}
+                                    width="50%"
+                                    onClick={() => {
+                                        this.leave_game();
+                                        //this.props.history.push('/home')
+                                    }}
+                            >
+                                Leave Game
+                            </Button>
+                            <ButtonContainer/>
+                        </div>
                 </div>
             </div>
         )
-
     }
-
-
-    fastForward() {
-        var i;
-        console.log(this.state.variateForward);
-        if (this.state.variateForward === null) {
-            this.setState({variateForward: 1});
-        }
-        if (this.state.variateForward === 1) {
-            for (i = 0; i < 24; i = i + 3)
-                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            for (i = 3; i < 23; i = i + 5)
-                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            for (i = 0; i < 24; i = i + 2) {
-                if (this.state.allBoxes[i].occupier != null && this.state.allBoxes[i].height != 2 && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            }
-            this.setState({variateForward: 2});
-            ;
-        }
-        if (this.state.variateForward === 2) {
-            for (i = 0; i < 24; i = i + 2)
-                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            for (i = 3; i < 23; i = i + 3)
-                if (this.state.allBoxes[i].occupier === null && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            for (i = 0; i < 24; i = i + 3) {
-                if (this.state.allBoxes[i].occupier != null && this.state.allBoxes[i].height != 2 && this.state.allBoxes[i].height != 3 && this.state.allBoxes[i].height != 4) {
-                    this.quickBuild(i);
-                    this.get_game();
-                    this.create_field();
-                }
-            }
-            this.setState({variateForward: 1});
-            ;
-        }
-
-    }
-
-    quickBuild(fieldNum) {
-        fetch(`${getDomain()}/games/${sessionStorage.getItem("gameID")}/${fieldNum}/build`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-        })
-            .then(response => {
-                console.log(response);
-            })
-            .catch(err => {
-                if (err.message.match(/Failed to fetch/)) {
-                    alert("The server cannot be reached. Did you start it?");
-                } else {
-                    alert(`Something went wrong during the creation: ${err.message}`);
-                }
-            });
-    }
-
-
 }
 
 export default withRouter(GamePlay);

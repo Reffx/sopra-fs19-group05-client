@@ -38,9 +38,8 @@ class LobbyOverview extends React.Component {
             player2_gameID: null,
             gameMode: null,
             gameStatus: null,
-            intervalId: null,
             Player1WaitingMessage: "Waiting for Player",
-            countdown: 10,
+            countdown: 7,
         };
     }
 
@@ -81,7 +80,6 @@ class LobbyOverview extends React.Component {
                     //  has to be modified for game
                     this.setState({alertText: "Game coudn't be created!"})
                 }
-                this.componentDidMount(LobbyOverview);
             })
             .catch(err => {
                 if (err.message.match(/Failed to fetch/)) {
@@ -110,7 +108,7 @@ class LobbyOverview extends React.Component {
                 this.get_game();
                 this.changeMessage();
             }
-        }, 1500)
+        }, 2300)
     }
 
 
@@ -471,15 +469,6 @@ class LobbyOverview extends React.Component {
                 <div className="margin-top"></div>
                 <Container>
                     <ButtonContainer/>
-                    <Button_1 className="rock_lobby_1-button"
-                              onClick={() => {
-                                  this.leave_lobby();
-                              }}
-                    >
-                        Leave Lobby
-                    </Button_1>
-                    <ButtonContainer/>
-                    <ButtonContainer/>
                     <Button_1 className="rock_lobby_2-button"
                               disabled={(this.state.player1_status === true) && (this.state.player2_status === true) || (this.state.player1_color === null) || (this.state.player2_color === null)}
                               onClick={() => {
@@ -488,6 +477,15 @@ class LobbyOverview extends React.Component {
                               }}
                     >
                         Ready to Play
+                    </Button_1>
+                    <ButtonContainer/>
+                    <ButtonContainer/>
+                    <Button_1 className="rock_lobby_1-button"
+                              onClick={() => {
+                                  this.leave_lobby();
+                              }}
+                    >
+                        Leave Lobby
                     </Button_1>
                     <ButtonContainer/>
                 </Container>

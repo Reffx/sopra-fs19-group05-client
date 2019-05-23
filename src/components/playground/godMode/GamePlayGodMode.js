@@ -100,7 +100,7 @@ class GamePlayGodMode extends React.Component {
             player1: Player,
             player2: Player,
             game: GameModel,
-            alertText: "This is a message.",
+            alertText: "Loading",
             players_turn: null,
             selected_worker: null,
             highlightedFields: null,
@@ -181,9 +181,11 @@ class GamePlayGodMode extends React.Component {
 
     componentDidMount() {
         this.passiveGodCardPlayer1();
-        setInterval(() => {
+        var godModeInterval;
+        godModeInterval = setInterval(() => {
             if (this.state.game.gameStatus === "Winner1" || this.state.game.gameStatus === "Winner2") {
-                // console.log("winner 1 or 2 exists")
+                console.log("Clear godModeInterval")
+                clearInterval(godModeInterval);
                 //CLEAR INTERVALL HERE
             } else {
                 this.get_game();
@@ -196,6 +198,8 @@ class GamePlayGodMode extends React.Component {
                 this.getLeftBoxDesign();
                 this.getRightBoxDesign();
                 this.updateLayoutBoxes();
+                this.getWinnerLayout();
+                console.log("GodMode: Interval executed");
             }
         }, 1000)
     }
@@ -1083,6 +1087,14 @@ class GamePlayGodMode extends React.Component {
         }
     }
 
+    getWinnerLayout(){
+        if (this.state.game.gameStatus === "Winner1")
+            return ("Trophy-left-god")
+        else if (this.state.game.gameStatus === "Winner2")
+            return ("Trophy-right-god")
+        else return "Trophy-none-god"
+    }
+
 
     render() {
         return (
@@ -1090,6 +1102,7 @@ class GamePlayGodMode extends React.Component {
                 <link href="https://fonts.googleapis.com/css?family=Luckiest+Guy&display=swap" rel="stylesheet">
                 </link>
                 <div className="message-div">{this.alertMessage()}</div>
+                <div className={this.getWinnerLayout()}></div>
                 <div className="mainHorizontally">
                     <div className={this.getLeftBoxDesign()}>
                         <div className="player-name-gameplay-god">
