@@ -16,6 +16,10 @@ html {
     url('./components/lobby/assetsBackground/img7261.jpg') top left repeat-x;
 }
 
+body{
+    margin: 0;
+}
+
 
 input,
 textarea,
