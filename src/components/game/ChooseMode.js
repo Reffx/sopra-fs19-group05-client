@@ -22,51 +22,51 @@ export const Button = styled.button`
 class ChooseMode extends React.Component {
 
     render() {
-        if (sessionStorage.getItem("token") !== null) {
-            return (
-                <div>
-                    <Toolbar/>
-                    <main style={{marginTop: '64px'}}>
-                    </main>
-                    <div className="container">
-                        <div className="leftPart-chooseMode">
-                            <div className="left-picture-overview-choose">
-                            </div>
+        return (
+            <div>
+                <Toolbar/>
+                <main style={{marginTop: '64px'}}>
+                </main>
+                <div className="container">
+                    <div className="leftPart-chooseMode">
+                        <div className="left-picture-overview-choose">
                         </div>
-                        <div className="rightPart-chooseMode">
+                    </div>
+                    <div className="rightPart-chooseMode">
+                        <div>
                             <div>
-                                <div>
                                 <Button className="rock-button"
-                                    width="60%"
-                                    onClick={() => {
-                                        this.props.history.push(`/normalModeLobby`);
-                                    }}
+                                        width="60%"
+                                        onClick={() => {
+                                            if (sessionStorage.getItem("token") !== null) {
+                                                this.props.history.push(`/normalModeLobby`);
+                                            } else {
+                                                this.props.history.push(`/login`)
+                                            }
+                                        }}
                                 >
                                     Normal Mode
                                 </Button>
-                                </div>
-                                <div id="button-div">
+                            </div>
+                            <div id="button-div">
                                 <Button className="rock-button"
-                                    width="50%"
-                                    onClick={() => {
-                                        this.props.history.push(`/godModeLobby`);
-                                    }}
+                                        width="50%"
+                                        onClick={() => {
+                                            if (sessionStorage.getItem("token") !== null) {
+                                                this.props.history.push(`/godModeLobby`);
+                                            } else {
+                                                this.props.history.push(`/login`)
+                                            }
+                                        }}
                                 >
                                     God Mode
                                 </Button>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            );
-        } else {
-            return (
-                <div>
-                    <p>not logged in</p>
-                </div>
-            )
-        }
+            </div>
+        );
     }
 }
 

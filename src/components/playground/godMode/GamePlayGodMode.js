@@ -360,6 +360,7 @@ class GamePlayGodMode extends React.Component {
             .catch(err => {
                 console.log(err);
             })
+            console.log(this.state.positionP1W2);
 
     }
 
@@ -1050,7 +1051,7 @@ class GamePlayGodMode extends React.Component {
                         Use GodCard
                     </Button>
                     <Button className={this.getColorButton(this.state.player1.color) + " hermes-Button"}
-                            disabled={((this.state.gameStatus !== "Move1") || (!this.state.Player1_Button_chooseGodActivation_visibility))}
+                            disabled={(((this.state.gameStatus !== "Move1") || (!this.state.Player1_Button_chooseGodActivation_visibility)) || (this.state.positionP1W2 === -1 || this.state.positionP2W2 === -1))}
                             width="50%"
                             onClick={() => {
                                 this.hermesBuildStatus();
