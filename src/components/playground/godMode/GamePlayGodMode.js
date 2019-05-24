@@ -367,11 +367,11 @@ class GamePlayGodMode extends React.Component {
     buildNonSelectedWorker(box) {
         if (box.occupier.workerId === this.state.player_is_playing.worker1.workerId) {
             this.setState({selected_worker: this.state.player_is_playing.worker1.workerId});
-            this.highLightMove(box);
+            this.highLightBuild(box);
         }
         if (box.occupier.workerId === this.state.player_is_playing.worker2.workerId) {
             this.setState({selected_worker: this.state.player_is_playing.worker2.workerId});
-            this.highLightMove(box);
+            this.highLightBuild(box);
         }
     }
 
