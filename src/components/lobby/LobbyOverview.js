@@ -170,7 +170,7 @@ class LobbyOverview extends React.Component {
             })
             .catch(err => {
                 console.log(err);
-                alert("Something went wrong fetching the games LobbyOverview!!!: " + err);
+                console.log("Something went wrong fetching the games LobbyOverview!!!: " + err);
             });
     }
 
