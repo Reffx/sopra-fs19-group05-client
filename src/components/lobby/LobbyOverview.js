@@ -480,7 +480,9 @@ class LobbyOverview extends React.Component {
                     </Button_1>
                     <ButtonContainer/>
                     <ButtonContainer/>
-                    <Button_1 className="rock_lobby_1-button"
+                    <Button_1
+                        disabled={(this.state.player1_status === true) && (this.state.player2_status === true)}
+                        className="rock_lobby_1-button"
                               onClick={() => {
                                   this.leave_lobby();
                               }}

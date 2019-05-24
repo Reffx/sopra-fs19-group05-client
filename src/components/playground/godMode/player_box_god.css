@@ -11,8 +11,8 @@
     width: 140px
 }
 .hermes-Button{
-    width: 140px;
-    margin-top: 10px;
+    width: 140px !important;
+    margin-top: 10px !important;
 }
 
 .useGodCard-Button{
