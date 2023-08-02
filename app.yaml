@@ -1,0 +1,13 @@
+runtime: nodejs18  # Specify the runtime for Node.js this is for google gcloud platform
+
+handlers:
+  - url: /static
+    static_dir: build/static
+
+  - url: /(.*\.(json|ico|js))  # Add any additional file extensions here if needed
+    static_files: build/\1
+    upload: build/.*\.(json|ico|js)$
+
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html

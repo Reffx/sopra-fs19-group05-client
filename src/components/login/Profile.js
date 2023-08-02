@@ -60,18 +60,15 @@ class Profile extends React.Component {
     constructor() {
         super();
         this.handleUsernameChange = this.handleUsernameChange.bind(this);
-        this.handleBirthChange = this.handleBirthChange.bind(this);
         this.state = {
             username: null,
             password: "*******",
             onlineStatus: null,
             creationDate: null,
-            birthDate: null,
             token: null,
             editMode: false,
             editButtonText: "Edit Profile",
             oldUsername: null,
-            oldBirthDate: null,
             editModeText: "User-Information"
         };
     }
@@ -90,10 +87,8 @@ class Profile extends React.Component {
                         username: response.username,
                         onlineStatus: response.status,
                         creationDate: response.creationDate,
-                        birthDate: response.birthday,
                         token: response.token,
                         oldUsername: response.username,
-                        oldBirthDate: response.birthday
                     });
                 }
             })
@@ -110,9 +105,6 @@ class Profile extends React.Component {
         this.setState({username: event.target.value})
     }
 
-    handleBirthChange(event) {
-        this.setState({birthDate: event.target.value})
-    }
 
     saveChanges() {
         fetch(`${getDomain()}/users/${window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1)}`, { //letzter "/" suchen und dann + 1 im index
@@ -122,7 +114,6 @@ class Profile extends React.Component {
             },
             body: JSON.stringify({
                 username: this.state.username,
-                birthday: this.state.birthDate,
                 token: this.state.token
             })
         })
@@ -132,7 +123,6 @@ class Profile extends React.Component {
                     //if Database could not update, display the old credentials
                     this.setState({
                         username: this.state.oldUsername,
-                        birthDate: this.state.oldBirthDate
                     })
                     alert("Could not update Usersettings, Username already taken.")
                 }
@@ -152,11 +142,6 @@ class Profile extends React.Component {
                     </form>
                     <p>Password: ********</p>
                     <p>Online Status: {this.state.onlineStatus}</p>
-                    <form>
-                        <label> Birthday: &nbsp; </label>
-                        <InputField type="date" value={this.state.birthDate} onChange={this.handleBirthChange}/>
-
-                    </form>
                     <p>Creation Date: {this.state.creationDate}</p>
                 </div>
             )
@@ -166,7 +151,6 @@ class Profile extends React.Component {
                 <p>Username: {this.state.username}</p>
                 <p>Password: *******</p>
                 <p>Status: {this.state.onlineStatus}</p>
-                <p>Birthday: {this.state.birthDate}</p>
                 <p>Creation Date: {this.state.creationDate}</p>
             </div>
         )
